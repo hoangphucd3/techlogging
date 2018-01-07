@@ -1,0 +1,35 @@
+<div class="container page-heading-container">
+  <div class="row">
+    <div class="col-12">
+      <header class="page-heading">
+        <h1 class="title"><%= @article.title %></h1>
+        <div class="article-single">
+          <p class="takeaway" itemprop="description"><%= @article.description %></p>
+        </div>
+      </header>
+    </div>
+  </div>
+</div>
+
+<div id="mantle_skin">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-8">
+              <article class="article-single">
+                <div class="col-main col-8">
+                  <div class="content">
+                    <%= @article.content %>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
