@@ -6,8 +6,11 @@ Shrine.storages = {
     store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/store'), # permanent
 }
 
+# Provides ActiveRecord integration, adding callbacks and validations.
 Shrine.plugin :activerecord
-Shrine.plugin :backgrounding
+# Adds the ability to put storing and deleting into a background job.
+# Shrine.plugin :backgrounding
+# Automatically logs processing, storing and deleting, with a configurable format.
 Shrine.plugin :logging
 Shrine.plugin :determine_mime_type
 Shrine.plugin :cached_attachment_data
