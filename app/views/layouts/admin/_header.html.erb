@@ -2,9 +2,11 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a href="#" class="navbar-brand">TechLogging</a>
     <div class="collapse navbar-collapse">
-      <nav class="navbar-nav mr-auto">
-
-      </nav>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <%= link_to 'Sign Out', destroy_admin_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </li>
+      </ul>
     </div>
   </nav>
 </header>
