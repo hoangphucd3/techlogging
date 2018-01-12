@@ -1,0 +1,63 @@
+.alert {
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC4wIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+    background-size: 100%;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0)));
+    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0));
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0));
+    background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0));
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 6px 37px 6px 12px;
+    border: 1px solid transparent;
+    font-family: "Proxima Nova", sans-serif;
+    font-size: 13px;
+    line-height: 1.5
+}
+
+.alert.alert-success {
+    background-color: #62c462;
+    border-color: #42b142 #42b142 #2d792d
+}
+
+.alert.alert-info {
+    background-color: #5bc0de;
+    border-color: #31b0d5 #31b0d5 #1f7e9a
+}
+
+.alert.alert-warning {
+    background-color: #f89406;
+    border-color: #c67605 #c67605 #7c4a03
+}
+
+.alert.alert-error {
+    background-color: #ee5f5b;
+    border-color: #e9322d #e9322d #b71713
+}
+
+.alert .close {
+    position: relative;
+    color: #fff;
+    float: right;
+    right: -35px;
+    top: -2px;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;
+    opacity: .7;
+    padding: 0 10px 5px;
+    border: 0;
+    background-color: transparent
+}
+
+.alert .close:hover {
+    opacity: 1;
+    text-decoration: none
+}
+
+.alert p {
+  margin: 0
+}
