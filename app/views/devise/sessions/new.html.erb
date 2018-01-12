@@ -1,0 +1,39 @@
+<header class="page-heading user-page-heading">
+  <h1 class="title"> Login to TechLogging</h1>
+</header>
+
+<div class="row">
+  <div class="col-main col-8">
+    <div class="section-heading">
+      <h2>
+        <span class="heading">Already a member? Sign In</span>
+      </h2>
+    </div>
+    <section class="login">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'user-login') do |f| %>
+        <div class="placeholder-container">
+          <%= f.label :email, 'Email', class: 'placeholder placeholder-infield' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
+        </div>
+
+        <div class="placeholder-container">
+          <%= f.label :password, 'Password', class: 'placeholder placeholder-infield' %>
+          <%= f.password_field :password, autocomplete: 'off' %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="login-remember-me">
+            <div class="checkbox">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          </div>
+        <% end -%>
+
+        <%= f.submit "Log in", class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </section>
+  </div>
+
+</div>
+<%= render "devise/shared/links" %>

@@ -5,11 +5,18 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'main.tablet', media: 'screen and (min-width:980px)' %>
+    <%= stylesheet_link_tag    'main.desktop', media: 'screen and (min-width:1230px)' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= render partial: 'layouts/header' %>
-    <%= yield %>
+    <%= render 'layouts/header' %>
+    <div id="mantle_skin">
+      <div id="content" class="container">
+        <%= render 'layouts/messages' %>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

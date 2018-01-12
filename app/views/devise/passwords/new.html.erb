@@ -1,0 +1,33 @@
+<header class="page-heading">
+  <h1 class="title">Forgotten Password</h1>
+</header>
+
+<div class="row">
+  <div class="col-main col-8">
+    <section class="forgotten-password">
+      <p>
+      If you have forgotten or misplaced your password enter your email address below to reset it.
+      After submitting this form a new password will be sent to your email account.
+      </p>
+
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= devise_error_messages! %>
+        <div class="row">
+          <div class="col-2">
+            <%= f.label :email, 'Email', class: 'label' %>
+          </div>
+          <div class="col-6">
+            <%= f.email_field :email, autofocus: true, autocomplete: 'email' %>
+          </div>
+        </div>
+
+        <div class="actions">
+          <%= f.submit 'Submit', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </section>
+  </div>
+  <aside class="col-4"></aside>
+</div>
+
+<%= render "devise/shared/links" %>
