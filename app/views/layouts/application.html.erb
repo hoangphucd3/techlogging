@@ -14,9 +14,7 @@
     <%= render 'layouts/header' %>
     <div id="mantle_skin">
       <div id="content" class="container">
-        <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
+        <%= render 'layouts/messages' %>
         <%= yield %>
       </div>
     </div>
