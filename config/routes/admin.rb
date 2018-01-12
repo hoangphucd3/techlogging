@@ -1,4 +1,4 @@
 namespace :admin do
-  get '/', to: 'application#index'
+  get '/', to: 'base#index'
   resources :articles
 end

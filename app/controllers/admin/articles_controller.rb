@@ -1,40 +1,43 @@
-class Admin::ArticlesController < Admin::ApplicationController
-  def index
-    @articles = Article.all
-  end
+module Admin
+  # ArticlesController
+  class ArticlesController < BaseController
+    def index
+      @articles = Article.all
+    end
 
-  def show
-    @article = Article.new(article_params)
-  end
+    def show
+      @article = Article.new(article_params)
+    end
 
-  def new
-    @article = Article.new
-  end
+    def new
+      @article = Article.new
+    end
 
-  def create
-    article = Article.new(article_params)
-    article.save
-    redirect_to action: :index
-  end
+    def create
+      article = Article.new(article_params)
+      article.save
+      redirect_to action: :index
+    end
 
-  def edit
-    @article = Article.find_by(id: params[:id])
-  end
+    def edit
+      @article = Article.find_by(id: params[:id])
+    end
 
-  def update
-    Article.update(article_params)
-    redirect_to action: :index
-  end
+    def update
+      Article.update(article_params)
+      redirect_to action: :index
+    end
 
-  def destroy
-    article = Article.find_by(id: params[:id])
-    article.destroy
-    redirect_to action: :index
-  end
+    def destroy
+      article = Article.find_by(id: params[:id])
+      article.destroy
+      redirect_to action: :index
+    end
 
-  private
+    private
 
-  def article_params
-    params.require(:article).permit(:title, :description, :content)
+    def article_params
+      params.require(:article).permit(:title, :description, :content)
+    end
   end
 end
