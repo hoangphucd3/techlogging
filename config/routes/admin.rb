@@ -9,4 +9,5 @@ devise_for :admin_users, path: 'admin', controllers: {
 namespace :admin do
   get '/', to: 'base#index'
   resources :articles
+  resources :photo, only: %i[index create]
 end
