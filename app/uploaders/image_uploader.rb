@@ -16,7 +16,7 @@ class ImageUploader < Shrine
   plugin :versions
   # The validation_helpers plugin provides helper methods for validating attached files.
   plugin :validation_helpers
-  # The store_dimensions plugin extracts and stores dimensions of the uploaded image using the fastimage gem, which has built-in protection agains image bombs.
+  # The store_dimensions plugin extracts and stores dimensions of the uploaded image using the fastimage gem, which has built-in protection against image bombs.
   plugin :store_dimensions
   # The delete_raw plugin will automatically delete raw files that have been uploaded. This is especially useful when doing processing, to ensure that temporary files have been deleted after upload.
   plugin :delete_raw
