@@ -17,7 +17,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Auto precompile Javascripts
 js_path = File.join(Rails.root, 'app/assets/javascripts/')
 Find.find(js_path).each do |file|
-  Rails.application.config.assets.precompile << $1.sub(js_path, '') if file =~ (/^(.*\.js)(\.coffee)?(\.erb)?$/)
+  Rails.application.config.assets.precompile << $1.sub(js_path, '') if file =~ (/^(.*\.js)(\.coffee)?(\.erb)?(\.map)?$/)
 end
 # Auto precompile CSS
 css_path = File.join(Rails.root, 'app/assets/stylesheets/')
