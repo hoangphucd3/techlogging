@@ -2,7 +2,6 @@ Dropzone.autoDiscover = false;
 
 $(function() {
     var photoDropzone = new Dropzone('#photo_dropzone', {
-        url: $('#photo_dropzone').data('url'),
         previewTemplate: $('#dropzone_preview_template').html(),
         previewsContainer: '#dropzone_previews_container',
         acceptedFiles: 'image/*',

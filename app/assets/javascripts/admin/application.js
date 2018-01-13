@@ -15,4 +15,3 @@
 //# require_tree .
 //= require jquery
 //= require dropzone
-//= require_tree ./features

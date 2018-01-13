@@ -1,13 +1,19 @@
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'admin/features/photoDropzone' %>
+<% end %>
+
 <h1>Photo</h1>
 
-<div id="photo_dropzone" class="card p-5 my-5" data-url="<%= admin_photo_index_path %>">
-  <h4 class="text-center m-y-0">
-    Drop files here or click to upload.
-  </h4>
-  <div class="fallback">
-    <strong>Please enable javascript to upload images.</strong>
+<div class="my-5 dropzone needsclick dz-clickable">
+  <%= form_tag admin_photo_index_path, id: 'photo_dropzone' do %>
+  <div class="text-center m-y-0 dz-message needsclick">
+    <strong>Drop files here or click to upload.</strong>
   </div>
-  <div id="dropzone_previews_container"></div>
+    <div class="fallback">
+      <%= file_field_tag :file, multiple: true %>
+    </div>
+    <div id="dropzone_previews_container"></div>
+  <% end %>
 </div>
 
 <div id="photo" class="row">
@@ -17,7 +23,7 @@
 <div id="dropzone_preview_template" style="display: none;">
   <div class="dz-preview dz-file-preview">
     <div class="media mt-3">
-      <img class="d-flex mr-3" data-dz-thumbnail height="75" width="75" />
+      <img class="d-flex mr-3" data-dz-thumbnail height="75" width="75"/>
       <div class="media-body">
         <h5 class="mt-0"><span data-dz-name></span></h5>
         <span class="text-muted">
