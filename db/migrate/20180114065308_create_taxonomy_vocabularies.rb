@@ -6,5 +6,7 @@ class CreateTaxonomyVocabularies < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :taxonomy_vocabularies, :id
   end
 end

@@ -13,6 +13,7 @@ module Admin
       @article = Article.new(article_params)
       return render action: :new if @article.invalid?
       @article.save
+      @article.build_terms(terms_param)
       redirect_to action: :index
     end
 
@@ -25,6 +26,7 @@ module Admin
       @article.assign_attributes(article_params)
       return render action: :edit if @article.invalid?
       @article.save
+      @article.build_terms(terms_param)
       redirect_to action: :index
     end
 
@@ -41,6 +43,10 @@ module Admin
                                       :description,
                                       :content,
                                       :feature_photo)
+    end
+
+    def terms_param
+      params[:article][:taxonomy_term_relationship_ids]
     end
   end
 end
