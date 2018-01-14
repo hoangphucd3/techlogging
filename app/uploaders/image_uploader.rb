@@ -30,7 +30,7 @@ class ImageUploader < Shrine
   end
 
   # Process additional versions in background.
-  process(:store) do |io, context|
+  process(:store) do |io, _context|
     original = io.download
 
     thumbnail = resize_to_fit!(original, 270, 203)

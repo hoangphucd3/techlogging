@@ -5,17 +5,14 @@ module Admin
       @articles = Article.all
     end
 
-    def show
-      @article = Article.new(article_params)
-    end
-
     def new
       @article = Article.new
     end
 
     def create
-      article = Article.new(article_params)
-      article.save
+      @article = Article.new(article_params)
+      return render action: :new if @article.invalid?
+      @article.save
       redirect_to action: :index
     end
 
@@ -24,7 +21,10 @@ module Admin
     end
 
     def update
-      Article.update(article_params)
+      @article = Article.find_by(params[:id])
+      @article.assign_attributes(article_params)
+      return render action: :edit if @article.invalid?
+      @article.save
       redirect_to action: :index
     end
 
@@ -37,7 +37,7 @@ module Admin
     private
 
     def article_params
-      params.require(:article).permit(:title, :description, :content)
+      params.require(:article).permit!
     end
   end
 end
