@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180114065308) do
+ActiveRecord::Schema.define(version: 20180114080426) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180114065308) do
     t.text "feature_photo_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_articles_on_id"
   end
 
   create_table "photos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -52,15 +53,28 @@ ActiveRecord::Schema.define(version: 20180114065308) do
     t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_photos_on_id"
+  end
+
+  create_table "taxonomy_term_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "categorizable_id"
+    t.string "categorizable_type"
+    t.bigint "taxonomy_term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["categorizable_type", "categorizable_id"], name: "index_taxonomy_terms_categorizable"
+    t.index ["taxonomy_term_id"], name: "index_taxonomy_term_relationships_on_taxonomy_term_id"
+    t.index ["taxonomy_term_id"], name: "index_taxonomy_terms"
   end
 
   create_table "taxonomy_terms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
-    t.bigint "taxonomy_terms_id"
+    t.bigint "taxonomy_vocabulary_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["taxonomy_terms_id"], name: "index_taxonomy_terms_on_taxonomy_terms_id"
+    t.index ["id"], name: "index_taxonomy_terms_on_id"
+    t.index ["taxonomy_vocabulary_id"], name: "index_taxonomy_terms_on_taxonomy_vocabulary_id"
   end
 
   create_table "taxonomy_vocabularies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -68,6 +82,7 @@ ActiveRecord::Schema.define(version: 20180114065308) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_taxonomy_vocabularies_on_id"
   end
 
 end

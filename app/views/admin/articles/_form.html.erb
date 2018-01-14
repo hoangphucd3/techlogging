@@ -17,14 +17,31 @@
                      id: 'article-feature-photo-upload-result' %>
   <%= f.file_field :feature_photo,
                    accept: ImageUploader::ALLOWED_TYPES.join(','),
-                   data: { preview_element: 'preview-feature-photo',
-                           upload_result_element: 'article-feature-photo-upload-result' } %>
+                   data: {preview_element: 'preview-feature-photo',
+                          upload_result_element: 'article-feature-photo-upload-result'},
+                   class: 'form-control-file' %>
 </div>
 <div class="image-preview mb-3">
   <%= image_tag @article.feature_photo_url(:thumbnail).to_s,
                 width: '300',
                 class: "img-thumbnail file-upload-preview",
                 id: "preview-feature-photo" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :topic_terms, 'Topics' %>
+  <%= f.collection_check_boxes :taxonomy_term_relationship_ids,
+                               TaxonomyTerm.topic,
+                               :id,
+                               :name,
+                               {},
+                               {} do |c| %>
+    <div class="form-check">
+      <%= c.check_box class: 'form-check-input',
+                      checked: @article.taxonomy_term_ids.include?(c.value)  %>
+      <%= c.label %>
+    </div>
+  <% end %>
 </div>
 
 <div class="form-group">
