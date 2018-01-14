@@ -42,6 +42,8 @@ gem 'shrine'
 gem 'image_processing'
 gem 'mini_magick'
 gem 'fastimage'
+gem 'friendly_id', '~> 5.1.0'
+gem 'stringex'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-dropzone'

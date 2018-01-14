@@ -1,8 +1,17 @@
 class Article < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: %i[slugged history]
+
+  acts_as_url :title, url_attribute: :slug
+
   include Categorizable
   include ImageUploader::Attachment.new(:feature_photo)
 
   validates :title, presence: true
+
+  def to_param
+    slug
+  end
 
   def build_terms(term_ids)
     term_ids.reject!(&:blank?)
@@ -16,5 +25,9 @@ class Article < ApplicationRecord
 
   def remove_orphan_terms(exclude_term_ids)
     self.taxonomy_term_relationships.where.not(taxonomy_term_id: exclude_term_ids).destroy_all
+  end
+
+  def should_generate_new_friendly_id?
+    title_changed? || super
   end
 end
