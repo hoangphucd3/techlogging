@@ -14,8 +14,10 @@
     <%= render 'layouts/header' %>
     <div id="mantle_skin">
       <div id="content" class="container">
-        <%= render 'layouts/messages' %>
-        <%= yield %>
+        <div class="row">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>
