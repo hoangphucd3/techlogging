@@ -1,7 +1,7 @@
 class CreateTaxonomyVocabularies < ActiveRecord::Migration[5.1]
   def change
     create_table :taxonomy_vocabularies do |t|
-      t.string :name
+      t.string :name, null: false
       t.text :description
 
       t.timestamps

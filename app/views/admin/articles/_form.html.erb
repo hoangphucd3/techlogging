@@ -24,8 +24,20 @@
 <div class="image-preview mb-3">
   <%= image_tag @article.feature_photo_url(:thumbnail).to_s,
                 width: '300',
-                class: "img-thumbnail file-upload-preview",
-                id: "preview-feature-photo" %>
+                class: 'img-thumbnail file-upload-preview',
+                id: 'preview-feature-photo' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :status, 'Status' %>
+  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <%= f.collection_radio_buttons :status, Article.statuses, :first, :first, { include_hidden: false }, {} do |r|  %>
+      <label class="btn btn-secondary <%= 'active' if f.object.status == r.value %>">
+        <%= r.radio_button %>
+        <%= r.label %>
+      </label>
+    <% end %>
+  </div>
 </div>
 
 <div class="form-group">
