@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class AdminUsers::SessionsController < Devise::SessionsController
+  include Accessible
+  skip_before_action :check_user, only: :destroy
+
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -14,9 +17,9 @@ class AdminUsers::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    super
+  end
 
   # protected
 
