@@ -7,27 +7,28 @@ class Article < ApplicationRecord
   include Categorizable
   include ImageUploader::Attachment.new(:feature_photo)
 
+  belongs_to :article_type
+  belongs_to :user, optional: true
+
   validates :title, presence: true
+
+  enum status: { draft: 0, publish: 1 }
 
   def to_param
     slug
   end
 
-  def build_terms(term_ids)
-    term_ids.reject!(&:blank?)
-    remove_orphan_terms(term_ids)
-    term_ids.each do |term_id|
-      taxonomy_term_relationships.find_or_create_by(taxonomy_term_id: term_id)
-    end
+  def build_term(term_id)
+    taxonomy_term_relationships.find_or_create_by(taxonomy_term_id: term_id)
   end
-
-  private
 
   def remove_orphan_terms(exclude_term_ids)
     taxonomy_term_relationships
-      .where.not(taxonomy_term_id: exclude_term_ids)
-      .destroy_all
+        .where.not(taxonomy_term_id: exclude_term_ids)
+        .destroy_all
   end
+
+  private
 
   def should_generate_new_friendly_id?
     title_changed? || super

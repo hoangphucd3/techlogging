@@ -16,5 +16,7 @@ module Techlogging
     # -- all .rb files in that directory are automatically loaded.
 
     config.assets.paths << Rails.root.join('fonts')
+    config.autoload_paths << Rails.root.join('form_objects')
+    config.eager_load_paths << Rails.root.join('form_objects')
   end
 end

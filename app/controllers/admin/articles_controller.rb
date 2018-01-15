@@ -1,5 +1,4 @@
 module Admin
-  # ArticlesController
   class ArticlesController < BaseController
     def index
       @articles = Article.all
@@ -10,10 +9,10 @@ module Admin
     end
 
     def create
-      @article = Article.new(article_params)
+      @article = ArticleForm.new(article_params)
+      @article = @article.save
       return render action: :new if @article.invalid?
-      @article.save
-      @article.build_terms(terms_param)
+      flash[:success] = 'Create article sucessfully'
       redirect_to action: :index
     end
 
@@ -22,11 +21,10 @@ module Admin
     end
 
     def update
-      @article = Article.find_by(params[:id])
-      @article.assign_attributes(article_params)
+      @article = ArticleForm.new(article_params, params[:id])
+      @article = @article.save
       return render action: :edit if @article.invalid?
-      @article.save
-      @article.build_terms(terms_param)
+      flash[:success] = 'Update article sucessfully'
       redirect_to action: :index
     end
 
@@ -42,11 +40,9 @@ module Admin
       params.require(:article).permit(:title,
                                       :description,
                                       :content,
-                                      :feature_photo)
-    end
-
-    def terms_param
-      params[:article][:taxonomy_term_relationship_ids]
+                                      :feature_photo,
+                                      :status,
+                                      taxonomy_term_relationship_ids: [])
     end
   end
 end
