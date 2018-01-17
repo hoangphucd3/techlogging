@@ -1,4 +1,6 @@
-<% content_for :footer_javascripts do %>
+<% content_for(:body_attributes) do %> data-turbolinks="false"<% end %>
+
+<% content_for :header_javascripts do %>
   <%= tinymce_assets %>
   <%= tinymce %>
 <% end %>

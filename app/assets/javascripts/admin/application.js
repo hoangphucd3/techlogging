@@ -11,9 +11,13 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+//# require turbolinks
 //# require_tree .
 //= require jquery3
 //= require popper
+//= require underscore
+//= require backbone
 //= require bootstrap
 //= require dropzone
+//= require techlogging-backbone
+//= require techlogging-util

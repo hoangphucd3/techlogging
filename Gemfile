@@ -50,6 +50,8 @@ gem 'tinymce-rails'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-dropzone'
+  gem 'rails-assets-backbone'
+  gem 'rails-assets-underscore'
 end
 
 group :development, :test do
