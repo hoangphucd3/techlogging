@@ -52,6 +52,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-dropzone'
   gem 'rails-assets-backbone'
   gem 'rails-assets-underscore'
+  gem 'rails-assets-plupload'
 end
 
 group :development, :test do

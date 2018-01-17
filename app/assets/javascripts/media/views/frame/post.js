@@ -1,6 +1,5 @@
 var Select = techlogging.media.view.MediaFrame.Select,
 	Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
 	Post;
 
 /**
@@ -21,16 +20,7 @@ var Select = techlogging.media.view.MediaFrame.Select,
  */
 Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype */{
 	initialize: function() {
-		this.counts = {
-			audio: {
-				count: techlogging.media.view.settings.attachmentCounts.audio,
-				state: 'playlist'
-			},
-			video: {
-				count: techlogging.media.view.settings.attachmentCounts.video,
-				state: 'video-playlist'
-			}
-		};
+		this.counts = {};
 
 		_.defaults( this.options, {
 			multiple:  true,
@@ -55,7 +45,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			// Main states.
 			new Library({
 				id:         'insert',
-				title:      l10n.insertMediaTitle,
+				title:      'l10n.insertMediaTitle',
 				priority:   20,
 				toolbar:    'main-insert',
 				filterable: 'all',
@@ -76,7 +66,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 			new Library({
 				id:         'gallery',
-				title:      l10n.createGalleryTitle,
+				title:      'l10n.createGalleryTitle',
 				priority:   40,
 				toolbar:    'main-gallery',
 				filterable: 'uploaded',
@@ -104,7 +94,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 			new Library({
 				id:         'playlist',
-				title:      l10n.createPlaylistTitle,
+				title:      'l10n.createPlaylistTitle',
 				priority:   60,
 				toolbar:    'main-playlist',
 				filterable: 'uploaded',
@@ -120,24 +110,24 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			new techlogging.media.controller.CollectionEdit({
 				type: 'audio',
 				collectionType: 'playlist',
-				title:          l10n.editPlaylistTitle,
+				title:          'l10n.editPlaylistTitle',
 				SettingsView:   techlogging.media.view.Settings.Playlist,
 				library:        options.selection,
 				editing:        options.editing,
 				menu:           'playlist',
-				dragInfoText:   l10n.playlistDragInfo,
+				dragInfoText:   'l10n.playlistDragInfo',
 				dragInfo:       false
 			}),
 
 			new techlogging.media.controller.CollectionAdd({
 				type: 'audio',
 				collectionType: 'playlist',
-				title: l10n.addToPlaylistTitle
+				title: 'l10n.addToPlaylistTitle'
 			}),
 
 			new Library({
 				id:         'video-playlist',
-				title:      l10n.createVideoPlaylistTitle,
+				title:      'l10n.createVideoPlaylistTitle',
 				priority:   60,
 				toolbar:    'main-video-playlist',
 				filterable: 'uploaded',
@@ -152,19 +142,19 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			new techlogging.media.controller.CollectionEdit({
 				type: 'video',
 				collectionType: 'playlist',
-				title:          l10n.editVideoPlaylistTitle,
+				title:          'l10n.editVideoPlaylistTitle',
 				SettingsView:   techlogging.media.view.Settings.Playlist,
 				library:        options.selection,
 				editing:        options.editing,
 				menu:           'video-playlist',
-				dragInfoText:   l10n.videoPlaylistDragInfo,
+				dragInfoText:   'l10n.videoPlaylistDragInfo',
 				dragInfo:       false
 			}),
 
 			new techlogging.media.controller.CollectionAdd({
 				type: 'video',
 				collectionType: 'playlist',
-				title: l10n.addToVideoPlaylistTitle
+				title: 'l10n.addToVideoPlaylistTitle'
 			})
 		]);
 
@@ -281,7 +271,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     l10n.cancelGalleryTitle,
+				text:     'l10n.cancelGalleryTitle',
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -309,7 +299,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     l10n.cancelPlaylistTitle,
+				text:     'l10n.cancelPlaylistTitle',
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -333,7 +323,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     l10n.cancelVideoPlaylistTitle,
+				text:     'l10n.cancelVideoPlaylistTitle',
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -383,7 +373,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		}).render();
 
 		view.toolbar.set( 'backToLibrary', {
-			text:     l10n.returnToLibrary,
+			text:     'l10n.returnToLibrary',
 			priority: -100,
 
 			click: function() {
@@ -441,7 +431,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		view.set( 'insert', {
 			style:    'primary',
 			priority: 80,
-			text:     l10n.insertIntoPost,
+			text:     'l10n.insertIntoPost',
 			requires: { selection: true },
 
 			/**
@@ -469,7 +459,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'gallery', {
 			style:    'primary',
-			text:     l10n.createNewGallery,
+			text:     'l10n.createNewGallery',
 			priority: 60,
 			requires: { selection: true },
 
@@ -499,7 +489,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'playlist', {
 			style:    'primary',
-			text:     l10n.createNewPlaylist,
+			text:     'l10n.createNewPlaylist',
 			priority: 100,
 			requires: { selection: true },
 
@@ -529,7 +519,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'video-playlist', {
 			style:    'primary',
-			text:     l10n.createNewVideoPlaylist,
+			text:     'l10n.createNewVideoPlaylist',
 			priority: 100,
 			requires: { selection: true },
 
@@ -554,7 +544,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	featuredImageToolbar: function( toolbar ) {
 		this.createSelectToolbar( toolbar, {
-			text:  l10n.setFeaturedImage,
+			text:  'l10n.setFeaturedImage',
 			state: this.options.state
 		});
 	},
@@ -572,7 +562,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? l10n.updateGallery : l10n.insertGallery,
+					text:     editing ? 'l10n.updateGallery' : 'l10n.insertGallery',
 					priority: 80,
 					requires: { library: true },
 
@@ -601,7 +591,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     l10n.addToGallery,
+					text:     'l10n.addToGallery',
 					priority: 80,
 					requires: { selection: true },
 
@@ -629,7 +619,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? l10n.updatePlaylist : l10n.insertPlaylist,
+					text:     editing ? 'l10n.updatePlaylist' : 'l10n.insertPlaylist',
 					priority: 80,
 					requires: { library: true },
 
@@ -658,7 +648,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     l10n.addToPlaylist,
+					text:     'l10n.addToPlaylist',
 					priority: 80,
 					requires: { selection: true },
 
@@ -686,7 +676,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? l10n.updateVideoPlaylist : l10n.insertVideoPlaylist,
+					text:     editing ? 'l10n.updateVideoPlaylist' : 'l10n.insertVideoPlaylist',
 					priority: 140,
 					requires: { library: true },
 
@@ -715,7 +705,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     l10n.addToVideoPlaylist,
+					text:     'l10n.addToVideoPlaylist',
 					priority: 140,
 					requires: { selection: true },
 

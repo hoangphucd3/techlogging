@@ -171,9 +171,9 @@ media.view.Toolbar = __webpack_require__( 30 );
 // media.view.Toolbar.Embed = require( './views/toolbar/embed.js' );
 // media.view.Button = require( './views/button.js' );
 // media.view.ButtonGroup = require( './views/button-group.js' );
-// media.view.PriorityList = require( './views/priority-list.js' );
-// media.view.MenuItem = require( './views/menu-item.js' );
-// media.view.Menu = require( './views/menu.js' );
+media.view.PriorityList = __webpack_require__( 36 );
+media.view.MenuItem = __webpack_require__( 35 );
+media.view.Menu = __webpack_require__( 37 );
 media.view.RouterItem = __webpack_require__( 31 );
 media.view.Router = __webpack_require__( 32 );
 media.view.Sidebar = __webpack_require__( 33 );
@@ -996,9 +996,9 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 		var defaultProps = techlogging.media.view.settings.defaultProps;
 		this._displays = [];
 		this._defaultDisplaySettings = {
-			align: getUserSetting( 'align', defaultProps.align ) || 'none',
-			size:  getUserSetting( 'imgsize', defaultProps.size ) || 'medium',
-			link:  getUserSetting( 'urlbutton', defaultProps.link ) || 'none'
+			align: getUserSetting( 'align', 'none' ) || 'none',
+			size:  getUserSetting( 'imgsize', 'medium' ) || 'medium',
+			link:  getUserSetting( 'urlbutton', 'none' ) || 'none'
 		};
 	},
 
@@ -2261,7 +2261,6 @@ module.exports = Select;
 
 var Select = techlogging.media.view.MediaFrame.Select,
 	Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
 	Post;
 
 /**
@@ -2282,16 +2281,7 @@ var Select = techlogging.media.view.MediaFrame.Select,
  */
 Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype */{
 	initialize: function() {
-		this.counts = {
-			audio: {
-				count: techlogging.media.view.settings.attachmentCounts.audio,
-				state: 'playlist'
-			},
-			video: {
-				count: techlogging.media.view.settings.attachmentCounts.video,
-				state: 'video-playlist'
-			}
-		};
+		this.counts = {};
 
 		_.defaults( this.options, {
 			multiple:  true,
@@ -2316,7 +2306,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			// Main states.
 			new Library({
 				id:         'insert',
-				title:      l10n.insertMediaTitle,
+				title:      'l10n.insertMediaTitle',
 				priority:   20,
 				toolbar:    'main-insert',
 				filterable: 'all',
@@ -2337,7 +2327,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 			new Library({
 				id:         'gallery',
-				title:      l10n.createGalleryTitle,
+				title:      'l10n.createGalleryTitle',
 				priority:   40,
 				toolbar:    'main-gallery',
 				filterable: 'uploaded',
@@ -2365,7 +2355,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 			new Library({
 				id:         'playlist',
-				title:      l10n.createPlaylistTitle,
+				title:      'l10n.createPlaylistTitle',
 				priority:   60,
 				toolbar:    'main-playlist',
 				filterable: 'uploaded',
@@ -2381,24 +2371,24 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			new techlogging.media.controller.CollectionEdit({
 				type: 'audio',
 				collectionType: 'playlist',
-				title:          l10n.editPlaylistTitle,
+				title:          'l10n.editPlaylistTitle',
 				SettingsView:   techlogging.media.view.Settings.Playlist,
 				library:        options.selection,
 				editing:        options.editing,
 				menu:           'playlist',
-				dragInfoText:   l10n.playlistDragInfo,
+				dragInfoText:   'l10n.playlistDragInfo',
 				dragInfo:       false
 			}),
 
 			new techlogging.media.controller.CollectionAdd({
 				type: 'audio',
 				collectionType: 'playlist',
-				title: l10n.addToPlaylistTitle
+				title: 'l10n.addToPlaylistTitle'
 			}),
 
 			new Library({
 				id:         'video-playlist',
-				title:      l10n.createVideoPlaylistTitle,
+				title:      'l10n.createVideoPlaylistTitle',
 				priority:   60,
 				toolbar:    'main-video-playlist',
 				filterable: 'uploaded',
@@ -2413,19 +2403,19 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			new techlogging.media.controller.CollectionEdit({
 				type: 'video',
 				collectionType: 'playlist',
-				title:          l10n.editVideoPlaylistTitle,
+				title:          'l10n.editVideoPlaylistTitle',
 				SettingsView:   techlogging.media.view.Settings.Playlist,
 				library:        options.selection,
 				editing:        options.editing,
 				menu:           'video-playlist',
-				dragInfoText:   l10n.videoPlaylistDragInfo,
+				dragInfoText:   'l10n.videoPlaylistDragInfo',
 				dragInfo:       false
 			}),
 
 			new techlogging.media.controller.CollectionAdd({
 				type: 'video',
 				collectionType: 'playlist',
-				title: l10n.addToVideoPlaylistTitle
+				title: 'l10n.addToVideoPlaylistTitle'
 			})
 		]);
 
@@ -2542,7 +2532,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     l10n.cancelGalleryTitle,
+				text:     'l10n.cancelGalleryTitle',
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -2570,7 +2560,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     l10n.cancelPlaylistTitle,
+				text:     'l10n.cancelPlaylistTitle',
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -2594,7 +2584,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     l10n.cancelVideoPlaylistTitle,
+				text:     'l10n.cancelVideoPlaylistTitle',
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -2644,7 +2634,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		}).render();
 
 		view.toolbar.set( 'backToLibrary', {
-			text:     l10n.returnToLibrary,
+			text:     'l10n.returnToLibrary',
 			priority: -100,
 
 			click: function() {
@@ -2702,7 +2692,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		view.set( 'insert', {
 			style:    'primary',
 			priority: 80,
-			text:     l10n.insertIntoPost,
+			text:     'l10n.insertIntoPost',
 			requires: { selection: true },
 
 			/**
@@ -2730,7 +2720,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'gallery', {
 			style:    'primary',
-			text:     l10n.createNewGallery,
+			text:     'l10n.createNewGallery',
 			priority: 60,
 			requires: { selection: true },
 
@@ -2760,7 +2750,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'playlist', {
 			style:    'primary',
-			text:     l10n.createNewPlaylist,
+			text:     'l10n.createNewPlaylist',
 			priority: 100,
 			requires: { selection: true },
 
@@ -2790,7 +2780,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'video-playlist', {
 			style:    'primary',
-			text:     l10n.createNewVideoPlaylist,
+			text:     'l10n.createNewVideoPlaylist',
 			priority: 100,
 			requires: { selection: true },
 
@@ -2815,7 +2805,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	featuredImageToolbar: function( toolbar ) {
 		this.createSelectToolbar( toolbar, {
-			text:  l10n.setFeaturedImage,
+			text:  'l10n.setFeaturedImage',
 			state: this.options.state
 		});
 	},
@@ -2833,7 +2823,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? l10n.updateGallery : l10n.insertGallery,
+					text:     editing ? 'l10n.updateGallery' : 'l10n.insertGallery',
 					priority: 80,
 					requires: { library: true },
 
@@ -2862,7 +2852,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     l10n.addToGallery,
+					text:     'l10n.addToGallery',
 					priority: 80,
 					requires: { selection: true },
 
@@ -2890,7 +2880,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? l10n.updatePlaylist : l10n.insertPlaylist,
+					text:     editing ? 'l10n.updatePlaylist' : 'l10n.insertPlaylist',
 					priority: 80,
 					requires: { library: true },
 
@@ -2919,7 +2909,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     l10n.addToPlaylist,
+					text:     'l10n.addToPlaylist',
 					priority: 80,
 					requires: { selection: true },
 
@@ -2947,7 +2937,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? l10n.updateVideoPlaylist : l10n.insertVideoPlaylist,
+					text:     editing ? 'l10n.updateVideoPlaylist' : 'l10n.insertVideoPlaylist',
 					priority: 140,
 					requires: { library: true },
 
@@ -2976,7 +2966,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			items: {
 				insert: {
 					style:    'primary',
-					text:     l10n.addToVideoPlaylist,
+					text:     'l10n.addToVideoPlaylist',
 					priority: 140,
 					requires: { selection: true },
 
@@ -3003,7 +2993,6 @@ module.exports = Post;
 /***/ (function(module, exports) {
 
 var Select = techlogging.media.view.MediaFrame.Select,
-	l10n = techlogging.media.view.l10n,
 	ImageDetails;
 
 /**
@@ -3031,7 +3020,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 		content: 'image-details',
 		toolbar: 'image-details',
 		type:    'link',
-		title:    l10n.imageDetailsTitle,
+		title:    'l10n.imageDetailsTitle',
 		priority: 120
 	},
 
@@ -3062,7 +3051,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 				library: techlogging.media.query( { type: 'image' } ),
 				image: this.image,
 				multiple:  false,
-				title:     l10n.imageReplaceTitle,
+				title:     'l10n.imageReplaceTitle',
 				toolbar: 'replace',
 				priority:  80,
 				displaySettings: true
@@ -3106,7 +3095,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			items: {
 				select: {
 					style:    'primary',
-					text:     l10n.update,
+					text:     'l10n.update',
 					priority: 80,
 
 					click: function() {
@@ -3137,7 +3126,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			controller: this,
 			items: {
 				back: {
-					text:     l10n.back,
+					text:     'l10n.back',
 					priority: 20,
 					click:    function() {
 						if ( previous ) {
@@ -3150,7 +3139,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 				replace: {
 					style:    'primary',
-					text:     l10n.replace,
+					text:     'l10n.replace',
 					priority: 80,
 					requires: { selection: true },
 
@@ -4420,6 +4409,310 @@ var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Sp
 });
 
 module.exports = Spinner;
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+var $ = jQuery,
+	MenuItem;
+
+/**
+ * techlogging.media.view.MenuItem
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuItem.prototype */{
+	tagName:   'a',
+	className: 'media-menu-item',
+
+	attributes: {
+		href: '#'
+	},
+
+	events: {
+		'click': '_click'
+	},
+	/**
+	 * @param {Object} event
+	 */
+	_click: function( event ) {
+		var clickOverride = this.options.click;
+
+		if ( event ) {
+			event.preventDefault();
+		}
+
+		if ( clickOverride ) {
+			clickOverride.call( this );
+		} else {
+			this.click();
+		}
+
+		// When selecting a tab along the left side,
+		// focus should be transferred into the main panel
+		if ( ! techlogging.media.isTouchDevice ) {
+			$('.media-frame-content input').first().focus();
+		}
+	},
+
+	click: function() {
+		var state = this.options.state;
+
+		if ( state ) {
+			this.controller.setState( state );
+			this.views.parent.$el.removeClass( 'visible' ); // TODO: or hide on any click, see below
+		}
+	},
+	/**
+	 * @returns {techlogging.media.view.MenuItem} returns itself to allow chaining
+	 */
+	render: function() {
+		var options = this.options;
+
+		if ( options.text ) {
+			this.$el.text( options.text );
+		} else if ( options.html ) {
+			this.$el.html( options.html );
+		}
+
+		return this;
+	}
+});
+
+module.exports = MenuItem;
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.PriorityList
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.view.PriorityList.prototype */{
+	tagName:   'div',
+
+	initialize: function() {
+		this._views = {};
+
+		this.set( _.extend( {}, this._views, this.options.views ), { silent: true });
+		delete this.options.views;
+
+		if ( ! this.options.silent ) {
+			this.render();
+		}
+	},
+	/**
+	 * @param {string} id
+	 * @param {techlogging.media.View|Object} view
+	 * @param {Object} options
+	 * @returns {techlogging.media.view.PriorityList} Returns itself to allow chaining
+	 */
+	set: function( id, view, options ) {
+		var priority, views, index;
+
+		options = options || {};
+
+		// Accept an object with an `id` : `view` mapping.
+		if ( _.isObject( id ) ) {
+			_.each( id, function( view, id ) {
+				this.set( id, view );
+			}, this );
+			return this;
+		}
+
+		if ( ! (view instanceof Backbone.View) ) {
+			view = this.toView( view, id, options );
+		}
+		view.controller = view.controller || this.controller;
+
+		this.unset( id );
+
+		priority = view.options.priority || 10;
+		views = this.views.get() || [];
+
+		_.find( views, function( existing, i ) {
+			if ( existing.options.priority > priority ) {
+				index = i;
+				return true;
+			}
+		});
+
+		this._views[ id ] = view;
+		this.views.add( view, {
+			at: _.isNumber( index ) ? index : views.length || 0
+		});
+
+		return this;
+	},
+	/**
+	 * @param {string} id
+	 * @returns {techlogging.media.View}
+	 */
+	get: function( id ) {
+		return this._views[ id ];
+	},
+	/**
+	 * @param {string} id
+	 * @returns {techlogging.media.view.PriorityList}
+	 */
+	unset: function( id ) {
+		var view = this.get( id );
+
+		if ( view ) {
+			view.remove();
+		}
+
+		delete this._views[ id ];
+		return this;
+	},
+	/**
+	 * @param {Object} options
+	 * @returns {techlogging.media.View}
+	 */
+	toView: function( options ) {
+		return new techlogging.media.View( options );
+	}
+});
+
+module.exports = PriorityList;
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+var MenuItem = techlogging.media.view.MenuItem,
+	PriorityList = techlogging.media.view.PriorityList,
+	Menu;
+
+/**
+ * techlogging.media.view.Menu
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.PriorityList
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Menu = PriorityList.extend(/** @lends techlogging.media.view.Menu.prototype */{
+	tagName:   'div',
+	className: 'media-menu',
+	property:  'state',
+	ItemView:  MenuItem,
+	region:    'menu',
+
+	/* TODO: alternatively hide on any click anywhere
+	events: {
+		'click': 'click'
+	},
+
+	click: function() {
+		this.$el.removeClass( 'visible' );
+	},
+	*/
+
+	/**
+	 * @param {Object} options
+	 * @param {string} id
+	 * @returns {techlogging.media.View}
+	 */
+	toView: function( options, id ) {
+		options = options || {};
+		options[ this.property ] = options[ this.property ] || id;
+		return new this.ItemView( options ).render();
+	},
+
+	ready: function() {
+		/**
+		 * call 'ready' directly on the parent class
+		 */
+		PriorityList.prototype.ready.apply( this, arguments );
+		this.visibility();
+	},
+
+	set: function() {
+		/**
+		 * call 'set' directly on the parent class
+		 */
+		PriorityList.prototype.set.apply( this, arguments );
+		this.visibility();
+	},
+
+	unset: function() {
+		/**
+		 * call 'unset' directly on the parent class
+		 */
+		PriorityList.prototype.unset.apply( this, arguments );
+		this.visibility();
+	},
+
+	visibility: function() {
+		var region = this.region,
+			view = this.controller[ region ].get(),
+			views = this.views.get(),
+			hide = ! views || views.length < 2;
+
+		if ( this === view ) {
+			this.controller.$el.toggleClass( 'hide-' + region, hide );
+		}
+	},
+	/**
+	 * @param {string} id
+	 */
+	select: function( id ) {
+		var view = this.get( id );
+
+		if ( ! view ) {
+			return;
+		}
+
+		this.deselect();
+		view.$el.addClass('active');
+	},
+
+	deselect: function() {
+		this.$el.children().removeClass('active');
+	},
+
+	hide: function( id ) {
+		var view = this.get( id );
+
+		if ( ! view ) {
+			return;
+		}
+
+		view.$el.addClass('hidden');
+	},
+
+	show: function( id ) {
+		var view = this.get( id );
+
+		if ( ! view ) {
+			return;
+		}
+
+		view.$el.removeClass('hidden');
+	}
+});
+
+module.exports = Menu;
 
 
 /***/ })

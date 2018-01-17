@@ -90,9 +90,6 @@
                     src:       size.url,
                     captionId: 'attachment_' + attachment.id
                 });
-            } else if ( 'video' === attachment.type || 'audio' === attachment.type ) {
-                _.extend( props, _.pick( attachment, 'title', 'type', 'icon', 'mime' ) );
-                // Format properties for non-images.
             } else {
                 props.title = props.title || attachment.filename;
                 props.rel = props.rel || 'attachment wp-att-' + attachment.id;
@@ -576,7 +573,7 @@
     techlogging.media.gallery = new techlogging.media.collection({
         tag: 'gallery',
         type : 'image',
-        editTitle : techlogging.media.view.l10n.editGalleryTitle,
+        editTitle : 'techlogging.media.view.l10n.editGalleryTitle',
         defaults : techlogging.media.galleryDefaults,
 
         setDefaults: function( attrs ) {
@@ -657,7 +654,7 @@
                  * @this techlogging.media.view.MediaFrame.Select
                  */
                 this.createSelectToolbar( toolbar, {
-                    text: techlogging.media.view.l10n.setFeaturedImage
+                    text: 'techlogging.media.view.l10n.setFeaturedImage'
                 });
             }, this._frame );
 
@@ -785,7 +782,7 @@
             workflow = workflows[ id ] = techlogging.media( _.defaults( options || {}, {
                 frame:    'post',
                 state:    'insert',
-                title:    techlogging.media.view.l10n.addMedia,
+                title:    'techlogging.media.view.l10n.addMedia',
                 multiple: true
             } ) );
 
@@ -1028,22 +1025,17 @@
          */
         init: function() {
             $(document.body)
-                .on( 'click.add-media-button', '.insert-media', function( event ) {
+                .on( 'click', '.insert-media', function( event ) {
                     var elem = $( event.currentTarget ),
                         editor = elem.data('editor'),
                         options = {
                             frame:    'post',
                             state:    'insert',
-                            title:    techlogging.media.view.l10n.addMedia,
+                            title:    'techlogging.media.view.l10n.addMedia',
                             multiple: true
                         };
 
                     event.preventDefault();
-
-                    if ( elem.hasClass( 'gallery' ) ) {
-                        options.state = 'gallery';
-                        options.title = techlogging.media.view.l10n.createGalleryTitle;
-                    }
 
                     techlogging.media.editor.open( editor, options );
                 });

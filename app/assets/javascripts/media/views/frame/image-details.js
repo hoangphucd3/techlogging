@@ -1,5 +1,4 @@
 var Select = techlogging.media.view.MediaFrame.Select,
-	l10n = techlogging.media.view.l10n,
 	ImageDetails;
 
 /**
@@ -27,7 +26,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 		content: 'image-details',
 		toolbar: 'image-details',
 		type:    'link',
-		title:    l10n.imageDetailsTitle,
+		title:    'l10n.imageDetailsTitle',
 		priority: 120
 	},
 
@@ -58,7 +57,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 				library: techlogging.media.query( { type: 'image' } ),
 				image: this.image,
 				multiple:  false,
-				title:     l10n.imageReplaceTitle,
+				title:     'l10n.imageReplaceTitle',
 				toolbar: 'replace',
 				priority:  80,
 				displaySettings: true
@@ -102,7 +101,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			items: {
 				select: {
 					style:    'primary',
-					text:     l10n.update,
+					text:     'l10n.update',
 					priority: 80,
 
 					click: function() {
@@ -133,7 +132,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			controller: this,
 			items: {
 				back: {
-					text:     l10n.back,
+					text:     'l10n.back',
 					priority: 20,
 					click:    function() {
 						if ( previous ) {
@@ -146,7 +145,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 				replace: {
 					style:    'primary',
-					text:     l10n.replace,
+					text:     'l10n.replace',
 					priority: 80,
 					requires: { selection: true },
 

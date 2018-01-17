@@ -19,5 +19,6 @@
 //= require backbone
 //= require bootstrap
 //= require dropzone
+//= require plupload/plupload.js
 //= require techlogging-backbone
 //= require techlogging-util

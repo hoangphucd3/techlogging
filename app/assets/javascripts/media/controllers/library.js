@@ -143,9 +143,9 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 		var defaultProps = techlogging.media.view.settings.defaultProps;
 		this._displays = [];
 		this._defaultDisplaySettings = {
-			align: getUserSetting( 'align', defaultProps.align ) || 'none',
-			size:  getUserSetting( 'imgsize', defaultProps.size ) || 'medium',
-			link:  getUserSetting( 'urlbutton', defaultProps.link ) || 'none'
+			align: getUserSetting( 'align', 'none' ) || 'none',
+			size:  getUserSetting( 'imgsize', 'medium' ) || 'medium',
+			link:  getUserSetting( 'urlbutton', 'none' ) || 'none'
 		};
 	},
 

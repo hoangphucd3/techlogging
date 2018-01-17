@@ -381,11 +381,11 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	 */
 	_requery: function( refresh ) {
 		var props;
-		if ( this.props.get('query') ) {
-			props = this.props.toJSON();
-			props.cache = ( true !== refresh );
-			this.mirror( techlogging.media.model.Query.get( props ) );
-		}
+		// if ( this.props.get('query') ) {
+		// 	props = this.props.toJSON();
+		// 	props.cache = ( true !== refresh );
+		// 	this.mirror( techlogging.media.model.Query.get( props ) );
+		// }
 	},
 	/**
 	 * If this collection is sorted by `menuOrder`, recalculates and saves
