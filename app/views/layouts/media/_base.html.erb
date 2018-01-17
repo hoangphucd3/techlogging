@@ -1,0 +1,86 @@
+<script type="text/html" id="tmpl-media-frame">
+  <div class="media-frame-menu"></div>
+  <div class="media-frame-title"></div>
+  <div class="media-frame-router"></div>
+  <div class="media-frame-content"></div>
+  <div class="media-frame-toolbar"></div>
+  <div class="media-frame-uploader"></div>
+</script>
+
+<script type="text/html" id="tmpl-media-modal">
+  <div class="media-modal wp-core-ui">
+    <button type="button" class="media-modal-close"><span class="media-modal-icon"><span class="screen-reader-text">Close media panel</span></span></button>
+    <div class="media-modal-content"></div>
+  </div>
+  <div class="media-modal-backdrop"></div>
+</script>
+
+<script type="text/html" id="tmpl-uploader-window">
+  <div class="uploader-window-content">
+    <h1>Drop files to upload</h1>
+  </div>
+</script>
+
+<script type="text/html" id="tmpl-uploader-inline">
+  <# var messageClass = data.message ? 'has-upload-message' : 'no-upload-message'; #>
+  <# if ( data.canClose ) { #>
+  <button class="close dashicons dashicons-no"><span class="screen-reader-text">Close uploader</span></button>
+  <# } #>
+  <div class="uploader-inline-content {{ messageClass }}">
+    <# if ( data.message ) { #>
+    <h2 class="upload-message">{{ data.message }}</h2>
+    <# } #>
+    <div class="upload-ui">
+      <h2 class="upload-instructions drop-instructions">Drop files anywhere to upload</h2>
+      <p class="upload-instructions drop-instructions">or</p>
+      <button type="button" class="browser button button-hero">Select Files</button>
+    </div>
+
+    <div class="upload-inline-status"></div>
+
+    <div class="post-upload-ui">
+
+      <p class="max-upload-size">Maximum upload file size: 8 MB.</p>
+
+      <# if ( data.suggestedWidth && data.suggestedHeight ) { #>
+      <p class="suggested-dimensions">
+        Suggested image dimensions: {{data.suggestedWidth}} by {{data.suggestedHeight}} pixels.					</p>
+      <# } #>
+
+    </div>
+  </div>
+</script>
+
+<script type="text/html" id="tmpl-uploader-status">
+  <h2>Uploading</h2>
+  <button type="button" class="button-link upload-dismiss-errors"><span class="screen-reader-text">Dismiss Errors</span></button>
+
+  <div class="media-progress-bar"><div></div></div>
+  <div class="upload-details">
+			<span class="upload-count">
+				<span class="upload-index"></span> / <span class="upload-total"></span>
+			</span>
+    <span class="upload-detail-separator">&ndash;</span>
+    <span class="upload-filename"></span>
+  </div>
+  <div class="upload-errors"></div>
+</script>
+
+<script type="text/html" id="tmpl-uploader-editor">
+  <div class="uploader-editor-content">
+    <div class="uploader-editor-title">Drop files to upload</div>
+  </div>
+</script>
+
+<script type="text/html" id="tmpl-media-selection">
+  <div class="selection-info">
+    <span class="count"></span>
+    <# if ( data.editable ) { #>
+    <button type="button" class="button-link edit-selection">Edit Selection</button>
+    <# } #>
+    <# if ( data.clearable ) { #>
+    <button type="button" class="button-link clear-selection">Clear</button>
+    <# } #>
+  </div>
+  <div class="selection-view"></div>
+</script>

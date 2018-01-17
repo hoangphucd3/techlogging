@@ -1,5 +1,4 @@
 var MediaFrame = techlogging.media.view.MediaFrame,
-	l10n = techlogging.media.view.l10n,
 	Select;
 
 /**
@@ -101,11 +100,11 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	browseRouter: function( routerView ) {
 		routerView.set({
 			upload: {
-				text:     l10n.uploadFilesTitle,
+				text:     'l10n.uploadFilesTitle',
 				priority: 20
 			},
 			browse: {
-				text:     l10n.mediaLibraryTitle,
+				text:     'l10n.mediaLibraryTitle',
 				priority: 40
 			}
 		});

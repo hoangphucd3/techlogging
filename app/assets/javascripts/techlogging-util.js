@@ -32,6 +32,7 @@ window.techlogging = window.techlogging || {};
 			};
 
 		return function ( data ) {
+		    console.log(id);
 			compiled = compiled || _.template( $( '#tmpl-' + id ).html(),  options );
 			return compiled( data );
 		};

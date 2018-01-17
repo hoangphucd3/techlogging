@@ -102,7 +102,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 
 		if ( this.get( 'router' ) && this.get('contentUserSetting') ) {
 			this.frame.on( 'content:activate', this.saveContentMode, this );
-			this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
+			// this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
 		}
 	},
 
@@ -140,12 +140,11 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 * @since 3.5.0
 	 */
 	resetDisplays: function() {
-		var defaultProps = techlogging.media.view.settings.defaultProps;
 		this._displays = [];
 		this._defaultDisplaySettings = {
-			align: getUserSetting( 'align', 'none' ) || 'none',
-			size:  getUserSetting( 'imgsize', 'medium' ) || 'medium',
-			link:  getUserSetting( 'urlbutton', 'none' ) || 'none'
+			align: 'none',
+			size:  'medium',
+			link:  'none'
 		};
 	},
 

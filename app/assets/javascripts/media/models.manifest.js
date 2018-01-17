@@ -51,8 +51,12 @@ media = techlogging.media = function( attributes ) {
 /** @namespace techlogging.media.frames */
 _.extend( media, { model: {}, view: {}, controller: {}, frames: {} });
 
+// Link any localized strings.
+l10n = media.model.l10n = window._techloggingMediaModelsL10n || {};
+
 // Link any settings.
-media.model.settings = {};
+media.model.settings = l10n.settings || {};
+delete l10n.settings;
 
 Attachment = media.model.Attachment = require( './models/attachment.js' );
 Attachments = media.model.Attachments = require( './models/attachments.js' );

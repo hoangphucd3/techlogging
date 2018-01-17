@@ -79,8 +79,12 @@ var media = techlogging.media,
 
 media.isTouchDevice = ( 'ontouchend' in document );
 
+// Link any localized strings.
+l10n = media.view.l10n = window._techloggingMediaViewsL10n || {};
+
 // Link any settings.
-media.view.settings = {};
+media.view.settings = l10n.settings || {};
+delete l10n.settings;
 
 // Copy the `post` setting over to the model settings.
 media.model.settings.post = media.view.settings.post;
@@ -149,58 +153,57 @@ media.controller.State = __webpack_require__( 10 );
 media.selectionSync = __webpack_require__( 11 );
 media.controller.Library = __webpack_require__( 12 );
 media.controller.ImageDetails = __webpack_require__( 13 );
-media.controller.CollectionEdit = __webpack_require__( 14 );
-media.controller.CollectionAdd = __webpack_require__( 15 );
-media.controller.MediaLibrary = __webpack_require__( 16 );
+media.controller.EditImage = __webpack_require__( 14 );
+media.controller.MediaLibrary = __webpack_require__( 15 );
 
-media.View = __webpack_require__( 17 );
-media.view.Frame = __webpack_require__( 18 );
-media.view.MediaFrame = __webpack_require__( 19 );
-media.view.MediaFrame.Select = __webpack_require__( 20 );
-media.view.MediaFrame.Post = __webpack_require__( 21 );
-media.view.MediaFrame.ImageDetails = __webpack_require__( 22 );
-media.view.Modal = __webpack_require__( 23 );
-media.view.FocusManager = __webpack_require__( 24 );
-media.view.UploaderWindow = __webpack_require__( 25 );
-media.view.EditorUploader = __webpack_require__( 26 );
-media.view.UploaderInline = __webpack_require__( 27 );
-media.view.UploaderStatus = __webpack_require__( 28 );
-media.view.UploaderStatusError = __webpack_require__( 29 );
-media.view.Toolbar = __webpack_require__( 30 );
+media.View = __webpack_require__( 16 );
+media.view.Frame = __webpack_require__( 17 );
+media.view.MediaFrame = __webpack_require__( 18 );
+media.view.MediaFrame.Select = __webpack_require__( 19 );
+media.view.MediaFrame.Post = __webpack_require__( 20 );
+media.view.MediaFrame.ImageDetails = __webpack_require__( 21 );
+media.view.Modal = __webpack_require__( 22 );
+media.view.FocusManager = __webpack_require__( 23 );
+media.view.UploaderWindow = __webpack_require__( 24 );
+media.view.EditorUploader = __webpack_require__( 25 );
+media.view.UploaderInline = __webpack_require__( 26 );
+media.view.UploaderStatus = __webpack_require__( 27 );
+media.view.UploaderStatusError = __webpack_require__( 28 );
+media.view.Toolbar = __webpack_require__( 29 );
 // media.view.Toolbar.Select = require( './views/toolbar/select.js' );
 // media.view.Toolbar.Embed = require( './views/toolbar/embed.js' );
-// media.view.Button = require( './views/button.js' );
+media.view.Button = __webpack_require__( 30 );
 // media.view.ButtonGroup = require( './views/button-group.js' );
-media.view.PriorityList = __webpack_require__( 36 );
-media.view.MenuItem = __webpack_require__( 35 );
-media.view.Menu = __webpack_require__( 37 );
-media.view.RouterItem = __webpack_require__( 31 );
-media.view.Router = __webpack_require__( 32 );
-media.view.Sidebar = __webpack_require__( 33 );
-// media.view.Attachment = require( './views/attachment.js' );
+media.view.PriorityList = __webpack_require__( 31 );
+media.view.MenuItem = __webpack_require__( 32 );
+media.view.Menu = __webpack_require__( 33 );
+media.view.RouterItem = __webpack_require__( 34 );
+media.view.Router = __webpack_require__( 35 );
+media.view.Sidebar = __webpack_require__( 36 );
+media.view.Attachment = __webpack_require__( 37 );
 // media.view.Attachment.Library = require( './views/attachment/library.js' );
 // media.view.Attachment.EditLibrary = require( './views/attachment/edit-library.js' );
-// media.view.Attachments = require( './views/attachments.js' );
+media.view.Attachments = __webpack_require__( 38 );
 // media.view.Search = require( './views/search.js' );
-// media.view.AttachmentFilters = require( './views/attachment-filters.js' );
+media.view.AttachmentFilters = __webpack_require__( 39 );
 // media.view.DateFilter = require( './views/attachment-filters/date.js' );
 // media.view.AttachmentFilters.Uploaded = require( './views/attachment-filters/uploaded.js' );
-// media.view.AttachmentFilters.All = require( './views/attachment-filters/all.js' );
-// media.view.AttachmentsBrowser = require( './views/attachments/browser.js' );
-// media.view.Selection = require( './views/selection.js' );
+media.view.AttachmentFilters.All = __webpack_require__( 40 );
+media.view.AttachmentsBrowser = __webpack_require__( 41 );
+media.view.Selection = __webpack_require__( 42 );
 // media.view.Attachment.Selection = require( './views/attachment/selection.js' );
-// media.view.Attachments.Selection = require( './views/attachments/selection.js' );
+media.view.Attachments.Selection = __webpack_require__( 43 );
 // media.view.Attachment.EditSelection = require( './views/attachment/edit-selection.js' );
 // media.view.Settings = require( './views/settings.js' );
 // media.view.Settings.AttachmentDisplay = require( './views/settings/attachment-display.js' );
-// media.view.Attachment.Details = require( './views/attachment/details.js' );
+media.view.Attachment.Details = __webpack_require__( 44 );
 // media.view.AttachmentCompat = require( './views/attachment-compat.js' );
 // media.view.Iframe = require( './views/iframe.js' );
 // media.view.Embed = require( './views/embed.js' );
-// media.view.Label = require( './views/label.js' );
+media.view.Label = __webpack_require__( 45 );
 // media.view.ImageDetails = require( './views/image-details.js' );
 // media.view.EditImage = require( './views/edit-image.js' );
-media.view.Spinner = __webpack_require__( 34 );
+media.view.Spinner = __webpack_require__( 46 );
 
 
 /***/ }),
@@ -955,7 +958,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 
 		if ( this.get( 'router' ) && this.get('contentUserSetting') ) {
 			this.frame.on( 'content:activate', this.saveContentMode, this );
-			this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
+			// this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
 		}
 	},
 
@@ -993,12 +996,11 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 * @since 3.5.0
 	 */
 	resetDisplays: function() {
-		var defaultProps = techlogging.media.view.settings.defaultProps;
 		this._displays = [];
 		this._defaultDisplaySettings = {
-			align: getUserSetting( 'align', 'none' ) || 'none',
-			size:  getUserSetting( 'imgsize', 'medium' ) || 'medium',
-			link:  getUserSetting( 'urlbutton', 'none' ) || 'none'
+			align: 'none',
+			size:  'medium',
+			link:  'none'
 		};
 	},
 
@@ -1232,270 +1234,101 @@ module.exports = ImageDetails;
 /* 14 */
 /***/ (function(module, exports) {
 
-var Library = techlogging.media.controller.Library,
-	$ = jQuery,
-	CollectionEdit;
+var EditImage;
 
 /**
- * techlogging.media.controller.CollectionEdit
+ * techlogging.media.controller.EditImage
  *
- * A state for editing a collection, which is used by audio and video playlists,
- * and can be used for other collections.
+ * A state for editing (cropping, etc.) an image.
  *
  * @memberOf techlogging.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
  * @augments techlogging.media.controller.State
  * @augments Backbone.Model
  *
- * @param {object}                     [attributes]                      The attributes hash passed to the state.
- * @param {string}                     attributes.title                  Title for the state. Displays in the media menu and the frame's title region.
- * @param {techlogging.media.model.Attachments} [attributes.library]              The attachments collection to edit.
- *                                                                       If one is not supplied, an empty media.model.Selection collection is created.
- * @param {boolean}                    [attributes.multiple=false]       Whether multi-select is enabled.
- * @param {string}                     [attributes.content=browse]       Initial mode for the content region.
- * @param {string}                     attributes.menu                   Initial mode for the menu region. @todo this needs a better explanation.
- * @param {boolean}                    [attributes.searchable=false]     Whether the library is searchable.
- * @param {boolean}                    [attributes.sortable=true]        Whether the Attachments should be sortable. Depends on the orderby property being set to menuOrder on the attachments collection.
- * @param {boolean}                    [attributes.date=true]            Whether to show the date filter in the browser's toolbar.
- * @param {boolean}                    [attributes.describe=true]        Whether to offer UI to describe the attachments - e.g. captioning images in a gallery.
- * @param {boolean}                    [attributes.dragInfo=true]        Whether to show instructional text about the attachments being sortable.
- * @param {boolean}                    [attributes.dragInfoText]         Instructional text about the attachments being sortable.
- * @param {int}                        [attributes.idealColumnWidth=170] The ideal column width in pixels for attachments.
- * @param {boolean}                    [attributes.editing=false]        Whether the gallery is being created, or editing an existing instance.
- * @param {int}                        [attributes.priority=60]          The priority for the state link in the media menu.
- * @param {boolean}                    [attributes.syncSelection=false]  Whether the Attachments selection should be persisted from the last state.
- *                                                                       Defaults to false for this state, because the library passed in  *is* the selection.
- * @param {view}                       [attributes.SettingsView]         The view to edit the collection instance settings (e.g. Playlist settings with "Show tracklist" checkbox).
- * @param {view}                       [attributes.AttachmentView]       The single `Attachment` view to be used in the `Attachments`.
- *                                                                       If none supplied, defaults to techlogging.media.view.Attachment.EditLibrary.
- * @param {string}                     attributes.type                   The collection's media type. (e.g. 'video').
- * @param {string}                     attributes.collectionType         The collection type. (e.g. 'playlist').
+ * @param {object}                    attributes                      The attributes hash passed to the state.
+ * @param {techlogging.media.model.Attachment} attributes.model                The attachment.
+ * @param {string}                    [attributes.id=edit-image]      Unique identifier.
+ * @param {string}                    [attributes.title=Edit Image]   Title for the state. Displays in the media menu and the frame's title region.
+ * @param {string}                    [attributes.content=edit-image] Initial mode for the content region.
+ * @param {string}                    [attributes.toolbar=edit-image] Initial mode for the toolbar region.
+ * @param {string}                    [attributes.menu=false]         Initial mode for the menu region.
+ * @param {string}                    [attributes.url]                Unused. @todo Consider removal.
  */
-CollectionEdit = Library.extend(/** @lends techlogging.media.controller.CollectionEdit.prototype */{
+EditImage = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.EditImage.prototype */{
 	defaults: {
-		multiple:         false,
-		sortable:         true,
-		date:             false,
-		searchable:       false,
-		content:          'browse',
-		describe:         true,
-		dragInfo:         true,
-		idealColumnWidth: 170,
-		editing:          false,
-		priority:         60,
-		SettingsView:     false,
-		syncSelection:    false
+		id:      'edit-image',
+		title:   'l10n.editImage',
+		menu:    false,
+		toolbar: 'edit-image',
+		content: 'edit-image',
+		url:     ''
 	},
 
 	/**
+	 * Activates a frame for editing a featured image.
+	 *
 	 * @since 3.9.0
-	 */
-	initialize: function() {
-		var collectionType = this.get('collectionType');
-
-		this.set( 'id', collectionType + '-edit' );
-		this.set( 'toolbar', collectionType + '-edit' );
-
-		// If we haven't been provided a `library`, create a `Selection`.
-		if ( ! this.get('library') ) {
-			this.set( 'library', new techlogging.media.model.Selection() );
-		}
-		// The single `Attachment` view to be used in the `Attachments` view.
-		if ( ! this.get('AttachmentView') ) {
-			this.set( 'AttachmentView', techlogging.media.view.Attachment.EditLibrary );
-		}
-		Library.prototype.initialize.apply( this, arguments );
-	},
-
-	/**
-	 * @since 3.9.0
+	 *
+	 * @returns {void}
 	 */
 	activate: function() {
-		var library = this.get('library');
-
-		// Limit the library to images only.
-		library.props.set( 'type', this.get( 'type' ) );
-
-		// Watch for uploaded attachments.
-		this.get('library').observe( techlogging.Uploader.queue );
-
-		this.frame.on( 'content:render:browse', this.renderSettings, this );
-
-		Library.prototype.activate.apply( this, arguments );
+		this.frame.on( 'toolbar:render:edit-image', _.bind( this.toolbar, this ) );
 	},
 
 	/**
+	 * Deactivates a frame for editing a featured image.
+	 *
 	 * @since 3.9.0
+	 *
+	 * @returns {void}
 	 */
 	deactivate: function() {
-		// Stop watching for uploaded attachments.
-		this.get('library').unobserve( techlogging.Uploader.queue );
-
-		this.frame.off( 'content:render:browse', this.renderSettings, this );
-
-		Library.prototype.deactivate.apply( this, arguments );
+		this.frame.off( 'toolbar:render:edit-image' );
 	},
 
 	/**
-	 * Render the collection embed settings view in the browser sidebar.
+	 * Adds a toolbar with a back button.
 	 *
-	 * @todo This is against the pattern elsewhere in media. Typically the frame
-	 *       is responsible for adding region mode callbacks. Explain.
+	 * When the back button is pressed it checks whether there is a previous state.
+	 * In case there is a previous state it sets that previous state otherwise it
+	 * closes the frame.
 	 *
 	 * @since 3.9.0
 	 *
-	 * @param {techlogging.media.view.attachmentsBrowser} The attachments browser view.
+	 * @returns {void}
 	 */
-	renderSettings: function( attachmentsBrowserView ) {
-		var library = this.get('library'),
-			collectionType = this.get('collectionType'),
-			dragInfoText = this.get('dragInfoText'),
-			SettingsView = this.get('SettingsView'),
-			obj = {};
+	toolbar: function() {
+		var frame = this.frame,
+			lastState = frame.lastState(),
+			previous = lastState && lastState.id;
 
-		if ( ! library || ! attachmentsBrowserView ) {
-			return;
-		}
-
-		library[ collectionType ] = library[ collectionType ] || new Backbone.Model();
-
-		obj[ collectionType ] = new SettingsView({
-			controller: this,
-			model:      library[ collectionType ],
-			priority:   40
-		});
-
-		attachmentsBrowserView.sidebar.set( obj );
-
-		if ( dragInfoText ) {
-			attachmentsBrowserView.toolbar.set( 'dragInfo', new techlogging.media.View({
-				el: $( '<div class="instructions">' + dragInfoText + '</div>' )[0],
-				priority: -40
-			}) );
-		}
-
-		// Add the 'Reverse order' button to the toolbar.
-		attachmentsBrowserView.toolbar.set( 'reverse', {
-			text:     'Reverse order',
-			priority: 80,
-
-			click: function() {
-				library.reset( library.toArray().reverse() );
+		frame.toolbar.set( new techlogging.media.view.Toolbar({
+			controller: frame,
+			items: {
+				back: {
+					style: 'primary',
+					text:     'l10n.back',
+					priority: 20,
+					click:    function() {
+						if ( previous ) {
+							frame.setState( previous );
+						} else {
+							frame.close();
+						}
+					}
+				}
 			}
-		});
+		}) );
 	}
 });
 
-module.exports = CollectionEdit;
+module.exports = EditImage;
 
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-var Selection = techlogging.media.model.Selection,
-	Library = techlogging.media.controller.Library,
-	CollectionAdd;
-
-/**
- * techlogging.media.controller.CollectionAdd
- *
- * A state for adding attachments to a collection (e.g. video playlist).
- *
- * @memberOf techlogging.media.controller
- *
- * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
- * @augments Backbone.Model
- *
- * @param {object}                     [attributes]                         The attributes hash passed to the state.
- * @param {string}                     [attributes.id=library]      Unique identifier.
- * @param {string}                     attributes.title                    Title for the state. Displays in the frame's title region.
- * @param {boolean}                    [attributes.multiple=add]            Whether multi-select is enabled. @todo 'add' doesn't seem do anything special, and gets used as a boolean.
- * @param {techlogging.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
- *                                                                          If one is not supplied, a collection of attachments of the specified type will be created.
- * @param {boolean|string}             [attributes.filterable=uploaded]     Whether the library is filterable, and if so what filters should be shown.
- *                                                                          Accepts 'all', 'uploaded', or 'unattached'.
- * @param {string}                     [attributes.menu=gallery]            Initial mode for the menu region.
- * @param {string}                     [attributes.content=upload]          Initial mode for the content region.
- *                                                                          Overridden by persistent user setting if 'contentUserSetting' is true.
- * @param {string}                     [attributes.router=browse]           Initial mode for the router region.
- * @param {string}                     [attributes.toolbar=gallery-add]     Initial mode for the toolbar region.
- * @param {boolean}                    [attributes.searchable=true]         Whether the library is searchable.
- * @param {boolean}                    [attributes.sortable=true]           Whether the Attachments should be sortable. Depends on the orderby property being set to menuOrder on the attachments collection.
- * @param {boolean}                    [attributes.autoSelect=true]         Whether an uploaded attachment should be automatically added to the selection.
- * @param {boolean}                    [attributes.contentUserSetting=true] Whether the content region's mode should be set and persisted per user.
- * @param {int}                        [attributes.priority=100]            The priority for the state link in the media menu.
- * @param {boolean}                    [attributes.syncSelection=false]     Whether the Attachments selection should be persisted from the last state.
- *                                                                          Defaults to false because for this state, because the library of the Edit Gallery state is the selection.
- * @param {string}                     attributes.type                   The collection's media type. (e.g. 'video').
- * @param {string}                     attributes.collectionType         The collection type. (e.g. 'playlist').
- */
-CollectionAdd = Library.extend(/** @lends techlogging.media.controller.CollectionAdd.prototype */{
-	defaults: _.defaults( {
-		// Selection defaults. @see media.model.Selection
-		multiple:      'add',
-		// Attachments browser defaults. @see media.view.AttachmentsBrowser
-		filterable:    'uploaded',
-
-		priority:      100,
-		syncSelection: false
-	}, Library.prototype.defaults ),
-
-	/**
-	 * @since 3.9.0
-	 */
-	initialize: function() {
-		var collectionType = this.get('collectionType');
-
-		this.set( 'id', collectionType + '-library' );
-		this.set( 'toolbar', collectionType + '-add' );
-		this.set( 'menu', collectionType );
-
-		// If we haven't been provided a `library`, create a `Selection`.
-		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query({ type: this.get('type') }) );
-		}
-		Library.prototype.initialize.apply( this, arguments );
-	},
-
-	/**
-	 * @since 3.9.0
-	 */
-	activate: function() {
-		var library = this.get('library'),
-			editLibrary = this.get('editLibrary'),
-			edit = this.frame.state( this.get('collectionType') + '-edit' ).get('library');
-
-		if ( editLibrary && editLibrary !== edit ) {
-			library.unobserve( editLibrary );
-		}
-
-		// Accepts attachments that exist in the original library and
-		// that do not exist in gallery's library.
-		library.validator = function( attachment ) {
-			return !! this.mirroring.get( attachment.cid ) && ! edit.get( attachment.cid ) && Selection.prototype.validator.apply( this, arguments );
-		};
-
-		// Reset the library to ensure that all attachments are re-added
-		// to the collection. Do so silently, as calling `observe` will
-		// trigger the `reset` event.
-		library.reset( library.mirroring.models, { silent: true });
-		library.observe( edit );
-		this.set('editLibrary', edit);
-
-		Library.prototype.activate.apply( this, arguments );
-	}
-});
-
-module.exports = CollectionAdd;
-
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -1551,7 +1384,7 @@ module.exports = MediaLibrary;
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -1623,7 +1456,7 @@ module.exports = View;
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /**
@@ -1795,7 +1628,7 @@ module.exports = Frame;
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports) {
 
 var Frame = techlogging.media.view.Frame,
@@ -2080,11 +1913,10 @@ module.exports = MediaFrame;
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports) {
 
 var MediaFrame = techlogging.media.view.MediaFrame,
-	l10n = techlogging.media.view.l10n,
 	Select;
 
 /**
@@ -2186,11 +2018,11 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	browseRouter: function( routerView ) {
 		routerView.set({
 			upload: {
-				text:     l10n.uploadFilesTitle,
+				text:     'l10n.uploadFilesTitle',
 				priority: 20
 			},
 			browse: {
-				text:     l10n.mediaLibraryTitle,
+				text:     'l10n.mediaLibraryTitle',
 				priority: 40
 			}
 		});
@@ -2256,7 +2088,7 @@ module.exports = Select;
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports) {
 
 var Select = techlogging.media.view.MediaFrame.Select,
@@ -2325,103 +2157,8 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				displayUserSettings: true
 			}),
 
-			new Library({
-				id:         'gallery',
-				title:      'l10n.createGalleryTitle',
-				priority:   40,
-				toolbar:    'main-gallery',
-				filterable: 'uploaded',
-				multiple:   'add',
-				editable:   false,
-
-				library:  techlogging.media.query( _.defaults({
-					type: 'image'
-				}, options.library ) )
-			}),
-
-			// Embed states.
-			new techlogging.media.controller.Embed( { metadata: options.metadata } ),
-
 			new techlogging.media.controller.EditImage( { model: options.editImage } ),
-
-			// Gallery states.
-			new techlogging.media.controller.GalleryEdit({
-				library: options.selection,
-				editing: options.editing,
-				menu:    'gallery'
-			}),
-
-			new techlogging.media.controller.GalleryAdd(),
-
-			new Library({
-				id:         'playlist',
-				title:      'l10n.createPlaylistTitle',
-				priority:   60,
-				toolbar:    'main-playlist',
-				filterable: 'uploaded',
-				multiple:   'add',
-				editable:   false,
-
-				library:  techlogging.media.query( _.defaults({
-					type: 'audio'
-				}, options.library ) )
-			}),
-
-			// Playlist states.
-			new techlogging.media.controller.CollectionEdit({
-				type: 'audio',
-				collectionType: 'playlist',
-				title:          'l10n.editPlaylistTitle',
-				SettingsView:   techlogging.media.view.Settings.Playlist,
-				library:        options.selection,
-				editing:        options.editing,
-				menu:           'playlist',
-				dragInfoText:   'l10n.playlistDragInfo',
-				dragInfo:       false
-			}),
-
-			new techlogging.media.controller.CollectionAdd({
-				type: 'audio',
-				collectionType: 'playlist',
-				title: 'l10n.addToPlaylistTitle'
-			}),
-
-			new Library({
-				id:         'video-playlist',
-				title:      'l10n.createVideoPlaylistTitle',
-				priority:   60,
-				toolbar:    'main-video-playlist',
-				filterable: 'uploaded',
-				multiple:   'add',
-				editable:   false,
-
-				library:  techlogging.media.query( _.defaults({
-					type: 'video'
-				}, options.library ) )
-			}),
-
-			new techlogging.media.controller.CollectionEdit({
-				type: 'video',
-				collectionType: 'playlist',
-				title:          'l10n.editVideoPlaylistTitle',
-				SettingsView:   techlogging.media.view.Settings.Playlist,
-				library:        options.selection,
-				editing:        options.editing,
-				menu:           'video-playlist',
-				dragInfoText:   'l10n.videoPlaylistDragInfo',
-				dragInfo:       false
-			}),
-
-			new techlogging.media.controller.CollectionAdd({
-				type: 'video',
-				collectionType: 'playlist',
-				title: 'l10n.addToVideoPlaylistTitle'
-			})
 		]);
-
-		if ( techlogging.media.view.settings.post.featuredImageId ) {
-			this.states.add( new techlogging.media.controller.FeaturedImage() );
-		}
 	},
 
 	bindHandlers: function() {
@@ -2989,7 +2726,7 @@ module.exports = Post;
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports) {
 
 var Select = techlogging.media.view.MediaFrame.Select,
@@ -3172,7 +2909,7 @@ module.exports = ImageDetails;
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -3399,7 +3136,7 @@ module.exports = Modal;
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports) {
 
 /**
@@ -3451,7 +3188,7 @@ module.exports = FocusManager;
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -3510,7 +3247,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 	},
 
 	ready: function() {
-		var postId = techlogging.media.view.settings.post.id,
+		var postId = 'techlogging.media.view.settings.post.id',
 			dropzone;
 
 		// If the uploader already exists, bail.
@@ -3518,9 +3255,9 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 			return;
 		}
 
-		if ( postId ) {
-			this.options.uploader.params.post_id = postId;
-		}
+		// if ( postId ) {
+		// 	this.options.uploader.params.post_id = postId;
+		// }
 		this.uploader = new techlogging.Uploader( this.options.uploader );
 
 		dropzone = this.uploader.dropzone;
@@ -3568,7 +3305,7 @@ module.exports = UploaderWindow;
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -3799,7 +3536,7 @@ module.exports = EditorUploader;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -3837,9 +3574,9 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 			this.options.$browser = this.controller.uploader.$browser;
 		}
 
-		if ( _.isUndefined( this.options.postId ) ) {
-			this.options.postId = techlogging.media.view.settings.post.id;
-		}
+		// if ( _.isUndefined( this.options.postId ) ) {
+		// 	this.options.postId = techlogging.media.view.settings.post.id;
+		// }
 
 		if ( this.options.status ) {
 			this.views.set( '.upload-inline-status', new techlogging.media.view.UploaderStatus({
@@ -3945,7 +3682,7 @@ module.exports = UploaderInline;
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -4086,7 +3823,7 @@ module.exports = UploaderStatus;
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports) {
 
 /**
@@ -4108,7 +3845,7 @@ module.exports = UploaderStatusError;
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -4276,106 +4013,11 @@ module.exports = Toolbar;
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.RouterItem
- *
- * @memberOf techlogging.media.view
- *
- * @class
- * @augments techlogging.media.view.MenuItem
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var RouterItem = techlogging.media.view.MenuItem.extend(/** @lends techlogging.media.view.RouterItem.prototype */{
-	/**
-	 * On click handler to activate the content region's corresponding mode.
-	 */
-	click: function() {
-		var contentMode = this.options.contentMode;
-		if ( contentMode ) {
-			this.controller.content.mode( contentMode );
-		}
-	}
-});
-
-module.exports = RouterItem;
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-var Menu = techlogging.media.view.Menu,
-	Router;
-
-/**
- * techlogging.media.view.Router
- *
- * @memberOf techlogging.media.view
- *
- * @class
- * @augments techlogging.media.view.Menu
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-Router = Menu.extend(/** @lends techlogging.media.view.Router.prototype */{
-	tagName:   'div',
-	className: 'media-router',
-	property:  'contentMode',
-	ItemView:  techlogging.media.view.RouterItem,
-	region:    'router',
-
-	initialize: function() {
-		this.controller.on( 'content:render', this.update, this );
-		// Call 'initialize' directly on the parent class.
-		Menu.prototype.initialize.apply( this, arguments );
-	},
-
-	update: function() {
-		var mode = this.controller.content.mode();
-		if ( mode ) {
-			this.select( mode );
-		}
-	}
-});
-
-module.exports = Router;
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports) {
-
-/**
- * techlogging.media.view.Sidebar
- *
- * @memberOf techlogging.media.view
- *
- * @class
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var Sidebar = techlogging.media.view.PriorityList.extend(/** @lends techlogging.media.view.Sidebar.prototype */{
-	className: 'media-sidebar'
-});
-
-module.exports = Sidebar;
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-/**
- * techlogging.media.view.Spinner
+ * techlogging.media.view.Button
  *
  * @memberOf techlogging.media.view
  *
@@ -4384,113 +4026,86 @@ module.exports = Sidebar;
  * @augments techlogging.Backbone.View
  * @augments Backbone.View
  */
-var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Spinner.prototype */{
-	tagName:   'span',
-	className: 'spinner',
-	spinnerTimeout: false,
-	delay: 400,
-
-	show: function() {
-		if ( ! this.spinnerTimeout ) {
-			this.spinnerTimeout = _.delay(function( $el ) {
-				$el.addClass( 'is-active' );
-			}, this.delay, this.$el );
-		}
-
-		return this;
-	},
-
-	hide: function() {
-		this.$el.removeClass( 'is-active' );
-		this.spinnerTimeout = clearTimeout( this.spinnerTimeout );
-
-		return this;
-	}
-});
-
-module.exports = Spinner;
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-var $ = jQuery,
-	MenuItem;
-
-/**
- * techlogging.media.view.MenuItem
- *
- * @memberOf techlogging.media.view
- *
- * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuItem.prototype */{
-	tagName:   'a',
-	className: 'media-menu-item',
-
-	attributes: {
-		href: '#'
-	},
+var Button = techlogging.media.View.extend(/** @lends techlogging.media.view.Button.prototype */{
+	tagName:    'button',
+	className:  'media-button',
+	attributes: { type: 'button' },
 
 	events: {
-		'click': '_click'
+		'click': 'click'
+	},
+
+	defaults: {
+		text:     '',
+		style:    '',
+		size:     'large',
+		disabled: false
+	},
+
+	initialize: function() {
+		/**
+		 * Create a model with the provided `defaults`.
+		 *
+		 * @member {Backbone.Model}
+		 */
+		this.model = new Backbone.Model( this.defaults );
+
+		// If any of the `options` have a key from `defaults`, apply its
+		// value to the `model` and remove it from the `options object.
+		_.each( this.defaults, function( def, key ) {
+			var value = this.options[ key ];
+			if ( _.isUndefined( value ) ) {
+				return;
+			}
+
+			this.model.set( key, value );
+			delete this.options[ key ];
+		}, this );
+
+		this.listenTo( this.model, 'change', this.render );
+	},
+	/**
+	 * @returns {techlogging.media.view.Button} Returns itself to allow chaining
+	 */
+	render: function() {
+		var classes = [ 'button', this.className ],
+			model = this.model.toJSON();
+
+		if ( model.style ) {
+			classes.push( 'button-' + model.style );
+		}
+
+		if ( model.size ) {
+			classes.push( 'button-' + model.size );
+		}
+
+		classes = _.uniq( classes.concat( this.options.classes ) );
+		this.el.className = classes.join(' ');
+
+		this.$el.attr( 'disabled', model.disabled );
+		this.$el.text( this.model.get('text') );
+
+		return this;
 	},
 	/**
 	 * @param {Object} event
 	 */
-	_click: function( event ) {
-		var clickOverride = this.options.click;
-
-		if ( event ) {
+	click: function( event ) {
+		if ( '#' === this.attributes.href ) {
 			event.preventDefault();
 		}
 
-		if ( clickOverride ) {
-			clickOverride.call( this );
-		} else {
-			this.click();
+		if ( this.options.click && ! this.model.get('disabled') ) {
+			this.options.click.apply( this, arguments );
 		}
-
-		// When selecting a tab along the left side,
-		// focus should be transferred into the main panel
-		if ( ! techlogging.media.isTouchDevice ) {
-			$('.media-frame-content input').first().focus();
-		}
-	},
-
-	click: function() {
-		var state = this.options.state;
-
-		if ( state ) {
-			this.controller.setState( state );
-			this.views.parent.$el.removeClass( 'visible' ); // TODO: or hide on any click, see below
-		}
-	},
-	/**
-	 * @returns {techlogging.media.view.MenuItem} returns itself to allow chaining
-	 */
-	render: function() {
-		var options = this.options;
-
-		if ( options.text ) {
-			this.$el.text( options.text );
-		} else if ( options.html ) {
-			this.$el.html( options.html );
-		}
-
-		return this;
 	}
 });
 
-module.exports = MenuItem;
+module.exports = Button;
 
 
 /***/ }),
-/* 36 */
+/* 31 */
 /***/ (function(module, exports) {
 
 /**
@@ -4593,7 +4208,85 @@ module.exports = PriorityList;
 
 
 /***/ }),
-/* 37 */
+/* 32 */
+/***/ (function(module, exports) {
+
+var $ = jQuery,
+	MenuItem;
+
+/**
+ * techlogging.media.view.MenuItem
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuItem.prototype */{
+	tagName:   'a',
+	className: 'media-menu-item',
+
+	attributes: {
+		href: '#'
+	},
+
+	events: {
+		'click': '_click'
+	},
+	/**
+	 * @param {Object} event
+	 */
+	_click: function( event ) {
+		var clickOverride = this.options.click;
+
+		if ( event ) {
+			event.preventDefault();
+		}
+
+		if ( clickOverride ) {
+			clickOverride.call( this );
+		} else {
+			this.click();
+		}
+
+		// When selecting a tab along the left side,
+		// focus should be transferred into the main panel
+		if ( ! techlogging.media.isTouchDevice ) {
+			$('.media-frame-content input').first().focus();
+		}
+	},
+
+	click: function() {
+		var state = this.options.state;
+
+		if ( state ) {
+			this.controller.setState( state );
+			this.views.parent.$el.removeClass( 'visible' ); // TODO: or hide on any click, see below
+		}
+	},
+	/**
+	 * @returns {techlogging.media.view.MenuItem} returns itself to allow chaining
+	 */
+	render: function() {
+		var options = this.options;
+
+		if ( options.text ) {
+			this.$el.text( options.text );
+		} else if ( options.html ) {
+			this.$el.html( options.html );
+		}
+
+		return this;
+	}
+});
+
+module.exports = MenuItem;
+
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports) {
 
 var MenuItem = techlogging.media.view.MenuItem,
@@ -4713,6 +4406,2081 @@ Menu = PriorityList.extend(/** @lends techlogging.media.view.Menu.prototype */{
 });
 
 module.exports = Menu;
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.RouterItem
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.MenuItem
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var RouterItem = techlogging.media.view.MenuItem.extend(/** @lends techlogging.media.view.RouterItem.prototype */{
+	/**
+	 * On click handler to activate the content region's corresponding mode.
+	 */
+	click: function() {
+		var contentMode = this.options.contentMode;
+		if ( contentMode ) {
+			this.controller.content.mode( contentMode );
+		}
+	}
+});
+
+module.exports = RouterItem;
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+var Menu = techlogging.media.view.Menu,
+	Router;
+
+/**
+ * techlogging.media.view.Router
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.Menu
+ * @augments techlogging.media.view.PriorityList
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Router = Menu.extend(/** @lends techlogging.media.view.Router.prototype */{
+	tagName:   'div',
+	className: 'media-router',
+	property:  'contentMode',
+	ItemView:  techlogging.media.view.RouterItem,
+	region:    'router',
+
+	initialize: function() {
+		this.controller.on( 'content:render', this.update, this );
+		// Call 'initialize' directly on the parent class.
+		Menu.prototype.initialize.apply( this, arguments );
+	},
+
+	update: function() {
+		var mode = this.controller.content.mode();
+		if ( mode ) {
+			this.select( mode );
+		}
+	}
+});
+
+module.exports = Router;
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Sidebar
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.PriorityList
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Sidebar = techlogging.media.view.PriorityList.extend(/** @lends techlogging.media.view.Sidebar.prototype */{
+	className: 'media-sidebar'
+});
+
+module.exports = Sidebar;
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+var View = techlogging.media.View,
+	$ = jQuery,
+	Attachment;
+
+/**
+ * techlogging.media.view.Attachment
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype */{
+	tagName:   'li',
+	className: 'attachment',
+	template:  techlogging.template('attachment'),
+
+	attributes: function() {
+		return {
+			'tabIndex':     0,
+			'role':         'checkbox',
+			'aria-label':   this.model.get( 'title' ),
+			'aria-checked': false,
+			'data-id':      this.model.get( 'id' )
+		};
+	},
+
+	events: {
+		'click':                          'toggleSelectionHandler',
+		'change [data-setting]':          'updateSetting',
+		'change [data-setting] input':    'updateSetting',
+		'change [data-setting] select':   'updateSetting',
+		'change [data-setting] textarea': 'updateSetting',
+		'click .attachment-close':        'removeFromLibrary',
+		'click .check':                   'checkClickHandler',
+		'keydown':                        'toggleSelectionHandler'
+	},
+
+	buttons: {},
+
+	initialize: function() {
+		var selection = this.options.selection,
+			options = _.defaults( this.options, {
+				rerenderOnModelChange: true
+			} );
+
+		if ( options.rerenderOnModelChange ) {
+			this.listenTo( this.model, 'change', this.render );
+		} else {
+			this.listenTo( this.model, 'change:percent', this.progress );
+		}
+		this.listenTo( this.model, 'change:title', this._syncTitle );
+		this.listenTo( this.model, 'change:caption', this._syncCaption );
+		this.listenTo( this.model, 'change:artist', this._syncArtist );
+		this.listenTo( this.model, 'change:album', this._syncAlbum );
+
+		// Update the selection.
+		this.listenTo( this.model, 'add', this.select );
+		this.listenTo( this.model, 'remove', this.deselect );
+		if ( selection ) {
+			selection.on( 'reset', this.updateSelect, this );
+			// Update the model's details view.
+			this.listenTo( this.model, 'selection:single selection:unsingle', this.details );
+			this.details( this.model, this.controller.state().get('selection') );
+		}
+
+		this.listenTo( this.controller, 'attachment:compat:waiting attachment:compat:ready', this.updateSave );
+	},
+	/**
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	dispose: function() {
+		var selection = this.options.selection;
+
+		// Make sure all settings are saved before removing the view.
+		this.updateAll();
+
+		if ( selection ) {
+			selection.off( null, null, this );
+		}
+		/**
+		 * call 'dispose' directly on the parent class
+		 */
+		View.prototype.dispose.apply( this, arguments );
+		return this;
+	},
+	/**
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	render: function() {
+		var options = _.defaults( this.model.toJSON(), {
+				orientation:   'landscape',
+				uploading:     false,
+				type:          '',
+				subtype:       '',
+				icon:          '',
+				filename:      '',
+				caption:       '',
+				title:         '',
+				dateFormatted: '',
+				width:         '',
+				height:        '',
+				compat:        false,
+				alt:           '',
+				description:   ''
+			}, this.options );
+
+		options.buttons  = this.buttons;
+		options.describe = this.controller.state().get('describe');
+
+		if ( 'image' === options.type ) {
+			options.size = this.imageSize();
+		}
+
+		options.can = {};
+		if ( options.nonces ) {
+			options.can.remove = !! options.nonces['delete'];
+			options.can.save = !! options.nonces.update;
+		}
+
+		if ( this.controller.state().get('allowLocalEdits') ) {
+			options.allowLocalEdits = true;
+		}
+
+		if ( options.uploading && ! options.percent ) {
+			options.percent = 0;
+		}
+
+		this.views.detach();
+		this.$el.html( this.template( options ) );
+
+		this.$el.toggleClass( 'uploading', options.uploading );
+
+		if ( options.uploading ) {
+			this.$bar = this.$('.media-progress-bar div');
+		} else {
+			delete this.$bar;
+		}
+
+		// Check if the model is selected.
+		this.updateSelect();
+
+		// Update the save status.
+		this.updateSave();
+
+		this.views.render();
+
+		return this;
+	},
+
+	progress: function() {
+		if ( this.$bar && this.$bar.length ) {
+			this.$bar.width( this.model.get('percent') + '%' );
+		}
+	},
+
+	/**
+	 * @param {Object} event
+	 */
+	toggleSelectionHandler: function( event ) {
+		var method;
+
+		// Don't do anything inside inputs and on the attachment check and remove buttons.
+		if ( 'INPUT' === event.target.nodeName || 'BUTTON' === event.target.nodeName ) {
+			return;
+		}
+
+		// Catch arrow events
+		if ( 37 === event.keyCode || 38 === event.keyCode || 39 === event.keyCode || 40 === event.keyCode ) {
+			this.controller.trigger( 'attachment:keydown:arrow', event );
+			return;
+		}
+
+		// Catch enter and space events
+		if ( 'keydown' === event.type && 13 !== event.keyCode && 32 !== event.keyCode ) {
+			return;
+		}
+
+		event.preventDefault();
+
+		// In the grid view, bubble up an edit:attachment event to the controller.
+		if ( this.controller.isModeActive( 'grid' ) ) {
+			if ( this.controller.isModeActive( 'edit' ) ) {
+				// Pass the current target to restore focus when closing
+				this.controller.trigger( 'edit:attachment', this.model, event.currentTarget );
+				return;
+			}
+
+			if ( this.controller.isModeActive( 'select' ) ) {
+				method = 'toggle';
+			}
+		}
+
+		if ( event.shiftKey ) {
+			method = 'between';
+		} else if ( event.ctrlKey || event.metaKey ) {
+			method = 'toggle';
+		}
+
+		this.toggleSelection({
+			method: method
+		});
+
+		this.controller.trigger( 'selection:toggle' );
+	},
+	/**
+	 * @param {Object} options
+	 */
+	toggleSelection: function( options ) {
+		var collection = this.collection,
+			selection = this.options.selection,
+			model = this.model,
+			method = options && options.method,
+			single, models, singleIndex, modelIndex;
+
+		if ( ! selection ) {
+			return;
+		}
+
+		single = selection.single();
+		method = _.isUndefined( method ) ? selection.multiple : method;
+
+		// If the `method` is set to `between`, select all models that
+		// exist between the current and the selected model.
+		if ( 'between' === method && single && selection.multiple ) {
+			// If the models are the same, short-circuit.
+			if ( single === model ) {
+				return;
+			}
+
+			singleIndex = collection.indexOf( single );
+			modelIndex  = collection.indexOf( this.model );
+
+			if ( singleIndex < modelIndex ) {
+				models = collection.models.slice( singleIndex, modelIndex + 1 );
+			} else {
+				models = collection.models.slice( modelIndex, singleIndex + 1 );
+			}
+
+			selection.add( models );
+			selection.single( model );
+			return;
+
+		// If the `method` is set to `toggle`, just flip the selection
+		// status, regardless of whether the model is the single model.
+		} else if ( 'toggle' === method ) {
+			selection[ this.selected() ? 'remove' : 'add' ]( model );
+			selection.single( model );
+			return;
+		} else if ( 'add' === method ) {
+			selection.add( model );
+			selection.single( model );
+			return;
+		}
+
+		// Fixes bug that loses focus when selecting a featured image
+		if ( ! method ) {
+			method = 'add';
+		}
+
+		if ( method !== 'add' ) {
+			method = 'reset';
+		}
+
+		if ( this.selected() ) {
+			// If the model is the single model, remove it.
+			// If it is not the same as the single model,
+			// it now becomes the single model.
+			selection[ single === model ? 'remove' : 'single' ]( model );
+		} else {
+			// If the model is not selected, run the `method` on the
+			// selection. By default, we `reset` the selection, but the
+			// `method` can be set to `add` the model to the selection.
+			selection[ method ]( model );
+			selection.single( model );
+		}
+	},
+
+	updateSelect: function() {
+		this[ this.selected() ? 'select' : 'deselect' ]();
+	},
+	/**
+	 * @returns {unresolved|Boolean}
+	 */
+	selected: function() {
+		var selection = this.options.selection;
+		if ( selection ) {
+			return !! selection.get( this.model.cid );
+		}
+	},
+	/**
+	 * @param {Backbone.Model} model
+	 * @param {Backbone.Collection} collection
+	 */
+	select: function( model, collection ) {
+		var selection = this.options.selection,
+			controller = this.controller;
+
+		// Check if a selection exists and if it's the collection provided.
+		// If they're not the same collection, bail; we're in another
+		// selection's event loop.
+		if ( ! selection || ( collection && collection !== selection ) ) {
+			return;
+		}
+
+		// Bail if the model is already selected.
+		if ( this.$el.hasClass( 'selected' ) ) {
+			return;
+		}
+
+		// Add 'selected' class to model, set aria-checked to true.
+		this.$el.addClass( 'selected' ).attr( 'aria-checked', true );
+		//  Make the checkbox tabable, except in media grid (bulk select mode).
+		if ( ! ( controller.isModeActive( 'grid' ) && controller.isModeActive( 'select' ) ) ) {
+			this.$( '.check' ).attr( 'tabindex', '0' );
+		}
+	},
+	/**
+	 * @param {Backbone.Model} model
+	 * @param {Backbone.Collection} collection
+	 */
+	deselect: function( model, collection ) {
+		var selection = this.options.selection;
+
+		// Check if a selection exists and if it's the collection provided.
+		// If they're not the same collection, bail; we're in another
+		// selection's event loop.
+		if ( ! selection || ( collection && collection !== selection ) ) {
+			return;
+		}
+		this.$el.removeClass( 'selected' ).attr( 'aria-checked', false )
+			.find( '.check' ).attr( 'tabindex', '-1' );
+	},
+	/**
+	 * @param {Backbone.Model} model
+	 * @param {Backbone.Collection} collection
+	 */
+	details: function( model, collection ) {
+		var selection = this.options.selection,
+			details;
+
+		if ( selection !== collection ) {
+			return;
+		}
+
+		details = selection.single();
+		this.$el.toggleClass( 'details', details === this.model );
+	},
+	/**
+	 * @param {string} size
+	 * @returns {Object}
+	 */
+	imageSize: function( size ) {
+		var sizes = this.model.get('sizes'), matched = false;
+
+		size = size || 'medium';
+
+		// Use the provided image size if possible.
+		if ( sizes ) {
+			if ( sizes[ size ] ) {
+				matched = sizes[ size ];
+			} else if ( sizes.large ) {
+				matched = sizes.large;
+			} else if ( sizes.thumbnail ) {
+				matched = sizes.thumbnail;
+			} else if ( sizes.full ) {
+				matched = sizes.full;
+			}
+
+			if ( matched ) {
+				return _.clone( matched );
+			}
+		}
+
+		return {
+			url:         this.model.get('url'),
+			width:       this.model.get('width'),
+			height:      this.model.get('height'),
+			orientation: this.model.get('orientation')
+		};
+	},
+	/**
+	 * @param {Object} event
+	 */
+	updateSetting: function( event ) {
+		var $setting = $( event.target ).closest('[data-setting]'),
+			setting, value;
+
+		if ( ! $setting.length ) {
+			return;
+		}
+
+		setting = $setting.data('setting');
+		value   = event.target.value;
+
+		if ( this.model.get( setting ) !== value ) {
+			this.save( setting, value );
+		}
+	},
+
+	/**
+	 * Pass all the arguments to the model's save method.
+	 *
+	 * Records the aggregate status of all save requests and updates the
+	 * view's classes accordingly.
+	 */
+	save: function() {
+		var view = this,
+			save = this._save = this._save || { status: 'ready' },
+			request = this.model.save.apply( this.model, arguments ),
+			requests = save.requests ? $.when( request, save.requests ) : request;
+
+		// If we're waiting to remove 'Saved.', stop.
+		if ( save.savedTimer ) {
+			clearTimeout( save.savedTimer );
+		}
+
+		this.updateSave('waiting');
+		save.requests = requests;
+		requests.always( function() {
+			// If we've performed another request since this one, bail.
+			if ( save.requests !== requests ) {
+				return;
+			}
+
+			view.updateSave( requests.state() === 'resolved' ? 'complete' : 'error' );
+			save.savedTimer = setTimeout( function() {
+				view.updateSave('ready');
+				delete save.savedTimer;
+			}, 2000 );
+		});
+	},
+	/**
+	 * @param {string} status
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	updateSave: function( status ) {
+		var save = this._save = this._save || { status: 'ready' };
+
+		if ( status && status !== save.status ) {
+			this.$el.removeClass( 'save-' + save.status );
+			save.status = status;
+		}
+
+		this.$el.addClass( 'save-' + save.status );
+		return this;
+	},
+
+	updateAll: function() {
+		var $settings = this.$('[data-setting]'),
+			model = this.model,
+			changed;
+
+		changed = _.chain( $settings ).map( function( el ) {
+			var $input = $('input, textarea, select, [value]', el ),
+				setting, value;
+
+			if ( ! $input.length ) {
+				return;
+			}
+
+			setting = $(el).data('setting');
+			value = $input.val();
+
+			// Record the value if it changed.
+			if ( model.get( setting ) !== value ) {
+				return [ setting, value ];
+			}
+		}).compact().object().value();
+
+		if ( ! _.isEmpty( changed ) ) {
+			model.save( changed );
+		}
+	},
+	/**
+	 * @param {Object} event
+	 */
+	removeFromLibrary: function( event ) {
+		// Catch enter and space events
+		if ( 'keydown' === event.type && 13 !== event.keyCode && 32 !== event.keyCode ) {
+			return;
+		}
+
+		// Stop propagation so the model isn't selected.
+		event.stopPropagation();
+
+		this.collection.remove( this.model );
+	},
+
+	/**
+	 * Add the model if it isn't in the selection, if it is in the selection,
+	 * remove it.
+	 *
+	 * @param  {[type]} event [description]
+	 * @return {[type]}       [description]
+	 */
+	checkClickHandler: function ( event ) {
+		var selection = this.options.selection;
+		if ( ! selection ) {
+			return;
+		}
+		event.stopPropagation();
+		if ( selection.where( { id: this.model.get( 'id' ) } ).length ) {
+			selection.remove( this.model );
+			// Move focus back to the attachment tile (from the check).
+			this.$el.focus();
+		} else {
+			selection.add( this.model );
+		}
+	}
+});
+
+// Ensure settings remain in sync between attachment views.
+_.each({
+	caption: '_syncCaption',
+	title:   '_syncTitle',
+	artist:  '_syncArtist',
+	album:   '_syncAlbum'
+}, function( method, setting ) {
+	/**
+	 * @function _syncCaption
+	 * @memberOf techlogging.media.view.Attachment
+	 * @instance
+	 *
+	 * @param {Backbone.Model} model
+	 * @param {string} value
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	/**
+	 * @function _syncTitle
+	 * @memberOf techlogging.media.view.Attachment
+	 * @instance
+	 *
+	 * @param {Backbone.Model} model
+	 * @param {string} value
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	/**
+	 * @function _syncArtist
+	 * @memberOf techlogging.media.view.Attachment
+	 * @instance
+	 *
+	 * @param {Backbone.Model} model
+	 * @param {string} value
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	/**
+	 * @function _syncAlbum
+	 * @memberOf techlogging.media.view.Attachment
+	 * @instance
+	 *
+	 * @param {Backbone.Model} model
+	 * @param {string} value
+	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 */
+	Attachment.prototype[ method ] = function( model, value ) {
+		var $setting = this.$('[data-setting="' + setting + '"]');
+
+		if ( ! $setting.length ) {
+			return this;
+		}
+
+		// If the updated value is in sync with the value in the DOM, there
+		// is no need to re-render. If we're currently editing the value,
+		// it will automatically be in sync, suppressing the re-render for
+		// the view we're editing, while updating any others.
+		if ( value === $setting.find('input, textarea, select, [value]').val() ) {
+			return this;
+		}
+
+		return this.render();
+	};
+});
+
+module.exports = Attachment;
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+var View = techlogging.media.View,
+	$ = jQuery,
+	Attachments;
+
+Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototype */{
+	tagName:   'ul',
+	className: 'attachments',
+
+	attributes: {
+		tabIndex: -1
+	},
+
+	/**
+	 * Represents the overview of attachments in the Media Library.
+	 *
+	 * The constructor binds events to the collection this view represents when
+	 * adding or removing attachments or resetting the entire collection.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @constructs
+	 * @memberof techlogging.media.view
+	 *
+	 * @augments techlogging.media.View
+	 *
+	 * @listens collection:add
+	 * @listens collection:remove
+	 * @listens collection:reset
+	 * @listens controller:library:selection:add
+	 * @listens scrollElement:scroll
+	 * @listens this:ready
+	 * @listens controller:open
+	 */
+	initialize: function() {
+		this.el.id = _.uniqueId('__attachments-view-');
+
+		/**
+		 * @param refreshSensitivity The time in milliseconds to throttle the scroll
+		 *                           handler.
+		 * @param refreshThreshold   The amount of pixels that should be scrolled before
+		 *                           loading more attachments from the server.
+		 * @param AttachmentView     The view class to be used for models in the
+		 *                           collection.
+		 * @param sortable           A jQuery sortable options object
+		 *                           ( http://api.jqueryui.com/sortable/ ).
+		 * @param resize             A boolean indicating whether or not to listen to
+		 *                           resize events.
+		 * @param idealColumnWidth   The width in pixels which a column should have when
+		 *                           calculating the total number of columns.
+		 */
+		_.defaults( this.options, {
+			refreshSensitivity: techlogging.media.isTouchDevice ? 300 : 200,
+			refreshThreshold:   3,
+			AttachmentView:     techlogging.media.view.Attachment,
+			sortable:           false,
+			resize:             true,
+			idealColumnWidth:   $( window ).width() < 640 ? 135 : 150
+		});
+
+		this._viewsByCid = {};
+		this.$window = $( window );
+		this.resizeEvent = 'resize.media-modal-columns';
+
+		this.collection.on( 'add', function( attachment ) {
+			this.views.add( this.createAttachmentView( attachment ), {
+				at: this.collection.indexOf( attachment )
+			});
+		}, this );
+
+		/*
+		 * Find the view to be removed, delete it and call the remove function to clear
+		 * any set event handlers.
+		 */
+		this.collection.on( 'remove', function( attachment ) {
+			var view = this._viewsByCid[ attachment.cid ];
+			delete this._viewsByCid[ attachment.cid ];
+
+			if ( view ) {
+				view.remove();
+			}
+		}, this );
+
+		this.collection.on( 'reset', this.render, this );
+
+		this.listenTo( this.controller, 'library:selection:add',    this.attachmentFocus );
+
+		// Throttle the scroll handler and bind this.
+		this.scroll = _.chain( this.scroll ).bind( this ).throttle( this.options.refreshSensitivity ).value();
+
+		this.options.scrollElement = this.options.scrollElement || this.el;
+		$( this.options.scrollElement ).on( 'scroll', this.scroll );
+
+		this.initSortable();
+
+		_.bindAll( this, 'setColumns' );
+
+		if ( this.options.resize ) {
+			this.on( 'ready', this.bindEvents );
+			this.controller.on( 'open', this.setColumns );
+
+			/*
+			 * Call this.setColumns() after this view has been rendered in the
+			 * DOM so attachments get proper width applied.
+			 */
+			_.defer( this.setColumns, this );
+		}
+	},
+
+	/**
+	 * Listens to the resizeEvent on the window.
+	 *
+	 * Adjusts the amount of columns accordingly. First removes any existing event
+	 * handlers to prevent duplicate listeners.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @listens window:resize
+	 *
+	 * @returns {void}
+	 */
+	bindEvents: function() {
+		this.$window.off( this.resizeEvent ).on( this.resizeEvent, _.debounce( this.setColumns, 50 ) );
+	},
+
+	/**
+	 * Focuses the first item in the collection.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @returns {void}
+	 */
+	attachmentFocus: function() {
+		this.$( 'li:first' ).focus();
+	},
+
+	/**
+	 * Restores focus to the selected item in the collection.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @returns {void}
+	 */
+	restoreFocus: function() {
+		this.$( 'li.selected:first' ).focus();
+	},
+
+	/**
+	 * Handles events for arrow key presses.
+	 *
+	 * Focuses the attachment in the direction of the used arrow key if it exists.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param {KeyboardEvent} event The keyboard event that triggered this function.
+	 *
+	 * @returns {void}
+	 */
+	arrowEvent: function( event ) {
+		var attachments = this.$el.children( 'li' ),
+			perRow = this.columns,
+			index = attachments.filter( ':focus' ).index(),
+			row = ( index + 1 ) <= perRow ? 1 : Math.ceil( ( index + 1 ) / perRow );
+
+		if ( index === -1 ) {
+			return;
+		}
+
+		// Left arrow = 37.
+		if ( 37 === event.keyCode ) {
+			if ( 0 === index ) {
+				return;
+			}
+			attachments.eq( index - 1 ).focus();
+		}
+
+		// Up arrow = 38.
+		if ( 38 === event.keyCode ) {
+			if ( 1 === row ) {
+				return;
+			}
+			attachments.eq( index - perRow ).focus();
+		}
+
+		// Right arrow = 39.
+		if ( 39 === event.keyCode ) {
+			if ( attachments.length === index ) {
+				return;
+			}
+			attachments.eq( index + 1 ).focus();
+		}
+
+		// Down arrow = 40.
+		if ( 40 === event.keyCode ) {
+			if ( Math.ceil( attachments.length / perRow ) === row ) {
+				return;
+			}
+			attachments.eq( index + perRow ).focus();
+		}
+	},
+
+	/**
+	 * Clears any set event handlers.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @returns {void}
+	 */
+	dispose: function() {
+		this.collection.props.off( null, null, this );
+		if ( this.options.resize ) {
+			this.$window.off( this.resizeEvent );
+		}
+
+		// Call 'dispose' directly on the parent class.
+		View.prototype.dispose.apply( this, arguments );
+	},
+
+	/**
+	 * Calculates the amount of columns.
+	 *
+	 * Calculates the amount of columns and sets it on the data-columns attribute
+	 * of .media-frame-content.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @returns {void}
+	 */
+	setColumns: function() {
+		var prev = this.columns,
+			width = this.$el.width();
+
+		if ( width ) {
+			this.columns = Math.min( Math.round( width / this.options.idealColumnWidth ), 12 ) || 1;
+
+			if ( ! prev || prev !== this.columns ) {
+				this.$el.closest( '.media-frame-content' ).attr( 'data-columns', this.columns );
+			}
+		}
+	},
+
+	/**
+	 * Initializes jQuery sortable on the attachment list.
+	 *
+	 * Fails gracefully if jQuery sortable doesn't exist or isn't passed in the
+	 * options.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @fires collection:reset
+	 *
+	 * @returns {void}
+	 */
+	initSortable: function() {
+		var collection = this.collection;
+
+		if ( ! this.options.sortable || ! $.fn.sortable ) {
+			return;
+		}
+
+		this.$el.sortable( _.extend({
+			// If the `collection` has a `comparator`, disable sorting.
+			disabled: !! collection.comparator,
+
+			/*
+			 * Change the position of the attachment as soon as the mouse pointer overlaps a
+			 * thumbnail.
+			 */
+			tolerance: 'pointer',
+
+			// Record the initial `index` of the dragged model.
+			start: function( event, ui ) {
+				ui.item.data('sortableIndexStart', ui.item.index());
+			},
+
+			/*
+			 * Update the model's index in the collection. Do so silently, as the view
+			 * is already accurate.
+			 */
+			update: function( event, ui ) {
+				var model = collection.at( ui.item.data('sortableIndexStart') ),
+					comparator = collection.comparator;
+
+				// Temporarily disable the comparator to prevent `add`
+				// from re-sorting.
+				delete collection.comparator;
+
+				// Silently shift the model to its new index.
+				collection.remove( model, {
+					silent: true
+				});
+				collection.add( model, {
+					silent: true,
+					at:     ui.item.index()
+				});
+
+				// Restore the comparator.
+				collection.comparator = comparator;
+
+				// Fire the `reset` event to ensure other collections sync.
+				collection.trigger( 'reset', collection );
+
+				// If the collection is sorted by menu order, update the menu order.
+				collection.saveMenuOrder();
+			}
+		}, this.options.sortable ) );
+
+		/*
+		 * If the `orderby` property is changed on the `collection`, check to see if we
+		 * have a `comparator`. If so, disable sorting.
+		 */
+		collection.props.on( 'change:orderby', function() {
+			this.$el.sortable( 'option', 'disabled', !! collection.comparator );
+		}, this );
+
+		this.collection.props.on( 'change:orderby', this.refreshSortable, this );
+		this.refreshSortable();
+	},
+
+	/**
+	 * Disables jQuery sortable if collection has a comparator or collection.orderby
+	 * equals menuOrder.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @returns {void}
+	 */
+	refreshSortable: function() {
+		if ( ! this.options.sortable || ! $.fn.sortable ) {
+			return;
+		}
+
+		var collection = this.collection,
+			orderby = collection.props.get('orderby'),
+			enabled = 'menuOrder' === orderby || ! collection.comparator;
+
+		this.$el.sortable( 'option', 'disabled', ! enabled );
+	},
+
+	/**
+	 * Creates a new view for an attachment and adds it to _viewsByCid.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param {techlogging.media.model.Attachment} attachment
+	 *
+	 * @returns {techlogging.media.View} The created view.
+	 */
+	createAttachmentView: function( attachment ) {
+		var view = new this.options.AttachmentView({
+			controller:           this.controller,
+			model:                attachment,
+			collection:           this.collection,
+			selection:            this.options.selection
+		});
+
+		return this._viewsByCid[ attachment.cid ] = view;
+	},
+
+	/**
+	 * Prepares view for display.
+	 *
+	 * Creates views for every attachment in collection if the collection is not
+	 * empty, otherwise clears all views and loads more attachments.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @returns {void}
+	 */
+	prepare: function() {
+		if ( this.collection.length ) {
+			this.views.set( this.collection.map( this.createAttachmentView, this ) );
+		} else {
+			this.views.unset();
+			this.collection.more().done( this.scroll );
+		}
+	},
+
+	/**
+	 * Triggers the scroll function to check if we should query for additional
+	 * attachments right away.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @returns {void}
+	 */
+	ready: function() {
+		this.scroll();
+	},
+
+	/**
+	 * Handles scroll events.
+	 *
+	 * Shows the spinner if we're close to the bottom. Loads more attachments from
+	 * server if we're {refreshThreshold} times away from the bottom.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @returns {void}
+	 */
+	scroll: function() {
+		var view = this,
+			el = this.options.scrollElement,
+			scrollTop = el.scrollTop,
+			toolbar;
+
+		/*
+		 * The scroll event occurs on the document, but the element that should be
+		 * checked is the document body.
+		 */
+		if ( el === document ) {
+			el = document.body;
+			scrollTop = $(document).scrollTop();
+		}
+
+		if ( ! $(el).is(':visible') || ! this.collection.hasMore() ) {
+			return;
+		}
+
+		toolbar = this.views.parent.toolbar;
+
+		// Show the spinner only if we are close to the bottom.
+		if ( el.scrollHeight - ( scrollTop + el.clientHeight ) < el.clientHeight / 3 ) {
+			toolbar.get('spinner').show();
+		}
+
+		if ( el.scrollHeight < scrollTop + ( el.clientHeight * this.options.refreshThreshold ) ) {
+			this.collection.more().done(function() {
+				view.scroll();
+				toolbar.get('spinner').hide();
+			});
+		}
+	}
+});
+
+module.exports = Attachments;
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+var $ = jQuery,
+	AttachmentFilters;
+
+/**
+ * techlogging.media.view.AttachmentFilters
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+AttachmentFilters = techlogging.media.View.extend(/** @lends techlogging.media.view.AttachmentFilters.prototype */{
+	tagName:   'select',
+	className: 'attachment-filters',
+	id:        'media-attachment-filters',
+
+	events: {
+		change: 'change'
+	},
+
+	keys: [],
+
+	initialize: function() {
+		this.createFilters();
+		_.extend( this.filters, this.options.filters );
+
+		// Build `<option>` elements.
+		this.$el.html( _.chain( this.filters ).map( function( filter, value ) {
+			return {
+				el: $( '<option></option>' ).val( value ).html( filter.text )[0],
+				priority: filter.priority || 50
+			};
+		}, this ).sortBy('priority').pluck('el').value() );
+
+		this.listenTo( this.model, 'change', this.select );
+		this.select();
+	},
+
+	/**
+	 * @abstract
+	 */
+	createFilters: function() {
+		this.filters = {};
+	},
+
+	/**
+	 * When the selected filter changes, update the Attachment Query properties to match.
+	 */
+	change: function() {
+		var filter = this.filters[ this.el.value ];
+		if ( filter ) {
+			this.model.set( filter.props );
+		}
+	},
+
+	select: function() {
+		var model = this.model,
+			value = 'all',
+			props = model.toJSON();
+
+		_.find( this.filters, function( filter, id ) {
+			var equal = _.all( filter.props, function( prop, key ) {
+				return prop === ( _.isUndefined( props[ key ] ) ? null : props[ key ] );
+			});
+
+			if ( equal ) {
+				return value = id;
+			}
+		});
+
+		this.$el.val( value );
+	}
+});
+
+module.exports = AttachmentFilters;
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+var All;
+
+/**
+ * techlogging.media.view.AttachmentFilters.All
+ *
+ * @memberOf techlogging.media.view.AttachmentFilters
+ *
+ * @class
+ * @augments techlogging.media.view.AttachmentFilters
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.media.view.AttachmentFilters.All.prototype */{
+	createFilters: function() {
+		var filters = {};
+
+		_.each( techlogging.media.view.settings.mimeTypes || {}, function( text, key ) {
+			filters[ key ] = {
+				text: text,
+				props: {
+					status:  null,
+					type:    key,
+					uploadedTo: null,
+					orderby: 'date',
+					order:   'DESC'
+				}
+			};
+		});
+
+		filters.all = {
+			text:  'l10n.allMediaItems',
+			props: {
+				status:  null,
+				type:    null,
+				uploadedTo: null,
+				orderby: 'date',
+				order:   'DESC'
+			},
+			priority: 10
+		};
+
+		// if ( techlogging.media.view.settings.post.id ) {
+		// 	filters.uploaded = {
+		// 		text:  'l10n.uploadedToThisPost',
+		// 		props: {
+		// 			status:  null,
+		// 			type:    null,
+		// 			uploadedTo: 'techlogging.media.view.settings.post.id',
+		// 			orderby: 'menuOrder',
+		// 			order:   'ASC'
+		// 		},
+		// 		priority: 20
+		// 	};
+		// }
+
+		filters.unattached = {
+			text:  'l10n.unattached',
+			props: {
+				status:     null,
+				uploadedTo: 0,
+				type:       null,
+				orderby:    'menuOrder',
+				order:      'ASC'
+			},
+			priority: 50
+		};
+
+		if ( techlogging.media.view.settings.mediaTrash &&
+			this.controller.isModeActive( 'grid' ) ) {
+
+			filters.trash = {
+				text:  'l10n.trash',
+				props: {
+					uploadedTo: null,
+					status:     'trash',
+					type:       null,
+					orderby:    'date',
+					order:      'DESC'
+				},
+				priority: 50
+			};
+		}
+
+		this.filters = filters;
+	}
+});
+
+module.exports = All;
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+var View = techlogging.media.View,
+	mediaTrash = 'techlogging.media.view.settings.mediaTrash',
+	$ = jQuery,
+	AttachmentsBrowser;
+
+/**
+ * techlogging.media.view.AttachmentsBrowser
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ *
+ * @param {object}         [options]               The options hash passed to the view.
+ * @param {boolean|string} [options.filters=false] Which filters to show in the browser's toolbar.
+ *                                                 Accepts 'uploaded' and 'all'.
+ * @param {boolean}        [options.search=true]   Whether to show the search interface in the
+ *                                                 browser's toolbar.
+ * @param {boolean}        [options.date=true]     Whether to show the date filter in the
+ *                                                 browser's toolbar.
+ * @param {boolean}        [options.display=false] Whether to show the attachments display settings
+ *                                                 view in the sidebar.
+ * @param {boolean|string} [options.sidebar=true]  Whether to create a sidebar for the browser.
+ *                                                 Accepts true, false, and 'errors'.
+ */
+AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBrowser.prototype */{
+	tagName:   'div',
+	className: 'attachments-browser',
+
+	initialize: function() {
+		_.defaults( this.options, {
+			filters: false,
+			search:  true,
+			date:    true,
+			display: false,
+			sidebar: true,
+			AttachmentView: techlogging.media.view.Attachment.Library
+		});
+
+		this.controller.on( 'toggle:upload:attachment', this.toggleUploader, this );
+		this.controller.on( 'edit:selection', this.editSelection );
+
+		// In the Media Library, the sidebar is used to display errors before the attachments grid.
+		if ( this.options.sidebar && 'errors' === this.options.sidebar ) {
+			this.createSidebar();
+		}
+
+		/*
+		 * For accessibility reasons, place the Inline Uploader before other sections.
+		 * This way, in the Media Library, it's right after the Add New button, see ticket #37188.
+		 */
+		this.createUploader();
+
+		/*
+		 * Create a multi-purpose toolbar. Used as main toolbar in the Media Library
+		 * and also for other things, for example the "Drag and drop to reorder" and
+		 * "Suggested dimensions" info in the media modal.
+		 */
+		this.createToolbar();
+
+		// Create the list of attachments.
+		this.createAttachments();
+
+		// For accessibility reasons, place the normal sidebar after the attachments, see ticket #36909.
+		if ( this.options.sidebar && 'errors' !== this.options.sidebar ) {
+			this.createSidebar();
+		}
+
+		this.updateContent();
+
+		if ( ! this.options.sidebar || 'errors' === this.options.sidebar ) {
+			this.$el.addClass( 'hide-sidebar' );
+
+			if ( 'errors' === this.options.sidebar ) {
+				this.$el.addClass( 'sidebar-for-errors' );
+			}
+		}
+
+		this.collection.on( 'add remove reset', this.updateContent, this );
+	},
+
+	editSelection: function( modal ) {
+		modal.$( '.media-button-backToLibrary' ).focus();
+	},
+
+	/**
+	 * @returns {techlogging.media.view.AttachmentsBrowser} Returns itself to allow chaining
+	 */
+	dispose: function() {
+		this.options.selection.off( null, null, this );
+		View.prototype.dispose.apply( this, arguments );
+		return this;
+	},
+
+	createToolbar: function() {
+		var LibraryViewSwitcher, Filters, toolbarOptions;
+
+		toolbarOptions = {
+			controller: this.controller
+		};
+
+		if ( this.controller.isModeActive( 'grid' ) ) {
+			toolbarOptions.className = 'media-toolbar wp-filter';
+		}
+
+		/**
+		* @member {techlogging.media.view.Toolbar}
+		*/
+		this.toolbar = new techlogging.media.view.Toolbar( toolbarOptions );
+
+		this.views.add( this.toolbar );
+
+		this.toolbar.set( 'spinner', new techlogging.media.view.Spinner({
+			priority: -60
+		}) );
+
+		if ( -1 !== $.inArray( this.options.filters, [ 'uploaded', 'all' ] ) ) {
+			// "Filters" will return a <select>, need to render
+			// screen reader text before
+			this.toolbar.set( 'filtersLabel', new techlogging.media.view.Label({
+				value: 'l10n.filterByType',
+				attributes: {
+					'for':  'media-attachment-filters'
+				},
+				priority:   -80
+			}).render() );
+
+			if ( 'uploaded' === this.options.filters ) {
+				this.toolbar.set( 'filters', new techlogging.media.view.AttachmentFilters.Uploaded({
+					controller: this.controller,
+					model:      this.collection.props,
+					priority:   -80
+				}).render() );
+			} else {
+				Filters = new techlogging.media.view.AttachmentFilters.All({
+					controller: this.controller,
+					model:      this.collection.props,
+					priority:   -80
+				});
+
+				this.toolbar.set( 'filters', Filters.render() );
+			}
+		}
+
+		// Feels odd to bring the global media library switcher into the Attachment
+		// browser view. Is this a use case for doAction( 'add:toolbar-items:attachments-browser', this.toolbar );
+		// which the controller can tap into and add this view?
+		if ( this.controller.isModeActive( 'grid' ) ) {
+			LibraryViewSwitcher = View.extend({
+				className: 'view-switch media-grid-view-switch',
+				template: techlogging.template( 'media-library-view-switcher')
+			});
+
+			this.toolbar.set( 'libraryViewSwitcher', new LibraryViewSwitcher({
+				controller: this.controller,
+				priority: -90
+			}).render() );
+
+			// BulkSelection is a <div> with subviews, including screen reader text
+			this.toolbar.set( 'selectModeToggleButton', new techlogging.media.view.SelectModeToggleButton({
+				text: 'l10n.bulkSelect',
+				controller: this.controller,
+				priority: -70
+			}).render() );
+
+			this.toolbar.set( 'deleteSelectedButton', new techlogging.media.view.DeleteSelectedButton({
+				filters: Filters,
+				style: 'primary',
+				disabled: true,
+				text: mediaTrash ? 'l10n.trashSelected' : 'l10n.deleteSelected',
+				controller: this.controller,
+				priority: -60,
+				click: function() {
+					var changed = [], removed = [],
+						selection = this.controller.state().get( 'selection' ),
+						library = this.controller.state().get( 'library' );
+
+					if ( ! selection.length ) {
+						return;
+					}
+
+					if ( ! mediaTrash && ! window.confirm( 'l10n.warnBulkDelete' ) ) {
+						return;
+					}
+
+					if ( mediaTrash &&
+						'trash' !== selection.at( 0 ).get( 'status' ) &&
+						! window.confirm( 'l10n.warnBulkTrash' ) ) {
+
+						return;
+					}
+
+					selection.each( function( model ) {
+						if ( ! model.get( 'nonces' )['delete'] ) {
+							removed.push( model );
+							return;
+						}
+
+						if ( mediaTrash && 'trash' === model.get( 'status' ) ) {
+							model.set( 'status', 'inherit' );
+							changed.push( model.save() );
+							removed.push( model );
+						} else if ( mediaTrash ) {
+							model.set( 'status', 'trash' );
+							changed.push( model.save() );
+							removed.push( model );
+						} else {
+							model.destroy({wait: true});
+						}
+					} );
+
+					if ( changed.length ) {
+						selection.remove( removed );
+
+						$.when.apply( null, changed ).then( _.bind( function() {
+							library._requery( true );
+							this.controller.trigger( 'selection:action:done' );
+						}, this ) );
+					} else {
+						this.controller.trigger( 'selection:action:done' );
+					}
+				}
+			}).render() );
+
+			if ( mediaTrash ) {
+				this.toolbar.set( 'deleteSelectedPermanentlyButton', new techlogging.media.view.DeleteSelectedPermanentlyButton({
+					filters: Filters,
+					style: 'primary',
+					disabled: true,
+					text: 'l10n.deleteSelected',
+					controller: this.controller,
+					priority: -55,
+					click: function() {
+						var removed = [],
+							destroy = [],
+							selection = this.controller.state().get( 'selection' );
+
+						if ( ! selection.length || ! window.confirm( 'l10n.warnBulkDelete' ) ) {
+							return;
+						}
+
+						selection.each( function( model ) {
+							if ( ! model.get( 'nonces' )['delete'] ) {
+								removed.push( model );
+								return;
+							}
+
+							destroy.push( model );
+						} );
+
+						if ( removed.length ) {
+							selection.remove( removed );
+						}
+
+						if ( destroy.length ) {
+							$.when.apply( null, destroy.map( function (item) {
+								return item.destroy();
+							} ) ).then( _.bind( function() {
+								this.controller.trigger( 'selection:action:done' );
+							}, this ) );
+						}
+					}
+				}).render() );
+			}
+
+		}
+
+		if ( this.options.dragInfo ) {
+			this.toolbar.set( 'dragInfo', new View({
+				el: $( '<div class="instructions">' + 'l10n.dragInfo' + '</div>' )[0],
+				priority: -40
+			}) );
+		}
+
+		if ( this.options.suggestedWidth && this.options.suggestedHeight ) {
+			this.toolbar.set( 'suggestedDimensions', new View({
+				el: $( '<div class="instructions">' + 'l10n.suggestedDimensions'.replace( '%1$s', this.options.suggestedWidth ).replace( '%2$s', this.options.suggestedHeight ) + '</div>' )[0],
+				priority: -40
+			}) );
+		}
+	},
+
+	updateContent: function() {
+		var view = this,
+			noItemsView;
+
+		if ( this.controller.isModeActive( 'grid' ) ) {
+			noItemsView = view.attachmentsNoResults;
+		} else {
+			noItemsView = view.uploader;
+		}
+
+		if ( ! this.collection.length ) {
+			this.toolbar.get( 'spinner' ).show();
+			this.dfd = this.collection.more().done( function() {
+				if ( ! view.collection.length ) {
+					noItemsView.$el.removeClass( 'hidden' );
+				} else {
+					noItemsView.$el.addClass( 'hidden' );
+				}
+				view.toolbar.get( 'spinner' ).hide();
+			} );
+		} else {
+			noItemsView.$el.addClass( 'hidden' );
+			view.toolbar.get( 'spinner' ).hide();
+		}
+	},
+
+	createUploader: function() {
+		this.uploader = new techlogging.media.view.UploaderInline({
+			controller: this.controller,
+			status:     false,
+			message:    this.controller.isModeActive( 'grid' ) ? '' : 'l10n.noItemsFound',
+			canClose:   this.controller.isModeActive( 'grid' )
+		});
+
+		this.uploader.$el.addClass( 'hidden' );
+		this.views.add( this.uploader );
+	},
+
+	toggleUploader: function() {
+		if ( this.uploader.$el.hasClass( 'hidden' ) ) {
+			this.uploader.show();
+		} else {
+			this.uploader.hide();
+		}
+	},
+
+	createAttachments: function() {
+		this.attachments = new techlogging.media.view.Attachments({
+			controller:           this.controller,
+			collection:           this.collection,
+			selection:            this.options.selection,
+			model:                this.model,
+			sortable:             this.options.sortable,
+			scrollElement:        this.options.scrollElement,
+			idealColumnWidth:     this.options.idealColumnWidth,
+
+			// The single `Attachment` view to be used in the `Attachments` view.
+			AttachmentView: this.options.AttachmentView
+		});
+
+		// Add keydown listener to the instance of the Attachments view
+		this.controller.on( 'attachment:keydown:arrow',     _.bind( this.attachments.arrowEvent, this.attachments ) );
+		this.controller.on( 'attachment:details:shift-tab', _.bind( this.attachments.restoreFocus, this.attachments ) );
+
+		this.views.add( this.attachments );
+
+
+		if ( this.controller.isModeActive( 'grid' ) ) {
+			this.attachmentsNoResults = new View({
+				controller: this.controller,
+				tagName: 'p'
+			});
+
+			this.attachmentsNoResults.$el.addClass( 'hidden no-media' );
+			this.attachmentsNoResults.$el.html( 'l10n.noMedia' );
+
+			this.views.add( this.attachmentsNoResults );
+		}
+	},
+
+	createSidebar: function() {
+		var options = this.options,
+			selection = options.selection,
+			sidebar = this.sidebar = new techlogging.media.view.Sidebar({
+				controller: this.controller
+			});
+
+		this.views.add( sidebar );
+
+		if ( this.controller.uploader ) {
+			sidebar.set( 'uploads', new techlogging.media.view.UploaderStatus({
+				controller: this.controller,
+				priority:   40
+			}) );
+		}
+
+		selection.on( 'selection:single', this.createSingle, this );
+		selection.on( 'selection:unsingle', this.disposeSingle, this );
+
+		if ( selection.single() ) {
+			this.createSingle();
+		}
+	},
+
+	createSingle: function() {
+		var sidebar = this.sidebar,
+			single = this.options.selection.single();
+
+		sidebar.set( 'details', new techlogging.media.view.Attachment.Details({
+			controller: this.controller,
+			model:      single,
+			priority:   80
+		}) );
+
+		sidebar.set( 'compat', new techlogging.media.view.AttachmentCompat({
+			controller: this.controller,
+			model:      single,
+			priority:   120
+		}) );
+
+		if ( this.options.display ) {
+			sidebar.set( 'display', new techlogging.media.view.Settings.AttachmentDisplay({
+				controller:   this.controller,
+				model:        this.model.display( single ),
+				attachment:   single,
+				priority:     160,
+				userSettings: this.model.get('displayUserSettings')
+			}) );
+		}
+
+		// Show the sidebar on mobile
+		if ( this.model.id === 'insert' ) {
+			sidebar.$el.addClass( 'visible' );
+		}
+	},
+
+	disposeSingle: function() {
+		var sidebar = this.sidebar;
+		sidebar.unset('details');
+		sidebar.unset('compat');
+		sidebar.unset('display');
+		// Hide the sidebar on mobile
+		sidebar.$el.removeClass( 'visible' );
+	}
+});
+
+module.exports = AttachmentsBrowser;
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+var Selection;
+
+/**
+ * techlogging.media.view.Selection
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Selection = techlogging.media.View.extend(/** @lends techlogging.media.view.Selection.prototype */{
+	tagName:   'div',
+	className: 'media-selection',
+	template:  techlogging.template('media-selection'),
+
+	events: {
+		'click .edit-selection':  'edit',
+		'click .clear-selection': 'clear'
+	},
+
+	initialize: function() {
+		_.defaults( this.options, {
+			editable:  false,
+			clearable: true
+		});
+
+		/**
+		 * @member {techlogging.media.view.Attachments.Selection}
+		 */
+		this.attachments = new techlogging.media.view.Attachments.Selection({
+			controller: this.controller,
+			collection: this.collection,
+			selection:  this.collection,
+			model:      new Backbone.Model()
+		});
+
+		this.views.set( '.selection-view', this.attachments );
+		this.collection.on( 'add remove reset', this.refresh, this );
+		this.controller.on( 'content:activate', this.refresh, this );
+	},
+
+	ready: function() {
+		this.refresh();
+	},
+
+	refresh: function() {
+		// If the selection hasn't been rendered, bail.
+		if ( ! this.$el.children().length ) {
+			return;
+		}
+
+		var collection = this.collection,
+			editing = 'edit-selection' === this.controller.content.mode();
+
+		// If nothing is selected, display nothing.
+		this.$el.toggleClass( 'empty', ! collection.length );
+		this.$el.toggleClass( 'one', 1 === collection.length );
+		this.$el.toggleClass( 'editing', editing );
+
+		this.$('.count').text( 'l10n.selected'.replace('%d', collection.length) );
+	},
+
+	edit: function( event ) {
+		event.preventDefault();
+		if ( this.options.editable ) {
+			this.options.editable.call( this, this.collection );
+		}
+	},
+
+	clear: function( event ) {
+		event.preventDefault();
+		this.collection.reset();
+
+		// Keep focus inside media modal
+		// after clear link is selected
+		this.controller.modal.focusManager.focus();
+	}
+});
+
+module.exports = Selection;
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+var Attachments = techlogging.media.view.Attachments,
+	Selection;
+
+/**
+ * techlogging.media.view.Attachments.Selection
+ *
+ * @memberOf techlogging.media.view.Attachments
+ *
+ * @class
+ * @augments techlogging.media.view.Attachments
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Selection = Attachments.extend(/** @lends techlogging.media.view.Attachments.Selection.prototype */{
+	events: {},
+	initialize: function() {
+		_.defaults( this.options, {
+			sortable:   false,
+			resize:     false,
+
+			// The single `Attachment` view to be used in the `Attachments` view.
+			AttachmentView: techlogging.media.view.Attachment.Selection
+		});
+		// Call 'initialize' directly on the parent class.
+		return Attachments.prototype.initialize.apply( this, arguments );
+	}
+});
+
+module.exports = Selection;
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
+
+var Attachment = techlogging.media.view.Attachment,
+	l10n = techlogging.media.view.l10n,
+	Details;
+
+/**
+ * techlogging.media.view.Attachment.Details
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details.prototype */{
+	tagName:   'div',
+	className: 'attachment-details',
+	template:  techlogging.template('attachment-details'),
+
+	attributes: function() {
+		return {
+			'tabIndex':     0,
+			'data-id':      this.model.get( 'id' )
+		};
+	},
+
+	events: {
+		'change [data-setting]':          'updateSetting',
+		'change [data-setting] input':    'updateSetting',
+		'change [data-setting] select':   'updateSetting',
+		'change [data-setting] textarea': 'updateSetting',
+		'click .delete-attachment':       'deleteAttachment',
+		'click .trash-attachment':        'trashAttachment',
+		'click .untrash-attachment':      'untrashAttachment',
+		'click .edit-attachment':         'editAttachment',
+		'keydown':                        'toggleSelectionHandler'
+	},
+
+	initialize: function() {
+		this.options = _.defaults( this.options, {
+			rerenderOnModelChange: false
+		});
+
+		this.on( 'ready', this.initialFocus );
+		// Call 'initialize' directly on the parent class.
+		Attachment.prototype.initialize.apply( this, arguments );
+	},
+
+	initialFocus: function() {
+		if ( ! techlogging.media.isTouchDevice ) {
+			/*
+			Previously focused the first ':input' (the readonly URL text field).
+			Since the first ':input' is now a button (delete/trash): when pressing
+			spacebar on an attachment, Firefox fires deleteAttachment/trashAttachment
+			as soon as focus is moved. Explicitly target the first text field for now.
+			@todo change initial focus logic, also for accessibility.
+			*/
+			this.$( 'input[type="text"]' ).eq( 0 ).focus();
+		}
+	},
+	/**
+	 * @param {Object} event
+	 */
+	deleteAttachment: function( event ) {
+		event.preventDefault();
+
+		if ( window.confirm( l10n.warnDelete ) ) {
+			this.model.destroy();
+			// Keep focus inside media modal
+			// after image is deleted
+			this.controller.modal.focusManager.focus();
+		}
+	},
+	/**
+	 * @param {Object} event
+	 */
+	trashAttachment: function( event ) {
+		var library = this.controller.library;
+		event.preventDefault();
+
+		if ( techlogging.media.view.settings.mediaTrash &&
+			'edit-metadata' === this.controller.content.mode() ) {
+
+			this.model.set( 'status', 'trash' );
+			this.model.save().done( function() {
+				library._requery( true );
+			} );
+		}  else {
+			this.model.destroy();
+		}
+	},
+	/**
+	 * @param {Object} event
+	 */
+	untrashAttachment: function( event ) {
+		var library = this.controller.library;
+		event.preventDefault();
+
+		this.model.set( 'status', 'inherit' );
+		this.model.save().done( function() {
+			library._requery( true );
+		} );
+	},
+	/**
+	 * @param {Object} event
+	 */
+	editAttachment: function( event ) {
+		var editState = this.controller.states.get( 'edit-image' );
+		if ( window.imageEdit && editState ) {
+			event.preventDefault();
+
+			editState.set( 'image', this.model );
+			this.controller.setState( 'edit-image' );
+		} else {
+			this.$el.addClass('needs-refresh');
+		}
+	},
+	/**
+	 * When reverse tabbing(shift+tab) out of the right details panel, deliver
+	 * the focus to the item in the list that was being edited.
+	 *
+	 * @param {Object} event
+	 */
+	toggleSelectionHandler: function( event ) {
+		if ( 'keydown' === event.type && 9 === event.keyCode && event.shiftKey && event.target === this.$( ':tabbable' ).get( 0 ) ) {
+			this.controller.trigger( 'attachment:details:shift-tab', event );
+			return false;
+		}
+
+		if ( 37 === event.keyCode || 38 === event.keyCode || 39 === event.keyCode || 40 === event.keyCode ) {
+			this.controller.trigger( 'attachment:keydown:arrow', event );
+			return;
+		}
+	}
+});
+
+module.exports = Details;
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Label
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Label = techlogging.media.View.extend(/** @lends techlogging.media.view.Label.prototype */{
+	tagName: 'label',
+	className: 'screen-reader-text',
+
+	initialize: function() {
+		this.value = this.options.value;
+	},
+
+	render: function() {
+		this.$el.html( this.value );
+
+		return this;
+	}
+});
+
+module.exports = Label;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Spinner
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Spinner.prototype */{
+	tagName:   'span',
+	className: 'spinner',
+	spinnerTimeout: false,
+	delay: 400,
+
+	show: function() {
+		if ( ! this.spinnerTimeout ) {
+			this.spinnerTimeout = _.delay(function( $el ) {
+				$el.addClass( 'is-active' );
+			}, this.delay, this.$el );
+		}
+
+		return this;
+	},
+
+	hide: function() {
+		this.$el.removeClass( 'is-active' );
+		this.spinnerTimeout = clearTimeout( this.spinnerTimeout );
+
+		return this;
+	}
+});
+
+module.exports = Spinner;
 
 
 /***/ })

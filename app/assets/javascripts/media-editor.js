@@ -53,8 +53,8 @@
 
             if ( 'image' === props.type ) {
                 props = _.defaults( props || {}, {
-                    align:   defaultProps.align || getUserSetting( 'align', 'none' ),
-                    size:    defaultProps.size  || getUserSetting( 'imgsize', 'medium' ),
+                    align:   'none',
+                    size:    'medium',
                     url:     '',
                     classes: []
                 });

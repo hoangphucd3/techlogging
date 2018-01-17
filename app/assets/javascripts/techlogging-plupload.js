@@ -84,7 +84,7 @@ window.techlogging = window.techlogging || {};
 			}
 
 			if ( ! this[ key ].prop('id') ) {
-				this[ key ].prop( 'id', '__wp-uploader-id-' + Uploader.uuid++ );
+				this[ key ].prop( 'id', '__techlogging-uploader-id-' + Uploader.uuid++ );
 			}
 
 			this.plupload[ elements[ key ] ] = this[ key ].prop('id');
@@ -154,11 +154,11 @@ window.techlogging = window.techlogging || {};
 			dropzone.toggleClass( 'supports-drag-drop', !! dragdrop );
 
 			if ( ! dragdrop ) {
-				return dropzone.unbind('.wp-uploader');
+				return dropzone.unbind('.techlogging-uploader');
 			}
 
 			// 'dragenter' doesn't fire correctly, simulate it with a limited 'dragover'.
-			dropzone.bind( 'dragover.wp-uploader', function() {
+			dropzone.bind( 'dragover.techlogging-uploader', function() {
 				if ( timer ) {
 					clearTimeout( timer );
 				}
@@ -171,7 +171,7 @@ window.techlogging = window.techlogging || {};
 				active = true;
 			});
 
-			dropzone.bind('dragleave.wp-uploader, drop.wp-uploader', function() {
+			dropzone.bind('dragleave.techlogging-uploader, drop.techlogging-uploader', function() {
 				// Using an instant timer prevents the drag-over class from
 				// being quickly removed and re-added when elements inside the
 				// dropzone are repositioned.
@@ -400,17 +400,17 @@ window.techlogging = window.techlogging || {};
 				// temporary container to house it, as the browser button
 				// shims require the button to exist in the DOM at all times.
 				if ( ! attached ) {
-					id = 'wp-uploader-browser-' + this.uploader.id;
+					id = 'techlogging-uploader-browser-' + this.uploader.id;
 
 					container = $( '#' + id );
 					if ( ! container.length ) {
-						container = $('<div class="wp-uploader-browser" />').css({
+						container = $('<div class="techlogging-uploader-browser" />').css({
 							position: 'fixed',
 							top: '-1000px',
 							left: '-1000px',
 							height: 0,
 							width: 0
-						}).attr( 'id', 'wp-uploader-browser-' + this.uploader.id ).appendTo('body');
+						}).attr( 'id', 'techlogging-uploader-browser-' + this.uploader.id ).appendTo('body');
 					}
 
 					container.append( this.browser );

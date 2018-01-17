@@ -54,7 +54,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 	},
 
 	ready: function() {
-		var postId = techlogging.media.view.settings.post.id,
+		var postId = 'techlogging.media.view.settings.post.id',
 			dropzone;
 
 		// If the uploader already exists, bail.
@@ -62,9 +62,9 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 			return;
 		}
 
-		if ( postId ) {
-			this.options.uploader.params.post_id = postId;
-		}
+		// if ( postId ) {
+		// 	this.options.uploader.params.post_id = postId;
+		// }
 		this.uploader = new techlogging.Uploader( this.options.uploader );
 
 		dropzone = this.uploader.dropzone;

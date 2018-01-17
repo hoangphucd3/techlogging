@@ -33,9 +33,9 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 			this.options.$browser = this.controller.uploader.$browser;
 		}
 
-		if ( _.isUndefined( this.options.postId ) ) {
-			this.options.postId = techlogging.media.view.settings.post.id;
-		}
+		// if ( _.isUndefined( this.options.postId ) ) {
+		// 	this.options.postId = techlogging.media.view.settings.post.id;
+		// }
 
 		if ( this.options.status ) {
 			this.views.set( '.upload-inline-status', new techlogging.media.view.UploaderStatus({

@@ -3,8 +3,12 @@ var media = techlogging.media,
 
 media.isTouchDevice = ( 'ontouchend' in document );
 
+// Link any localized strings.
+l10n = media.view.l10n = window._techloggingMediaViewsL10n || {};
+
 // Link any settings.
-media.view.settings = {};
+media.view.settings = l10n.settings || {};
+delete l10n.settings;
 
 // Copy the `post` setting over to the model settings.
 media.model.settings.post = media.view.settings.post;
@@ -73,8 +77,7 @@ media.controller.State = require( './controllers/state.js' );
 media.selectionSync = require( './utils/selection-sync.js' );
 media.controller.Library = require( './controllers/library.js' );
 media.controller.ImageDetails = require( './controllers/image-details.js' );
-media.controller.CollectionEdit = require( './controllers/collection-edit.js' );
-media.controller.CollectionAdd = require( './controllers/collection-add.js' );
+media.controller.EditImage = require( './controllers/edit-image.js' );
 media.controller.MediaLibrary = require( './controllers/media-library.js' );
 
 media.View = require( './views/view.js' );
@@ -93,7 +96,7 @@ media.view.UploaderStatusError = require( './views/uploader/status-error.js' );
 media.view.Toolbar = require( './views/toolbar.js' );
 // media.view.Toolbar.Select = require( './views/toolbar/select.js' );
 // media.view.Toolbar.Embed = require( './views/toolbar/embed.js' );
-// media.view.Button = require( './views/button.js' );
+media.view.Button = require( './views/button.js' );
 // media.view.ButtonGroup = require( './views/button-group.js' );
 media.view.PriorityList = require( './views/priority-list.js' );
 media.view.MenuItem = require( './views/menu-item.js' );
@@ -101,27 +104,27 @@ media.view.Menu = require( './views/menu.js' );
 media.view.RouterItem = require( './views/router-item.js' );
 media.view.Router = require( './views/router.js' );
 media.view.Sidebar = require( './views/sidebar.js' );
-// media.view.Attachment = require( './views/attachment.js' );
+media.view.Attachment = require( './views/attachment.js' );
 // media.view.Attachment.Library = require( './views/attachment/library.js' );
 // media.view.Attachment.EditLibrary = require( './views/attachment/edit-library.js' );
-// media.view.Attachments = require( './views/attachments.js' );
+media.view.Attachments = require( './views/attachments.js' );
 // media.view.Search = require( './views/search.js' );
-// media.view.AttachmentFilters = require( './views/attachment-filters.js' );
+media.view.AttachmentFilters = require( './views/attachment-filters.js' );
 // media.view.DateFilter = require( './views/attachment-filters/date.js' );
 // media.view.AttachmentFilters.Uploaded = require( './views/attachment-filters/uploaded.js' );
-// media.view.AttachmentFilters.All = require( './views/attachment-filters/all.js' );
-// media.view.AttachmentsBrowser = require( './views/attachments/browser.js' );
-// media.view.Selection = require( './views/selection.js' );
+media.view.AttachmentFilters.All = require( './views/attachment-filters/all.js' );
+media.view.AttachmentsBrowser = require( './views/attachments/browser.js' );
+media.view.Selection = require( './views/selection.js' );
 // media.view.Attachment.Selection = require( './views/attachment/selection.js' );
-// media.view.Attachments.Selection = require( './views/attachments/selection.js' );
+media.view.Attachments.Selection = require( './views/attachments/selection.js' );
 // media.view.Attachment.EditSelection = require( './views/attachment/edit-selection.js' );
 // media.view.Settings = require( './views/settings.js' );
 // media.view.Settings.AttachmentDisplay = require( './views/settings/attachment-display.js' );
-// media.view.Attachment.Details = require( './views/attachment/details.js' );
+media.view.Attachment.Details = require( './views/attachment/details.js' );
 // media.view.AttachmentCompat = require( './views/attachment-compat.js' );
 // media.view.Iframe = require( './views/iframe.js' );
 // media.view.Embed = require( './views/embed.js' );
-// media.view.Label = require( './views/label.js' );
+media.view.Label = require( './views/label.js' );
 // media.view.ImageDetails = require( './views/image-details.js' );
 // media.view.EditImage = require( './views/edit-image.js' );
 media.view.Spinner = require( './views/spinner.js' );
