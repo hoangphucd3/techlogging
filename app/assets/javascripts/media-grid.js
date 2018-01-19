@@ -63,23 +63,25 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 var media = techlogging.media;
 
 media.view.MediaFrame.Manage = __webpack_require__( 1 );
 // media.view.Attachment.Details.TwoColumn = require( './views/attachment/details-two-column.js' );
-// media.view.MediaFrame.Manage.Router = require( './routers/manage.js' );
-// media.view.EditImage.Details = require( './views/edit-image-details.js' );
-// media.view.SelectModeToggleButton = require( './views/button/select-mode-toggle.js' );
-// media.view.DeleteSelectedButton = require( './views/button/delete-selected.js' );
-// media.view.DeleteSelectedPermanentlyButton = require( './views/button/delete-selected-permanently.js' );
+media.view.MediaFrame.Manage.Router = __webpack_require__( 51 );
+media.view.EditImage.Details = __webpack_require__( 53 );
+media.view.SelectModeToggleButton = __webpack_require__( 58 );
+media.view.DeleteSelectedButton = __webpack_require__( 59 );
+media.view.DeleteSelectedPermanentlyButton = __webpack_require__( 60 );
 
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, exports) {
 
 var MediaFrame = techlogging.media.view.MediaFrame,
@@ -371,5 +373,318 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 module.exports = Manage;
 
 
+/***/ }),
+
+/***/ 51:
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.MediaFrame.Manage.Router
+ *
+ * A router for handling the browser history and application state.
+ *
+ * @memberOf techlogging.media.view.MediaFrame.Manage
+ *
+ * @class
+ * @augments Backbone.Router
+ */
+var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame.Manage.Router.prototype */{
+	routes: {
+		'http://localhost:3000/upload?item=:slug&mode=edit': 'editItem',
+		'http://localhost:3000/upload?item=:slug':           'showItem',
+		'http://localhost:3000/upload?search=:query':        'search',
+		'http://localhost:3000/upload':                      'reset'
+	},
+
+	// Map routes against the page URL
+	baseUrl: function( url ) {
+		return 'http://localhost:3000/upload' + url;
+	},
+
+	reset: function() {
+		var frame = techlogging.media.frames.edit;
+
+		if ( frame ) {
+			frame.close();
+		}
+	},
+
+	// Respond to the search route by filling the search field and trigggering the input event
+	search: function( query ) {
+		jQuery( '#media-search-input' ).val( query ).trigger( 'input' );
+	},
+
+	// Show the modal with a specific item
+	showItem: function( query ) {
+		var media = techlogging.media,
+			frame = media.frames.browse,
+			library = frame.state().get('library'),
+			item;
+
+		// Trigger the media frame to open the correct item
+		item = library.findWhere( { id: parseInt( query, 10 ) } );
+		item.set( 'skipHistory', true );
+
+		if ( item ) {
+			frame.trigger( 'edit:attachment', item );
+		} else {
+			item = media.attachment( query );
+			frame.listenTo( item, 'change', function( model ) {
+				frame.stopListening( item );
+				frame.trigger( 'edit:attachment', model );
+			} );
+			item.fetch();
+		}
+	},
+
+	// Show the modal in edit mode with a specific item.
+	editItem: function( query ) {
+		this.showItem( query );
+		techlogging.media.frames.edit.content.mode( 'edit-details' );
+	}
+});
+
+module.exports = Router;
+
+
+/***/ }),
+
+/***/ 53:
+/***/ (function(module, exports) {
+
+var View = techlogging.media.View,
+	EditImage = techlogging.media.view.EditImage,
+	Details;
+
+/**
+ * techlogging.media.view.EditImage.Details
+ *
+ * @memberOf techlogging.media.view.EditImage
+ *
+ * @class
+ * @augments techlogging.media.view.EditImage
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Details = EditImage.extend(/** @lends techlogging.media.view.EditImage.Details.prototype */{
+	initialize: function( options ) {
+		this.editor = window.imageEdit;
+		this.frame = options.frame;
+		this.controller = options.controller;
+		View.prototype.initialize.apply( this, arguments );
+	},
+
+	back: function() {
+		this.frame.content.mode( 'edit-metadata' );
+	},
+
+	save: function() {
+		this.model.fetch().done( _.bind( function() {
+			this.frame.content.mode( 'edit-metadata' );
+		}, this ) );
+	}
+});
+
+module.exports = Details;
+
+
+/***/ }),
+
+/***/ 58:
+/***/ (function(module, exports) {
+
+
+var Button = techlogging.media.view.Button,
+	l10n = techlogging.media.view.l10n,
+	SelectModeToggle;
+
+/**
+ * techlogging.media.view.SelectModeToggleButton
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.Button
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+SelectModeToggle = Button.extend(/** @lends techlogging.media.view.SelectModeToggle.prototype */{
+	initialize: function() {
+		_.defaults( this.options, {
+			size : ''
+		} );
+
+		Button.prototype.initialize.apply( this, arguments );
+		this.controller.on( 'select:activate select:deactivate', this.toggleBulkEditHandler, this );
+		this.controller.on( 'selection:action:done', this.back, this );
+	},
+
+	back: function () {
+		this.controller.deactivateMode( 'select' ).activateMode( 'edit' );
+	},
+
+	click: function() {
+		Button.prototype.click.apply( this, arguments );
+		if ( this.controller.isModeActive( 'select' ) ) {
+			this.back();
+		} else {
+			this.controller.deactivateMode( 'edit' ).activateMode( 'select' );
+		}
+	},
+
+	render: function() {
+		Button.prototype.render.apply( this, arguments );
+		this.$el.addClass( 'select-mode-toggle-button' );
+		return this;
+	},
+
+	toggleBulkEditHandler: function() {
+		var toolbar = this.controller.content.get().toolbar, children;
+
+		children = toolbar.$( '.media-toolbar-secondary > *, .media-toolbar-primary > *' );
+
+		// TODO: the Frame should be doing all of this.
+		if ( this.controller.isModeActive( 'select' ) ) {
+			this.model.set( {
+				size: 'large',
+				text: l10n.cancelSelection
+			} );
+			children.not( '.spinner, .media-button' ).hide();
+			this.$el.show();
+			toolbar.$( '.delete-selected-button' ).removeClass( 'hidden' );
+		} else {
+			this.model.set( {
+				size: '',
+				text: l10n.bulkSelect
+			} );
+			this.controller.content.get().$el.removeClass( 'fixed' );
+			toolbar.$el.css( 'width', '' );
+			toolbar.$( '.delete-selected-button' ).addClass( 'hidden' );
+			children.not( '.media-button' ).show();
+			this.controller.state().get( 'selection' ).reset();
+		}
+	}
+});
+
+module.exports = SelectModeToggle;
+
+
+/***/ }),
+
+/***/ 59:
+/***/ (function(module, exports) {
+
+var Button = techlogging.media.view.Button,
+	l10n = techlogging.media.view.l10n,
+	DeleteSelected;
+
+/**
+ * techlogging.media.view.DeleteSelectedButton
+ *
+ * A button that handles bulk Delete/Trash logic
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.Button
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+DeleteSelected = Button.extend(/** @lends techlogging.media.view.DeleteSelectedButton.prototype */{
+	initialize: function() {
+		Button.prototype.initialize.apply( this, arguments );
+		if ( this.options.filters ) {
+			this.options.filters.model.on( 'change', this.filterChange, this );
+		}
+		this.controller.on( 'selection:toggle', this.toggleDisabled, this );
+	},
+
+	filterChange: function( model ) {
+		if ( 'trash' === model.get( 'status' ) ) {
+			this.model.set( 'text', l10n.untrashSelected );
+		} else if ( techlogging.media.view.settings.mediaTrash ) {
+			this.model.set( 'text', l10n.trashSelected );
+		} else {
+			this.model.set( 'text', l10n.deleteSelected );
+		}
+	},
+
+	toggleDisabled: function() {
+		this.model.set( 'disabled', ! this.controller.state().get( 'selection' ).length );
+	},
+
+	render: function() {
+		Button.prototype.render.apply( this, arguments );
+		if ( this.controller.isModeActive( 'select' ) ) {
+			this.$el.addClass( 'delete-selected-button' );
+		} else {
+			this.$el.addClass( 'delete-selected-button hidden' );
+		}
+		this.toggleDisabled();
+		return this;
+	}
+});
+
+module.exports = DeleteSelected;
+
+
+/***/ }),
+
+/***/ 60:
+/***/ (function(module, exports) {
+
+var Button = techlogging.media.view.Button,
+	DeleteSelected = techlogging.media.view.DeleteSelectedButton,
+	DeleteSelectedPermanently;
+
+/**
+ * techlogging.media.view.DeleteSelectedPermanentlyButton
+ *
+ * When MEDIA_TRASH is true, a button that handles bulk Delete Permanently logic
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.DeleteSelectedButton
+ * @augments techlogging.media.view.Button
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+DeleteSelectedPermanently = DeleteSelected.extend(/** @lends techlogging.media.view.DeleteSelectedPermanentlyButton.prototype */{
+	initialize: function() {
+		DeleteSelected.prototype.initialize.apply( this, arguments );
+		this.controller.on( 'select:activate', this.selectActivate, this );
+		this.controller.on( 'select:deactivate', this.selectDeactivate, this );
+	},
+
+	filterChange: function( model ) {
+		this.canShow = ( 'trash' === model.get( 'status' ) );
+	},
+
+	selectActivate: function() {
+		this.toggleDisabled();
+		this.$el.toggleClass( 'hidden', ! this.canShow );
+	},
+
+	selectDeactivate: function() {
+		this.toggleDisabled();
+		this.$el.addClass( 'hidden' );
+	},
+
+	render: function() {
+		Button.prototype.render.apply( this, arguments );
+		this.selectActivate();
+		return this;
+	}
+});
+
+module.exports = DeleteSelectedPermanently;
+
+
 /***/ })
-/******/ ]);
+
+/******/ });

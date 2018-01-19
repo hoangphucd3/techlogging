@@ -309,6 +309,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createUploader: function() {
+	    console.log(this.controller);
 		this.uploader = new techlogging.media.view.UploaderInline({
 			controller: this.controller,
 			status:     false,

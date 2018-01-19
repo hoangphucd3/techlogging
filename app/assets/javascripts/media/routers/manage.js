@@ -10,15 +10,15 @@
  */
 var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame.Manage.Router.prototype */{
 	routes: {
-		'/upload?item=:slug&mode=edit': 'editItem',
-		'/upload?item=:slug':           'showItem',
-		'/upload?search=:query':        'search',
-		'/upload':                      'reset'
+		'http://localhost:3000/upload?item=:slug&mode=edit': 'editItem',
+		'http://localhost:3000/upload?item=:slug':           'showItem',
+		'http://localhost:3000/upload?search=:query':        'search',
+		'http://localhost:3000/upload':                      'reset'
 	},
 
 	// Map routes against the page URL
 	baseUrl: function( url ) {
-		return '/upload' + url;
+		return 'http://localhost:3000/upload' + url;
 	},
 
 	reset: function() {

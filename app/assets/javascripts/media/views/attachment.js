@@ -53,8 +53,6 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		}
 		this.listenTo( this.model, 'change:title', this._syncTitle );
 		this.listenTo( this.model, 'change:caption', this._syncCaption );
-		this.listenTo( this.model, 'change:artist', this._syncArtist );
-		this.listenTo( this.model, 'change:album', this._syncAlbum );
 
 		// Update the selection.
 		this.listenTo( this.model, 'add', this.select );

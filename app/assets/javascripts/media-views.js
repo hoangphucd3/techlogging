@@ -170,10 +170,10 @@ media.view.UploaderInline = __webpack_require__( 26 );
 media.view.UploaderStatus = __webpack_require__( 27 );
 media.view.UploaderStatusError = __webpack_require__( 28 );
 media.view.Toolbar = __webpack_require__( 29 );
-// media.view.Toolbar.Select = require( './views/toolbar/select.js' );
-// media.view.Toolbar.Embed = require( './views/toolbar/embed.js' );
+media.view.Toolbar.Select = __webpack_require__( 61 );
+media.view.Toolbar.Embed = __webpack_require__( 62 );
 media.view.Button = __webpack_require__( 30 );
-// media.view.ButtonGroup = require( './views/button-group.js' );
+media.view.ButtonGroup = __webpack_require__( 63 );
 media.view.PriorityList = __webpack_require__( 31 );
 media.view.MenuItem = __webpack_require__( 32 );
 media.view.Menu = __webpack_require__( 33 );
@@ -181,8 +181,8 @@ media.view.RouterItem = __webpack_require__( 34 );
 media.view.Router = __webpack_require__( 35 );
 media.view.Sidebar = __webpack_require__( 36 );
 media.view.Attachment = __webpack_require__( 37 );
-// media.view.Attachment.Library = require( './views/attachment/library.js' );
-// media.view.Attachment.EditLibrary = require( './views/attachment/edit-library.js' );
+media.view.Attachment.Library = __webpack_require__( 56 );
+media.view.Attachment.EditLibrary = __webpack_require__( 57 );
 media.view.Attachments = __webpack_require__( 38 );
 // media.view.Search = require( './views/search.js' );
 media.view.AttachmentFilters = __webpack_require__( 39 );
@@ -191,19 +191,19 @@ media.view.AttachmentFilters = __webpack_require__( 39 );
 media.view.AttachmentFilters.All = __webpack_require__( 40 );
 media.view.AttachmentsBrowser = __webpack_require__( 41 );
 media.view.Selection = __webpack_require__( 42 );
-// media.view.Attachment.Selection = require( './views/attachment/selection.js' );
+media.view.Attachment.Selection = __webpack_require__( 50 );
 media.view.Attachments.Selection = __webpack_require__( 43 );
-// media.view.Attachment.EditSelection = require( './views/attachment/edit-selection.js' );
-// media.view.Settings = require( './views/settings.js' );
-// media.view.Settings.AttachmentDisplay = require( './views/settings/attachment-display.js' );
-media.view.Attachment.Details = __webpack_require__( 44 );
-// media.view.AttachmentCompat = require( './views/attachment-compat.js' );
+media.view.Attachment.EditSelection = __webpack_require__( 52 );
+media.view.Settings = __webpack_require__( 44 );
+media.view.Settings.AttachmentDisplay = __webpack_require__( 45 );
+media.view.Attachment.Details = __webpack_require__( 46 );
+media.view.AttachmentCompat = __webpack_require__( 47 );
 // media.view.Iframe = require( './views/iframe.js' );
 // media.view.Embed = require( './views/embed.js' );
-media.view.Label = __webpack_require__( 45 );
-// media.view.ImageDetails = require( './views/image-details.js' );
-// media.view.EditImage = require( './views/edit-image.js' );
-media.view.Spinner = __webpack_require__( 46 );
+media.view.Label = __webpack_require__( 48 );
+media.view.ImageDetails = __webpack_require__( 55 );
+media.view.EditImage = __webpack_require__( 54 );
+media.view.Spinner = __webpack_require__( 49 );
 
 
 /***/ }),
@@ -958,7 +958,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 
 		if ( this.get( 'router' ) && this.get('contentUserSetting') ) {
 			this.frame.on( 'content:activate', this.saveContentMode, this );
-			// this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
+			this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
 		}
 	},
 
@@ -4562,8 +4562,6 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		}
 		this.listenTo( this.model, 'change:title', this._syncTitle );
 		this.listenTo( this.model, 'change:caption', this._syncCaption );
-		this.listenTo( this.model, 'change:artist', this._syncArtist );
-		this.listenTo( this.model, 'change:album', this._syncAlbum );
 
 		// Update the selection.
 		this.listenTo( this.model, 'add', this.select );
@@ -6020,6 +6018,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createUploader: function() {
+	    console.log(this.controller);
 		this.uploader = new techlogging.media.view.UploaderInline({
 			controller: this.controller,
 			status:     false,
@@ -6270,6 +6269,233 @@ module.exports = Selection;
 /* 44 */
 /***/ (function(module, exports) {
 
+var View = techlogging.media.View,
+	$ = Backbone.$,
+	Settings;
+
+/**
+ * techlogging.media.view.Settings
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Settings = View.extend(/** @lends techlogging.media.view.Settings.prototype */{
+	events: {
+		'click button':    'updateHandler',
+		'change input':    'updateHandler',
+		'change select':   'updateHandler',
+		'change textarea': 'updateHandler'
+	},
+
+	initialize: function() {
+		this.model = this.model || new Backbone.Model();
+		this.listenTo( this.model, 'change', this.updateChanges );
+	},
+
+	prepare: function() {
+		return _.defaults({
+			model: this.model.toJSON()
+		}, this.options );
+	},
+	/**
+	 * @returns {techlogging.media.view.Settings} Returns itself to allow chaining
+	 */
+	render: function() {
+		View.prototype.render.apply( this, arguments );
+		// Select the correct values.
+		_( this.model.attributes ).chain().keys().each( this.update, this );
+		return this;
+	},
+	/**
+	 * @param {string} key
+	 */
+	update: function( key ) {
+		var value = this.model.get( key ),
+			$setting = this.$('[data-setting="' + key + '"]'),
+			$buttons, $value;
+
+		// Bail if we didn't find a matching setting.
+		if ( ! $setting.length ) {
+			return;
+		}
+
+		// Attempt to determine how the setting is rendered and update
+		// the selected value.
+
+		// Handle dropdowns.
+		if ( $setting.is('select') ) {
+			$value = $setting.find('[value="' + value + '"]');
+
+			if ( $value.length ) {
+				$setting.find('option').prop( 'selected', false );
+				$value.prop( 'selected', true );
+			} else {
+				// If we can't find the desired value, record what *is* selected.
+				this.model.set( key, $setting.find(':selected').val() );
+			}
+
+		// Handle button groups.
+		} else if ( $setting.hasClass('button-group') ) {
+			$buttons = $setting.find('button').removeClass('active');
+			$buttons.filter( '[value="' + value + '"]' ).addClass('active');
+
+		// Handle text inputs and textareas.
+		} else if ( $setting.is('input[type="text"], textarea') ) {
+			if ( ! $setting.is(':focus') ) {
+				$setting.val( value );
+			}
+		// Handle checkboxes.
+		} else if ( $setting.is('input[type="checkbox"]') ) {
+			$setting.prop( 'checked', !! value && 'false' !== value );
+		}
+	},
+	/**
+	 * @param {Object} event
+	 */
+	updateHandler: function( event ) {
+		var $setting = $( event.target ).closest('[data-setting]'),
+			value = event.target.value,
+			userSetting;
+
+		event.preventDefault();
+
+		if ( ! $setting.length ) {
+			return;
+		}
+
+		// Use the correct value for checkboxes.
+		if ( $setting.is('input[type="checkbox"]') ) {
+			value = $setting[0].checked;
+		}
+
+		// Update the corresponding setting.
+		this.model.set( $setting.data('setting'), value );
+
+		// If the setting has a corresponding user setting,
+		// update that as well.
+		if ( userSetting = $setting.data('userSetting') ) {
+			window.setUserSetting( userSetting, value );
+		}
+	},
+
+	updateChanges: function( model ) {
+		if ( model.hasChanged() ) {
+			_( model.changed ).chain().keys().each( this.update, this );
+		}
+	}
+});
+
+module.exports = Settings;
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports) {
+
+var Settings = techlogging.media.view.Settings,
+	AttachmentDisplay;
+
+/**
+ * techlogging.media.view.Settings.AttachmentDisplay
+ *
+ * @memberOf techlogging.media.view.Settings
+ *
+ * @class
+ * @augments techlogging.media.view.Settings
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.AttachmentDisplay.prototype */{
+	className: 'attachment-display-settings',
+	template:  techlogging.template('attachment-display-settings'),
+
+	initialize: function() {
+		var attachment = this.options.attachment;
+
+		_.defaults( this.options, {
+			userSettings: false
+		});
+		// Call 'initialize' directly on the parent class.
+		Settings.prototype.initialize.apply( this, arguments );
+		this.listenTo( this.model, 'change:link', this.updateLinkTo );
+
+		if ( attachment ) {
+			attachment.on( 'change:uploading', this.render, this );
+		}
+	},
+
+	dispose: function() {
+		var attachment = this.options.attachment;
+		if ( attachment ) {
+			attachment.off( null, null, this );
+		}
+		/**
+		 * call 'dispose' directly on the parent class
+		 */
+		Settings.prototype.dispose.apply( this, arguments );
+	},
+	/**
+	 * @returns {techlogging.media.view.AttachmentDisplay} Returns itself to allow chaining
+	 */
+	render: function() {
+		var attachment = this.options.attachment;
+		if ( attachment ) {
+			_.extend( this.options, {
+				sizes: attachment.get('sizes'),
+				type:  attachment.get('type')
+			});
+		}
+		/**
+		 * call 'render' directly on the parent class
+		 */
+		Settings.prototype.render.call( this );
+		this.updateLinkTo();
+		return this;
+	},
+
+	updateLinkTo: function() {
+		var linkTo = this.model.get('link'),
+			$input = this.$('.link-to-custom'),
+			attachment = this.options.attachment;
+
+		if ( 'none' === linkTo || 'embed' === linkTo || ( ! attachment && 'custom' !== linkTo ) ) {
+			$input.addClass( 'hidden' );
+			return;
+		}
+
+		if ( attachment ) {
+			if ( 'post' === linkTo ) {
+				$input.val( attachment.get('link') );
+			} else if ( 'file' === linkTo ) {
+				$input.val( attachment.get('url') );
+			} else if ( ! this.model.get('linkUrl') ) {
+				$input.val('http://');
+			}
+
+			$input.prop( 'readonly', 'custom' !== linkTo );
+		}
+
+		$input.removeClass( 'hidden' );
+
+		// If the input is visible, focus and select its contents.
+		if ( ! techlogging.media.isTouchDevice && $input.is(':visible') ) {
+			$input.focus()[0].select();
+		}
+	}
+});
+
+module.exports = AttachmentDisplay;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports) {
+
 var Attachment = techlogging.media.view.Attachment,
 	l10n = techlogging.media.view.l10n,
 	Details;
@@ -6411,7 +6637,98 @@ module.exports = Details;
 
 
 /***/ }),
-/* 45 */
+/* 47 */
+/***/ (function(module, exports) {
+
+var View = techlogging.media.View,
+	AttachmentCompat;
+
+/**
+ * techlogging.media.view.AttachmentCompat
+ *
+ * A view to display fields added via the `attachment_fields_to_edit` filter.
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompat.prototype */{
+	tagName:   'form',
+	className: 'compat-item',
+
+	events: {
+		'submit':          'preventDefault',
+		'change input':    'save',
+		'change select':   'save',
+		'change textarea': 'save'
+	},
+
+	initialize: function() {
+		this.listenTo( this.model, 'change:compat', this.render );
+	},
+	/**
+	 * @returns {techlogging.media.view.AttachmentCompat} Returns itself to allow chaining
+	 */
+	dispose: function() {
+		if ( this.$(':focus').length ) {
+			this.save();
+		}
+		/**
+		 * call 'dispose' directly on the parent class
+		 */
+		return View.prototype.dispose.apply( this, arguments );
+	},
+	/**
+	 * @returns {techlogging.media.view.AttachmentCompat} Returns itself to allow chaining
+	 */
+	render: function() {
+		var compat = this.model.get('compat');
+		if ( ! compat || ! compat.item ) {
+			return;
+		}
+
+		this.views.detach();
+		this.$el.html( compat.item );
+		this.views.render();
+		return this;
+	},
+	/**
+	 * @param {Object} event
+	 */
+	preventDefault: function( event ) {
+		event.preventDefault();
+	},
+	/**
+	 * @param {Object} event
+	 */
+	save: function( event ) {
+		var data = {};
+
+		if ( event ) {
+			event.preventDefault();
+		}
+
+		_.each( this.$el.serializeArray(), function( pair ) {
+			data[ pair.name ] = pair.value;
+		});
+
+		this.controller.trigger( 'attachment:compat:waiting', ['waiting'] );
+		this.model.saveCompat( data ).always( _.bind( this.postSave, this ) );
+	},
+
+	postSave: function() {
+		this.controller.trigger( 'attachment:compat:ready', ['ready'] );
+	}
+});
+
+module.exports = AttachmentCompat;
+
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports) {
 
 /**
@@ -6443,7 +6760,7 @@ module.exports = Label;
 
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /**
@@ -6481,6 +6798,519 @@ var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Sp
 });
 
 module.exports = Spinner;
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.Selection
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Selection = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Selection.prototype */{
+	className: 'attachment selection',
+
+	// On click, just select the model, instead of removing the model from
+	// the selection.
+	toggleSelection: function() {
+		this.options.selection.single( this.model );
+	}
+});
+
+module.exports = Selection;
+
+
+/***/ }),
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.EditSelection
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment.Selection
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var EditSelection = techlogging.media.view.Attachment.Selection.extend(/** @lends techlogging.media.view.Attachment.EditSelection.prototype */{
+	buttons: {
+		close: true
+	}
+});
+
+module.exports = EditSelection;
+
+
+/***/ }),
+/* 53 */,
+/* 54 */
+/***/ (function(module, exports) {
+
+var View = techlogging.media.View,
+	EditImage;
+
+/**
+ * techlogging.media.view.EditImage
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+EditImage = View.extend(/** @lends techlogging.media.view.EditImage.prototype */{
+	className: 'image-editor',
+	template: techlogging.template('image-editor'),
+
+	initialize: function( options ) {
+		this.editor = window.imageEdit;
+		this.controller = options.controller;
+		View.prototype.initialize.apply( this, arguments );
+	},
+
+	prepare: function() {
+		return this.model.toJSON();
+	},
+
+	loadEditor: function() {
+		var dfd = this.editor.open( this.model.get('id'), this.model.get('nonces').edit, this );
+		dfd.done( _.bind( this.focus, this ) );
+	},
+
+	focus: function() {
+		this.$( '.imgedit-submit .button' ).eq( 0 ).focus();
+	},
+
+	back: function() {
+		var lastState = this.controller.lastState();
+		this.controller.setState( lastState );
+	},
+
+	refresh: function() {
+		this.model.fetch();
+	},
+
+	save: function() {
+		var lastState = this.controller.lastState();
+
+		this.model.fetch().done( _.bind( function() {
+			this.controller.setState( lastState );
+		}, this ) );
+	}
+
+});
+
+module.exports = EditImage;
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+var AttachmentDisplay = techlogging.media.view.Settings.AttachmentDisplay,
+	$ = jQuery,
+	ImageDetails;
+
+/**
+ * techlogging.media.view.ImageDetails
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.view.Settings.AttachmentDisplay
+ * @augments techlogging.media.view.Settings
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+ImageDetails = AttachmentDisplay.extend(/** @lends techlogging.media.view.ImageDetails.prototype */{
+	className: 'image-details',
+	template:  techlogging.template('image-details'),
+	events: _.defaults( AttachmentDisplay.prototype.events, {
+		'click .edit-attachment': 'editAttachment',
+		'click .replace-attachment': 'replaceAttachment',
+		'click .advanced-toggle': 'onToggleAdvanced',
+		'change [data-setting="customWidth"]': 'onCustomSize',
+		'change [data-setting="customHeight"]': 'onCustomSize',
+		'keyup [data-setting="customWidth"]': 'onCustomSize',
+		'keyup [data-setting="customHeight"]': 'onCustomSize'
+	} ),
+	initialize: function() {
+		// used in AttachmentDisplay.prototype.updateLinkTo
+		this.options.attachment = this.model.attachment;
+		this.listenTo( this.model, 'change:url', this.updateUrl );
+		this.listenTo( this.model, 'change:link', this.toggleLinkSettings );
+		this.listenTo( this.model, 'change:size', this.toggleCustomSize );
+
+		AttachmentDisplay.prototype.initialize.apply( this, arguments );
+	},
+
+	prepare: function() {
+		var attachment = false;
+
+		if ( this.model.attachment ) {
+			attachment = this.model.attachment.toJSON();
+		}
+		return _.defaults({
+			model: this.model.toJSON(),
+			attachment: attachment
+		}, this.options );
+	},
+
+	render: function() {
+		var args = arguments;
+
+		if ( this.model.attachment && 'pending' === this.model.dfd.state() ) {
+			this.model.dfd
+				.done( _.bind( function() {
+					AttachmentDisplay.prototype.render.apply( this, args );
+					this.postRender();
+				}, this ) )
+				.fail( _.bind( function() {
+					this.model.attachment = false;
+					AttachmentDisplay.prototype.render.apply( this, args );
+					this.postRender();
+				}, this ) );
+		} else {
+			AttachmentDisplay.prototype.render.apply( this, arguments );
+			this.postRender();
+		}
+
+		return this;
+	},
+
+	postRender: function() {
+		setTimeout( _.bind( this.resetFocus, this ), 10 );
+		this.toggleLinkSettings();
+		if ( window.getUserSetting( 'advImgDetails' ) === 'show' ) {
+			this.toggleAdvanced( true );
+		}
+		this.trigger( 'post-render' );
+	},
+
+	resetFocus: function() {
+		this.$( '.link-to-custom' ).blur();
+		this.$( '.embed-media-settings' ).scrollTop( 0 );
+	},
+
+	updateUrl: function() {
+		this.$( '.image img' ).attr( 'src', this.model.get( 'url' ) );
+		this.$( '.url' ).val( this.model.get( 'url' ) );
+	},
+
+	toggleLinkSettings: function() {
+		if ( this.model.get( 'link' ) === 'none' ) {
+			this.$( '.link-settings' ).addClass('hidden');
+		} else {
+			this.$( '.link-settings' ).removeClass('hidden');
+		}
+	},
+
+	toggleCustomSize: function() {
+		if ( this.model.get( 'size' ) !== 'custom' ) {
+			this.$( '.custom-size' ).addClass('hidden');
+		} else {
+			this.$( '.custom-size' ).removeClass('hidden');
+		}
+	},
+
+	onCustomSize: function( event ) {
+		var dimension = $( event.target ).data('setting'),
+			num = $( event.target ).val(),
+			value;
+
+		// Ignore bogus input
+		if ( ! /^\d+/.test( num ) || parseInt( num, 10 ) < 1 ) {
+			event.preventDefault();
+			return;
+		}
+
+		if ( dimension === 'customWidth' ) {
+			value = Math.round( 1 / this.model.get( 'aspectRatio' ) * num );
+			this.model.set( 'customHeight', value, { silent: true } );
+			this.$( '[data-setting="customHeight"]' ).val( value );
+		} else {
+			value = Math.round( this.model.get( 'aspectRatio' ) * num );
+			this.model.set( 'customWidth', value, { silent: true  } );
+			this.$( '[data-setting="customWidth"]' ).val( value );
+		}
+	},
+
+	onToggleAdvanced: function( event ) {
+		event.preventDefault();
+		this.toggleAdvanced();
+	},
+
+	toggleAdvanced: function( show ) {
+		var $advanced = this.$el.find( '.advanced-section' ),
+			mode;
+
+		if ( $advanced.hasClass('advanced-visible') || show === false ) {
+			$advanced.removeClass('advanced-visible');
+			$advanced.find('.advanced-settings').addClass('hidden');
+			mode = 'hide';
+		} else {
+			$advanced.addClass('advanced-visible');
+			$advanced.find('.advanced-settings').removeClass('hidden');
+			mode = 'show';
+		}
+
+		window.setUserSetting( 'advImgDetails', mode );
+	},
+
+	editAttachment: function( event ) {
+		var editState = this.controller.states.get( 'edit-image' );
+
+		if ( window.imageEdit && editState ) {
+			event.preventDefault();
+			editState.set( 'image', this.model.attachment );
+			this.controller.setState( 'edit-image' );
+		}
+	},
+
+	replaceAttachment: function( event ) {
+		event.preventDefault();
+		this.controller.setState( 'replace-image' );
+	}
+});
+
+module.exports = ImageDetails;
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.Library
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Library = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Library.prototype */{
+	buttons: {
+		check: true
+	}
+});
+
+module.exports = Library;
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.EditLibrary
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var EditLibrary = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.EditLibrary.prototype */{
+	buttons: {
+		close: true
+	}
+});
+
+module.exports = EditLibrary;
+
+
+/***/ }),
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */
+/***/ (function(module, exports) {
+
+var Toolbar = techlogging.media.view.Toolbar,
+	l10n = techlogging.media.view.l10n,
+	Select;
+
+/**
+ * techlogging.media.view.Toolbar.Select
+ *
+ * @memberOf techlogging.media.view.Toolbar
+ *
+ * @class
+ * @augments techlogging.media.view.Toolbar
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Select = Toolbar.extend(/** @lends techlogging.media.view.Toolbar.Select.prototype */{
+	initialize: function() {
+		var options = this.options;
+
+		_.bindAll( this, 'clickSelect' );
+
+		_.defaults( options, {
+			event: 'select',
+			state: false,
+			reset: true,
+			close: true,
+			text:  l10n.select,
+
+			// Does the button rely on the selection?
+			requires: {
+				selection: true
+			}
+		});
+
+		options.items = _.defaults( options.items || {}, {
+			select: {
+				style:    'primary',
+				text:     options.text,
+				priority: 80,
+				click:    this.clickSelect,
+				requires: options.requires
+			}
+		});
+		// Call 'initialize' directly on the parent class.
+		Toolbar.prototype.initialize.apply( this, arguments );
+	},
+
+	clickSelect: function() {
+		var options = this.options,
+			controller = this.controller;
+
+		if ( options.close ) {
+			controller.close();
+		}
+
+		if ( options.event ) {
+			controller.state().trigger( options.event );
+		}
+
+		if ( options.state ) {
+			controller.setState( options.state );
+		}
+
+		if ( options.reset ) {
+			controller.reset();
+		}
+	}
+});
+
+module.exports = Select;
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+var Select = techlogging.media.view.Toolbar.Select,
+	l10n = techlogging.media.view.l10n,
+	Embed;
+
+/**
+ * techlogging.media.view.Toolbar.Embed
+ *
+ * @memberOf techlogging.media.view.Toolbar
+ *
+ * @class
+ * @augments techlogging.media.view.Toolbar.Select
+ * @augments techlogging.media.view.Toolbar
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Embed = Select.extend(/** @lends techlogging.media.view.Toolbar.Embed.prototype */{
+	initialize: function() {
+		_.defaults( this.options, {
+			text: l10n.insertIntoPost,
+			requires: false
+		});
+		// Call 'initialize' directly on the parent class.
+		Select.prototype.initialize.apply( this, arguments );
+	},
+
+	refresh: function() {
+		var url = this.controller.state().props.get('url');
+		this.get('select').model.set( 'disabled', ! url || url === 'http://' );
+		/**
+		 * call 'refresh' directly on the parent class
+		 */
+		Select.prototype.refresh.apply( this, arguments );
+	}
+});
+
+module.exports = Embed;
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports) {
+
+var $ = Backbone.$,
+	ButtonGroup;
+
+/**
+ * techlogging.media.view.ButtonGroup
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.ButtonGroup.prototype */{
+	tagName:   'div',
+	className: 'button-group button-large media-button-group',
+
+	initialize: function() {
+		/**
+		 * @member {techlogging.media.view.Button[]}
+		 */
+		this.buttons = _.map( this.options.buttons || [], function( button ) {
+			if ( button instanceof Backbone.View ) {
+				return button;
+			} else {
+				return new techlogging.media.view.Button( button ).render();
+			}
+		});
+
+		delete this.options.buttons;
+
+		if ( this.options.classes ) {
+			this.$el.addClass( this.options.classes );
+		}
+	},
+
+	/**
+	 * @returns {techlogging.media.view.ButtonGroup}
+	 */
+	render: function() {
+		this.$el.html( $( _.pluck( this.buttons, 'el' ) ).detach() );
+		return this;
+	}
+});
+
+module.exports = ButtonGroup;
 
 
 /***/ })

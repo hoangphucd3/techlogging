@@ -2,11 +2,11 @@
     var _techloggingPluploadSettings = {
         "defaults": {
             "file_data_name": "async-upload",
-            "url": "\/WordPress\/wp-admin\/async-upload.php",
+            "url": "<%= media_async_upload_path %>",
             "filters": {
                 "max_file_size": "8388608b",
                 "mime_types": [{
-                    "extensions": "jpg,jpeg,jpe,gif,png,bmp,tiff,tif,ico,asf,asx,wmv,wmx,wm,avi,divx,flv,mov,qt,mpeg,mpg,mpe,mp4,m4v,ogv,webm,mkv,3gp,3gpp,3g2,3gp2,txt,asc,c,cc,h,srt,csv,tsv,ics,rtx,css,htm,html,vtt,dfxp,mp3,m4a,m4b,ra,ram,wav,ogg,oga,mid,midi,wma,wax,mka,rtf,js,pdf,class,tar,zip,gz,gzip,rar,7z,psd,xcf,doc,pot,pps,ppt,wri,xla,xls,xlt,xlw,mdb,mpp,docx,docm,dotx,dotm,xlsx,xlsm,xlsb,xltx,xltm,xlam,pptx,pptm,ppsx,ppsm,potx,potm,ppam,sldx,sldm,onetoc,onetoc2,onetmp,onepkg,oxps,xps,odt,odp,ods,odg,odc,odb,odf,wp,wpd,key,numbers,pages"
+                    "extensions": "jpg,jpeg,jpe,gif,png"
                 }]
             },
             "multipart_params": {
@@ -19,11 +19,6 @@
             "supported": true
         },
         "limitExceeded": false
-    };
-    var wpApiSettings = {
-        "root": "https:\/\/demos1.softaculous.com\/WordPress\/wp-json\/",
-        "nonce": "e132fdbbf3",
-        "versionString": "wp\/v2\/"
     };
     var _techloggingMediaViewsL10n = {
         "url": "URL",
@@ -211,7 +206,6 @@
     };
     var _techloggingMediaModelsL10n = {
         "settings": {
-            "ajaxurl": "",
             "post": {
                 "id": 0
             }

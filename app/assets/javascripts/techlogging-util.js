@@ -32,7 +32,6 @@ window.techlogging = window.techlogging || {};
 			};
 
 		return function ( data ) {
-		    console.log(id);
 			compiled = compiled || _.template( $( '#tmpl-' + id ).html(),  options );
 			return compiled( data );
 		};
@@ -76,6 +75,7 @@ window.techlogging = window.techlogging || {};
 		 */
 		send: function( action, options ) {
 			var promise, deferred;
+			console.log('hi');
 			if ( _.isObject( action ) ) {
 				options = action;
 			} else {

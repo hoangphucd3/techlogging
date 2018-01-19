@@ -102,7 +102,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 
 		if ( this.get( 'router' ) && this.get('contentUserSetting') ) {
 			this.frame.on( 'content:activate', this.saveContentMode, this );
-			// this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
+			this.set( 'content', getUserSetting( 'libraryContent', this.get('content') ) );
 		}
 	},
 

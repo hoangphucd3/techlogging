@@ -13,11 +13,11 @@ window.techlogging = window.techlogging || {};
 	}
 
 	/**
-	 * A WordPress uploader.
+	 * A TechLogging uploader.
 	 *
 	 * The Plupload library provides cross-browser uploader UI integration.
 	 * This object bridges the Plupload API to integrate uploads into the
-	 * WordPress back end and the WordPress media experience.
+	 * TechLogging back end and the TechLogging media experience.
 	 *
 	 * @class
 	 * @memberOf wp
