@@ -75,7 +75,6 @@ window.techlogging = window.techlogging || {};
 		 */
 		send: function( action, options ) {
 			var promise, deferred;
-			console.log('hi');
 			if ( _.isObject( action ) ) {
 				options = action;
 			} else {

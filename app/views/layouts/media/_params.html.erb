@@ -20,6 +20,17 @@
         },
         "limitExceeded": false
     };
+    var userSettings = {
+        "url": "<%= root_path %>",
+        "uid": "<%= current_admin_user.try(:id) || 1 %>",
+        "time": "<%= (Time.now.to_f * 1000).to_i %>",
+        "secure": ""
+    };
+    var _techloggingUtilSettings = {
+        "ajax": {
+            "url": "<%= media_ajax_handle_path %>"
+        }
+    };
     var _techloggingMediaViewsL10n = {
         "url": "URL",
         "addMedia": "Add Media",

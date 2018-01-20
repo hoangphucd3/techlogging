@@ -8,6 +8,7 @@
 <% content_for :footer_javascripts do %>
   <%= render 'layouts/media/params' %>
   <%= render 'layouts/media/base' %>
+  <%= javascript_include_tag('techlogging-util')  %>
   <%= render 'layouts/media_assets' %>
   <%= javascript_include_tag('admin/articles')  %>
 <% end %>

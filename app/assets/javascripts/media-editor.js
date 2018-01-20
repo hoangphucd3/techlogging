@@ -79,7 +79,7 @@
 
             // Format properties for images.
             if ( 'image' === attachment.type ) {
-                props.classes.push( 'wp-image-' + attachment.id );
+                props.classes.push( 'techlogging-image-' + attachment.id );
 
                 sizes = attachment.sizes;
                 size = sizes && sizes[ props.size ] ? sizes[ props.size ] : attachment;
@@ -92,7 +92,7 @@
                 });
             } else {
                 props.title = props.title || attachment.filename;
-                props.rel = props.rel || 'attachment wp-att-' + attachment.id;
+                props.rel = props.rel || 'attachment techlogging-att-' + attachment.id;
             }
 
             return props;
@@ -122,75 +122,6 @@
             }
 
             return techlogging.html.string( options );
-        },
-        /**
-         * Create an Audio shortcode string that is suitable for passing to the editor
-         *
-         * @param {Object} props Attachment details (align, link, size, etc).
-         * @param {Object} attachment The attachment object, media version of Post.
-         * @returns {string} The audio shortcode
-         */
-        audio: function( props, attachment ) {
-            return techlogging.media.string._audioVideo( 'audio', props, attachment );
-        },
-        /**
-         * Create a Video shortcode string that is suitable for passing to the editor
-         *
-         * @param {Object} props Attachment details (align, link, size, etc).
-         * @param {Object} attachment The attachment object, media version of Post.
-         * @returns {string} The video shortcode
-         */
-        video: function( props, attachment ) {
-            return techlogging.media.string._audioVideo( 'video', props, attachment );
-        },
-        /**
-         * Helper function to create a media shortcode string
-         *
-         * @access private
-         *
-         * @param {string} type The shortcode tag name: 'audio' or 'video'.
-         * @param {Object} props Attachment details (align, link, size, etc).
-         * @param {Object} attachment The attachment object, media version of Post.
-         * @returns {string} The media shortcode
-         */
-        _audioVideo: function( type, props, attachment ) {
-            var shortcode, html, extension;
-
-            props = techlogging.media.string.props( props, attachment );
-            if ( props.link !== 'embed' )
-                return techlogging.media.string.link( props );
-
-            shortcode = {};
-
-            if ( 'video' === type ) {
-                if ( attachment.image && -1 === attachment.image.src.indexOf( attachment.icon ) ) {
-                    shortcode.poster = attachment.image.src;
-                }
-
-                if ( attachment.width ) {
-                    shortcode.width = attachment.width;
-                }
-
-                if ( attachment.height ) {
-                    shortcode.height = attachment.height;
-                }
-            }
-
-            extension = attachment.filename.split('.').pop();
-
-            if ( _.contains( techlogging.media.view.settings.embedExts, extension ) ) {
-                shortcode[extension] = attachment.url;
-            } else {
-                // Render unsupported audio and video files as links.
-                return techlogging.media.string.link( props );
-            }
-
-            html = techlogging.shortcode.string({
-                tag:     type,
-                attrs:   shortcode
-            });
-
-            return html;
         },
         /**
          * Create image markup, optionally with a link and/or wrapped in a caption shortcode,
@@ -803,27 +734,6 @@
                 }, this ) ).done( function() {
                     techlogging.media.editor.insert( _.toArray( arguments ).join('\n\n') );
                 });
-            }, this );
-
-            workflow.state('gallery-edit').on( 'update', function( selection ) {
-                /**
-                 * @this techlogging.media.editor
-                 */
-                this.insert( techlogging.media.gallery.shortcode( selection ).string() );
-            }, this );
-
-            workflow.state('playlist-edit').on( 'update', function( selection ) {
-                /**
-                 * @this techlogging.media.editor
-                 */
-                this.insert( techlogging.media.playlist.shortcode( selection ).string() );
-            }, this );
-
-            workflow.state('video-playlist-edit').on( 'update', function( selection ) {
-                /**
-                 * @this techlogging.media.editor
-                 */
-                this.insert( techlogging.media.playlist.shortcode( selection ).string() );
             }, this );
 
             workflow.state('embed').on( 'select', function() {

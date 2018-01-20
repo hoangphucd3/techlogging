@@ -36,7 +36,9 @@ media = techlogging.media = function( attributes ) {
 		frame = new MediaFrame.Manage( attributes );
 	} else if ( 'image' === attributes.frame && MediaFrame.ImageDetails ) {
 		frame = new MediaFrame.ImageDetails( attributes );
-	}
+	} else if ( 'edit-attachments' === attributes.frame && MediaFrame.EditAttachments ) {
+        frame = new MediaFrame.EditAttachments( attributes );
+    }
 
 	delete attributes.frame;
 
@@ -61,6 +63,7 @@ delete l10n.settings;
 Attachment = media.model.Attachment = require( './models/attachment.js' );
 Attachments = media.model.Attachments = require( './models/attachments.js' );
 
+media.model.Query = require( './models/query.js' );
 media.model.PostImage = require( './models/post-image.js' );
 media.model.Selection = require( './models/selection.js' );
 

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,14 @@
 /* 4 */,
 /* 5 */,
 /* 6 */,
-/* 7 */
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var media = techlogging.media,
@@ -146,68 +153,68 @@ media.transition = function( selector, sensitivity ) {
 	return deferred.promise();
 };
 
-media.controller.Region = __webpack_require__( 8 );
-media.controller.StateMachine = __webpack_require__( 9 );
-media.controller.State = __webpack_require__( 10 );
+media.controller.Region = __webpack_require__( 15 );
+media.controller.StateMachine = __webpack_require__( 16 );
+media.controller.State = __webpack_require__( 17 );
 
-media.selectionSync = __webpack_require__( 11 );
-media.controller.Library = __webpack_require__( 12 );
-media.controller.ImageDetails = __webpack_require__( 13 );
-media.controller.EditImage = __webpack_require__( 14 );
-media.controller.MediaLibrary = __webpack_require__( 15 );
+media.selectionSync = __webpack_require__( 18 );
+media.controller.Library = __webpack_require__( 19 );
+media.controller.ImageDetails = __webpack_require__( 20 );
+media.controller.EditImage = __webpack_require__( 21 );
+media.controller.MediaLibrary = __webpack_require__( 22 );
 
-media.View = __webpack_require__( 16 );
-media.view.Frame = __webpack_require__( 17 );
-media.view.MediaFrame = __webpack_require__( 18 );
-media.view.MediaFrame.Select = __webpack_require__( 19 );
-media.view.MediaFrame.Post = __webpack_require__( 20 );
-media.view.MediaFrame.ImageDetails = __webpack_require__( 21 );
-media.view.Modal = __webpack_require__( 22 );
-media.view.FocusManager = __webpack_require__( 23 );
-media.view.UploaderWindow = __webpack_require__( 24 );
-media.view.EditorUploader = __webpack_require__( 25 );
-media.view.UploaderInline = __webpack_require__( 26 );
-media.view.UploaderStatus = __webpack_require__( 27 );
-media.view.UploaderStatusError = __webpack_require__( 28 );
-media.view.Toolbar = __webpack_require__( 29 );
-media.view.Toolbar.Select = __webpack_require__( 61 );
-media.view.Toolbar.Embed = __webpack_require__( 62 );
-media.view.Button = __webpack_require__( 30 );
-media.view.ButtonGroup = __webpack_require__( 63 );
-media.view.PriorityList = __webpack_require__( 31 );
-media.view.MenuItem = __webpack_require__( 32 );
-media.view.Menu = __webpack_require__( 33 );
-media.view.RouterItem = __webpack_require__( 34 );
-media.view.Router = __webpack_require__( 35 );
-media.view.Sidebar = __webpack_require__( 36 );
-media.view.Attachment = __webpack_require__( 37 );
-media.view.Attachment.Library = __webpack_require__( 56 );
-media.view.Attachment.EditLibrary = __webpack_require__( 57 );
-media.view.Attachments = __webpack_require__( 38 );
+media.View = __webpack_require__( 23 );
+media.view.Frame = __webpack_require__( 24 );
+media.view.MediaFrame = __webpack_require__( 25 );
+media.view.MediaFrame.Select = __webpack_require__( 26 );
+media.view.MediaFrame.Post = __webpack_require__( 27 );
+media.view.MediaFrame.ImageDetails = __webpack_require__( 28 );
+media.view.Modal = __webpack_require__( 29 );
+media.view.FocusManager = __webpack_require__( 30 );
+media.view.UploaderWindow = __webpack_require__( 31 );
+media.view.EditorUploader = __webpack_require__( 32 );
+media.view.UploaderInline = __webpack_require__( 33 );
+media.view.UploaderStatus = __webpack_require__( 34 );
+media.view.UploaderStatusError = __webpack_require__( 35 );
+media.view.Toolbar = __webpack_require__( 36 );
+media.view.Toolbar.Select = __webpack_require__( 37 );
+media.view.Toolbar.Embed = __webpack_require__( 38 );
+media.view.Button = __webpack_require__( 39 );
+media.view.ButtonGroup = __webpack_require__( 40 );
+media.view.PriorityList = __webpack_require__( 41 );
+media.view.MenuItem = __webpack_require__( 42 );
+media.view.Menu = __webpack_require__( 43 );
+media.view.RouterItem = __webpack_require__( 44 );
+media.view.Router = __webpack_require__( 45 );
+media.view.Sidebar = __webpack_require__( 46 );
+media.view.Attachment = __webpack_require__( 47 );
+media.view.Attachment.Library = __webpack_require__( 48 );
+media.view.Attachment.EditLibrary = __webpack_require__( 49 );
+media.view.Attachments = __webpack_require__( 50 );
 // media.view.Search = require( './views/search.js' );
-media.view.AttachmentFilters = __webpack_require__( 39 );
+media.view.AttachmentFilters = __webpack_require__( 51 );
 // media.view.DateFilter = require( './views/attachment-filters/date.js' );
 // media.view.AttachmentFilters.Uploaded = require( './views/attachment-filters/uploaded.js' );
-media.view.AttachmentFilters.All = __webpack_require__( 40 );
-media.view.AttachmentsBrowser = __webpack_require__( 41 );
-media.view.Selection = __webpack_require__( 42 );
-media.view.Attachment.Selection = __webpack_require__( 50 );
-media.view.Attachments.Selection = __webpack_require__( 43 );
-media.view.Attachment.EditSelection = __webpack_require__( 52 );
-media.view.Settings = __webpack_require__( 44 );
-media.view.Settings.AttachmentDisplay = __webpack_require__( 45 );
-media.view.Attachment.Details = __webpack_require__( 46 );
-media.view.AttachmentCompat = __webpack_require__( 47 );
+media.view.AttachmentFilters.All = __webpack_require__( 52 );
+media.view.AttachmentsBrowser = __webpack_require__( 53 );
+media.view.Selection = __webpack_require__( 54 );
+media.view.Attachment.Selection = __webpack_require__( 55 );
+media.view.Attachments.Selection = __webpack_require__( 56 );
+media.view.Attachment.EditSelection = __webpack_require__( 57 );
+media.view.Settings = __webpack_require__( 58 );
+media.view.Settings.AttachmentDisplay = __webpack_require__( 59 );
+media.view.Attachment.Details = __webpack_require__( 60 );
+media.view.AttachmentCompat = __webpack_require__( 61 );
 // media.view.Iframe = require( './views/iframe.js' );
 // media.view.Embed = require( './views/embed.js' );
-media.view.Label = __webpack_require__( 48 );
-media.view.ImageDetails = __webpack_require__( 55 );
-media.view.EditImage = __webpack_require__( 54 );
-media.view.Spinner = __webpack_require__( 49 );
+media.view.Label = __webpack_require__( 62 );
+media.view.ImageDetails = __webpack_require__( 63 );
+media.view.EditImage = __webpack_require__( 64 );
+media.view.Spinner = __webpack_require__( 65 );
 
 
 /***/ }),
-/* 8 */
+/* 15 */
 /***/ (function(module, exports) {
 
 /**
@@ -387,7 +394,7 @@ module.exports = Region;
 
 
 /***/ }),
-/* 9 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -532,7 +539,7 @@ module.exports = StateMachine;
 
 
 /***/ }),
-/* 10 */
+/* 17 */
 /***/ (function(module, exports) {
 
 /**
@@ -779,7 +786,7 @@ module.exports = State;
 
 
 /***/ }),
-/* 11 */
+/* 18 */
 /***/ (function(module, exports) {
 
 /**
@@ -851,7 +858,7 @@ module.exports = selectionSync;
 
 
 /***/ }),
-/* 12 */
+/* 19 */
 /***/ (function(module, exports) {
 
 var getUserSetting = window.getUserSetting,
@@ -1164,7 +1171,7 @@ module.exports = Library;
 
 
 /***/ }),
-/* 13 */
+/* 20 */
 /***/ (function(module, exports) {
 
 var State = techlogging.media.controller.State,
@@ -1231,7 +1238,7 @@ module.exports = ImageDetails;
 
 
 /***/ }),
-/* 14 */
+/* 21 */
 /***/ (function(module, exports) {
 
 var EditImage;
@@ -1328,7 +1335,7 @@ module.exports = EditImage;
 
 
 /***/ }),
-/* 15 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /**
@@ -1384,7 +1391,7 @@ module.exports = MediaLibrary;
 
 
 /***/ }),
-/* 16 */
+/* 23 */
 /***/ (function(module, exports) {
 
 /**
@@ -1456,7 +1463,7 @@ module.exports = View;
 
 
 /***/ }),
-/* 17 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /**
@@ -1628,7 +1635,7 @@ module.exports = Frame;
 
 
 /***/ }),
-/* 18 */
+/* 25 */
 /***/ (function(module, exports) {
 
 var Frame = techlogging.media.view.Frame,
@@ -1913,7 +1920,7 @@ module.exports = MediaFrame;
 
 
 /***/ }),
-/* 19 */
+/* 26 */
 /***/ (function(module, exports) {
 
 var MediaFrame = techlogging.media.view.MediaFrame,
@@ -2088,7 +2095,7 @@ module.exports = Select;
 
 
 /***/ }),
-/* 20 */
+/* 27 */
 /***/ (function(module, exports) {
 
 var Select = techlogging.media.view.MediaFrame.Select,
@@ -2726,7 +2733,7 @@ module.exports = Post;
 
 
 /***/ }),
-/* 21 */
+/* 28 */
 /***/ (function(module, exports) {
 
 var Select = techlogging.media.view.MediaFrame.Select,
@@ -2909,7 +2916,7 @@ module.exports = ImageDetails;
 
 
 /***/ }),
-/* 22 */
+/* 29 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -3136,7 +3143,7 @@ module.exports = Modal;
 
 
 /***/ }),
-/* 23 */
+/* 30 */
 /***/ (function(module, exports) {
 
 /**
@@ -3188,7 +3195,7 @@ module.exports = FocusManager;
 
 
 /***/ }),
-/* 24 */
+/* 31 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -3305,7 +3312,7 @@ module.exports = UploaderWindow;
 
 
 /***/ }),
-/* 25 */
+/* 32 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -3536,7 +3543,7 @@ module.exports = EditorUploader;
 
 
 /***/ }),
-/* 26 */
+/* 33 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -3682,7 +3689,7 @@ module.exports = UploaderInline;
 
 
 /***/ }),
-/* 27 */
+/* 34 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -3823,7 +3830,7 @@ module.exports = UploaderStatus;
 
 
 /***/ }),
-/* 28 */
+/* 35 */
 /***/ (function(module, exports) {
 
 /**
@@ -3845,7 +3852,7 @@ module.exports = UploaderStatusError;
 
 
 /***/ }),
-/* 29 */
+/* 36 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -4013,7 +4020,126 @@ module.exports = Toolbar;
 
 
 /***/ }),
-/* 30 */
+/* 37 */
+/***/ (function(module, exports) {
+
+var Toolbar = techlogging.media.view.Toolbar,
+	l10n = techlogging.media.view.l10n,
+	Select;
+
+/**
+ * techlogging.media.view.Toolbar.Select
+ *
+ * @memberOf techlogging.media.view.Toolbar
+ *
+ * @class
+ * @augments techlogging.media.view.Toolbar
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Select = Toolbar.extend(/** @lends techlogging.media.view.Toolbar.Select.prototype */{
+	initialize: function() {
+		var options = this.options;
+
+		_.bindAll( this, 'clickSelect' );
+
+		_.defaults( options, {
+			event: 'select',
+			state: false,
+			reset: true,
+			close: true,
+			text:  l10n.select,
+
+			// Does the button rely on the selection?
+			requires: {
+				selection: true
+			}
+		});
+
+		options.items = _.defaults( options.items || {}, {
+			select: {
+				style:    'primary',
+				text:     options.text,
+				priority: 80,
+				click:    this.clickSelect,
+				requires: options.requires
+			}
+		});
+		// Call 'initialize' directly on the parent class.
+		Toolbar.prototype.initialize.apply( this, arguments );
+	},
+
+	clickSelect: function() {
+		var options = this.options,
+			controller = this.controller;
+
+		if ( options.close ) {
+			controller.close();
+		}
+
+		if ( options.event ) {
+			controller.state().trigger( options.event );
+		}
+
+		if ( options.state ) {
+			controller.setState( options.state );
+		}
+
+		if ( options.reset ) {
+			controller.reset();
+		}
+	}
+});
+
+module.exports = Select;
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports) {
+
+var Select = techlogging.media.view.Toolbar.Select,
+	l10n = techlogging.media.view.l10n,
+	Embed;
+
+/**
+ * techlogging.media.view.Toolbar.Embed
+ *
+ * @memberOf techlogging.media.view.Toolbar
+ *
+ * @class
+ * @augments techlogging.media.view.Toolbar.Select
+ * @augments techlogging.media.view.Toolbar
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+Embed = Select.extend(/** @lends techlogging.media.view.Toolbar.Embed.prototype */{
+	initialize: function() {
+		_.defaults( this.options, {
+			text: l10n.insertIntoPost,
+			requires: false
+		});
+		// Call 'initialize' directly on the parent class.
+		Select.prototype.initialize.apply( this, arguments );
+	},
+
+	refresh: function() {
+		var url = this.controller.state().props.get('url');
+		this.get('select').model.set( 'disabled', ! url || url === 'http://' );
+		/**
+		 * call 'refresh' directly on the parent class
+		 */
+		Select.prototype.refresh.apply( this, arguments );
+	}
+});
+
+module.exports = Embed;
+
+
+/***/ }),
+/* 39 */
 /***/ (function(module, exports) {
 
 /**
@@ -4105,7 +4231,59 @@ module.exports = Button;
 
 
 /***/ }),
-/* 31 */
+/* 40 */
+/***/ (function(module, exports) {
+
+var $ = Backbone.$,
+	ButtonGroup;
+
+/**
+ * techlogging.media.view.ButtonGroup
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.ButtonGroup.prototype */{
+	tagName:   'div',
+	className: 'button-group button-large media-button-group',
+
+	initialize: function() {
+		/**
+		 * @member {techlogging.media.view.Button[]}
+		 */
+		this.buttons = _.map( this.options.buttons || [], function( button ) {
+			if ( button instanceof Backbone.View ) {
+				return button;
+			} else {
+				return new techlogging.media.view.Button( button ).render();
+			}
+		});
+
+		delete this.options.buttons;
+
+		if ( this.options.classes ) {
+			this.$el.addClass( this.options.classes );
+		}
+	},
+
+	/**
+	 * @returns {techlogging.media.view.ButtonGroup}
+	 */
+	render: function() {
+		this.$el.html( $( _.pluck( this.buttons, 'el' ) ).detach() );
+		return this;
+	}
+});
+
+module.exports = ButtonGroup;
+
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports) {
 
 /**
@@ -4208,7 +4386,7 @@ module.exports = PriorityList;
 
 
 /***/ }),
-/* 32 */
+/* 42 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -4286,7 +4464,7 @@ module.exports = MenuItem;
 
 
 /***/ }),
-/* 33 */
+/* 43 */
 /***/ (function(module, exports) {
 
 var MenuItem = techlogging.media.view.MenuItem,
@@ -4409,7 +4587,7 @@ module.exports = Menu;
 
 
 /***/ }),
-/* 34 */
+/* 44 */
 /***/ (function(module, exports) {
 
 /**
@@ -4439,7 +4617,7 @@ module.exports = RouterItem;
 
 
 /***/ }),
-/* 35 */
+/* 45 */
 /***/ (function(module, exports) {
 
 var Menu = techlogging.media.view.Menu,
@@ -4482,7 +4660,7 @@ module.exports = Router;
 
 
 /***/ }),
-/* 36 */
+/* 46 */
 /***/ (function(module, exports) {
 
 /**
@@ -4504,7 +4682,7 @@ module.exports = Sidebar;
 
 
 /***/ }),
-/* 37 */
+/* 47 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -5085,7 +5263,55 @@ module.exports = Attachment;
 
 
 /***/ }),
-/* 38 */
+/* 48 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.Library
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Library = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Library.prototype */{
+	buttons: {
+		check: true
+	}
+});
+
+module.exports = Library;
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.EditLibrary
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var EditLibrary = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.EditLibrary.prototype */{
+	buttons: {
+		close: true
+	}
+});
+
+module.exports = EditLibrary;
+
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -5526,7 +5752,7 @@ module.exports = Attachments;
 
 
 /***/ }),
-/* 39 */
+/* 51 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -5609,7 +5835,7 @@ module.exports = AttachmentFilters;
 
 
 /***/ }),
-/* 40 */
+/* 52 */
 /***/ (function(module, exports) {
 
 var All;
@@ -5704,7 +5930,7 @@ module.exports = All;
 
 
 /***/ }),
-/* 41 */
+/* 53 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -6018,7 +6244,6 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createUploader: function() {
-	    console.log(this.controller);
 		this.uploader = new techlogging.media.view.UploaderInline({
 			controller: this.controller,
 			status:     false,
@@ -6142,7 +6367,7 @@ module.exports = AttachmentsBrowser;
 
 
 /***/ }),
-/* 42 */
+/* 54 */
 /***/ (function(module, exports) {
 
 var Selection;
@@ -6230,7 +6455,35 @@ module.exports = Selection;
 
 
 /***/ }),
-/* 43 */
+/* 55 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.Selection
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Selection = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Selection.prototype */{
+	className: 'attachment selection',
+
+	// On click, just select the model, instead of removing the model from
+	// the selection.
+	toggleSelection: function() {
+		this.options.selection.single( this.model );
+	}
+});
+
+module.exports = Selection;
+
+
+/***/ }),
+/* 56 */
 /***/ (function(module, exports) {
 
 var Attachments = techlogging.media.view.Attachments,
@@ -6266,7 +6519,32 @@ module.exports = Selection;
 
 
 /***/ }),
-/* 44 */
+/* 57 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Attachment.EditSelection
+ *
+ * @memberOf techlogging.media.view.Attachment
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment.Selection
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var EditSelection = techlogging.media.view.Attachment.Selection.extend(/** @lends techlogging.media.view.Attachment.EditSelection.prototype */{
+	buttons: {
+		close: true
+	}
+});
+
+module.exports = EditSelection;
+
+
+/***/ }),
+/* 58 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -6393,7 +6671,7 @@ module.exports = Settings;
 
 
 /***/ }),
-/* 45 */
+/* 59 */
 /***/ (function(module, exports) {
 
 var Settings = techlogging.media.view.Settings,
@@ -6493,7 +6771,7 @@ module.exports = AttachmentDisplay;
 
 
 /***/ }),
-/* 46 */
+/* 60 */
 /***/ (function(module, exports) {
 
 var Attachment = techlogging.media.view.Attachment,
@@ -6637,7 +6915,7 @@ module.exports = Details;
 
 
 /***/ }),
-/* 47 */
+/* 61 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -6728,7 +7006,7 @@ module.exports = AttachmentCompat;
 
 
 /***/ }),
-/* 48 */
+/* 62 */
 /***/ (function(module, exports) {
 
 /**
@@ -6760,165 +7038,7 @@ module.exports = Label;
 
 
 /***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-/**
- * techlogging.media.view.Spinner
- *
- * @memberOf techlogging.media.view
- *
- * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Spinner.prototype */{
-	tagName:   'span',
-	className: 'spinner',
-	spinnerTimeout: false,
-	delay: 400,
-
-	show: function() {
-		if ( ! this.spinnerTimeout ) {
-			this.spinnerTimeout = _.delay(function( $el ) {
-				$el.addClass( 'is-active' );
-			}, this.delay, this.$el );
-		}
-
-		return this;
-	},
-
-	hide: function() {
-		this.$el.removeClass( 'is-active' );
-		this.spinnerTimeout = clearTimeout( this.spinnerTimeout );
-
-		return this;
-	}
-});
-
-module.exports = Spinner;
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports) {
-
-/**
- * techlogging.media.view.Attachment.Selection
- *
- * @memberOf techlogging.media.view.Attachment
- *
- * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var Selection = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Selection.prototype */{
-	className: 'attachment selection',
-
-	// On click, just select the model, instead of removing the model from
-	// the selection.
-	toggleSelection: function() {
-		this.options.selection.single( this.model );
-	}
-});
-
-module.exports = Selection;
-
-
-/***/ }),
-/* 51 */,
-/* 52 */
-/***/ (function(module, exports) {
-
-/**
- * techlogging.media.view.Attachment.EditSelection
- *
- * @memberOf techlogging.media.view.Attachment
- *
- * @class
- * @augments techlogging.media.view.Attachment.Selection
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var EditSelection = techlogging.media.view.Attachment.Selection.extend(/** @lends techlogging.media.view.Attachment.EditSelection.prototype */{
-	buttons: {
-		close: true
-	}
-});
-
-module.exports = EditSelection;
-
-
-/***/ }),
-/* 53 */,
-/* 54 */
-/***/ (function(module, exports) {
-
-var View = techlogging.media.View,
-	EditImage;
-
-/**
- * techlogging.media.view.EditImage
- *
- * @memberOf techlogging.media.view
- *
- * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-EditImage = View.extend(/** @lends techlogging.media.view.EditImage.prototype */{
-	className: 'image-editor',
-	template: techlogging.template('image-editor'),
-
-	initialize: function( options ) {
-		this.editor = window.imageEdit;
-		this.controller = options.controller;
-		View.prototype.initialize.apply( this, arguments );
-	},
-
-	prepare: function() {
-		return this.model.toJSON();
-	},
-
-	loadEditor: function() {
-		var dfd = this.editor.open( this.model.get('id'), this.model.get('nonces').edit, this );
-		dfd.done( _.bind( this.focus, this ) );
-	},
-
-	focus: function() {
-		this.$( '.imgedit-submit .button' ).eq( 0 ).focus();
-	},
-
-	back: function() {
-		var lastState = this.controller.lastState();
-		this.controller.setState( lastState );
-	},
-
-	refresh: function() {
-		this.model.fetch();
-	},
-
-	save: function() {
-		var lastState = this.controller.lastState();
-
-		this.model.fetch().done( _.bind( function() {
-			this.controller.setState( lastState );
-		}, this ) );
-	}
-
-});
-
-module.exports = EditImage;
-
-
-/***/ }),
-/* 55 */
+/* 63 */
 /***/ (function(module, exports) {
 
 var AttachmentDisplay = techlogging.media.view.Settings.AttachmentDisplay,
@@ -7092,184 +7212,14 @@ module.exports = ImageDetails;
 
 
 /***/ }),
-/* 56 */
+/* 64 */
 /***/ (function(module, exports) {
 
-/**
- * techlogging.media.view.Attachment.Library
- *
- * @memberOf techlogging.media.view.Attachment
- *
- * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var Library = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Library.prototype */{
-	buttons: {
-		check: true
-	}
-});
-
-module.exports = Library;
-
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports) {
+var View = techlogging.media.View,
+	EditImage;
 
 /**
- * techlogging.media.view.Attachment.EditLibrary
- *
- * @memberOf techlogging.media.view.Attachment
- *
- * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-var EditLibrary = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.EditLibrary.prototype */{
-	buttons: {
-		close: true
-	}
-});
-
-module.exports = EditLibrary;
-
-
-/***/ }),
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */
-/***/ (function(module, exports) {
-
-var Toolbar = techlogging.media.view.Toolbar,
-	l10n = techlogging.media.view.l10n,
-	Select;
-
-/**
- * techlogging.media.view.Toolbar.Select
- *
- * @memberOf techlogging.media.view.Toolbar
- *
- * @class
- * @augments techlogging.media.view.Toolbar
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-Select = Toolbar.extend(/** @lends techlogging.media.view.Toolbar.Select.prototype */{
-	initialize: function() {
-		var options = this.options;
-
-		_.bindAll( this, 'clickSelect' );
-
-		_.defaults( options, {
-			event: 'select',
-			state: false,
-			reset: true,
-			close: true,
-			text:  l10n.select,
-
-			// Does the button rely on the selection?
-			requires: {
-				selection: true
-			}
-		});
-
-		options.items = _.defaults( options.items || {}, {
-			select: {
-				style:    'primary',
-				text:     options.text,
-				priority: 80,
-				click:    this.clickSelect,
-				requires: options.requires
-			}
-		});
-		// Call 'initialize' directly on the parent class.
-		Toolbar.prototype.initialize.apply( this, arguments );
-	},
-
-	clickSelect: function() {
-		var options = this.options,
-			controller = this.controller;
-
-		if ( options.close ) {
-			controller.close();
-		}
-
-		if ( options.event ) {
-			controller.state().trigger( options.event );
-		}
-
-		if ( options.state ) {
-			controller.setState( options.state );
-		}
-
-		if ( options.reset ) {
-			controller.reset();
-		}
-	}
-});
-
-module.exports = Select;
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports) {
-
-var Select = techlogging.media.view.Toolbar.Select,
-	l10n = techlogging.media.view.l10n,
-	Embed;
-
-/**
- * techlogging.media.view.Toolbar.Embed
- *
- * @memberOf techlogging.media.view.Toolbar
- *
- * @class
- * @augments techlogging.media.view.Toolbar.Select
- * @augments techlogging.media.view.Toolbar
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
- * @augments Backbone.View
- */
-Embed = Select.extend(/** @lends techlogging.media.view.Toolbar.Embed.prototype */{
-	initialize: function() {
-		_.defaults( this.options, {
-			text: l10n.insertIntoPost,
-			requires: false
-		});
-		// Call 'initialize' directly on the parent class.
-		Select.prototype.initialize.apply( this, arguments );
-	},
-
-	refresh: function() {
-		var url = this.controller.state().props.get('url');
-		this.get('select').model.set( 'disabled', ! url || url === 'http://' );
-		/**
-		 * call 'refresh' directly on the parent class
-		 */
-		Select.prototype.refresh.apply( this, arguments );
-	}
-});
-
-module.exports = Embed;
-
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports) {
-
-var $ = Backbone.$,
-	ButtonGroup;
-
-/**
- * techlogging.media.view.ButtonGroup
+ * techlogging.media.view.EditImage
  *
  * @memberOf techlogging.media.view
  *
@@ -7278,39 +7228,90 @@ var $ = Backbone.$,
  * @augments techlogging.Backbone.View
  * @augments Backbone.View
  */
-ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.ButtonGroup.prototype */{
-	tagName:   'div',
-	className: 'button-group button-large media-button-group',
+EditImage = View.extend(/** @lends techlogging.media.view.EditImage.prototype */{
+	className: 'image-editor',
+	template: techlogging.template('image-editor'),
 
-	initialize: function() {
-		/**
-		 * @member {techlogging.media.view.Button[]}
-		 */
-		this.buttons = _.map( this.options.buttons || [], function( button ) {
-			if ( button instanceof Backbone.View ) {
-				return button;
-			} else {
-				return new techlogging.media.view.Button( button ).render();
-			}
-		});
-
-		delete this.options.buttons;
-
-		if ( this.options.classes ) {
-			this.$el.addClass( this.options.classes );
-		}
+	initialize: function( options ) {
+		this.editor = window.imageEdit;
+		this.controller = options.controller;
+		View.prototype.initialize.apply( this, arguments );
 	},
 
-	/**
-	 * @returns {techlogging.media.view.ButtonGroup}
-	 */
-	render: function() {
-		this.$el.html( $( _.pluck( this.buttons, 'el' ) ).detach() );
+	prepare: function() {
+		return this.model.toJSON();
+	},
+
+	loadEditor: function() {
+		var dfd = this.editor.open( this.model.get('id'), this.model.get('nonces').edit, this );
+		dfd.done( _.bind( this.focus, this ) );
+	},
+
+	focus: function() {
+		this.$( '.imgedit-submit .button' ).eq( 0 ).focus();
+	},
+
+	back: function() {
+		var lastState = this.controller.lastState();
+		this.controller.setState( lastState );
+	},
+
+	refresh: function() {
+		this.model.fetch();
+	},
+
+	save: function() {
+		var lastState = this.controller.lastState();
+
+		this.model.fetch().done( _.bind( function() {
+			this.controller.setState( lastState );
+		}, this ) );
+	}
+
+});
+
+module.exports = EditImage;
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+/**
+ * techlogging.media.view.Spinner
+ *
+ * @memberOf techlogging.media.view
+ *
+ * @class
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Spinner.prototype */{
+	tagName:   'span',
+	className: 'spinner',
+	spinnerTimeout: false,
+	delay: 400,
+
+	show: function() {
+		if ( ! this.spinnerTimeout ) {
+			this.spinnerTimeout = _.delay(function( $el ) {
+				$el.addClass( 'is-active' );
+			}, this.delay, this.$el );
+		}
+
+		return this;
+	},
+
+	hide: function() {
+		this.$el.removeClass( 'is-active' );
+		this.spinnerTimeout = clearTimeout( this.spinnerTimeout );
+
 		return this;
 	}
 });
 
-module.exports = ButtonGroup;
+module.exports = Spinner;
 
 
 /***/ })
