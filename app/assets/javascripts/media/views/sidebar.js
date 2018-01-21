@@ -1,15 +1,15 @@
 /**
- * techlogging.media.view.Sidebar
+ * wp.media.view.Sidebar
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Sidebar = techlogging.media.view.PriorityList.extend(/** @lends techlogging.media.view.Sidebar.prototype */{
+var Sidebar = wp.media.view.PriorityList.extend(/** @lends wp.media.view.Sidebar.prototype */{
 	className: 'media-sidebar'
 });
 

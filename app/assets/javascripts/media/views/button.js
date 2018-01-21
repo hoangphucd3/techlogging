@@ -1,14 +1,14 @@
 /**
- * techlogging.media.view.Button
+ * wp.media.view.Button
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Button = techlogging.media.View.extend(/** @lends techlogging.media.view.Button.prototype */{
+var Button = wp.media.View.extend(/** @lends wp.media.view.Button.prototype */{
 	tagName:    'button',
 	className:  'media-button',
 	attributes: { type: 'button' },
@@ -47,7 +47,7 @@ var Button = techlogging.media.View.extend(/** @lends techlogging.media.view.But
 		this.listenTo( this.model, 'change', this.render );
 	},
 	/**
-	 * @returns {techlogging.media.view.Button} Returns itself to allow chaining
+	 * @returns {wp.media.view.Button} Returns itself to allow chaining
 	 */
 	render: function() {
 		var classes = [ 'button', this.className ],

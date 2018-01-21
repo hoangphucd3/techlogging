@@ -1,5 +1,5 @@
-var View = techlogging.media.View,
-	l10n = techlogging.media.view.l10n,
+var View = wp.media.View,
+	l10n = wp.media.view.l10n,
 	$ = jQuery,
 	EditorUploader;
 
@@ -7,19 +7,19 @@ var View = techlogging.media.View,
  * Creates a dropzone on WP editor instances (elements with .wp-editor-wrap)
  * and relays drag'n'dropped files to a media workflow.
  *
- * techlogging.media.view.EditorUploader
+ * wp.media.view.EditorUploader
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EditorUploader = View.extend(/** @lends techlogging.media.view.EditorUploader.prototype */{
+EditorUploader = View.extend(/** @lends wp.media.view.EditorUploader.prototype */{
 	tagName:   'div',
 	className: 'uploader-editor',
-	template:  techlogging.template( 'uploader-editor' ),
+	template:  wp.template( 'uploader-editor' ),
 
 	localDrag: false,
 	overContainer: false,
@@ -149,7 +149,7 @@ EditorUploader = View.extend(/** @lends techlogging.media.view.EditorUploader.pr
 		}
 
 		if ( ! this.workflow ) {
-			this.workflow = techlogging.media.editor.open( window.wpActiveEditor, {
+			this.workflow = wp.media.editor.open( window.wpActiveEditor, {
 				frame:    'post',
 				state:    'insert',
 				title:    l10n.addMedia,

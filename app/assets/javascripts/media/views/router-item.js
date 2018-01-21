@@ -1,15 +1,15 @@
 /**
- * techlogging.media.view.RouterItem
+ * wp.media.view.RouterItem
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.MenuItem
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MenuItem
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var RouterItem = techlogging.media.view.MenuItem.extend(/** @lends techlogging.media.view.RouterItem.prototype */{
+var RouterItem = wp.media.view.MenuItem.extend(/** @lends wp.media.view.RouterItem.prototype */{
 	/**
 	 * On click handler to activate the content region's corresponding mode.
 	 */

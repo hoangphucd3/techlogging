@@ -1,19 +1,19 @@
-var Toolbar = techlogging.media.view.Toolbar,
-	l10n = techlogging.media.view.l10n,
+var Toolbar = wp.media.view.Toolbar,
+	l10n = wp.media.view.l10n,
 	Select;
 
 /**
- * techlogging.media.view.Toolbar.Select
+ * wp.media.view.Toolbar.Select
  *
- * @memberOf techlogging.media.view.Toolbar
+ * @memberOf wp.media.view.Toolbar
  *
  * @class
- * @augments techlogging.media.view.Toolbar
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Toolbar
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Select = Toolbar.extend(/** @lends techlogging.media.view.Toolbar.Select.prototype */{
+Select = Toolbar.extend(/** @lends wp.media.view.Toolbar.Select.prototype */{
 	initialize: function() {
 		var options = this.options;
 

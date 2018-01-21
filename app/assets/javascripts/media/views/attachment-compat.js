@@ -1,19 +1,19 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	AttachmentCompat;
 
 /**
- * techlogging.media.view.AttachmentCompat
+ * wp.media.view.AttachmentCompat
  *
  * A view to display fields added via the `attachment_fields_to_edit` filter.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompat.prototype */{
+AttachmentCompat = View.extend(/** @lends wp.media.view.AttachmentCompat.prototype */{
 	tagName:   'form',
 	className: 'compat-item',
 
@@ -28,7 +28,7 @@ AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompa
 		this.listenTo( this.model, 'change:compat', this.render );
 	},
 	/**
-	 * @returns {techlogging.media.view.AttachmentCompat} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentCompat} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		if ( this.$(':focus').length ) {
@@ -40,7 +40,7 @@ AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompa
 		return View.prototype.dispose.apply( this, arguments );
 	},
 	/**
-	 * @returns {techlogging.media.view.AttachmentCompat} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentCompat} Returns itself to allow chaining
 	 */
 	render: function() {
 		var compat = this.model.get('compat');

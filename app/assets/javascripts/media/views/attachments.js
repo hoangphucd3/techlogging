@@ -1,8 +1,8 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = jQuery,
 	Attachments;
 
-Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototype */{
+Attachments = View.extend(/** @lends wp.media.view.Attachments.prototype */{
 	tagName:   'ul',
 	className: 'attachments',
 
@@ -19,9 +19,9 @@ Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototyp
 	 * @since 3.5.0
 	 *
 	 * @constructs
-	 * @memberof techlogging.media.view
+	 * @memberof wp.media.view
 	 *
-	 * @augments techlogging.media.View
+	 * @augments wp.media.View
 	 *
 	 * @listens collection:add
 	 * @listens collection:remove
@@ -49,9 +49,9 @@ Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototyp
 		 *                           calculating the total number of columns.
 		 */
 		_.defaults( this.options, {
-			refreshSensitivity: techlogging.media.isTouchDevice ? 300 : 200,
+			refreshSensitivity: wp.media.isTouchDevice ? 300 : 200,
 			refreshThreshold:   3,
-			AttachmentView:     techlogging.media.view.Attachment,
+			AttachmentView:     wp.media.view.Attachment,
 			sortable:           false,
 			resize:             true,
 			idealColumnWidth:   $( window ).width() < 640 ? 135 : 150
@@ -341,9 +341,9 @@ Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototyp
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 *
-	 * @returns {techlogging.media.View} The created view.
+	 * @returns {wp.media.View} The created view.
 	 */
 	createAttachmentView: function( attachment ) {
 		var view = new this.options.AttachmentView({

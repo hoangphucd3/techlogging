@@ -1,18 +1,19 @@
-var EditImage;
+var l10n = wp.media.view.l10n,
+	EditImage;
 
 /**
- * techlogging.media.controller.EditImage
+ * wp.media.controller.EditImage
  *
  * A state for editing (cropping, etc.) an image.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                    attributes                      The attributes hash passed to the state.
- * @param {techlogging.media.model.Attachment} attributes.model                The attachment.
+ * @param {wp.media.model.Attachment} attributes.model                The attachment.
  * @param {string}                    [attributes.id=edit-image]      Unique identifier.
  * @param {string}                    [attributes.title=Edit Image]   Title for the state. Displays in the media menu and the frame's title region.
  * @param {string}                    [attributes.content=edit-image] Initial mode for the content region.
@@ -20,10 +21,10 @@ var EditImage;
  * @param {string}                    [attributes.menu=false]         Initial mode for the menu region.
  * @param {string}                    [attributes.url]                Unused. @todo Consider removal.
  */
-EditImage = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.EditImage.prototype */{
+EditImage = wp.media.controller.State.extend(/** @lends wp.media.controller.EditImage.prototype */{
 	defaults: {
 		id:      'edit-image',
-		title:   'l10n.editImage',
+		title:   l10n.editImage,
 		menu:    false,
 		toolbar: 'edit-image',
 		content: 'edit-image',
@@ -68,12 +69,12 @@ EditImage = techlogging.media.controller.State.extend(/** @lends techlogging.med
 			lastState = frame.lastState(),
 			previous = lastState && lastState.id;
 
-		frame.toolbar.set( new techlogging.media.view.Toolbar({
+		frame.toolbar.set( new wp.media.view.Toolbar({
 			controller: frame,
 			items: {
 				back: {
 					style: 'primary',
-					text:     'l10n.back',
+					text:     l10n.back,
 					priority: 20,
 					click:    function() {
 						if ( previous ) {

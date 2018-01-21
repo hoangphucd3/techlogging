@@ -1,11 +1,11 @@
-var Frame = techlogging.media.view.Frame,
-	MediaFrame = techlogging.media.view.MediaFrame,
+var Frame = wp.media.view.Frame,
+	MediaFrame = wp.media.view.MediaFrame,
 
 	$ = jQuery,
 	EditAttachments;
 
 /**
- * techlogging.media.view.MediaFrame.EditAttachments
+ * wp.media.view.MediaFrame.EditAttachments
  *
  * A frame for editing the details of a specific media item.
  *
@@ -13,19 +13,19 @@ var Frame = techlogging.media.view.Frame,
  *
  * Requires an attachment model to be passed in the options hash under `model`.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.EditAttachments.prototype */{
+EditAttachments = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.EditAttachments.prototype */{
 
 	className: 'edit-attachment-frame',
-	template:  techlogging.template( 'edit-attachment-frame' ),
+	template:  wp.template( 'edit-attachment-frame' ),
 	regions:   [ 'title', 'content' ],
 
 	events: {
@@ -79,7 +79,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	createModal: function() {
 		// Initialize modal container view.
 		if ( this.options.modal ) {
-			this.modal = new techlogging.media.view.Modal({
+			this.modal = new wp.media.view.Modal({
 				controller: this,
 				title:      this.options.title
 			});
@@ -107,7 +107,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	 */
 	createStates: function() {
 		this.states.add([
-			new techlogging.media.controller.EditAttachmentMetadata({
+			new wp.media.controller.EditAttachmentMetadata({
 				model:   this.model,
 				library: this.library
 			})
@@ -121,7 +121,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	 *                               should be set with the proper region view.
 	 */
 	editMetadataMode: function( contentRegion ) {
-		contentRegion.view = new techlogging.media.view.Attachment.Details.TwoColumn({
+		contentRegion.view = new wp.media.view.Attachment.Details.TwoColumn({
 			controller: this,
 			model:      this.model
 		});
@@ -130,7 +130,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 		 * Attach a subview to display fields added via the
 		 * `attachment_fields_to_edit` filter.
 		 */
-		contentRegion.view.views.set( '.attachment-compat', new techlogging.media.view.AttachmentCompat({
+		contentRegion.view.views.set( '.attachment-compat', new wp.media.view.AttachmentCompat({
 			controller: this,
 			model:      this.model
 		}) );
@@ -148,7 +148,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	 *                               should be set with the proper region view.
 	 */
 	editImageMode: function( contentRegion ) {
-		var editImageController = new techlogging.media.controller.EditImage( {
+		var editImageController = new wp.media.controller.EditImage( {
 			model: this.model,
 			frame: this
 		} );
@@ -157,7 +157,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 		editImageController._router = function() {};
 		editImageController._menu = function() {};
 
-		contentRegion.view = new techlogging.media.view.EditImage.Details( {
+		contentRegion.view = new wp.media.view.EditImage.Details( {
 			model: this.model,
 			frame: this,
 			controller: editImageController

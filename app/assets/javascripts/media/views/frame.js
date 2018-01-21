@@ -1,21 +1,21 @@
 /**
- * techlogging.media.view.Frame
+ * wp.media.view.Frame
  *
  * A frame is a composite view consisting of one or more regions and one or more
  * states.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
- * @see techlogging.media.controller.State
- * @see techlogging.media.controller.Region
+ * @see wp.media.controller.State
+ * @see wp.media.controller.Region
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Frame.prototype */{
+var Frame = wp.media.View.extend(/** @lends wp.media.view.Frame.prototype */{
 	initialize: function() {
 		_.defaults( this.options, {
 			mode: [ 'select' ]
@@ -31,7 +31,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 
 		// Initialize regions.
 		_.each( this.regions, function( region ) {
-			this[ region ] = new techlogging.media.controller.Region({
+			this[ region ] = new wp.media.controller.Region({
 				view:     this,
 				id:       region,
 				selector: '.media-frame-' + region
@@ -41,15 +41,15 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 	/**
 	 * Create the frame's states.
 	 *
-	 * @see techlogging.media.controller.State
-	 * @see techlogging.media.controller.StateMachine
+	 * @see wp.media.controller.State
+	 * @see wp.media.controller.StateMachine
 	 *
-	 * @fires techlogging.media.controller.State#ready
+	 * @fires wp.media.controller.State#ready
 	 */
 	_createStates: function() {
 		// Create the default `states` collection.
 		this.states = new Backbone.Collection( null, {
-			model: techlogging.media.controller.State
+			model: wp.media.controller.State
 		});
 
 		// Ensure states have a reference to the frame.
@@ -80,7 +80,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 	/**
 	 * Reset all states on the frame to their defaults.
 	 *
-	 * @returns {techlogging.media.view.Frame} Returns itself to allow chaining
+	 * @returns {wp.media.view.Frame} Returns itself to allow chaining
 	 */
 	reset: function() {
 		this.states.invoke( 'trigger', 'reset' );
@@ -143,7 +143,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 		/**
 		 * Frame mode deactivation event.
 		 *
-		 * @event techlogging.media.view.Frame#{mode}:deactivate
+		 * @event wp.media.view.Frame#{mode}:deactivate
 		 */
 		this.trigger( mode + ':deactivate' );
 
@@ -161,6 +161,6 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 });
 
 // Make the `Frame` a `StateMachine`.
-_.extend( Frame.prototype, techlogging.media.controller.StateMachine.prototype );
+_.extend( Frame.prototype, wp.media.controller.StateMachine.prototype );
 
 module.exports = Frame;

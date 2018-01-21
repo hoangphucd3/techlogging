@@ -1,14 +1,14 @@
 /**
- * techlogging.media.view.Spinner
+ * wp.media.view.Spinner
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Spinner.prototype */{
+var Spinner = wp.media.View.extend(/** @lends wp.media.view.Spinner.prototype */{
 	tagName:   'span',
 	className: 'spinner',
 	spinnerTimeout: false,

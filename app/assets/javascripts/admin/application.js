@@ -19,7 +19,7 @@
 //= require backbone
 //= require bootstrap
 //= require dropzone
-//= require tl-moxie
-//= require tl-plupload
-//= require techlogging-backbone
-//= require util
+//= require ../plupload/moxie
+//= require ../plupload/plupload
+//= require ../techlogging-backbone
+//# require ../utils

@@ -1,22 +1,22 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	UploaderInline;
 
 /**
- * techlogging.media.view.UploaderInline
+ * wp.media.view.UploaderInline
  *
  * The inline uploader that shows up in the 'Upload Files' tab.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.prototype */{
+UploaderInline = View.extend(/** @lends wp.media.view.UploaderInline.prototype */{
 	tagName:   'div',
 	className: 'uploader-inline',
-	template:  techlogging.template('uploader-inline'),
+	template:  wp.template('uploader-inline'),
 
 	events: {
 		'click .close': 'hide'
@@ -33,12 +33,12 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 			this.options.$browser = this.controller.uploader.$browser;
 		}
 
-		// if ( _.isUndefined( this.options.postId ) ) {
-		// 	this.options.postId = techlogging.media.view.settings.post.id;
-		// }
+		if ( _.isUndefined( this.options.postId ) ) {
+			this.options.postId = wp.media.view.settings.post.id;
+		}
 
 		if ( this.options.status ) {
-			this.views.set( '.upload-inline-status', new techlogging.media.view.UploaderStatus({
+			this.views.set( '.upload-inline-status', new wp.media.view.UploaderStatus({
 				controller: this.controller
 			}) );
 		}
@@ -60,7 +60,7 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		return data;
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderInline} Returns itself to allow chaining
+	 * @returns {wp.media.view.UploaderInline} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		if ( this.disposing ) {
@@ -77,7 +77,7 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		return this.remove();
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderInline} Returns itself to allow chaining
+	 * @returns {wp.media.view.UploaderInline} Returns itself to allow chaining
 	 */
 	remove: function() {
 		/**
@@ -97,7 +97,7 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderInline}
+	 * @returns {wp.media.view.UploaderInline}
 	 */
 	ready: function() {
 		var $browser = this.options.$browser,

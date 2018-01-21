@@ -1,20 +1,20 @@
-var Select = techlogging.media.view.Toolbar.Select,
-	l10n = techlogging.media.view.l10n,
+var Select = wp.media.view.Toolbar.Select,
+	l10n = wp.media.view.l10n,
 	Embed;
 
 /**
- * techlogging.media.view.Toolbar.Embed
+ * wp.media.view.Toolbar.Embed
  *
- * @memberOf techlogging.media.view.Toolbar
+ * @memberOf wp.media.view.Toolbar
  *
  * @class
- * @augments techlogging.media.view.Toolbar.Select
- * @augments techlogging.media.view.Toolbar
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Toolbar.Select
+ * @augments wp.media.view.Toolbar
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Embed = Select.extend(/** @lends techlogging.media.view.Toolbar.Embed.prototype */{
+Embed = Select.extend(/** @lends wp.media.view.Toolbar.Embed.prototype */{
 	initialize: function() {
 		_.defaults( this.options, {
 			text: l10n.insertIntoPost,

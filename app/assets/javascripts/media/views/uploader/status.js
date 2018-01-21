@@ -1,42 +1,42 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	UploaderStatus;
 
 /**
- * techlogging.media.view.UploaderStatus
+ * wp.media.view.UploaderStatus
  *
  * An uploader status for on-going uploads.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-UploaderStatus = View.extend(/** @lends techlogging.media.view.UploaderStatus.prototype */{
+UploaderStatus = View.extend(/** @lends wp.media.view.UploaderStatus.prototype */{
 	className: 'media-uploader-status',
-	template:  techlogging.template('uploader-status'),
+	template:  wp.template('uploader-status'),
 
 	events: {
 		'click .upload-dismiss-errors': 'dismiss'
 	},
 
 	initialize: function() {
-		this.queue = techlogging.Uploader.queue;
+		this.queue = wp.Uploader.queue;
 		this.queue.on( 'add remove reset', this.visibility, this );
 		this.queue.on( 'add remove reset change:percent', this.progress, this );
 		this.queue.on( 'add remove reset change:uploading', this.info, this );
 
-		this.errors = techlogging.Uploader.errors;
+		this.errors = wp.Uploader.errors;
 		this.errors.reset();
 		this.errors.on( 'add remove reset', this.visibility, this );
 		this.errors.on( 'add', this.error, this );
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderStatus}
+	 * @returns {wp.media.view.UploaderStatus}
 	 */
 	dispose: function() {
-		techlogging.Uploader.queue.off( null, null, this );
+		wp.Uploader.queue.off( null, null, this );
 		/**
 		 * call 'dispose' directly on the parent class
 		 */
@@ -111,7 +111,7 @@ UploaderStatus = View.extend(/** @lends techlogging.media.view.UploaderStatus.pr
 	 * @param {Backbone.Model} error
 	 */
 	error: function( error ) {
-		this.views.add( '.upload-errors', new techlogging.media.view.UploaderStatusError({
+		this.views.add( '.upload-errors', new wp.media.view.UploaderStatusError({
 			filename: this.filename( error.get('file').name ),
 			message:  error.get('message')
 		}), { at: 0 });
@@ -128,7 +128,7 @@ UploaderStatus = View.extend(/** @lends techlogging.media.view.UploaderStatus.pr
 		if ( errors ) {
 			_.invoke( errors, 'remove' );
 		}
-		techlogging.Uploader.errors.reset();
+		wp.Uploader.errors.reset();
 	}
 });
 

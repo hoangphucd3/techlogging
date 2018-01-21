@@ -1,22 +1,22 @@
 var $ = jQuery,
-	Attachment, Attachments, media;
+	Attachment, Attachments, l10n, media;
 
-/** @namespace techlogging */
-window.techlogging = window.techlogging || {};
+/** @namespace wp */
+window.wp = window.wp || {};
 
 /**
  * Create and return a media frame.
  *
  * Handles the default media experience.
  *
- * @alias techlogging.media
- * @memberOf techlogging
+ * @alias wp.media
+ * @memberOf wp
  * @namespace
  *
  * @param  {object} attributes The properties passed to the main media controller.
- * @return {techlogging.media.view.MediaFrame} A media workflow.
+ * @return {wp.media.view.MediaFrame} A media workflow.
  */
-media = techlogging.media = function( attributes ) {
+media = wp.media = function( attributes ) {
 	var MediaFrame = media.view.MediaFrame,
 		frame;
 
@@ -36,9 +36,13 @@ media = techlogging.media = function( attributes ) {
 		frame = new MediaFrame.Manage( attributes );
 	} else if ( 'image' === attributes.frame && MediaFrame.ImageDetails ) {
 		frame = new MediaFrame.ImageDetails( attributes );
+	} else if ( 'audio' === attributes.frame && MediaFrame.AudioDetails ) {
+		frame = new MediaFrame.AudioDetails( attributes );
+	} else if ( 'video' === attributes.frame && MediaFrame.VideoDetails ) {
+		frame = new MediaFrame.VideoDetails( attributes );
 	} else if ( 'edit-attachments' === attributes.frame && MediaFrame.EditAttachments ) {
-        frame = new MediaFrame.EditAttachments( attributes );
-    }
+		frame = new MediaFrame.EditAttachments( attributes );
+	}
 
 	delete attributes.frame;
 
@@ -47,14 +51,14 @@ media = techlogging.media = function( attributes ) {
 	return frame;
 };
 
-/** @namespace techlogging.media.model */
-/** @namespace techlogging.media.view */
-/** @namespace techlogging.media.controller */
-/** @namespace techlogging.media.frames */
+/** @namespace wp.media.model */
+/** @namespace wp.media.view */
+/** @namespace wp.media.controller */
+/** @namespace wp.media.frames */
 _.extend( media, { model: {}, view: {}, controller: {}, frames: {} });
 
 // Link any localized strings.
-l10n = media.model.l10n = window._techloggingMediaModelsL10n || {};
+l10n = media.model.l10n = window._wpMediaModelsL10n || {};
 
 // Link any settings.
 media.model.settings = l10n.settings || {};
@@ -76,7 +80,7 @@ media.model.Selection = require( './models/selection.js' );
 /**
  * A basic equality comparator for Backbone models.
  *
- * Used to order models within a collection - @see techlogging.media.model.Attachments.comparator().
+ * Used to order models within a collection - @see wp.media.model.Attachments.comparator().
  *
  * @param  {mixed}  a  The primary parameter to compare.
  * @param  {mixed}  b  The primary parameter to compare.
@@ -94,37 +98,37 @@ media.compare = function( a, b, ac, bc ) {
 	}
 };
 
-_.extend( media, /** @lends techlogging.media */{
+_.extend( media, /** @lends wp.media */{
 	/**
 	 * media.template( id )
 	 *
 	 * Fetch a JavaScript template for an id, and return a templating function for it.
 	 *
-	 * See techlogging.template() in `wp-includes/js/wp-util.js`.
+	 * See wp.template() in `wp-includes/js/wp-util.js`.
 	 *
-	 * @borrows techlogging.template as template
+	 * @borrows wp.template as template
 	 */
-	template: techlogging.template,
+	template: wp.template,
 
 	/**
 	 * media.post( [action], [data] )
 	 *
 	 * Sends a POST request to WordPress.
-	 * See techlogging.ajax.post() in `wp-includes/js/wp-util.js`.
+	 * See wp.ajax.post() in `wp-includes/js/wp-util.js`.
 	 *
-	 * @borrows techlogging.ajax.post as post
+	 * @borrows wp.ajax.post as post
 	 */
-	post: techlogging.ajax.post,
+	post: wp.ajax.post,
 
 	/**
 	 * media.ajax( [action], [options] )
 	 *
 	 * Sends an XHR request to WordPress.
-	 * See techlogging.ajax.send() in `wp-includes/js/wp-util.js`.
+	 * See wp.ajax.send() in `wp-includes/js/wp-util.js`.
 	 *
-	 * @borrows techlogging.ajax.send as ajax
+	 * @borrows wp.ajax.send as ajax
 	 */
-	ajax: techlogging.ajax.send,
+	ajax: wp.ajax.send,
 
 	/**
 	 * Scales a set of dimensions to fit within bounding dimensions.
@@ -196,11 +200,11 @@ _.extend( media, /** @lends techlogging.media */{
  * ========================================================================
  */
 /**
- * techlogging.media.attachment
+ * wp.media.attachment
  *
  * @static
  * @param {String} id A string used to identify a model.
- * @returns {techlogging.media.model.Attachment}
+ * @returns {wp.media.model.Attachment}
  */
 media.attachment = function( id ) {
 	return Attachment.get( id );
@@ -210,17 +214,17 @@ media.attachment = function( id ) {
  * A collection of all attachments that have been fetched from the server.
  *
  * @static
- * @member {techlogging.media.model.Attachments}
+ * @member {wp.media.model.Attachments}
  */
 Attachments.all = new Attachments();
 
 /**
- * techlogging.media.query
+ * wp.media.query
  *
  * Shorthand for creating a new Attachments Query.
  *
  * @param {object} [props]
- * @returns {techlogging.media.model.Attachments}
+ * @returns {wp.media.model.Attachments}
  */
 media.query = function( props ) {
 	return new Attachments( null, {
@@ -230,5 +234,5 @@ media.query = function( props ) {
 
 // Clean up. Prevents mobile browsers caching
 $(window).on('unload', function(){
-	window.techlogging = null;
+	window.wp = null;
 });

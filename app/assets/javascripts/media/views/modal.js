@@ -2,20 +2,20 @@ var $ = jQuery,
 	Modal;
 
 /**
- * techlogging.media.view.Modal
+ * wp.media.view.Modal
  *
  * A modal view, which the media modal uses as its default container.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.prototype */{
+Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 	tagName:  'div',
-	template: techlogging.template('media-modal'),
+	template: wp.template('media-modal'),
 
 	attributes: {
 		tabindex: 0
@@ -36,7 +36,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 			freeze:    true
 		});
 
-		this.focusManager = new techlogging.media.view.FocusManager({
+		this.focusManager = new wp.media.view.FocusManager({
 			el: this.el
 		});
 	},
@@ -50,7 +50,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	attach: function() {
 		if ( this.views.attached ) {
@@ -71,7 +71,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	detach: function() {
 		if ( this.$el.is(':visible') ) {
@@ -84,7 +84,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	open: function() {
 		var $el = this.$el,
@@ -132,7 +132,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 
 	/**
 	 * @param {Object} options
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	close: function( options ) {
 		var freeze = this._freeze;
@@ -168,7 +168,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 		return this;
 	},
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	escape: function() {
 		return this.close({ escape: true });
@@ -183,7 +183,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 
 	/**
 	 * @param {Array|Object} content Views to register to '.media-modal-content'
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	content: function( content ) {
 		this.views.set( '.media-modal-content', content );
@@ -195,7 +195,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	 * forwards events to the modal's controller.
 	 *
 	 * @param {string} id
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	propagate: function( id ) {
 		this.trigger( id );

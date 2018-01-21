@@ -1,24 +1,25 @@
-var Select = techlogging.media.view.MediaFrame.Select,
+var Select = wp.media.view.MediaFrame.Select,
+	l10n = wp.media.view.l10n,
 	ImageDetails;
 
 /**
- * techlogging.media.view.MediaFrame.ImageDetails
+ * wp.media.view.MediaFrame.ImageDetails
  *
  * A media frame for manipulating an image that's already been inserted
  * into a post.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame.Select
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageDetails.prototype */{
+ImageDetails = Select.extend(/** @lends wp.media.view.MediaFrame.ImageDetails.prototype */{
 	defaults: {
 		id:      'image',
 		url:     '',
@@ -26,13 +27,13 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 		content: 'image-details',
 		toolbar: 'image-details',
 		type:    'link',
-		title:    'l10n.imageDetailsTitle',
+		title:    l10n.imageDetailsTitle,
 		priority: 120
 	},
 
 	initialize: function( options ) {
-		this.image = new techlogging.media.model.PostImage( options.metadata );
-		this.options.selection = new techlogging.media.model.Selection( this.image.attachment, { multiple: false } );
+		this.image = new wp.media.model.PostImage( options.metadata );
+		this.options.selection = new wp.media.model.Selection( this.image.attachment, { multiple: false } );
 		Select.prototype.initialize.apply( this, arguments );
 	},
 
@@ -48,21 +49,21 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 	createStates: function() {
 		this.states.add([
-			new techlogging.media.controller.ImageDetails({
+			new wp.media.controller.ImageDetails({
 				image: this.image,
 				editable: false
 			}),
-			new techlogging.media.controller.ReplaceImage({
+			new wp.media.controller.ReplaceImage({
 				id: 'replace-image',
-				library: techlogging.media.query( { type: 'image' } ),
+				library: wp.media.query( { type: 'image' } ),
 				image: this.image,
 				multiple:  false,
-				title:     'l10n.imageReplaceTitle',
+				title:     l10n.imageReplaceTitle,
 				toolbar: 'replace',
 				priority:  80,
 				displaySettings: true
 			}),
-			new techlogging.media.controller.EditImage( {
+			new wp.media.controller.EditImage( {
 				image: this.image,
 				selection: this.options.selection
 			} )
@@ -70,7 +71,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 	},
 
 	imageDetailsContent: function( options ) {
-		options.view = new techlogging.media.view.ImageDetails({
+		options.view = new wp.media.view.ImageDetails({
 			controller: this,
 			model: this.state().image,
 			attachment: this.state().image.attachment
@@ -86,7 +87,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			return;
 		}
 
-		view = new techlogging.media.view.EditImage( { model: model, controller: this } ).render();
+		view = new wp.media.view.EditImage( { model: model, controller: this } ).render();
 
 		this.content.set( view );
 
@@ -96,12 +97,12 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 	},
 
 	renderImageDetailsToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				select: {
 					style:    'primary',
-					text:     'l10n.update',
+					text:     l10n.update,
 					priority: 80,
 
 					click: function() {
@@ -110,8 +111,8 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 						controller.close();
 
-						// not sure if we want to use techlogging.media.string.image which will create a shortcode or
-						// perhaps techlogging.html.string to at least to build the <img />
+						// not sure if we want to use wp.media.string.image which will create a shortcode or
+						// perhaps wp.html.string to at least to build the <img />
 						state.trigger( 'update', controller.image.toJSON() );
 
 						// Restore and reset the default state.
@@ -128,11 +129,11 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			lastState = frame.lastState(),
 			previous = lastState && lastState.id;
 
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				back: {
-					text:     'l10n.back',
+					text:     l10n.back,
 					priority: 20,
 					click:    function() {
 						if ( previous ) {
@@ -145,7 +146,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 				replace: {
 					style:    'primary',
-					text:     'l10n.replace',
+					text:     l10n.replace,
 					priority: 80,
 					requires: { selection: true },
 
@@ -159,8 +160,8 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 						controller.image.changeAttachment( attachment, state.display( attachment ) );
 
-						// not sure if we want to use techlogging.media.string.image which will create a shortcode or
-						// perhaps techlogging.html.string to at least to build the <img />
+						// not sure if we want to use wp.media.string.image which will create a shortcode or
+						// perhaps wp.html.string to at least to build the <img />
 						state.trigger( 'replace', controller.image.toJSON() );
 
 						// Restore and reset the default state.

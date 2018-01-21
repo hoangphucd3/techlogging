@@ -1,12 +1,12 @@
 /**
- * techlogging.media.selectionSync
+ * wp.media.selectionSync
  *
  * Sync an attachments selection in a state with another state.
  *
  * Allows for selecting multiple images in the Add Media workflow, and then
  * switching to the Insert Gallery workflow while preserving the attachments selection.
  *
- * @memberOf techlogging.media
+ * @memberOf wp.media
  *
  * @mixin
  */

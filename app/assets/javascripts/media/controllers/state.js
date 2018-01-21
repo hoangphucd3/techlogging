@@ -1,5 +1,5 @@
 /**
- * techlogging.media.controller.State
+ * wp.media.controller.State
  *
  * A state is a step in a workflow that when set will trigger the controllers
  * for the regions to be updated as specified in the frame.
@@ -12,12 +12,12 @@
  *     'reset'      is not triggered automatically. It should be invoked by the
  *                  proper controller to reset the state to its default.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
  * @augments Backbone.Model
  */
-var State = Backbone.Model.extend(/** @lends techlogging.media.controller.State.prototype */{
+var State = Backbone.Model.extend(/** @lends wp.media.controller.State.prototype */{
 	/**
 	 * Constructor.
 	 *

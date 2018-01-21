@@ -1,5 +1,5 @@
 /**
- * techlogging.media.controller.Region
+ * wp.media.controller.Region
  *
  * A region is a persistent application layout area.
  *
@@ -11,7 +11,7 @@
  * 'browse' mode t be activated on the 'content' view and then fills the region
  * with an AttachmentsBrowser view.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
  *
@@ -27,7 +27,7 @@ var Region = function( options ) {
 // Use Backbone's self-propagating `extend` inheritance method.
 Region.extend = Backbone.Model.extend;
 
-_.extend( Region.prototype,/** @lends techlogging.media.controller.Region.prototype */{
+_.extend( Region.prototype,/** @lends wp.media.controller.Region.prototype */{
 	/**
 	 * Activate a mode.
 	 *
@@ -38,7 +38,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 * @fires Region#activate
 	 * @fires Region#deactivate
 	 *
-	 * @returns {techlogging.media.controller.Region} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.Region} Returns itself to allow chaining.
 	 */
 	mode: function( mode ) {
 		if ( ! mode ) {
@@ -52,7 +52,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		/**
 		 * Region mode deactivation event.
 		 *
-		 * @event techlogging.media.controller.Region#deactivate
+		 * @event wp.media.controller.Region#deactivate
 		 */
 		this.trigger('deactivate');
 
@@ -62,7 +62,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		/**
 		 * Region mode activation event.
 		 *
-		 * @event techlogging.media.controller.Region#activate
+		 * @event wp.media.controller.Region#activate
 		 */
 		this.trigger('activate');
 		return this;
@@ -77,7 +77,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 * @fires Region#create
 	 * @fires Region#render
 	 *
-	 * @returns {techlogging.media.controller.Region} Returns itself to allow chaining
+	 * @returns {wp.media.controller.Region} Returns itself to allow chaining
 	 */
 	render: function( mode ) {
 		// If the mode isn't active, activate it.
@@ -93,7 +93,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		 *
 		 * Region view creation takes place in an event callback on the frame.
 		 *
-		 * @event techlogging.media.controller.Region#create
+		 * @event wp.media.controller.Region#create
 		 * @type {object}
 		 * @property {object} view
 		 */
@@ -105,7 +105,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		 *
 		 * Region view creation takes place in an event callback on the frame.
 		 *
-		 * @event techlogging.media.controller.Region#render
+		 * @event wp.media.controller.Region#render
 		 * @type {object}
 		 */
 		this.trigger( 'render', view );
@@ -120,7 +120,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 *
 	 * @since 3.5.0
 	 *
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	get: function() {
 		return this.view.views.first( this.selector );
@@ -133,7 +133,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 *
 	 * @param {Array|Object} views
 	 * @param {Object} [options={}]
-	 * @returns {techlogging.Backbone.Subviews} Subviews is returned to allow chaining
+	 * @returns {wp.Backbone.Subviews} Subviews is returned to allow chaining
 	 */
 	set: function( views, options ) {
 		if ( options ) {
@@ -148,7 +148,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 * @since 3.5.0
 	 *
 	 * @param {string} event
-	 * @returns {undefined|techlogging.media.controller.Region} Returns itself to allow chaining.
+	 * @returns {undefined|wp.media.controller.Region} Returns itself to allow chaining.
 	 */
 	trigger: function( event ) {
 		var base, args;

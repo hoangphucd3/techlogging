@@ -1,22 +1,23 @@
-var MediaFrame = techlogging.media.view.MediaFrame,
+var MediaFrame = wp.media.view.MediaFrame,
+	l10n = wp.media.view.l10n,
 	Select;
 
 /**
- * techlogging.media.view.MediaFrame.Select
+ * wp.media.view.MediaFrame.Select
  *
  * A frame for selecting an item or items from the media library.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.prototype */{
+Select = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.Select.prototype */{
 	initialize: function() {
 		// Call 'initialize' directly on the parent class.
 		MediaFrame.prototype.initialize.apply( this, arguments );
@@ -45,14 +46,14 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	createSelection: function() {
 		var selection = this.options.selection;
 
-		if ( ! (selection instanceof techlogging.media.model.Selection) ) {
-			this.options.selection = new techlogging.media.model.Selection( selection, {
+		if ( ! (selection instanceof wp.media.model.Selection) ) {
+			this.options.selection = new wp.media.model.Selection( selection, {
 				multiple: this.options.multiple
 			});
 		}
 
 		this._selection = {
-			attachments: new techlogging.media.model.Attachments(),
+			attachments: new wp.media.model.Attachments(),
 			difference: []
 		};
 	},
@@ -70,8 +71,8 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 		// Add the default states.
 		this.states.add([
 			// Main states.
-			new techlogging.media.controller.Library({
-				library:   techlogging.media.query( options.library ),
+			new wp.media.controller.Library({
+				library:   wp.media.query( options.library ),
 				multiple:  options.multiple,
 				title:     options.title,
 				priority:  20
@@ -95,16 +96,16 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	/**
 	 * Render callback for the router region in the `browse` mode.
 	 *
-	 * @param {techlogging.media.view.Router} routerView
+	 * @param {wp.media.view.Router} routerView
 	 */
 	browseRouter: function( routerView ) {
 		routerView.set({
 			upload: {
-				text:     'l10n.uploadFilesTitle',
+				text:     l10n.uploadFilesTitle,
 				priority: 20
 			},
 			browse: {
-				text:     'l10n.mediaLibraryTitle',
+				text:     l10n.mediaLibraryTitle,
 				priority: 40
 			}
 		});
@@ -113,7 +114,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	/**
 	 * Render callback for the content region in the `browse` mode.
 	 *
-	 * @param {techlogging.media.controller.Region} contentRegion
+	 * @param {wp.media.controller.Region} contentRegion
 	 */
 	browseContent: function( contentRegion ) {
 		var state = this.state();
@@ -121,7 +122,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 		this.$el.removeClass('hide-toolbar');
 
 		// Browse our library of attachments.
-		contentRegion.view = new techlogging.media.view.AttachmentsBrowser({
+		contentRegion.view = new wp.media.view.AttachmentsBrowser({
 			controller: this,
 			collection: state.get('library'),
 			selection:  state.get('selection'),
@@ -146,7 +147,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	 */
 	uploadContent: function() {
 		this.$el.removeClass( 'hide-toolbar' );
-		this.content.set( new techlogging.media.view.UploaderInline({
+		this.content.set( new wp.media.view.UploaderInline({
 			controller: this
 		}) );
 	},
@@ -156,13 +157,13 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	 *
 	 * @param {Object} toolbar
 	 * @param {Object} [options={}]
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createSelectToolbar: function( toolbar, options ) {
 		options = options || this.options.button || {};
 		options.controller = this;
 
-		toolbar.view = new techlogging.media.view.Toolbar.Select( options );
+		toolbar.view = new wp.media.view.Toolbar.Select( options );
 	}
 });
 

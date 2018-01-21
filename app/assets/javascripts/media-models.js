@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -72,11 +72,13 @@
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */,
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = jQuery,
-	Attachment, Attachments, media;
+	Attachment, Attachments, l10n, media;
 
 /** @namespace techlogging */
 window.techlogging = window.techlogging || {};
@@ -113,9 +115,13 @@ media = techlogging.media = function( attributes ) {
 		frame = new MediaFrame.Manage( attributes );
 	} else if ( 'image' === attributes.frame && MediaFrame.ImageDetails ) {
 		frame = new MediaFrame.ImageDetails( attributes );
+	} else if ( 'audio' === attributes.frame && MediaFrame.AudioDetails ) {
+		frame = new MediaFrame.AudioDetails( attributes );
+	} else if ( 'video' === attributes.frame && MediaFrame.VideoDetails ) {
+		frame = new MediaFrame.VideoDetails( attributes );
 	} else if ( 'edit-attachments' === attributes.frame && MediaFrame.EditAttachments ) {
-        frame = new MediaFrame.EditAttachments( attributes );
-    }
+		frame = new MediaFrame.EditAttachments( attributes );
+	}
 
 	delete attributes.frame;
 
@@ -137,12 +143,12 @@ l10n = media.model.l10n = window._techloggingMediaModelsL10n || {};
 media.model.settings = l10n.settings || {};
 delete l10n.settings;
 
-Attachment = media.model.Attachment = __webpack_require__( 9 );
-Attachments = media.model.Attachments = __webpack_require__( 10 );
+Attachment = media.model.Attachment = __webpack_require__( 11 );
+Attachments = media.model.Attachments = __webpack_require__( 12 );
 
-media.model.Query = __webpack_require__( 11 );
-media.model.PostImage = __webpack_require__( 12 );
-media.model.Selection = __webpack_require__( 13 );
+media.model.Query = __webpack_require__( 13 );
+media.model.PostImage = __webpack_require__( 14 );
+media.model.Selection = __webpack_require__( 15 );
 
 /**
  * ========================================================================
@@ -177,7 +183,7 @@ _.extend( media, /** @lends techlogging.media */{
 	 *
 	 * Fetch a JavaScript template for an id, and return a templating function for it.
 	 *
-	 * See techlogging.template() in `wp-includes/js/wp-util.js`.
+	 * See techlogging.template() in `techlogging-includes/js/techlogging-util.js`.
 	 *
 	 * @borrows techlogging.template as template
 	 */
@@ -187,7 +193,7 @@ _.extend( media, /** @lends techlogging.media */{
 	 * media.post( [action], [data] )
 	 *
 	 * Sends a POST request to WordPress.
-	 * See techlogging.ajax.post() in `wp-includes/js/wp-util.js`.
+	 * See techlogging.ajax.post() in `techlogging-includes/js/techlogging-util.js`.
 	 *
 	 * @borrows techlogging.ajax.post as post
 	 */
@@ -197,7 +203,7 @@ _.extend( media, /** @lends techlogging.media */{
 	 * media.ajax( [action], [options] )
 	 *
 	 * Sends an XHR request to WordPress.
-	 * See techlogging.ajax.send() in `wp-includes/js/wp-util.js`.
+	 * See techlogging.ajax.send() in `techlogging-includes/js/techlogging-util.js`.
 	 *
 	 * @borrows techlogging.ajax.send as ajax
 	 */
@@ -312,7 +318,7 @@ $(window).on('unload', function(){
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports) {
 
 var $ = Backbone.$,
@@ -396,7 +402,7 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 			options.data = _.extend( options.data || {}, {
 				action:   'delete-post',
 				id:       this.id,
-				_wpnonce: this.get('nonces')['delete']
+				_techloggingnonce: this.get('nonces')['delete']
 			});
 
 			return techlogging.media.ajax( options ).done( function() {
@@ -487,7 +493,7 @@ module.exports = Attachment;
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports) {
 
 /**
@@ -1036,7 +1042,7 @@ module.exports = Attachments;
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var Attachments = techlogging.media.model.Attachments,
@@ -1167,7 +1173,6 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 
 		// Overload the read method so Attachment.fetch() functions correctly.
 		if ( 'read' === method ) {
-		    // debugger;
 			options = options || {};
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
@@ -1215,7 +1220,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 	orderby: {
 		allowed:  [ 'name', 'author', 'date', 'title', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ],
 		/**
-		 * A map of JavaScript orderby values to their WP_Query equivalents.
+		 * A map of JavaScript orderby values to their techlogging_Query equivalents.
 		 * @type {Object}
 		 */
 		valuemap: {
@@ -1225,7 +1230,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 		}
 	},
 	/**
-	 * A map of JavaScript query properties to their WP_Query equivalents.
+	 * A map of JavaScript query properties to their techlogging_Query equivalents.
 	 *
 	 * @readonly
 	 */
@@ -1349,7 +1354,7 @@ module.exports = Query;
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /**
@@ -1509,7 +1514,7 @@ module.exports = PostImage;
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 var Attachments = techlogging.media.model.Attachments,

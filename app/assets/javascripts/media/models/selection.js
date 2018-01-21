@@ -1,18 +1,18 @@
-var Attachments = techlogging.media.model.Attachments,
+var Attachments = wp.media.model.Attachments,
 	Selection;
 
 /**
- * techlogging.media.model.Selection
+ * wp.media.model.Selection
  *
  * A selection of attachments.
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
- * @augments techlogging.media.model.Attachments
+ * @augments wp.media.model.Attachments
  * @augments Backbone.Collection
  */
-Selection = Attachments.extend(/** @lends techlogging.media.model.Selection.prototype */{
+Selection = Attachments.extend(/** @lends wp.media.model.Selection.prototype */{
 	/**
 	 * Refresh the `single` model whenever the selection changes.
 	 * Binds `single` instead of using the context argument to ensure
@@ -37,7 +37,7 @@ Selection = Attachments.extend(/** @lends techlogging.media.model.Selection.prot
 	 *
 	 * @param {Array} models
 	 * @param {Object} options
-	 * @returns {techlogging.media.model.Attachment[]}
+	 * @returns {wp.media.model.Attachment[]}
 	 */
 	add: function( models, options ) {
 		if ( ! this.multiple ) {
@@ -52,10 +52,10 @@ Selection = Attachments.extend(/** @lends techlogging.media.model.Selection.prot
 	/**
 	 * Fired when toggling (clicking on) an attachment in the modal.
 	 *
-	 * @param {undefined|boolean|techlogging.media.model.Attachment} model
+	 * @param {undefined|boolean|wp.media.model.Attachment} model
 	 *
-	 * @fires techlogging.media.model.Selection#selection:single
-	 * @fires techlogging.media.model.Selection#selection:unsingle
+	 * @fires wp.media.model.Selection#selection:single
+	 * @fires wp.media.model.Selection#selection:unsingle
 	 *
 	 * @returns {Backbone.Model}
 	 */

@@ -1,20 +1,20 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	Toolbar;
 
 /**
- * techlogging.media.view.Toolbar
+ * wp.media.view.Toolbar
  *
  * A toolbar which consists of a primary and a secondary section. Each sections
  * can be filled with views.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
+Toolbar = View.extend(/** @lends wp.media.view.Toolbar.prototype */{
 	tagName:   'div',
 	className: 'media-toolbar',
 
@@ -26,8 +26,8 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 		this._views = {};
 
 		// The toolbar is composed of two `PriorityList` views.
-		this.primary   = new techlogging.media.view.PriorityList();
-		this.secondary = new techlogging.media.view.PriorityList();
+		this.primary   = new wp.media.view.PriorityList();
+		this.secondary = new wp.media.view.PriorityList();
 		this.primary.$el.addClass('media-toolbar-primary search-form');
 		this.secondary.$el.addClass('media-toolbar-secondary');
 
@@ -50,7 +50,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.Toolbar} Returns itsef to allow chaining
+	 * @returns {wp.media.view.Toolbar} Returns itsef to allow chaining
 	 */
 	dispose: function() {
 		if ( this.selection ) {
@@ -74,7 +74,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 	 * @param {string} id
 	 * @param {Backbone.View|Object} view
 	 * @param {Object} [options={}]
-	 * @returns {techlogging.media.view.Toolbar} Returns itself to allow chaining
+	 * @returns {wp.media.view.Toolbar} Returns itself to allow chaining
 	 */
 	set: function( id, view, options ) {
 		var list;
@@ -89,7 +89,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 		} else {
 			if ( ! ( view instanceof Backbone.View ) ) {
 				view.classes = [ 'media-button-' + id ].concat( view.classes || [] );
-				view = new techlogging.media.view.Button( view ).render();
+				view = new wp.media.view.Button( view ).render();
 			}
 
 			view.controller = view.controller || this.controller;
@@ -108,7 +108,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 	},
 	/**
 	 * @param {string} id
-	 * @returns {techlogging.media.view.Button}
+	 * @returns {wp.media.view.Button}
 	 */
 	get: function( id ) {
 		return this._views[ id ];
@@ -116,7 +116,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 	/**
 	 * @param {string} id
 	 * @param {Object} options
-	 * @returns {techlogging.media.view.Toolbar} Returns itself to allow chaining
+	 * @returns {wp.media.view.Toolbar} Returns itself to allow chaining
 	 */
 	unset: function( id, options ) {
 		delete this._views[ id ];

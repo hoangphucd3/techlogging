@@ -1,22 +1,22 @@
-var Attachment = techlogging.media.view.Attachment,
-	l10n = techlogging.media.view.l10n,
+var Attachment = wp.media.view.Attachment,
+	l10n = wp.media.view.l10n,
 	Details;
 
 /**
- * techlogging.media.view.Attachment.Details
+ * wp.media.view.Attachment.Details
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details.prototype */{
+Details = Attachment.extend(/** @lends wp.media.view.Attachment.Details.prototype */{
 	tagName:   'div',
 	className: 'attachment-details',
-	template:  techlogging.template('attachment-details'),
+	template:  wp.template('attachment-details'),
 
 	attributes: function() {
 		return {
@@ -48,7 +48,7 @@ Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details
 	},
 
 	initialFocus: function() {
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			/*
 			Previously focused the first ':input' (the readonly URL text field).
 			Since the first ':input' is now a button (delete/trash): when pressing
@@ -79,7 +79,7 @@ Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details
 		var library = this.controller.library;
 		event.preventDefault();
 
-		if ( techlogging.media.view.settings.mediaTrash &&
+		if ( wp.media.view.settings.mediaTrash &&
 			'edit-metadata' === this.controller.content.mode() ) {
 
 			this.model.set( 'status', 'trash' );

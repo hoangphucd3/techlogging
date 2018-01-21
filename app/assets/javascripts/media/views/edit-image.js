@@ -1,19 +1,19 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	EditImage;
 
 /**
- * techlogging.media.view.EditImage
+ * wp.media.view.EditImage
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EditImage = View.extend(/** @lends techlogging.media.view.EditImage.prototype */{
+EditImage = View.extend(/** @lends wp.media.view.EditImage.prototype */{
 	className: 'image-editor',
-	template: techlogging.template('image-editor'),
+	template: wp.template('image-editor'),
 
 	initialize: function( options ) {
 		this.editor = window.imageEdit;

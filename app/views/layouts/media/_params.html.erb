@@ -1,4 +1,29 @@
 <script type="text/javascript">
+    var pluploadL10n = {
+        "queue_limit_exceeded": "You have attempted to queue too many files.",
+        "file_exceeds_size_limit": "%s exceeds the maximum upload size for this site.",
+        "zero_byte_file": "This file is empty. Please try another.",
+        "invalid_filetype": "Sorry, this file type is not permitted for security reasons.",
+        "not_an_image": "This file is not an image. Please try another.",
+        "image_memory_exceeded": "Memory exceeded. Please try another smaller file.",
+        "image_dimensions_exceeded": "This is larger than the maximum size. Please try another.",
+        "default_error": "An error occurred in the upload. Please try again later.",
+        "missing_upload_url": "There was a configuration error. Please contact the server administrator.",
+        "upload_limit_exceeded": "You may only upload 1 file.",
+        "http_error": "HTTP error.",
+        "upload_failed": "Upload failed.",
+        "big_upload_failed": "Please try uploading this file with the %1$sbrowser uploader%2$s.",
+        "big_upload_queued": "%s exceeds the maximum upload size for the multi-file uploader when used in your browser.",
+        "io_error": "IO error.",
+        "security_error": "Security error.",
+        "file_cancelled": "File canceled.",
+        "upload_stopped": "Upload stopped.",
+        "dismiss": "Dismiss",
+        "crunching": "Crunching\u2026",
+        "deleted": "moved to the trash.",
+        "error_uploading": "\u201c%s\u201d has failed to upload."
+    };
+
     var _techloggingPluploadSettings = {
         "defaults": {
             "file_data_name": "async-upload",
@@ -11,7 +36,7 @@
             },
             "multipart_params": {
                 "action": "upload-attachment",
-                "_wpnonce": "29fb5452d0"
+                "_techloggingnonce": "29fb5452d0"
             }
         },
         "browser": {
@@ -166,7 +191,7 @@
         }
     };
     var mceViewL10n = {
-        "shortcodes": ["wp_caption", "caption", "gallery", "playlist", "audio", "video", "embed"]
+        "shortcodes": ["techlogging_caption", "caption", "gallery", "playlist", "audio", "video", "embed"]
     };
     var imageEditL10n = {
         "error": "Could not load the preview image. Please reload the page and try again."

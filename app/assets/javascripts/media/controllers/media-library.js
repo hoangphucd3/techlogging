@@ -1,17 +1,17 @@
 /**
- * techlogging.media.controller.MediaLibrary
+ * wp.media.controller.MediaLibrary
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  */
-var Library = techlogging.media.controller.Library,
+var Library = wp.media.controller.Library,
 	MediaLibrary;
 
-MediaLibrary = Library.extend(/** @lends techlogging.media.controller.MediaLibrary.prototype */{
+MediaLibrary = Library.extend(/** @lends wp.media.controller.MediaLibrary.prototype */{
 	defaults: _.defaults({
 		// Attachments browser defaults. @see media.view.AttachmentsBrowser
 		filterable:      'uploaded',
@@ -29,7 +29,7 @@ MediaLibrary = Library.extend(/** @lends techlogging.media.controller.MediaLibra
 	initialize: function( options ) {
 		this.media = options.media;
 		this.type = options.type;
-		this.set( 'library', techlogging.media.query({ type: this.type }) );
+		this.set( 'library', wp.media.query({ type: this.type }) );
 
 		Library.prototype.initialize.apply( this, arguments );
 	},
@@ -39,9 +39,9 @@ MediaLibrary = Library.extend(/** @lends techlogging.media.controller.MediaLibra
 	 */
 	activate: function() {
 		// @todo this should use this.frame.
-		if ( techlogging.media.frame.lastMime ) {
-			this.set( 'library', techlogging.media.query({ type: techlogging.media.frame.lastMime }) );
-			delete techlogging.media.frame.lastMime;
+		if ( wp.media.frame.lastMime ) {
+			this.set( 'library', wp.media.query({ type: wp.media.frame.lastMime }) );
+			delete wp.media.frame.lastMime;
 		}
 		Library.prototype.activate.apply( this, arguments );
 	}

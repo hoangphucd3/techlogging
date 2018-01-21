@@ -98,7 +98,7 @@ window.techlogging = window.techlogging || {};
 				delete options.success;
 				delete options.error;
 
-				// Use with PHP's wp_send_json_success() and wp_send_json_error()
+				// Use with PHP's techlogging_send_json_success() and techlogging_send_json_error()
 				deferred.jqXHR = $.ajax( options ).done( function( response ) {
 					// Treat a response of 1 as successful for backward compatibility with existing handlers.
 					if ( response === '1' || response === 1 )

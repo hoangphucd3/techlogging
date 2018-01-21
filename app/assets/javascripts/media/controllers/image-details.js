@@ -1,23 +1,24 @@
-var State = techlogging.media.controller.State,
-	Library = techlogging.media.controller.Library,
+var State = wp.media.controller.State,
+	Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	ImageDetails;
 
 /**
- * techlogging.media.controller.ImageDetails
+ * wp.media.controller.ImageDetails
  *
  * A state for editing the attachment display settings of an image that's been
  * inserted into the editor.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                    [attributes]                       The attributes hash passed to the state.
  * @param {string}                    [attributes.id=image-details]      Unique identifier.
  * @param {string}                    [attributes.title=Image Details]   Title for the state. Displays in the frame's title region.
- * @param {techlogging.media.model.Attachment} attributes.image                   The image's model.
+ * @param {wp.media.model.Attachment} attributes.image                   The image's model.
  * @param {string|false}              [attributes.content=image-details] Initial mode for the content region.
  * @param {string|false}              [attributes.menu=false]            Initial mode for the menu region.
  * @param {string|false}              [attributes.router=false]          Initial mode for the router region.
@@ -28,10 +29,10 @@ var State = techlogging.media.controller.State,
  * @todo This state inherits some defaults from media.controller.Library.prototype.defaults,
  *       however this may not do anything.
  */
-ImageDetails = State.extend(/** @lends techlogging.media.controller.ImageDetails.prototype */{
+ImageDetails = State.extend(/** @lends wp.media.controller.ImageDetails.prototype */{
 	defaults: _.defaults({
 		id:       'image-details',
-		title:    'Image Details',
+		title:    l10n.imageDetailsTitle,
 		content:  'image-details',
 		menu:     false,
 		router:   false,

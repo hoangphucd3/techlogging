@@ -1,18 +1,18 @@
-var Attachments = techlogging.media.model.Attachments,
+var Attachments = wp.media.model.Attachments,
 	Query;
 
 /**
- * techlogging.media.model.Query
+ * wp.media.model.Query
  *
  * A collection of attachments that match the supplied query arguments.
  *
  * Note: Do NOT change this.args after the query has been initialized.
  *       Things will break.
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
- * @augments techlogging.media.model.Attachments
+ * @augments wp.media.model.Attachments
  * @augments Backbone.Collection
  *
  * @param {array}  [models]                      Models to initialize with the collection.
@@ -20,7 +20,7 @@ var Attachments = techlogging.media.model.Attachments,
  * @param {object} [options.args]                Attachments query arguments.
  * @param {object} [options.args.posts_per_page]
  */
-Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */{
+Query = Attachments.extend(/** @lends wp.media.model.Query.prototype */{
 	/**
 	 * @param {array}  [models=[]]  Array of initial models to populate the collection.
 	 * @param {object} [options={}]
@@ -65,15 +65,15 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 			return false;
 		};
 
-		// Observe the central `techlogging.Uploader.queue` collection to watch for
+		// Observe the central `wp.Uploader.queue` collection to watch for
 		// new matches for the query.
 		//
 		// Only observe when a limited number of query args are set. There
 		// are no filters for other properties, so observing will result in
 		// false positives in those queries.
 		allowed = [ 's', 'order', 'orderby', 'posts_per_page', 'post_mime_type', 'post_parent' ];
-		if ( techlogging.Uploader && _( this.args ).chain().keys().difference( allowed ).isEmpty().value() ) {
-			this.observe( techlogging.Uploader.queue );
+		if ( wp.Uploader && _( this.args ).chain().keys().difference( allowed ).isEmpty().value() ) {
+			this.observe( wp.Uploader.queue );
 		}
 	},
 	/**
@@ -114,7 +114,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 	},
 	/**
 	 * Overrides Backbone.Collection.sync
-	 * Overrides techlogging.media.model.Attachments.sync
+	 * Overrides wp.media.model.Attachments.sync
 	 *
 	 * @param {String} method
 	 * @param {Backbone.Model} model
@@ -126,12 +126,11 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 
 		// Overload the read method so Attachment.fetch() functions correctly.
 		if ( 'read' === method ) {
-		    // debugger;
 			options = options || {};
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
 				action:  'query-attachments',
-				post_id: techlogging.media.model.settings.post.id
+				post_id: wp.media.model.settings.post.id
 			});
 
 			// Clone the args so manipulation is non-destructive.
@@ -143,18 +142,18 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 			}
 
 			options.data.query = args;
-			return techlogging.media.ajax( options );
+			return wp.media.ajax( options );
 
 		// Otherwise, fall back to Backbone.sync()
 		} else {
 			/**
-			 * Call techlogging.media.model.Attachments.sync or Backbone.sync
+			 * Call wp.media.model.Attachments.sync or Backbone.sync
 			 */
 			fallback = Attachments.prototype.sync ? Attachments.prototype : Backbone;
 			return fallback.sync.apply( this, arguments );
 		}
 	}
-}, /** @lends techlogging.media.model.Query */{
+}, /** @lends wp.media.model.Query */{
 	/**
 	 * @readonly
 	 */
@@ -220,7 +219,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 	 * @param {Object} [props.post_status]
 	 * @param {Object} [options]
 	 *
-	 * @returns {techlogging.media.model.Query} A new Attachments Query collection.
+	 * @returns {wp.media.model.Query} A new Attachments Query collection.
 	 */
 	get: (function(){
 		/**

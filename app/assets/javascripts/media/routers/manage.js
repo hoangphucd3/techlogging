@@ -1,28 +1,28 @@
 /**
- * techlogging.media.view.MediaFrame.Manage.Router
+ * wp.media.view.MediaFrame.Manage.Router
  *
  * A router for handling the browser history and application state.
  *
- * @memberOf techlogging.media.view.MediaFrame.Manage
+ * @memberOf wp.media.view.MediaFrame.Manage
  *
  * @class
  * @augments Backbone.Router
  */
-var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame.Manage.Router.prototype */{
+var Router = Backbone.Router.extend(/** @lends wp.media.view.MediaFrame.Manage.Router.prototype */{
 	routes: {
-		'http://localhost:3000/upload?item=:slug&mode=edit': 'editItem',
-		'http://localhost:3000/upload?item=:slug':           'showItem',
-		'http://localhost:3000/upload?search=:query':        'search',
-		'http://localhost:3000/upload':                      'reset'
+		'upload.php?item=:slug&mode=edit': 'editItem',
+		'upload.php?item=:slug':           'showItem',
+		'upload.php?search=:query':        'search',
+		'upload.php':                      'reset'
 	},
 
 	// Map routes against the page URL
 	baseUrl: function( url ) {
-		return 'http://localhost:3000/upload' + url;
+		return 'upload.php' + url;
 	},
 
 	reset: function() {
-		var frame = techlogging.media.frames.edit;
+		var frame = wp.media.frames.edit;
 
 		if ( frame ) {
 			frame.close();
@@ -36,7 +36,7 @@ var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame
 
 	// Show the modal with a specific item
 	showItem: function( query ) {
-		var media = techlogging.media,
+		var media = wp.media,
 			frame = media.frames.browse,
 			library = frame.state().get('library'),
 			item;
@@ -60,7 +60,7 @@ var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame
 	// Show the modal in edit mode with a specific item.
 	editItem: function( query ) {
 		this.showItem( query );
-		techlogging.media.frames.edit.content.mode( 'edit-details' );
+		wp.media.frames.edit.content.mode( 'edit-details' );
 	}
 });
 

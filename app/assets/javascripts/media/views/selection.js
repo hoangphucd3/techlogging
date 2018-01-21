@@ -1,19 +1,20 @@
-var Selection;
+var l10n = wp.media.view.l10n,
+	Selection;
 
 /**
- * techlogging.media.view.Selection
+ * wp.media.view.Selection
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Selection = techlogging.media.View.extend(/** @lends techlogging.media.view.Selection.prototype */{
+Selection = wp.media.View.extend(/** @lends wp.media.view.Selection.prototype */{
 	tagName:   'div',
 	className: 'media-selection',
-	template:  techlogging.template('media-selection'),
+	template:  wp.template('media-selection'),
 
 	events: {
 		'click .edit-selection':  'edit',
@@ -27,9 +28,9 @@ Selection = techlogging.media.View.extend(/** @lends techlogging.media.view.Sele
 		});
 
 		/**
-		 * @member {techlogging.media.view.Attachments.Selection}
+		 * @member {wp.media.view.Attachments.Selection}
 		 */
-		this.attachments = new techlogging.media.view.Attachments.Selection({
+		this.attachments = new wp.media.view.Attachments.Selection({
 			controller: this.controller,
 			collection: this.collection,
 			selection:  this.collection,
@@ -59,7 +60,7 @@ Selection = techlogging.media.View.extend(/** @lends techlogging.media.view.Sele
 		this.$el.toggleClass( 'one', 1 === collection.length );
 		this.$el.toggleClass( 'editing', editing );
 
-		this.$('.count').text( 'l10n.selected'.replace('%d', collection.length) );
+		this.$('.count').text( l10n.selected.replace('%d', collection.length) );
 	},
 
 	edit: function( event ) {

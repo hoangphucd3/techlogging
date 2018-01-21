@@ -2,16 +2,16 @@ var $ = jQuery,
 	MenuItem;
 
 /**
- * techlogging.media.view.MenuItem
+ * wp.media.view.MenuItem
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuItem.prototype */{
+MenuItem = wp.media.View.extend(/** @lends wp.media.view.MenuItem.prototype */{
 	tagName:   'a',
 	className: 'media-menu-item',
 
@@ -40,7 +40,7 @@ MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuI
 
 		// When selecting a tab along the left side,
 		// focus should be transferred into the main panel
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			$('.media-frame-content input').first().focus();
 		}
 	},
@@ -54,7 +54,7 @@ MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuI
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.MenuItem} returns itself to allow chaining
+	 * @returns {wp.media.view.MenuItem} returns itself to allow chaining
 	 */
 	render: function() {
 		var options = this.options;

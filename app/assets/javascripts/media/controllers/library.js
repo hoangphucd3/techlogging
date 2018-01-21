@@ -1,25 +1,26 @@
-var getUserSetting = window.getUserSetting,
+var l10n = wp.media.view.l10n,
+	getUserSetting = window.getUserSetting,
 	setUserSetting = window.setUserSetting,
 	Library;
 
 /**
- * techlogging.media.controller.Library
+ * wp.media.controller.Library
  *
  * A state for choosing an attachment or group of attachments from the media library.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  * @mixes media.selectionSync
  *
  * @param {object}                          [attributes]                         The attributes hash passed to the state.
  * @param {string}                          [attributes.id=library]              Unique identifier.
  * @param {string}                          [attributes.title=Media library]     Title for the state. Displays in the media menu and the frame's title region.
- * @param {techlogging.media.model.Attachments}      [attributes.library]                 The attachments collection to browse.
+ * @param {wp.media.model.Attachments}      [attributes.library]                 The attachments collection to browse.
  *                                                                               If one is not supplied, a collection of all attachments will be created.
- * @param {techlogging.media.model.Selection|object} [attributes.selection]               A collection to contain attachment selections within the state.
+ * @param {wp.media.model.Selection|object} [attributes.selection]               A collection to contain attachment selections within the state.
  *                                                                               If the 'selection' attribute is a plain JS object,
  *                                                                               a Selection will be created using its values as the selection instance's `props` model.
  *                                                                               Otherwise, it will copy the library's `props` model.
@@ -38,10 +39,10 @@ var getUserSetting = window.getUserSetting,
  * @param {boolean}                         [attributes.contentUserSetting=true] Whether the content region's mode should be set and persisted per user.
  * @param {boolean}                         [attributes.syncSelection=true]      Whether the Attachments selection should be persisted from the last state.
  */
-Library = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.Library.prototype */{
+Library = wp.media.controller.State.extend(/** @lends wp.media.controller.Library.prototype */{
 	defaults: {
 		id:                 'library',
-		title:              'Media Library',
+		title:              l10n.mediaLibraryTitle,
 		multiple:           false,
 		content:            'upload',
 		menu:               'default',
@@ -67,10 +68,10 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 			props;
 
 		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query() );
+			this.set( 'library', wp.media.query() );
 		}
 
-		if ( ! ( selection instanceof techlogging.media.model.Selection ) ) {
+		if ( ! ( selection instanceof wp.media.model.Selection ) ) {
 			props = selection;
 
 			if ( ! props ) {
@@ -78,7 +79,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 				props = _.omit( props, 'orderby', 'query' );
 			}
 
-			this.set( 'selection', new techlogging.media.model.Selection( null, {
+			this.set( 'selection', new wp.media.model.Selection( null, {
 				multiple: this.get('multiple'),
 				props: props
 			}) );
@@ -96,7 +97,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	activate: function() {
 		this.syncSelection();
 
-        techlogging.Uploader.queue.on( 'add', this.uploading, this );
+		wp.Uploader.queue.on( 'add', this.uploading, this );
 
 		this.get('selection').on( 'add remove reset', this.refreshContent, this );
 
@@ -118,7 +119,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 		// from the selection.
 		this.get('selection').off( null, null, this );
 
-        techlogging.Uploader.queue.off( null, null, this );
+		wp.Uploader.queue.off( null, null, this );
 	},
 
 	/**
@@ -140,11 +141,12 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 * @since 3.5.0
 	 */
 	resetDisplays: function() {
+		var defaultProps = wp.media.view.settings.defaultProps;
 		this._displays = [];
 		this._defaultDisplaySettings = {
-			align: 'none',
-			size:  'medium',
-			link:  'none'
+			align: getUserSetting( 'align', defaultProps.align ) || 'none',
+			size:  getUserSetting( 'imgsize', defaultProps.size ) || 'medium',
+			link:  getUserSetting( 'urlbutton', defaultProps.link ) || 'none'
 		};
 	},
 
@@ -153,7 +155,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Backbone.Model}
 	 */
 	display: function( attachment ) {
@@ -170,7 +172,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.6.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Object}
 	 */
 	defaultDisplaySettings: function( attachment ) {
@@ -190,7 +192,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 4.4.1
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Boolean}
 	 */
 	isImageAttachment: function( attachment ) {
@@ -207,7 +209,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.6.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Boolean}
 	 */
 	canEmbed: function( attachment ) {
@@ -219,7 +221,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 			}
 		}
 
-		return _.contains( techlogging.media.view.settings.embedExts, attachment.get('filename').split('.').pop() );
+		return _.contains( wp.media.view.settings.embedExts, attachment.get('filename').split('.').pop() );
 	},
 
 
@@ -254,7 +256,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 */
 	uploading: function( attachment ) {
 		var content = this.frame.content;
@@ -302,6 +304,6 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 });
 
 // Make selectionSync available on any Media Library state.
-_.extend( Library.prototype, techlogging.media.selectionSync );
+_.extend( Library.prototype, wp.media.selectionSync );
 
 module.exports = Library;

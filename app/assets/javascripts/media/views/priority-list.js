@@ -1,14 +1,14 @@
 /**
- * techlogging.media.view.PriorityList
+ * wp.media.view.PriorityList
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.view.PriorityList.prototype */{
+var PriorityList = wp.media.View.extend(/** @lends wp.media.view.PriorityList.prototype */{
 	tagName:   'div',
 
 	initialize: function() {
@@ -23,9 +23,9 @@ var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.vi
 	},
 	/**
 	 * @param {string} id
-	 * @param {techlogging.media.View|Object} view
+	 * @param {wp.media.View|Object} view
 	 * @param {Object} options
-	 * @returns {techlogging.media.view.PriorityList} Returns itself to allow chaining
+	 * @returns {wp.media.view.PriorityList} Returns itself to allow chaining
 	 */
 	set: function( id, view, options ) {
 		var priority, views, index;
@@ -66,14 +66,14 @@ var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.vi
 	},
 	/**
 	 * @param {string} id
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	get: function( id ) {
 		return this._views[ id ];
 	},
 	/**
 	 * @param {string} id
-	 * @returns {techlogging.media.view.PriorityList}
+	 * @returns {wp.media.view.PriorityList}
 	 */
 	unset: function( id ) {
 		var view = this.get( id );
@@ -87,10 +87,10 @@ var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.vi
 	},
 	/**
 	 * @param {Object} options
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	toView: function( options ) {
-		return new techlogging.media.View( options );
+		return new wp.media.View( options );
 	}
 });
 

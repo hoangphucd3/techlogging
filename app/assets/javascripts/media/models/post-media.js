@@ -1,15 +1,15 @@
 /**
- * techlogging.media.model.PostMedia
+ * wp.media.model.PostMedia
  *
  * Shared model class for audio and video. Updates the model after
  *   "Add Audio|Video Source" and "Replace Audio|Video" states return
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
  * @augments Backbone.Model
  */
-var PostMedia = Backbone.Model.extend(/** @lends techlogging.media.model.PostMedia.prototype */{
+var PostMedia = Backbone.Model.extend(/** @lends wp.media.model.PostMedia.prototype */{
 	initialize: function() {
 		this.attachment = false;
 	},
@@ -22,7 +22,7 @@ var PostMedia = Backbone.Model.extend(/** @lends techlogging.media.model.PostMed
 			this.unset( 'src' );
 		}
 
-		if ( _.contains( techlogging.media.view.settings.embedExts, this.extension ) ) {
+		if ( _.contains( wp.media.view.settings.embedExts, this.extension ) ) {
 			this.set( this.extension, this.attachment.get( 'url' ) );
 		} else {
 			this.unset( this.extension );
@@ -33,7 +33,7 @@ var PostMedia = Backbone.Model.extend(/** @lends techlogging.media.model.PostMed
 		this.setSource( attachment );
 
 		this.unset( 'src' );
-		_.each( _.without( techlogging.media.view.settings.embedExts, this.extension ), function( ext ) {
+		_.each( _.without( wp.media.view.settings.embedExts, this.extension ), function( ext ) {
 			this.unset( ext );
 		}, this );
 	}

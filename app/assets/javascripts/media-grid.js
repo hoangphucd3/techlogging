@@ -69,18 +69,53 @@
 
 var media = techlogging.media;
 
-media.view.MediaFrame.Manage = __webpack_require__( 1 );
-// media.view.Attachment.Details.TwoColumn = require( './views/attachment/details-two-column.js' );
-media.view.MediaFrame.Manage.Router = __webpack_require__( 2 );
-media.view.EditImage.Details = __webpack_require__( 3 );
-media.view.MediaFrame.EditAttachments = __webpack_require__( 4 );
-media.view.SelectModeToggleButton = __webpack_require__( 5 );
-media.view.DeleteSelectedButton = __webpack_require__( 6 );
-media.view.DeleteSelectedPermanentlyButton = __webpack_require__( 7 );
+media.controller.EditAttachmentMetadata = __webpack_require__( 1 );
+media.view.MediaFrame.Manage = __webpack_require__( 2 );
+media.view.Attachment.Details.TwoColumn = __webpack_require__( 3 );
+media.view.MediaFrame.Manage.Router = __webpack_require__( 4 );
+media.view.EditImage.Details = __webpack_require__( 5 );
+media.view.MediaFrame.EditAttachments = __webpack_require__( 6 );
+media.view.SelectModeToggleButton = __webpack_require__( 7 );
+media.view.DeleteSelectedButton = __webpack_require__( 8 );
+media.view.DeleteSelectedPermanentlyButton = __webpack_require__( 9 );
 
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+var l10n = techlogging.media.view.l10n,
+	EditAttachmentMetadata;
+
+/**
+ * techlogging.media.controller.EditAttachmentMetadata
+ *
+ * A state for editing an attachment's metadata.
+ *
+ * @memberOf techlogging.media.controller
+ *
+ * @class
+ * @augments techlogging.media.controller.State
+ * @augments Backbone.Model
+ */
+EditAttachmentMetadata = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.EditAttachmentMetadata.prototype */{
+	defaults: {
+		id:      'edit-attachment',
+		// Title string passed to the frame's title region view.
+		title:   l10n.attachmentDetails,
+		// Region mode defaults.
+		content: 'edit-metadata',
+		menu:    false,
+		toolbar: false,
+		router:  false
+	}
+});
+
+module.exports = EditAttachmentMetadata;
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 var MediaFrame = techlogging.media.view.MediaFrame,
@@ -124,7 +159,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 
 		this.$body = $( document.body );
 		this.$window = $( window );
-		this.$adminBar = $( '#wpadminbar' );
+		this.$adminBar = $( '#techloggingadminbar' );
 		// Store the Add New button for later reuse in techlogging.media.view.UploaderInline.
 		this.$uploaderToggler = $( '.page-title-action' )
 			.attr( 'aria-expanded', 'false' )
@@ -133,7 +168,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		this.$window.on( 'scroll resize', _.debounce( _.bind( this.fixPosition, this ), 15 ) );
 
 		// Ensure core and media grid view UI is enabled.
-		this.$el.addClass('wp-core-ui');
+		this.$el.addClass('techlogging-core-ui');
 
 		// Force the uploader off if the upload limit has been exceeded or
 		// if the browser isn't supported.
@@ -362,7 +397,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 				Backbone.history.stop();
 			}
 			Backbone.history.start( {
-				root: window._wpMediaGridSettings.adminUrl,
+				root: window._techloggingMediaGridSettings.adminUrl,
 				pushState: true
 			} );
 		}
@@ -373,7 +408,64 @@ module.exports = Manage;
 
 
 /***/ }),
-/* 2 */
+/* 3 */
+/***/ (function(module, exports) {
+
+var Details = techlogging.media.view.Attachment.Details,
+	TwoColumn;
+
+/**
+ * techlogging.media.view.Attachment.Details.TwoColumn
+ *
+ * A similar view to media.view.Attachment.Details
+ * for use in the Edit Attachment modal.
+ *
+ * @memberOf techlogging.media.view.Attachment.Details
+ *
+ * @class
+ * @augments techlogging.media.view.Attachment.Details
+ * @augments techlogging.media.view.Attachment
+ * @augments techlogging.media.View
+ * @augments techlogging.Backbone.View
+ * @augments Backbone.View
+ */
+TwoColumn = Details.extend(/** @lends techlogging.media.view.Attachment.Details.TowColumn.prototype */{
+	template: techlogging.template( 'attachment-details-two-column' ),
+
+	initialize: function() {
+		this.controller.on( 'content:activate:edit-details', _.bind( this.editAttachment, this ) );
+
+		Details.prototype.initialize.apply( this, arguments );
+	},
+
+	editAttachment: function( event ) {
+		if ( event ) {
+			event.preventDefault();
+		}
+		this.controller.content.mode( 'edit-image' );
+	},
+
+	/**
+	 * Noop this from parent class, doesn't apply here.
+	 */
+	toggleSelectionHandler: function() {},
+
+	render: function() {
+		Details.prototype.render.apply( this, arguments );
+
+		techlogging.media.mixin.removeAllPlayers();
+		this.$( 'audio, video' ).each( function (i, elem) {
+			var el = techlogging.media.view.MediaDetails.prepareSrc( elem );
+			new window.MediaElementPlayer( el, techlogging.media.mixin.mejsSettings );
+		} );
+	}
+});
+
+module.exports = TwoColumn;
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 /**
@@ -388,15 +480,15 @@ module.exports = Manage;
  */
 var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame.Manage.Router.prototype */{
 	routes: {
-		'http://localhost:3000/upload?item=:slug&mode=edit': 'editItem',
-		'http://localhost:3000/upload?item=:slug':           'showItem',
-		'http://localhost:3000/upload?search=:query':        'search',
-		'http://localhost:3000/upload':                      'reset'
+		'upload.php?item=:slug&mode=edit': 'editItem',
+		'upload.php?item=:slug':           'showItem',
+		'upload.php?search=:query':        'search',
+		'upload.php':                      'reset'
 	},
 
 	// Map routes against the page URL
 	baseUrl: function( url ) {
-		return 'http://localhost:3000/upload' + url;
+		return 'upload.php' + url;
 	},
 
 	reset: function() {
@@ -446,7 +538,7 @@ module.exports = Router;
 
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports) {
 
 var View = techlogging.media.View,
@@ -487,7 +579,7 @@ module.exports = Details;
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 var Frame = techlogging.media.view.Frame,
@@ -751,7 +843,7 @@ module.exports = EditAttachments;
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports) {
 
 
@@ -832,7 +924,7 @@ module.exports = SelectModeToggle;
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 var Button = techlogging.media.view.Button,
@@ -891,7 +983,7 @@ module.exports = DeleteSelected;
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 var Button = techlogging.media.view.Button,

@@ -1,14 +1,14 @@
 /**
- * techlogging.media.view.FocusManager
+ * wp.media.view.FocusManager
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var FocusManager = techlogging.media.View.extend(/** @lends techlogging.media.view.FocusManager.prototype */{
+var FocusManager = wp.media.View.extend(/** @lends wp.media.view.FocusManager.prototype */{
 
 	events: {
 		'keydown': 'constrainTabbing'

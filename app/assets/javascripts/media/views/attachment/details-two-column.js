@@ -1,23 +1,23 @@
-var Details = techlogging.media.view.Attachment.Details,
+var Details = wp.media.view.Attachment.Details,
 	TwoColumn;
 
 /**
- * techlogging.media.view.Attachment.Details.TwoColumn
+ * wp.media.view.Attachment.Details.TwoColumn
  *
  * A similar view to media.view.Attachment.Details
  * for use in the Edit Attachment modal.
  *
- * @memberOf techlogging.media.view.Attachment.Details
+ * @memberOf wp.media.view.Attachment.Details
  *
  * @class
- * @augments techlogging.media.view.Attachment.Details
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment.Details
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-TwoColumn = Details.extend(/** @lends techlogging.media.view.Attachment.Details.TowColumn.prototype */{
-	template: techlogging.template( 'attachment-details-two-column' ),
+TwoColumn = Details.extend(/** @lends wp.media.view.Attachment.Details.TowColumn.prototype */{
+	template: wp.template( 'attachment-details-two-column' ),
 
 	initialize: function() {
 		this.controller.on( 'content:activate:edit-details', _.bind( this.editAttachment, this ) );
@@ -40,10 +40,10 @@ TwoColumn = Details.extend(/** @lends techlogging.media.view.Attachment.Details.
 	render: function() {
 		Details.prototype.render.apply( this, arguments );
 
-		techlogging.media.mixin.removeAllPlayers();
+		wp.media.mixin.removeAllPlayers();
 		this.$( 'audio, video' ).each( function (i, elem) {
-			var el = techlogging.media.view.MediaDetails.prepareSrc( elem );
-			new window.MediaElementPlayer( el, techlogging.media.mixin.mejsSettings );
+			var el = wp.media.view.MediaDetails.prepareSrc( elem );
+			new window.MediaElementPlayer( el, wp.media.mixin.mejsSettings );
 		} );
 	}
 });

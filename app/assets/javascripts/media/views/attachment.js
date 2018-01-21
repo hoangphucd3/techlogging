@@ -1,21 +1,21 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = jQuery,
 	Attachment;
 
 /**
- * techlogging.media.view.Attachment
+ * wp.media.view.Attachment
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype */{
+Attachment = View.extend(/** @lends wp.media.view.Attachment.prototype */{
 	tagName:   'li',
 	className: 'attachment',
-	template:  techlogging.template('attachment'),
+	template:  wp.template('attachment'),
 
 	attributes: function() {
 		return {
@@ -53,6 +53,8 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		}
 		this.listenTo( this.model, 'change:title', this._syncTitle );
 		this.listenTo( this.model, 'change:caption', this._syncCaption );
+		this.listenTo( this.model, 'change:artist', this._syncArtist );
+		this.listenTo( this.model, 'change:album', this._syncAlbum );
 
 		// Update the selection.
 		this.listenTo( this.model, 'add', this.select );
@@ -67,7 +69,7 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		this.listenTo( this.controller, 'attachment:compat:waiting attachment:compat:ready', this.updateSave );
 	},
 	/**
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		var selection = this.options.selection;
@@ -85,7 +87,7 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		return this;
 	},
 	/**
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	render: function() {
 		var options = _.defaults( this.model.toJSON(), {
@@ -432,7 +434,7 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 	},
 	/**
 	 * @param {string} status
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	updateSave: function( status ) {
 		var save = this._save = this._save || { status: 'ready' };
@@ -519,39 +521,39 @@ _.each({
 }, function( method, setting ) {
 	/**
 	 * @function _syncCaption
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	/**
 	 * @function _syncTitle
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	/**
 	 * @function _syncArtist
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	/**
 	 * @function _syncAlbum
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	Attachment.prototype[ method ] = function( model, value ) {
 		var $setting = this.$('[data-setting="' + setting + '"]');

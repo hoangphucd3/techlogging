@@ -1,5 +1,5 @@
 /**
- * techlogging.media.View
+ * wp.media.View
  *
  * The base view class for media.
  *
@@ -10,25 +10,25 @@
  * This behavior has since been removed, and should not be used
  * outside of the media manager.
  *
- * @memberOf techlogging.media
+ * @memberOf wp.media
  *
  * @class
- * @augments techlogging.Backbone.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var View = techlogging.Backbone.View.extend(/** @lends techlogging.media.View.prototype */{
+var View = wp.Backbone.View.extend(/** @lends wp.media.View.prototype */{
 	constructor: function( options ) {
 		if ( options && options.controller ) {
 			this.controller = options.controller;
 		}
-		techlogging.Backbone.View.apply( this, arguments );
+		wp.Backbone.View.apply( this, arguments );
 	},
 	/**
 	 * @todo The internal comment mentions this might have been a stop-gap
 	 *       before Backbone 0.9.8 came out. Figure out if Backbone core takes
 	 *       care of this in Backbone.View now.
 	 *
-	 * @returns {techlogging.media.View} Returns itself to allow chaining
+	 * @returns {wp.media.View} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		// Undelegating events, removing events from the model, and
@@ -52,14 +52,14 @@ var View = techlogging.Backbone.View.extend(/** @lends techlogging.media.View.pr
 		return this;
 	},
 	/**
-	 * @returns {techlogging.media.View} Returns itself to allow chaining
+	 * @returns {wp.media.View} Returns itself to allow chaining
 	 */
 	remove: function() {
 		this.dispose();
 		/**
 		 * call 'remove' directly on the parent class
 		 */
-		return techlogging.Backbone.View.prototype.remove.apply( this, arguments );
+		return wp.Backbone.View.prototype.remove.apply( this, arguments );
 	}
 });
 

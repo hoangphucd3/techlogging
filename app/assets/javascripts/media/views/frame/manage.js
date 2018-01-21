@@ -1,27 +1,27 @@
-var MediaFrame = techlogging.media.view.MediaFrame,
-	Library = techlogging.media.controller.Library,
+var MediaFrame = wp.media.view.MediaFrame,
+	Library = wp.media.controller.Library,
 
 	$ = Backbone.$,
 	Manage;
 
 /**
- * techlogging.media.view.MediaFrame.Manage
+ * wp.media.view.MediaFrame.Manage
  *
  * A generic management frame workflow.
  *
  * Used in the media grid view.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.prototype */{
+Manage = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.Manage.prototype */{
 	/**
 	 * @constructs
 	 */
@@ -40,7 +40,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		this.$body = $( document.body );
 		this.$window = $( window );
 		this.$adminBar = $( '#wpadminbar' );
-		// Store the Add New button for later reuse in techlogging.media.view.UploaderInline.
+		// Store the Add New button for later reuse in wp.media.view.UploaderInline.
 		this.$uploaderToggler = $( '.page-title-action' )
 			.attr( 'aria-expanded', 'false' )
 			.on( 'click', _.bind( this.addNewClickHandler, this ) );
@@ -52,13 +52,13 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 
 		// Force the uploader off if the upload limit has been exceeded or
 		// if the browser isn't supported.
-		if ( techlogging.Uploader.limitExceeded || ! techlogging.Uploader.browser.supported ) {
+		if ( wp.Uploader.limitExceeded || ! wp.Uploader.browser.supported ) {
 			this.options.uploader = false;
 		}
 
 		// Initialize a window-wide uploader.
 		if ( this.options.uploader ) {
-			this.uploader = new techlogging.media.view.UploaderWindow({
+			this.uploader = new wp.media.view.UploaderWindow({
 				controller: this,
 				uploader: {
 					dropzone:  document.body,
@@ -71,7 +71,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 			this.options.uploader = false;
 		}
 
-		this.gridRouter = new techlogging.media.view.MediaFrame.Manage.Router();
+		this.gridRouter = new wp.media.view.MediaFrame.Manage.Router();
 
 		// Call 'initialize' directly on the parent class.
 		MediaFrame.prototype.initialize.apply( this, arguments );
@@ -84,7 +84,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		this.render();
 		this.bindSearchHandler();
 
-		techlogging.media.frames.browse = this;
+		wp.media.frames.browse = this;
 	},
 
 	bindSearchHandler: function() {
@@ -134,7 +134,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		// Add the default states.
 		this.states.add([
 			new Library({
-				library:            techlogging.media.query( options.library ),
+				library:            wp.media.query( options.library ),
 				multiple:           options.multiple,
 				title:              options.title,
 				content:            'browse',
@@ -210,10 +210,10 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 	 */
 	openEditAttachmentModal: function( model ) {
 		// Create a new EditAttachment frame, passing along the library and the attachment model.
-		if ( techlogging.media.frames.edit ) {
-			techlogging.media.frames.edit.open().trigger( 'refresh', model );
+		if ( wp.media.frames.edit ) {
+			wp.media.frames.edit.open().trigger( 'refresh', model );
 		} else {
-			techlogging.media.frames.edit = techlogging.media( {
+			wp.media.frames.edit = wp.media( {
 				frame:       'edit-attachments',
 				controller:  this,
 				library:     this.state().get('library'),
@@ -227,13 +227,13 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 	 *
 	 * @param {Object} contentRegion Basic object with a `view` property, which
 	 *                               should be set with the proper region view.
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	browseContent: function( contentRegion ) {
 		var state = this.state();
 
 		// Browse our library of attachments.
-		this.browserView = contentRegion.view = new techlogging.media.view.AttachmentsBrowser({
+		this.browserView = contentRegion.view = new wp.media.view.AttachmentsBrowser({
 			controller: this,
 			collection: state.get('library'),
 			selection:  state.get('selection'),
@@ -255,7 +255,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		});
 		this.browserView.on( 'ready', _.bind( this.bindDeferred, this ) );
 
-		this.errors = techlogging.Uploader.errors;
+		this.errors = wp.Uploader.errors;
 		this.errors.on( 'add remove reset', this.sidebarVisibility, this );
 	},
 

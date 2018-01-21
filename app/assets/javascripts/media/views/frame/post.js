@@ -1,26 +1,36 @@
-var Select = techlogging.media.view.MediaFrame.Select,
-	Library = techlogging.media.controller.Library,
+var Select = wp.media.view.MediaFrame.Select,
+	Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	Post;
 
 /**
- * techlogging.media.view.MediaFrame.Post
+ * wp.media.view.MediaFrame.Post
  *
  * The frame for manipulating media on the Edit Post page.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame.Select
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype */{
+Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 	initialize: function() {
-		this.counts = {};
+		this.counts = {
+			audio: {
+				count: wp.media.view.settings.attachmentCounts.audio,
+				state: 'playlist'
+			},
+			video: {
+				count: wp.media.view.settings.attachmentCounts.video,
+				state: 'video-playlist'
+			}
+		};
 
 		_.defaults( this.options, {
 			multiple:  true,
@@ -45,11 +55,11 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			// Main states.
 			new Library({
 				id:         'insert',
-				title:      'l10n.insertMediaTitle',
+				title:      l10n.insertMediaTitle,
 				priority:   20,
 				toolbar:    'main-insert',
 				filterable: 'all',
-				library:    techlogging.media.query( options.library ),
+				library:    wp.media.query( options.library ),
 				multiple:   options.multiple ? 'reset' : false,
 				editable:   true,
 
@@ -64,8 +74,103 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				displayUserSettings: true
 			}),
 
-			new techlogging.media.controller.EditImage( { model: options.editImage } ),
+			new Library({
+				id:         'gallery',
+				title:      l10n.createGalleryTitle,
+				priority:   40,
+				toolbar:    'main-gallery',
+				filterable: 'uploaded',
+				multiple:   'add',
+				editable:   false,
+
+				library:  wp.media.query( _.defaults({
+					type: 'image'
+				}, options.library ) )
+			}),
+
+			// Embed states.
+			new wp.media.controller.Embed( { metadata: options.metadata } ),
+
+			new wp.media.controller.EditImage( { model: options.editImage } ),
+
+			// Gallery states.
+			new wp.media.controller.GalleryEdit({
+				library: options.selection,
+				editing: options.editing,
+				menu:    'gallery'
+			}),
+
+			new wp.media.controller.GalleryAdd(),
+
+			new Library({
+				id:         'playlist',
+				title:      l10n.createPlaylistTitle,
+				priority:   60,
+				toolbar:    'main-playlist',
+				filterable: 'uploaded',
+				multiple:   'add',
+				editable:   false,
+
+				library:  wp.media.query( _.defaults({
+					type: 'audio'
+				}, options.library ) )
+			}),
+
+			// Playlist states.
+			new wp.media.controller.CollectionEdit({
+				type: 'audio',
+				collectionType: 'playlist',
+				title:          l10n.editPlaylistTitle,
+				SettingsView:   wp.media.view.Settings.Playlist,
+				library:        options.selection,
+				editing:        options.editing,
+				menu:           'playlist',
+				dragInfoText:   l10n.playlistDragInfo,
+				dragInfo:       false
+			}),
+
+			new wp.media.controller.CollectionAdd({
+				type: 'audio',
+				collectionType: 'playlist',
+				title: l10n.addToPlaylistTitle
+			}),
+
+			new Library({
+				id:         'video-playlist',
+				title:      l10n.createVideoPlaylistTitle,
+				priority:   60,
+				toolbar:    'main-video-playlist',
+				filterable: 'uploaded',
+				multiple:   'add',
+				editable:   false,
+
+				library:  wp.media.query( _.defaults({
+					type: 'video'
+				}, options.library ) )
+			}),
+
+			new wp.media.controller.CollectionEdit({
+				type: 'video',
+				collectionType: 'playlist',
+				title:          l10n.editVideoPlaylistTitle,
+				SettingsView:   wp.media.view.Settings.Playlist,
+				library:        options.selection,
+				editing:        options.editing,
+				menu:           'video-playlist',
+				dragInfoText:   l10n.videoPlaylistDragInfo,
+				dragInfo:       false
+			}),
+
+			new wp.media.controller.CollectionAdd({
+				type: 'video',
+				collectionType: 'playlist',
+				title: l10n.addToVideoPlaylistTitle
+			})
 		]);
+
+		if ( wp.media.view.settings.post.featuredImageId ) {
+			this.states.add( new wp.media.controller.FeaturedImage() );
+		}
 	},
 
 	bindHandlers: function() {
@@ -81,7 +186,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		} );
 
 		if ( typeof checkCounts !== 'undefined' ) {
-			this.listenTo( techlogging.media.model.Attachments.all, 'change:type', this.mediaTypeCounts );
+			this.listenTo( wp.media.model.Attachments.all, 'change:type', this.mediaTypeCounts );
 		}
 
 		this.on( 'menu:create:gallery', this.createMenu, this );
@@ -147,11 +252,11 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	// Menus
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	mainMenu: function( view ) {
 		view.set({
-			'library-separator': new techlogging.media.View({
+			'library-separator': new wp.media.View({
 				className: 'separator',
 				priority: 100
 			})
@@ -167,7 +272,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		}
 	},
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	galleryMenu: function( view ) {
 		var lastState = this.lastState(),
@@ -176,7 +281,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     'l10n.cancelGalleryTitle',
+				text:     l10n.cancelGalleryTitle,
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -190,7 +295,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					this.controller.modal.focusManager.focus();
 				}
 			},
-			separateCancel: new techlogging.media.View({
+			separateCancel: new wp.media.View({
 				className: 'separator',
 				priority: 40
 			})
@@ -204,7 +309,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     'l10n.cancelPlaylistTitle',
+				text:     l10n.cancelPlaylistTitle,
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -214,7 +319,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					}
 				}
 			},
-			separateCancel: new techlogging.media.View({
+			separateCancel: new wp.media.View({
 				className: 'separator',
 				priority: 40
 			})
@@ -228,7 +333,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set({
 			cancel: {
-				text:     'l10n.cancelVideoPlaylistTitle',
+				text:     l10n.cancelVideoPlaylistTitle,
 				priority: 20,
 				click:    function() {
 					if ( previous ) {
@@ -238,7 +343,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					}
 				}
 			},
-			separateCancel: new techlogging.media.View({
+			separateCancel: new wp.media.View({
 				className: 'separator',
 				priority: 40
 			})
@@ -247,14 +352,14 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	// Content
 	embedContent: function() {
-		var view = new techlogging.media.view.Embed({
+		var view = new wp.media.view.Embed({
 			controller: this,
 			model:      this.state()
 		}).render();
 
 		this.content.set( view );
 
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			view.url.focus();
 		}
 	},
@@ -264,7 +369,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			selection = state.get('selection'),
 			view;
 
-		view = new techlogging.media.view.AttachmentsBrowser({
+		view = new wp.media.view.AttachmentsBrowser({
 			controller: this,
 			collection: selection,
 			selection:  selection,
@@ -274,11 +379,11 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			date:       false,
 			dragInfo:   true,
 
-			AttachmentView: techlogging.media.view.Attachments.EditSelection
+			AttachmentView: wp.media.view.Attachments.EditSelection
 		}).render();
 
 		view.toolbar.set( 'backToLibrary', {
-			text:     'l10n.returnToLibrary',
+			text:     l10n.returnToLibrary,
 			priority: -100,
 
 			click: function() {
@@ -295,7 +400,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	editImageContent: function() {
 		var image = this.state().get('image'),
-			view = new techlogging.media.view.EditImage( { model: image, controller: this } ).render();
+			view = new wp.media.view.EditImage( { model: image, controller: this } ).render();
 
 		this.content.set( view );
 
@@ -307,12 +412,12 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	// Toolbars
 
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	selectionStatusToolbar: function( view ) {
 		var editable = this.state().get('editable');
 
-		view.set( 'selection', new techlogging.media.view.Selection({
+		view.set( 'selection', new wp.media.view.Selection({
 			controller: this,
 			collection: this.state().get('selection'),
 			priority:   -40,
@@ -326,7 +431,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	mainInsertToolbar: function( view ) {
 		var controller = this;
@@ -336,13 +441,13 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		view.set( 'insert', {
 			style:    'primary',
 			priority: 80,
-			text:     'l10n.insertIntoPost',
+			text:     l10n.insertIntoPost,
 			requires: { selection: true },
 
 			/**
 			 * @ignore
 			 *
-			 * @fires techlogging.media.controller.State#insert
+			 * @fires wp.media.controller.State#insert
 			 */
 			click: function() {
 				var state = controller.state(),
@@ -355,7 +460,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	mainGalleryToolbar: function( view ) {
 		var controller = this;
@@ -364,7 +469,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'gallery', {
 			style:    'primary',
-			text:     'l10n.createNewGallery',
+			text:     l10n.createNewGallery,
 			priority: 60,
 			requires: { selection: true },
 
@@ -373,7 +478,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					edit = controller.state('gallery-edit'),
 					models = selection.where({ type: 'image' });
 
-				edit.set( 'library', new techlogging.media.model.Selection( models, {
+				edit.set( 'library', new wp.media.model.Selection( models, {
 					props:    selection.props.toJSON(),
 					multiple: true
 				}) );
@@ -394,7 +499,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'playlist', {
 			style:    'primary',
-			text:     'l10n.createNewPlaylist',
+			text:     l10n.createNewPlaylist,
 			priority: 100,
 			requires: { selection: true },
 
@@ -403,7 +508,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					edit = controller.state('playlist-edit'),
 					models = selection.where({ type: 'audio' });
 
-				edit.set( 'library', new techlogging.media.model.Selection( models, {
+				edit.set( 'library', new wp.media.model.Selection( models, {
 					props:    selection.props.toJSON(),
 					multiple: true
 				}) );
@@ -424,7 +529,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'video-playlist', {
 			style:    'primary',
-			text:     'l10n.createNewVideoPlaylist',
+			text:     l10n.createNewVideoPlaylist,
 			priority: 100,
 			requires: { selection: true },
 
@@ -433,7 +538,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					edit = controller.state('video-playlist-edit'),
 					models = selection.where({ type: 'video' });
 
-				edit.set( 'library', new techlogging.media.model.Selection( models, {
+				edit.set( 'library', new wp.media.model.Selection( models, {
 					props:    selection.props.toJSON(),
 					multiple: true
 				}) );
@@ -449,30 +554,30 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	featuredImageToolbar: function( toolbar ) {
 		this.createSelectToolbar( toolbar, {
-			text:  'l10n.setFeaturedImage',
+			text:  l10n.setFeaturedImage,
 			state: this.options.state
 		});
 	},
 
 	mainEmbedToolbar: function( toolbar ) {
-		toolbar.view = new techlogging.media.view.Toolbar.Embed({
+		toolbar.view = new wp.media.view.Toolbar.Embed({
 			controller: this
 		});
 	},
 
 	galleryEditToolbar: function() {
 		var editing = this.state().get('editing');
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? 'l10n.updateGallery' : 'l10n.insertGallery',
+					text:     editing ? l10n.updateGallery : l10n.insertGallery,
 					priority: 80,
 					requires: { library: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#update
+					 * @fires wp.media.controller.State#update
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -491,17 +596,17 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	galleryAddToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
 					style:    'primary',
-					text:     'l10n.addToGallery',
+					text:     l10n.addToGallery,
 					priority: 80,
 					requires: { selection: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#reset
+					 * @fires wp.media.controller.State#reset
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -519,17 +624,17 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	playlistEditToolbar: function() {
 		var editing = this.state().get('editing');
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? 'l10n.updatePlaylist' : 'l10n.insertPlaylist',
+					text:     editing ? l10n.updatePlaylist : l10n.insertPlaylist,
 					priority: 80,
 					requires: { library: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#update
+					 * @fires wp.media.controller.State#update
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -548,17 +653,17 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	playlistAddToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
 					style:    'primary',
-					text:     'l10n.addToPlaylist',
+					text:     l10n.addToPlaylist,
 					priority: 80,
 					requires: { selection: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#reset
+					 * @fires wp.media.controller.State#reset
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -576,12 +681,12 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	videoPlaylistEditToolbar: function() {
 		var editing = this.state().get('editing');
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
 					style:    'primary',
-					text:     editing ? 'l10n.updateVideoPlaylist' : 'l10n.insertVideoPlaylist',
+					text:     editing ? l10n.updateVideoPlaylist : l10n.insertVideoPlaylist,
 					priority: 140,
 					requires: { library: true },
 
@@ -605,12 +710,12 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	videoPlaylistAddToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
 					style:    'primary',
-					text:     'l10n.addToVideoPlaylist',
+					text:     l10n.addToVideoPlaylist,
 					priority: 140,
 					requires: { selection: true },
 

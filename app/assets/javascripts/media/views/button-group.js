@@ -2,28 +2,28 @@ var $ = Backbone.$,
 	ButtonGroup;
 
 /**
- * techlogging.media.view.ButtonGroup
+ * wp.media.view.ButtonGroup
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.ButtonGroup.prototype */{
+ButtonGroup = wp.media.View.extend(/** @lends wp.media.view.ButtonGroup.prototype */{
 	tagName:   'div',
 	className: 'button-group button-large media-button-group',
 
 	initialize: function() {
 		/**
-		 * @member {techlogging.media.view.Button[]}
+		 * @member {wp.media.view.Button[]}
 		 */
 		this.buttons = _.map( this.options.buttons || [], function( button ) {
 			if ( button instanceof Backbone.View ) {
 				return button;
 			} else {
-				return new techlogging.media.view.Button( button ).render();
+				return new wp.media.view.Button( button ).render();
 			}
 		});
 
@@ -35,7 +35,7 @@ ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.Bu
 	},
 
 	/**
-	 * @returns {techlogging.media.view.ButtonGroup}
+	 * @returns {wp.media.view.ButtonGroup}
 	 */
 	render: function() {
 		this.$el.html( $( _.pluck( this.buttons, 'el' ) ).detach() );

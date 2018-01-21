@@ -1,20 +1,20 @@
-var Settings = techlogging.media.view.Settings,
+var Settings = wp.media.view.Settings,
 	AttachmentDisplay;
 
 /**
- * techlogging.media.view.Settings.AttachmentDisplay
+ * wp.media.view.Settings.AttachmentDisplay
  *
- * @memberOf techlogging.media.view.Settings
+ * @memberOf wp.media.view.Settings
  *
  * @class
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.AttachmentDisplay.prototype */{
+AttachmentDisplay = Settings.extend(/** @lends wp.media.view.Settings.AttachmentDisplay.prototype */{
 	className: 'attachment-display-settings',
-	template:  techlogging.template('attachment-display-settings'),
+	template:  wp.template('attachment-display-settings'),
 
 	initialize: function() {
 		var attachment = this.options.attachment;
@@ -42,7 +42,7 @@ AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.A
 		Settings.prototype.dispose.apply( this, arguments );
 	},
 	/**
-	 * @returns {techlogging.media.view.AttachmentDisplay} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentDisplay} Returns itself to allow chaining
 	 */
 	render: function() {
 		var attachment = this.options.attachment;
@@ -85,7 +85,7 @@ AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.A
 		$input.removeClass( 'hidden' );
 
 		// If the input is visible, focus and select its contents.
-		if ( ! techlogging.media.isTouchDevice && $input.is(':visible') ) {
+		if ( ! wp.media.isTouchDevice && $input.is(':visible') ) {
 			$input.focus()[0].select();
 		}
 	}

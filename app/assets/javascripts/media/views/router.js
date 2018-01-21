@@ -1,23 +1,23 @@
-var Menu = techlogging.media.view.Menu,
+var Menu = wp.media.view.Menu,
 	Router;
 
 /**
- * techlogging.media.view.Router
+ * wp.media.view.Router
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Menu
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Menu
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Router = Menu.extend(/** @lends techlogging.media.view.Router.prototype */{
+Router = Menu.extend(/** @lends wp.media.view.Router.prototype */{
 	tagName:   'div',
 	className: 'media-router',
 	property:  'contentMode',
-	ItemView:  techlogging.media.view.RouterItem,
+	ItemView:  wp.media.view.RouterItem,
 	region:    'router',
 
 	initialize: function() {

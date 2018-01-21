@@ -1,15 +1,15 @@
 /**
- * techlogging.media.view.Attachment.EditLibrary
+ * wp.media.view.Attachment.EditLibrary
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var EditLibrary = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.EditLibrary.prototype */{
+var EditLibrary = wp.media.view.Attachment.extend(/** @lends wp.media.view.Attachment.EditLibrary.prototype */{
 	buttons: {
 		close: true
 	}

@@ -1,16 +1,17 @@
-var View = techlogging.media.View,
-	mediaTrash = 'techlogging.media.view.settings.mediaTrash',
+var View = wp.media.View,
+	mediaTrash = wp.media.view.settings.mediaTrash,
+	l10n = wp.media.view.l10n,
 	$ = jQuery,
 	AttachmentsBrowser;
 
 /**
- * techlogging.media.view.AttachmentsBrowser
+ * wp.media.view.AttachmentsBrowser
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  *
  * @param {object}         [options]               The options hash passed to the view.
@@ -25,7 +26,7 @@ var View = techlogging.media.View,
  * @param {boolean|string} [options.sidebar=true]  Whether to create a sidebar for the browser.
  *                                                 Accepts true, false, and 'errors'.
  */
-AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBrowser.prototype */{
+AttachmentsBrowser = View.extend(/** @lends wp.media.view.AttachmentsBrowser.prototype */{
 	tagName:   'div',
 	className: 'attachments-browser',
 
@@ -36,7 +37,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			date:    true,
 			display: false,
 			sidebar: true,
-			AttachmentView: techlogging.media.view.Attachment.Library
+			AttachmentView: wp.media.view.Attachment.Library
 		});
 
 		this.controller.on( 'toggle:upload:attachment', this.toggleUploader, this );
@@ -86,7 +87,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.AttachmentsBrowser} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentsBrowser} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		this.options.selection.off( null, null, this );
@@ -106,21 +107,21 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 		}
 
 		/**
-		* @member {techlogging.media.view.Toolbar}
+		* @member {wp.media.view.Toolbar}
 		*/
-		this.toolbar = new techlogging.media.view.Toolbar( toolbarOptions );
+		this.toolbar = new wp.media.view.Toolbar( toolbarOptions );
 
 		this.views.add( this.toolbar );
 
-		this.toolbar.set( 'spinner', new techlogging.media.view.Spinner({
+		this.toolbar.set( 'spinner', new wp.media.view.Spinner({
 			priority: -60
 		}) );
 
 		if ( -1 !== $.inArray( this.options.filters, [ 'uploaded', 'all' ] ) ) {
 			// "Filters" will return a <select>, need to render
 			// screen reader text before
-			this.toolbar.set( 'filtersLabel', new techlogging.media.view.Label({
-				value: 'l10n.filterByType',
+			this.toolbar.set( 'filtersLabel', new wp.media.view.Label({
+				value: l10n.filterByType,
 				attributes: {
 					'for':  'media-attachment-filters'
 				},
@@ -128,13 +129,13 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			}).render() );
 
 			if ( 'uploaded' === this.options.filters ) {
-				this.toolbar.set( 'filters', new techlogging.media.view.AttachmentFilters.Uploaded({
+				this.toolbar.set( 'filters', new wp.media.view.AttachmentFilters.Uploaded({
 					controller: this.controller,
 					model:      this.collection.props,
 					priority:   -80
 				}).render() );
 			} else {
-				Filters = new techlogging.media.view.AttachmentFilters.All({
+				Filters = new wp.media.view.AttachmentFilters.All({
 					controller: this.controller,
 					model:      this.collection.props,
 					priority:   -80
@@ -150,7 +151,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 		if ( this.controller.isModeActive( 'grid' ) ) {
 			LibraryViewSwitcher = View.extend({
 				className: 'view-switch media-grid-view-switch',
-				template: techlogging.template( 'media-library-view-switcher')
+				template: wp.template( 'media-library-view-switcher')
 			});
 
 			this.toolbar.set( 'libraryViewSwitcher', new LibraryViewSwitcher({
@@ -158,18 +159,32 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 				priority: -90
 			}).render() );
 
+			// DateFilter is a <select>, screen reader text needs to be rendered before
+			this.toolbar.set( 'dateFilterLabel', new wp.media.view.Label({
+				value: l10n.filterByDate,
+				attributes: {
+					'for': 'media-attachment-date-filters'
+				},
+				priority: -75
+			}).render() );
+			this.toolbar.set( 'dateFilter', new wp.media.view.DateFilter({
+				controller: this.controller,
+				model:      this.collection.props,
+				priority: -75
+			}).render() );
+
 			// BulkSelection is a <div> with subviews, including screen reader text
-			this.toolbar.set( 'selectModeToggleButton', new techlogging.media.view.SelectModeToggleButton({
-				text: 'l10n.bulkSelect',
+			this.toolbar.set( 'selectModeToggleButton', new wp.media.view.SelectModeToggleButton({
+				text: l10n.bulkSelect,
 				controller: this.controller,
 				priority: -70
 			}).render() );
 
-			this.toolbar.set( 'deleteSelectedButton', new techlogging.media.view.DeleteSelectedButton({
+			this.toolbar.set( 'deleteSelectedButton', new wp.media.view.DeleteSelectedButton({
 				filters: Filters,
 				style: 'primary',
 				disabled: true,
-				text: mediaTrash ? 'l10n.trashSelected' : 'l10n.deleteSelected',
+				text: mediaTrash ? l10n.trashSelected : l10n.deleteSelected,
 				controller: this.controller,
 				priority: -60,
 				click: function() {
@@ -181,13 +196,13 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 						return;
 					}
 
-					if ( ! mediaTrash && ! window.confirm( 'l10n.warnBulkDelete' ) ) {
+					if ( ! mediaTrash && ! window.confirm( l10n.warnBulkDelete ) ) {
 						return;
 					}
 
 					if ( mediaTrash &&
 						'trash' !== selection.at( 0 ).get( 'status' ) &&
-						! window.confirm( 'l10n.warnBulkTrash' ) ) {
+						! window.confirm( l10n.warnBulkTrash ) ) {
 
 						return;
 					}
@@ -225,11 +240,11 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			}).render() );
 
 			if ( mediaTrash ) {
-				this.toolbar.set( 'deleteSelectedPermanentlyButton', new techlogging.media.view.DeleteSelectedPermanentlyButton({
+				this.toolbar.set( 'deleteSelectedPermanentlyButton', new wp.media.view.DeleteSelectedPermanentlyButton({
 					filters: Filters,
 					style: 'primary',
 					disabled: true,
-					text: 'l10n.deleteSelected',
+					text: l10n.deleteSelected,
 					controller: this.controller,
 					priority: -55,
 					click: function() {
@@ -237,7 +252,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 							destroy = [],
 							selection = this.controller.state().get( 'selection' );
 
-						if ( ! selection.length || ! window.confirm( 'l10n.warnBulkDelete' ) ) {
+						if ( ! selection.length || ! window.confirm( l10n.warnBulkDelete ) ) {
 							return;
 						}
 
@@ -265,18 +280,48 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 				}).render() );
 			}
 
+		} else if ( this.options.date ) {
+			// DateFilter is a <select>, screen reader text needs to be rendered before
+			this.toolbar.set( 'dateFilterLabel', new wp.media.view.Label({
+				value: l10n.filterByDate,
+				attributes: {
+					'for': 'media-attachment-date-filters'
+				},
+				priority: -75
+			}).render() );
+			this.toolbar.set( 'dateFilter', new wp.media.view.DateFilter({
+				controller: this.controller,
+				model:      this.collection.props,
+				priority: -75
+			}).render() );
+		}
+
+		if ( this.options.search ) {
+			// Search is an input, screen reader text needs to be rendered before
+			this.toolbar.set( 'searchLabel', new wp.media.view.Label({
+				value: l10n.searchMediaLabel,
+				attributes: {
+					'for': 'media-search-input'
+				},
+				priority:   60
+			}).render() );
+			this.toolbar.set( 'search', new wp.media.view.Search({
+				controller: this.controller,
+				model:      this.collection.props,
+				priority:   60
+			}).render() );
 		}
 
 		if ( this.options.dragInfo ) {
 			this.toolbar.set( 'dragInfo', new View({
-				el: $( '<div class="instructions">' + 'l10n.dragInfo' + '</div>' )[0],
+				el: $( '<div class="instructions">' + l10n.dragInfo + '</div>' )[0],
 				priority: -40
 			}) );
 		}
 
 		if ( this.options.suggestedWidth && this.options.suggestedHeight ) {
 			this.toolbar.set( 'suggestedDimensions', new View({
-				el: $( '<div class="instructions">' + 'l10n.suggestedDimensions'.replace( '%1$s', this.options.suggestedWidth ).replace( '%2$s', this.options.suggestedHeight ) + '</div>' )[0],
+				el: $( '<div class="instructions">' + l10n.suggestedDimensions.replace( '%1$s', this.options.suggestedWidth ).replace( '%2$s', this.options.suggestedHeight ) + '</div>' )[0],
 				priority: -40
 			}) );
 		}
@@ -309,10 +354,10 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createUploader: function() {
-		this.uploader = new techlogging.media.view.UploaderInline({
+		this.uploader = new wp.media.view.UploaderInline({
 			controller: this.controller,
 			status:     false,
-			message:    this.controller.isModeActive( 'grid' ) ? '' : 'l10n.noItemsFound',
+			message:    this.controller.isModeActive( 'grid' ) ? '' : l10n.noItemsFound,
 			canClose:   this.controller.isModeActive( 'grid' )
 		});
 
@@ -329,7 +374,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createAttachments: function() {
-		this.attachments = new techlogging.media.view.Attachments({
+		this.attachments = new wp.media.view.Attachments({
 			controller:           this.controller,
 			collection:           this.collection,
 			selection:            this.options.selection,
@@ -356,7 +401,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			});
 
 			this.attachmentsNoResults.$el.addClass( 'hidden no-media' );
-			this.attachmentsNoResults.$el.html( 'l10n.noMedia' );
+			this.attachmentsNoResults.$el.html( l10n.noMedia );
 
 			this.views.add( this.attachmentsNoResults );
 		}
@@ -365,14 +410,14 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	createSidebar: function() {
 		var options = this.options,
 			selection = options.selection,
-			sidebar = this.sidebar = new techlogging.media.view.Sidebar({
+			sidebar = this.sidebar = new wp.media.view.Sidebar({
 				controller: this.controller
 			});
 
 		this.views.add( sidebar );
 
 		if ( this.controller.uploader ) {
-			sidebar.set( 'uploads', new techlogging.media.view.UploaderStatus({
+			sidebar.set( 'uploads', new wp.media.view.UploaderStatus({
 				controller: this.controller,
 				priority:   40
 			}) );
@@ -390,20 +435,20 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 		var sidebar = this.sidebar,
 			single = this.options.selection.single();
 
-		sidebar.set( 'details', new techlogging.media.view.Attachment.Details({
+		sidebar.set( 'details', new wp.media.view.Attachment.Details({
 			controller: this.controller,
 			model:      single,
 			priority:   80
 		}) );
 
-		sidebar.set( 'compat', new techlogging.media.view.AttachmentCompat({
+		sidebar.set( 'compat', new wp.media.view.AttachmentCompat({
 			controller: this.controller,
 			model:      single,
 			priority:   120
 		}) );
 
 		if ( this.options.display ) {
-			sidebar.set( 'display', new techlogging.media.view.Settings.AttachmentDisplay({
+			sidebar.set( 'display', new wp.media.view.Settings.AttachmentDisplay({
 				controller:   this.controller,
 				model:        this.model.display( single ),
 				attachment:   single,

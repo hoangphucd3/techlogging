@@ -2,20 +2,20 @@ var $ = Backbone.$,
 	Attachment;
 
 /**
- * techlogging.media.model.Attachment
+ * wp.media.model.Attachment
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
  * @augments Backbone.Model
  */
-Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment.prototype */{
+Attachment = Backbone.Model.extend(/** @lends wp.media.model.Attachment.prototype */{
 	/**
 	 * Triggered when attachment details change
 	 * Overrides Backbone.Model.sync
 	 *
 	 * @param {string} method
-	 * @param {techlogging.media.model.Attachment} model
+	 * @param {wp.media.model.Attachment} model
 	 * @param {Object} [options={}]
 	 *
 	 * @returns {Promise}
@@ -35,7 +35,7 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 				action: 'get-attachment',
 				id: this.id
 			});
-			return techlogging.media.ajax( options );
+			return wp.media.ajax( options );
 
 		// Overload the `update` request so properties can be saved.
 		} else if ( 'update' === method ) {
@@ -52,7 +52,7 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 				action:  'save-attachment',
 				id:      this.id,
 				nonce:   this.get('nonces').update,
-				post_id: techlogging.media.model.settings.post.id
+				post_id: wp.media.model.settings.post.id
 			});
 
 			// Record the values of the changed attributes.
@@ -64,7 +64,7 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 				}, this );
 			}
 
-			return techlogging.media.ajax( options );
+			return wp.media.ajax( options );
 
 		// Overload the `delete` request so attachments can be removed.
 		// This will permanently delete an attachment.
@@ -82,7 +82,7 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 				_wpnonce: this.get('nonces')['delete']
 			});
 
-			return techlogging.media.ajax( options ).done( function() {
+			return wp.media.ajax( options ).done( function() {
 				this.destroyed = true;
 			}).fail( function() {
 				this.destroyed = false;
@@ -128,25 +128,25 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 			return $.Deferred().rejectWith( this ).promise();
 		}
 
-		return techlogging.media.post( 'save-attachment-compat', _.defaults({
+		return wp.media.post( 'save-attachment-compat', _.defaults({
 			id:      this.id,
 			nonce:   this.get('nonces').update,
-			post_id: techlogging.media.model.settings.post.id
+			post_id: wp.media.model.settings.post.id
 		}, data ) ).done( function( resp, status, xhr ) {
 			model.set( model.parse( resp, xhr ), options );
 		});
 	}
-},/** @lends techlogging.media.model.Attachment */{
+},/** @lends wp.media.model.Attachment */{
 	/**
 	 * Create a new model on the static 'all' attachments collection and return it.
 	 *
 	 * @static
 	 *
 	 * @param {Object} attrs
-	 * @returns {techlogging.media.model.Attachment}
+	 * @returns {wp.media.model.Attachment}
 	 */
 	create: function( attrs ) {
-		var Attachments = techlogging.media.model.Attachments;
+		var Attachments = wp.media.model.Attachments;
 		return Attachments.all.push( attrs );
 	},
 	/**
@@ -158,10 +158,10 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 	 * @static
 	 * @param {string} id A string used to identify a model.
 	 * @param {Backbone.Model|undefined} attachment
-	 * @returns {techlogging.media.model.Attachment}
+	 * @returns {wp.media.model.Attachment}
 	 */
 	get: _.memoize( function( id, attachment ) {
-		var Attachments = techlogging.media.model.Attachments;
+		var Attachments = wp.media.model.Attachments;
 		return Attachments.all.push( attachment || { id: id } );
 	})
 });

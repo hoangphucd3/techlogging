@@ -1,19 +1,19 @@
-var MenuItem = techlogging.media.view.MenuItem,
-	PriorityList = techlogging.media.view.PriorityList,
+var MenuItem = wp.media.view.MenuItem,
+	PriorityList = wp.media.view.PriorityList,
 	Menu;
 
 /**
- * techlogging.media.view.Menu
+ * wp.media.view.Menu
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Menu = PriorityList.extend(/** @lends techlogging.media.view.Menu.prototype */{
+Menu = PriorityList.extend(/** @lends wp.media.view.Menu.prototype */{
 	tagName:   'div',
 	className: 'media-menu',
 	property:  'state',
@@ -33,7 +33,7 @@ Menu = PriorityList.extend(/** @lends techlogging.media.view.Menu.prototype */{
 	/**
 	 * @param {Object} options
 	 * @param {string} id
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	toView: function( options, id ) {
 		options = options || {};

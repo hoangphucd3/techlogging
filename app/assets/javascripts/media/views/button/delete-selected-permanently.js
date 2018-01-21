@@ -1,22 +1,22 @@
-var Button = techlogging.media.view.Button,
-	DeleteSelected = techlogging.media.view.DeleteSelectedButton,
+var Button = wp.media.view.Button,
+	DeleteSelected = wp.media.view.DeleteSelectedButton,
 	DeleteSelectedPermanently;
 
 /**
- * techlogging.media.view.DeleteSelectedPermanentlyButton
+ * wp.media.view.DeleteSelectedPermanentlyButton
  *
  * When MEDIA_TRASH is true, a button that handles bulk Delete Permanently logic
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.DeleteSelectedButton
- * @augments techlogging.media.view.Button
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.DeleteSelectedButton
+ * @augments wp.media.view.Button
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-DeleteSelectedPermanently = DeleteSelected.extend(/** @lends techlogging.media.view.DeleteSelectedPermanentlyButton.prototype */{
+DeleteSelectedPermanently = DeleteSelected.extend(/** @lends wp.media.view.DeleteSelectedPermanentlyButton.prototype */{
 	initialize: function() {
 		DeleteSelected.prototype.initialize.apply( this, arguments );
 		this.controller.on( 'select:activate', this.selectActivate, this );

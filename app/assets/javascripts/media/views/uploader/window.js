@@ -2,15 +2,15 @@ var $ = jQuery,
 	UploaderWindow;
 
 /**
- * techlogging.media.view.UploaderWindow
+ * wp.media.view.UploaderWindow
  *
  * An uploader window that allows for dragging and dropping media.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  *
  * @param {object} [options]                   Options hash passed to the view.
@@ -19,10 +19,10 @@ var $ = jQuery,
  * @param {jQuery} [options.uploader.dropzone] jQuery collection of the dropzone.
  * @param {object} [options.uploader.params]
  */
-UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view.UploaderWindow.prototype */{
+UploaderWindow = wp.media.View.extend(/** @lends wp.media.view.UploaderWindow.prototype */{
 	tagName:   'div',
 	className: 'uploader-window',
-	template:  techlogging.template('uploader-window'),
+	template:  wp.template('uploader-window'),
 
 	initialize: function() {
 		var uploader;
@@ -54,7 +54,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 	},
 
 	ready: function() {
-		var postId = 'techlogging.media.view.settings.post.id',
+		var postId = wp.media.view.settings.post.id,
 			dropzone;
 
 		// If the uploader already exists, bail.
@@ -62,10 +62,10 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 			return;
 		}
 
-		// if ( postId ) {
-		// 	this.options.uploader.params.post_id = postId;
-		// }
-		this.uploader = new techlogging.Uploader( this.options.uploader );
+		if ( postId ) {
+			this.options.uploader.params.post_id = postId;
+		}
+		this.uploader = new wp.Uploader( this.options.uploader );
 
 		dropzone = this.uploader.dropzone;
 		dropzone.on( 'dropzone:enter', _.bind( this.show, this ) );
@@ -91,7 +91,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 	hide: function() {
 		var $el = this.$el.css({ opacity: 0 });
 
-		techlogging.media.transition( $el ).done( function() {
+		wp.media.transition( $el ).done( function() {
 			// Transition end events are subject to race conditions.
 			// Make sure that the value is set as intended.
 			if ( '0' === $el.css('opacity') ) {

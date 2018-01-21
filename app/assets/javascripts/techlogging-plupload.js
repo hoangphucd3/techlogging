@@ -13,14 +13,14 @@ window.techlogging = window.techlogging || {};
 	}
 
 	/**
-	 * A TechLogging uploader.
+	 * A WordPress uploader.
 	 *
 	 * The Plupload library provides cross-browser uploader UI integration.
 	 * This object bridges the Plupload API to integrate uploads into the
-	 * TechLogging back end and the TechLogging media experience.
+	 * WordPress back end and the WordPress media experience.
 	 *
 	 * @class
-	 * @memberOf wp
+	 * @memberOf techlogging
 	 * @alias techlogging.Uploader
 	 *
 	 * @param {object} options           The options passed to the new plupload instance.
@@ -127,7 +127,7 @@ window.techlogging = window.techlogging || {};
 			}
 
 			Uploader.errors.unshift({
-				message: message || 'pluploadL10n.default_error',
+				message: message || pluploadL10n.default_error,
 				data:    data,
 				file:    file
 			});
@@ -270,11 +270,11 @@ window.techlogging = window.techlogging || {};
 			try {
 				response = JSON.parse( response.response );
 			} catch ( e ) {
-				return error( 'pluploadL10n.default_error', e, file );
+				return error( pluploadL10n.default_error, e, file );
 			}
 
 			if ( ! _.isObject( response ) || _.isUndefined( response.success ) )
-				return error( 'pluploadL10n.default_error', null, file );
+				return error( pluploadL10n.default_error, null, file );
 			else if ( ! response.success )
 				return error( response.data && response.data.message, response.data, file );
 
@@ -302,7 +302,7 @@ window.techlogging = window.techlogging || {};
 		 * @param {Object}            error    Contains code, message and sometimes file and other details.
 		 */
 		this.uploader.bind( 'Error', function( up, pluploadError ) {
-			var message = 'pluploadL10n.default_error',
+			var message = pluploadL10n.default_error,
 				key;
 
 			// Check for plupload errors.
@@ -331,18 +331,18 @@ window.techlogging = window.techlogging || {};
 
 	// Map Plupload error codes to user friendly error messages.
 	Uploader.errorMap = {
-		'FAILED':                 'pluploadL10n.upload_failed',
-		'FILE_EXTENSION_ERROR':   'pluploadL10n.invalid_filetype',
-		'IMAGE_FORMAT_ERROR':     'pluploadL10n.not_an_image',
-		'IMAGE_MEMORY_ERROR':     'pluploadL10n.image_memory_exceeded',
-		'IMAGE_DIMENSIONS_ERROR': 'pluploadL10n.image_dimensions_exceeded',
-		'GENERIC_ERROR':          'pluploadL10n.upload_failed',
-		'IO_ERROR':               'pluploadL10n.io_error',
-		'HTTP_ERROR':             'pluploadL10n.http_error',
-		'SECURITY_ERROR':         'pluploadL10n.security_error',
+		'FAILED':                 pluploadL10n.upload_failed,
+		'FILE_EXTENSION_ERROR':   pluploadL10n.invalid_filetype,
+		'IMAGE_FORMAT_ERROR':     pluploadL10n.not_an_image,
+		'IMAGE_MEMORY_ERROR':     pluploadL10n.image_memory_exceeded,
+		'IMAGE_DIMENSIONS_ERROR': pluploadL10n.image_dimensions_exceeded,
+		'GENERIC_ERROR':          pluploadL10n.upload_failed,
+		'IO_ERROR':               pluploadL10n.io_error,
+		'HTTP_ERROR':             pluploadL10n.http_error,
+		'SECURITY_ERROR':         pluploadL10n.security_error,
 
 		'FILE_SIZE_ERROR': function( file ) {
-			return 'pluploadL10n.file_exceeds_size_limit'.replace('%s', file.name);
+			return pluploadL10n.file_exceeds_size_limit.replace('%s', file.name);
 		}
 	};
 

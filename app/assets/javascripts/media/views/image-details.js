@@ -1,22 +1,22 @@
-var AttachmentDisplay = techlogging.media.view.Settings.AttachmentDisplay,
+var AttachmentDisplay = wp.media.view.Settings.AttachmentDisplay,
 	$ = jQuery,
 	ImageDetails;
 
 /**
- * techlogging.media.view.ImageDetails
+ * wp.media.view.ImageDetails
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Settings.AttachmentDisplay
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings.AttachmentDisplay
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-ImageDetails = AttachmentDisplay.extend(/** @lends techlogging.media.view.ImageDetails.prototype */{
+ImageDetails = AttachmentDisplay.extend(/** @lends wp.media.view.ImageDetails.prototype */{
 	className: 'image-details',
-	template:  techlogging.template('image-details'),
+	template:  wp.template('image-details'),
 	events: _.defaults( AttachmentDisplay.prototype.events, {
 		'click .edit-attachment': 'editAttachment',
 		'click .replace-attachment': 'replaceAttachment',

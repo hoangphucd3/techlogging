@@ -1,15 +1,15 @@
 /**
- * techlogging.media.view.Attachment.Selection
+ * wp.media.view.Attachment.Selection
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Selection = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Selection.prototype */{
+var Selection = wp.media.view.Attachment.extend(/** @lends wp.media.view.Attachment.Selection.prototype */{
 	className: 'attachment selection',
 
 	// On click, just select the model, instead of removing the model from

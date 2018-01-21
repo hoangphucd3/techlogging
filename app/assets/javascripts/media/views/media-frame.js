@@ -1,24 +1,24 @@
-var Frame = techlogging.media.view.Frame,
+var Frame = wp.media.view.Frame,
 	$ = jQuery,
 	MediaFrame;
 
 /**
- * techlogging.media.view.MediaFrame
+ * wp.media.view.MediaFrame
  *
  * The frame used to create the media modal.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype */{
+MediaFrame = Frame.extend(/** @lends wp.media.view.MediaFrame.prototype */{
 	className: 'media-frame',
-	template:  techlogging.template('media-frame'),
+	template:  wp.template('media-frame'),
 	regions:   ['menu','title','content','toolbar','router'],
 
 	events: {
@@ -42,7 +42,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 		// Initialize modal container view.
 		if ( this.options.modal ) {
-			this.modal = new techlogging.media.view.Modal({
+			this.modal = new wp.media.view.Modal({
 				controller: this,
 				title:      this.options.title
 			});
@@ -52,13 +52,13 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 		// Force the uploader off if the upload limit has been exceeded or
 		// if the browser isn't supported.
-		if ( techlogging.Uploader.limitExceeded || ! techlogging.Uploader.browser.supported ) {
+		if ( wp.Uploader.limitExceeded || ! wp.Uploader.browser.supported ) {
 			this.options.uploader = false;
 		}
 
 		// Initialize window-wide uploader.
 		if ( this.options.uploader ) {
-			this.uploader = new techlogging.media.view.UploaderWindow({
+			this.uploader = new wp.media.view.UploaderWindow({
 				controller: this,
 				uploader: {
 					dropzone:  this.modal ? this.modal.$el : this.$el,
@@ -82,7 +82,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 		this.on( 'menu:create:default', this.createMenu, this );
 	},
 	/**
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	render: function() {
 		// Activate the default state if no active state exists.
@@ -96,20 +96,20 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 	},
 	/**
 	 * @param {Object} title
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createTitle: function( title ) {
-		title.view = new techlogging.media.View({
+		title.view = new wp.media.View({
 			controller: this,
 			tagName: 'h1'
 		});
 	},
 	/**
 	 * @param {Object} menu
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createMenu: function( menu ) {
-		menu.view = new techlogging.media.view.Menu({
+		menu.view = new wp.media.view.Menu({
 			controller: this
 		});
 	},
@@ -120,19 +120,19 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 	/**
 	 * @param {Object} toolbar
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createToolbar: function( toolbar ) {
-		toolbar.view = new techlogging.media.view.Toolbar({
+		toolbar.view = new wp.media.view.Toolbar({
 			controller: this
 		});
 	},
 	/**
 	 * @param {Object} router
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createRouter: function( router ) {
-		router.view = new techlogging.media.view.Router({
+		router.view = new wp.media.view.Router({
 			controller: this
 		});
 	},
@@ -140,7 +140,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 	 * @param {Object} options
 	 */
 	createIframeStates: function( options ) {
-		var settings = techlogging.media.view.settings,
+		var settings = wp.media.view.settings,
 			tabs = settings.tabs,
 			tabUrl = settings.tabUrl,
 			$postId;
@@ -175,11 +175,11 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 	/**
 	 * @param {Object} content
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	iframeContent: function( content ) {
 		this.$el.addClass('hide-toolbar');
-		content.view = new techlogging.media.view.Iframe({
+		content.view = new wp.media.view.Iframe({
 			controller: this
 		});
 	},
@@ -195,7 +195,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 			return;
 		}
 
-		_.each( techlogging.media.view.settings.tabs, function( title, id ) {
+		_.each( wp.media.view.settings.tabs, function( title, id ) {
 			views[ 'iframe:' + id ] = {
 				text: this.state( 'iframe:' + id ).get('title'),
 				priority: 200
@@ -235,38 +235,38 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 _.each(['open','close','attach','detach','escape'], function( method ) {
 	/**
 	 * @function open
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function close
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function attach
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function detach
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function escape
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	MediaFrame.prototype[ method ] = function() {
 		if ( this.modal ) {

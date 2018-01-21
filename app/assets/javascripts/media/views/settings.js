@@ -1,18 +1,18 @@
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = Backbone.$,
 	Settings;
 
 /**
- * techlogging.media.view.Settings
+ * wp.media.view.Settings
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Settings = View.extend(/** @lends techlogging.media.view.Settings.prototype */{
+Settings = View.extend(/** @lends wp.media.view.Settings.prototype */{
 	events: {
 		'click button':    'updateHandler',
 		'change input':    'updateHandler',
@@ -31,7 +31,7 @@ Settings = View.extend(/** @lends techlogging.media.view.Settings.prototype */{
 		}, this.options );
 	},
 	/**
-	 * @returns {techlogging.media.view.Settings} Returns itself to allow chaining
+	 * @returns {wp.media.view.Settings} Returns itself to allow chaining
 	 */
 	render: function() {
 		View.prototype.render.apply( this, arguments );

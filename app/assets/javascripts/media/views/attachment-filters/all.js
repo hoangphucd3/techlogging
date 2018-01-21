@@ -1,21 +1,22 @@
-var All;
+var l10n = wp.media.view.l10n,
+	All;
 
 /**
- * techlogging.media.view.AttachmentFilters.All
+ * wp.media.view.AttachmentFilters.All
  *
- * @memberOf techlogging.media.view.AttachmentFilters
+ * @memberOf wp.media.view.AttachmentFilters
  *
  * @class
- * @augments techlogging.media.view.AttachmentFilters
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.AttachmentFilters
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.media.view.AttachmentFilters.All.prototype */{
+All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.AttachmentFilters.All.prototype */{
 	createFilters: function() {
 		var filters = {};
 
-		_.each( techlogging.media.view.settings.mimeTypes || {}, function( text, key ) {
+		_.each( wp.media.view.settings.mimeTypes || {}, function( text, key ) {
 			filters[ key ] = {
 				text: text,
 				props: {
@@ -29,7 +30,7 @@ All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.med
 		});
 
 		filters.all = {
-			text:  'l10n.allMediaItems',
+			text:  l10n.allMediaItems,
 			props: {
 				status:  null,
 				type:    null,
@@ -40,22 +41,22 @@ All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.med
 			priority: 10
 		};
 
-		// if ( techlogging.media.view.settings.post.id ) {
-		// 	filters.uploaded = {
-		// 		text:  'l10n.uploadedToThisPost',
-		// 		props: {
-		// 			status:  null,
-		// 			type:    null,
-		// 			uploadedTo: 'techlogging.media.view.settings.post.id',
-		// 			orderby: 'menuOrder',
-		// 			order:   'ASC'
-		// 		},
-		// 		priority: 20
-		// 	};
-		// }
+		if ( wp.media.view.settings.post.id ) {
+			filters.uploaded = {
+				text:  l10n.uploadedToThisPost,
+				props: {
+					status:  null,
+					type:    null,
+					uploadedTo: wp.media.view.settings.post.id,
+					orderby: 'menuOrder',
+					order:   'ASC'
+				},
+				priority: 20
+			};
+		}
 
 		filters.unattached = {
-			text:  'l10n.unattached',
+			text:  l10n.unattached,
 			props: {
 				status:     null,
 				uploadedTo: 0,
@@ -66,11 +67,11 @@ All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.med
 			priority: 50
 		};
 
-		if ( techlogging.media.view.settings.mediaTrash &&
+		if ( wp.media.view.settings.mediaTrash &&
 			this.controller.isModeActive( 'grid' ) ) {
 
 			filters.trash = {
-				text:  'l10n.trash',
+				text:  l10n.trash,
 				props: {
 					uploadedTo: null,
 					status:     'trash',

@@ -1,12 +1,12 @@
 /**
- * techlogging.media.controller.StateMachine
+ * wp.media.controller.StateMachine
  *
  * A state machine keeps track of state. It is in one state at a time,
  * and can change from one state to another.
  *
  * States are stored as models in a Backbone collection.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @since 3.5.0
  *
@@ -25,7 +25,7 @@ var StateMachine = function( states ) {
 // Use Backbone's self-propagating `extend` inheritance method.
 StateMachine.extend = Backbone.Model.extend;
 
-_.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.controller.StateMachine.prototype */{
+_.extend( StateMachine.prototype, Backbone.Events,/** @lends wp.media.controller.StateMachine.prototype */{
 	/**
 	 * Fetch a state.
 	 *
@@ -39,7 +39,7 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 	 * @since 3.5.0
 	 *
 	 * @param {string} id
-	 * @returns {techlogging.media.controller.State} Returns a State model
+	 * @returns {wp.media.controller.State} Returns a State model
 	 *   from the StateMachine collection
 	 */
 	state: function( id ) {
@@ -65,10 +65,10 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 	 *
 	 * @param {string} id
 	 *
-	 * @fires techlogging.media.controller.State#deactivate
-	 * @fires techlogging.media.controller.State#activate
+	 * @fires wp.media.controller.State#deactivate
+	 * @fires wp.media.controller.State#activate
 	 *
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining
 	 */
 	setState: function( id ) {
 		var previous = this.state();
@@ -96,7 +96,7 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 	 *
 	 * @since 3.5.0
 	 *
-	 * @returns {techlogging.media.controller.State} Returns a State model
+	 * @returns {wp.media.controller.State} Returns a State model
 	 *    from the StateMachine collection
 	 */
 	lastState: function() {
@@ -110,21 +110,21 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 _.each([ 'on', 'off', 'trigger' ], function( method ) {
 	/**
 	 * @function on
-	 * @memberOf techlogging.media.controller.StateMachine
+	 * @memberOf wp.media.controller.StateMachine
 	 * @instance
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining.
 	 */
 	/**
 	 * @function off
-	 * @memberOf techlogging.media.controller.StateMachine
+	 * @memberOf wp.media.controller.StateMachine
 	 * @instance
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining.
 	 */
 	/**
 	 * @function trigger
-	 * @memberOf techlogging.media.controller.StateMachine
+	 * @memberOf wp.media.controller.StateMachine
 	 * @instance
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining.
 	 */
 	StateMachine.prototype[ method ] = function() {
 		// Ensure that the `states` collection exists so the `StateMachine`

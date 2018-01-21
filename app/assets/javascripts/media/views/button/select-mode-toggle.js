@@ -1,20 +1,20 @@
 
-var Button = techlogging.media.view.Button,
-	l10n = techlogging.media.view.l10n,
+var Button = wp.media.view.Button,
+	l10n = wp.media.view.l10n,
 	SelectModeToggle;
 
 /**
- * techlogging.media.view.SelectModeToggleButton
+ * wp.media.view.SelectModeToggleButton
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Button
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Button
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-SelectModeToggle = Button.extend(/** @lends techlogging.media.view.SelectModeToggle.prototype */{
+SelectModeToggle = Button.extend(/** @lends wp.media.view.SelectModeToggle.prototype */{
 	initialize: function() {
 		_.defaults( this.options, {
 			size : ''

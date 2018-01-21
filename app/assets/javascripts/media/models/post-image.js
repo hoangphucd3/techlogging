@@ -1,11 +1,11 @@
 /**
- * techlogging.media.model.PostImage
+ * wp.media.model.PostImage
  *
  * An instance of an image that's been embedded into a post.
  *
- * Used in the embedded image attachment display settings modal - @see techlogging.media.view.MediaFrame.ImageDetails.
+ * Used in the embedded image attachment display settings modal - @see wp.media.view.MediaFrame.ImageDetails.
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
  * @augments Backbone.Model
@@ -13,10 +13,10 @@
  * @param {int} [attributes]               Initial model attributes.
  * @param {int} [attributes.attachment_id] ID of the attachment.
  **/
-var PostImage = Backbone.Model.extend(/** @lends techlogging.media.model.PostImage.prototype */{
+var PostImage = Backbone.Model.extend(/** @lends wp.media.model.PostImage.prototype */{
 
 	initialize: function( attributes ) {
-		var Attachment = techlogging.media.model.Attachment;
+		var Attachment = wp.media.model.Attachment;
 		this.attachment = false;
 
 		if ( attributes.attachment_id ) {

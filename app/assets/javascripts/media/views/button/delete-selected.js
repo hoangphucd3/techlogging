@@ -1,21 +1,21 @@
-var Button = techlogging.media.view.Button,
-	l10n = techlogging.media.view.l10n,
+var Button = wp.media.view.Button,
+	l10n = wp.media.view.l10n,
 	DeleteSelected;
 
 /**
- * techlogging.media.view.DeleteSelectedButton
+ * wp.media.view.DeleteSelectedButton
  *
  * A button that handles bulk Delete/Trash logic
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Button
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Button
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-DeleteSelected = Button.extend(/** @lends techlogging.media.view.DeleteSelectedButton.prototype */{
+DeleteSelected = Button.extend(/** @lends wp.media.view.DeleteSelectedButton.prototype */{
 	initialize: function() {
 		Button.prototype.initialize.apply( this, arguments );
 		if ( this.options.filters ) {
@@ -27,7 +27,7 @@ DeleteSelected = Button.extend(/** @lends techlogging.media.view.DeleteSelectedB
 	filterChange: function( model ) {
 		if ( 'trash' === model.get( 'status' ) ) {
 			this.model.set( 'text', l10n.untrashSelected );
-		} else if ( techlogging.media.view.settings.mediaTrash ) {
+		} else if ( wp.media.view.settings.mediaTrash ) {
 			this.model.set( 'text', l10n.trashSelected );
 		} else {
 			this.model.set( 'text', l10n.deleteSelected );

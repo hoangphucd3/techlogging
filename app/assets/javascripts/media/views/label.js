@@ -1,14 +1,14 @@
 /**
- * techlogging.media.view.Label
+ * wp.media.view.Label
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Label = techlogging.media.View.extend(/** @lends techlogging.media.view.Label.prototype */{
+var Label = wp.media.View.extend(/** @lends wp.media.view.Label.prototype */{
 	tagName: 'label',
 	className: 'screen-reader-text',
 

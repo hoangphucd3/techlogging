@@ -1,16 +1,16 @@
 /**
- * techlogging.media.view.Attachment.EditSelection
+ * wp.media.view.Attachment.EditSelection
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment.Selection
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment.Selection
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var EditSelection = techlogging.media.view.Attachment.Selection.extend(/** @lends techlogging.media.view.Attachment.EditSelection.prototype */{
+var EditSelection = wp.media.view.Attachment.Selection.extend(/** @lends wp.media.view.Attachment.EditSelection.prototype */{
 	buttons: {
 		close: true
 	}

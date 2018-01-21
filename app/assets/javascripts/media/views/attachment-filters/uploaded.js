@@ -1,21 +1,21 @@
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	Uploaded;
 
 /**
- * techlogging.media.view.AttachmentFilters.Uploaded
+ * wp.media.view.AttachmentFilters.Uploaded
  *
- * @memberOf techlogging.media.view.AttachmentFilters
+ * @memberOf wp.media.view.AttachmentFilters
  *
  * @class
- * @augments techlogging.media.view.AttachmentFilters
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.AttachmentFilters
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Uploaded = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.media.view.AttachmentFilters.Uploaded.prototype */{
+Uploaded = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.AttachmentFilters.Uploaded.prototype */{
 	createFilters: function() {
 		var type = this.model.get('type'),
-			types = techlogging.media.view.settings.mimeTypes,
+			types = wp.media.view.settings.mimeTypes,
 			text;
 
 		if ( types && type ) {
@@ -36,7 +36,7 @@ Uploaded = techlogging.media.view.AttachmentFilters.extend(/** @lends techloggin
 			uploaded: {
 				text:  l10n.uploadedToThisPost,
 				props: {
-					uploadedTo: techlogging.media.view.settings.post.id,
+					uploadedTo: wp.media.view.settings.post.id,
 					orderby: 'menuOrder',
 					order:   'ASC'
 				},

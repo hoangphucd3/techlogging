@@ -2,16 +2,16 @@ var $ = jQuery,
 	AttachmentFilters;
 
 /**
- * techlogging.media.view.AttachmentFilters
+ * wp.media.view.AttachmentFilters
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-AttachmentFilters = techlogging.media.View.extend(/** @lends techlogging.media.view.AttachmentFilters.prototype */{
+AttachmentFilters = wp.media.View.extend(/** @lends wp.media.view.AttachmentFilters.prototype */{
 	tagName:   'select',
 	className: 'attachment-filters',
 	id:        'media-attachment-filters',
