@@ -12,7 +12,7 @@ module Admin
       @article = ArticleForm.new(article_params)
       @article = @article.save
       return render action: :new if @article.invalid?
-      flash[:success] = 'Create article sucessfully'
+      flash[:success] = 'Create article successfully'
       redirect_to action: :index
     end
 
@@ -24,7 +24,7 @@ module Admin
       @article = ArticleForm.new(article_params, params[:id])
       @article = @article.save
       return render action: :edit if @article.invalid?
-      flash[:success] = 'Update article sucessfully'
+      flash[:success] = 'Update article successfully'
       redirect_to action: :index
     end
 
