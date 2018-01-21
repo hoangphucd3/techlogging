@@ -7,5 +7,6 @@ devise_for :admin_users, path: 'admin', controllers: {
 namespace :admin do
   get '/', to: 'base#index'
   resources :articles, except: :show
+  resources :taxonomy_terms, except: :show
   resources :photo, only: %i[index create]
 end

@@ -1,6 +1,6 @@
 class TaxonomyTerm < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: %i[slugged history]
+  friendly_id :name, use: %i[slugged history]
 
   acts_as_url :name, url_attribute: :slug
 
