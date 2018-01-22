@@ -3,8 +3,10 @@
 <head>
   <title>Techlogging</title>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'media', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'admin/application', 'data-turbolinks-track': 'reload' %>
   <%= controller_assets %>
   <%= yield :header_javascripts %>

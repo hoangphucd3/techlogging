@@ -32,7 +32,7 @@ Attachment = Backbone.Model.extend(/** @lends wp.media.model.Attachment.prototyp
 			options = options || {};
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
-				action: 'get-attachment',
+				media_action: 'get-attachment',
 				id: this.id
 			});
 			return wp.media.ajax( options );
@@ -49,7 +49,7 @@ Attachment = Backbone.Model.extend(/** @lends wp.media.model.Attachment.prototyp
 
 			// Set the action and ID.
 			options.data = _.extend( options.data || {}, {
-				action:  'save-attachment',
+				media_action:  'save-attachment',
 				id:      this.id,
 				nonce:   this.get('nonces').update,
 				post_id: wp.media.model.settings.post.id
@@ -77,7 +77,7 @@ Attachment = Backbone.Model.extend(/** @lends wp.media.model.Attachment.prototyp
 
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
-				action:   'delete-post',
+				media_action:   'delete-post',
 				id:       this.id,
 				_wpnonce: this.get('nonces')['delete']
 			});

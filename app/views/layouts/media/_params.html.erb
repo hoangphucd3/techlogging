@@ -24,7 +24,7 @@
         "error_uploading": "\u201c%s\u201d has failed to upload."
     };
 
-    var _techloggingPluploadSettings = {
+    var _wpPluploadSettings = {
         "defaults": {
             "file_data_name": "async-upload",
             "url": "<%= media_async_upload_path %>",
@@ -36,7 +36,7 @@
             },
             "multipart_params": {
                 "action": "upload-attachment",
-                "_techloggingnonce": "29fb5452d0"
+                "_wpnonce": "29fb5452d0"
             }
         },
         "browser": {
@@ -51,12 +51,12 @@
         "time": "<%= (Time.now.to_f * 1000).to_i %>",
         "secure": ""
     };
-    var _techloggingUtilSettings = {
+    var _wpUtilSettings = {
         "ajax": {
             "url": "<%= media_ajax_handle_path %>"
         }
     };
-    var _techloggingMediaViewsL10n = {
+    var _wpMediaViewsL10n = {
         "url": "URL",
         "addMedia": "Add Media",
         "search": "Search",
@@ -191,7 +191,7 @@
         }
     };
     var mceViewL10n = {
-        "shortcodes": ["techlogging_caption", "caption", "gallery", "playlist", "audio", "video", "embed"]
+        "shortcodes": ["wp_caption", "caption", "gallery", "playlist", "audio", "video", "embed"]
     };
     var imageEditL10n = {
         "error": "Could not load the preview image. Please reload the page and try again."
@@ -231,7 +231,7 @@
         "codeClose": "Close code tag",
         "more": "Insert Read More tag"
     };
-    var techloggingLinkL10n = {
+    var wpLinkL10n = {
         "title": "Insert\/edit link",
         "update": "Update",
         "save": "Add Link",
@@ -240,7 +240,7 @@
         "linkSelected": "Link selected.",
         "linkInserted": "Link inserted."
     };
-    var _techloggingMediaModelsL10n = {
+    var _wpMediaModelsL10n = {
         "settings": {
             "post": {
                 "id": 0

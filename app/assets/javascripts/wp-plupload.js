@@ -1,14 +1,14 @@
-/* global pluploadL10n, plupload, _techloggingPluploadSettings */
+/* global pluploadL10n, plupload, _wpPluploadSettings */
 
 /**
- * @namespace techlogging
+ * @namespace wp
  */
-window.techlogging = window.techlogging || {};
+window.wp = window.wp || {};
 
 ( function( exports, $ ) {
 	var Uploader;
 
-	if ( typeof _techloggingPluploadSettings === 'undefined' ) {
+	if ( typeof _wpPluploadSettings === 'undefined' ) {
 		return;
 	}
 
@@ -20,8 +20,8 @@ window.techlogging = window.techlogging || {};
 	 * WordPress back end and the WordPress media experience.
 	 *
 	 * @class
-	 * @memberOf techlogging
-	 * @alias techlogging.Uploader
+	 * @memberOf wp
+	 * @alias wp.Uploader
 	 *
 	 * @param {object} options           The options passed to the new plupload instance.
 	 * @param {object} options.container The id of uploader container.
@@ -84,7 +84,7 @@ window.techlogging = window.techlogging || {};
 			}
 
 			if ( ! this[ key ].prop('id') ) {
-				this[ key ].prop( 'id', '__techlogging-uploader-id-' + Uploader.uuid++ );
+				this[ key ].prop( 'id', '__wp-uploader-id-' + Uploader.uuid++ );
 			}
 
 			this.plupload[ elements[ key ] ] = this[ key ].prop('id');
@@ -115,7 +115,7 @@ window.techlogging = window.techlogging || {};
 		 * Custom error callback.
 		 *
 		 * Add a new error to the errors collection, so other modules can track
-		 * and display errors. @see techlogging.Uploader.errors.
+		 * and display errors. @see wp.Uploader.errors.
 		 *
 		 * @param  {string}        message
 		 * @param  {object}        data
@@ -154,11 +154,11 @@ window.techlogging = window.techlogging || {};
 			dropzone.toggleClass( 'supports-drag-drop', !! dragdrop );
 
 			if ( ! dragdrop ) {
-				return dropzone.unbind('.techlogging-uploader');
+				return dropzone.unbind('.wp-uploader');
 			}
 
 			// 'dragenter' doesn't fire correctly, simulate it with a limited 'dragover'.
-			dropzone.bind( 'dragover.techlogging-uploader', function() {
+			dropzone.bind( 'dragover.wp-uploader', function() {
 				if ( timer ) {
 					clearTimeout( timer );
 				}
@@ -171,7 +171,7 @@ window.techlogging = window.techlogging || {};
 				active = true;
 			});
 
-			dropzone.bind('dragleave.techlogging-uploader, drop.techlogging-uploader', function() {
+			dropzone.bind('dragleave.wp-uploader, drop.wp-uploader', function() {
 				// Using an instant timer prevents the drag-over class from
 				// being quickly removed and re-added when elements inside the
 				// dropzone are repositioned.
@@ -224,7 +224,7 @@ window.techlogging = window.techlogging || {};
 					date:      new Date(),
 					filename:  file.name,
 					menuOrder: 0,
-					uploadedTo: techlogging.media.model.settings.post.id
+					uploadedTo: wp.media.model.settings.post.id
 				}, _.pick( file, 'loaded', 'size', 'percent' ) );
 
 				// Handle early mime type scanning for images.
@@ -241,7 +241,7 @@ window.techlogging = window.techlogging || {};
 
 				// Create a model for the attachment, and add it to the Upload queue collection
 				// so listeners to the upload queue can track and display upload progress.
-				file.attachment = techlogging.media.model.Attachment.create( attributes );
+				file.attachment = wp.media.model.Attachment.create( attributes );
 				Uploader.queue.add( file.attachment );
 
 				self.added( file.attachment );
@@ -283,7 +283,7 @@ window.techlogging = window.techlogging || {};
 			});
 
 			file.attachment.set( _.extend( response.data, { uploading: false }) );
-			techlogging.media.model.Attachment.get( response.data.id, file.attachment );
+			wp.media.model.Attachment.get( response.data.id, file.attachment );
 
 			complete = Uploader.queue.all( function( attachment ) {
 				return ! attachment.get('uploading');
@@ -325,7 +325,7 @@ window.techlogging = window.techlogging || {};
 	};
 
 	// Adds the 'defaults' and 'browser' properties.
-	$.extend( Uploader, _techloggingPluploadSettings );
+	$.extend( Uploader, _wpPluploadSettings );
 
 	Uploader.uuid = 0;
 
@@ -346,7 +346,7 @@ window.techlogging = window.techlogging || {};
 		}
 	};
 
-	$.extend( Uploader.prototype, /** @lends techlogging.Uploader.prototype */{
+	$.extend( Uploader.prototype, /** @lends wp.Uploader.prototype */{
 		/**
 		 * Acts as a shortcut to extending the uploader's multipart_params object.
 		 *
@@ -372,7 +372,7 @@ window.techlogging = window.techlogging || {};
 		},
 
 		/**
-		 * Make a few internal event callbacks available on the techlogging.Uploader object
+		 * Make a few internal event callbacks available on the wp.Uploader object
 		 * to change the Uploader internals if absolutely necessary.
 		 */
 		init:     function() {},
@@ -400,17 +400,17 @@ window.techlogging = window.techlogging || {};
 				// temporary container to house it, as the browser button
 				// shims require the button to exist in the DOM at all times.
 				if ( ! attached ) {
-					id = 'techlogging-uploader-browser-' + this.uploader.id;
+					id = 'wp-uploader-browser-' + this.uploader.id;
 
 					container = $( '#' + id );
 					if ( ! container.length ) {
-						container = $('<div class="techlogging-uploader-browser" />').css({
+						container = $('<div class="wp-uploader-browser" />').css({
 							position: 'fixed',
 							top: '-1000px',
 							left: '-1000px',
 							height: 0,
 							width: 0
-						}).attr( 'id', 'techlogging-uploader-browser-' + this.uploader.id ).appendTo('body');
+						}).attr( 'id', 'wp-uploader-browser-' + this.uploader.id ).appendTo('body');
 					}
 
 					container.append( this.browser );
@@ -423,10 +423,10 @@ window.techlogging = window.techlogging || {};
 
 	// Create a collection of attachments in the upload queue,
 	// so that other modules can track and display upload progress.
-	Uploader.queue = new techlogging.media.model.Attachments( [], { query: false });
+	Uploader.queue = new wp.media.model.Attachments( [], { query: false });
 
 	// Create a collection to collect errors incurred while attempting upload.
 	Uploader.errors = new Backbone.Collection();
 
 	exports.Uploader = Uploader;
-})( techlogging, jQuery );
+})( wp, jQuery );

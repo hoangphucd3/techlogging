@@ -83,14 +83,14 @@
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var media = techlogging.media,
+var media = wp.media,
 	$ = jQuery,
 	l10n;
 
 media.isTouchDevice = ( 'ontouchend' in document );
 
 // Link any localized strings.
-l10n = media.view.l10n = window._techloggingMediaViewsL10n || {};
+l10n = media.view.l10n = window._wpMediaViewsL10n || {};
 
 // Link any settings.
 media.view.settings = l10n.settings || {};
@@ -239,7 +239,7 @@ media.view.Spinner = __webpack_require__( 90 );
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.controller.Region
+ * wp.media.controller.Region
  *
  * A region is a persistent application layout area.
  *
@@ -251,7 +251,7 @@ media.view.Spinner = __webpack_require__( 90 );
  * 'browse' mode t be activated on the 'content' view and then fills the region
  * with an AttachmentsBrowser view.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
  *
@@ -267,7 +267,7 @@ var Region = function( options ) {
 // Use Backbone's self-propagating `extend` inheritance method.
 Region.extend = Backbone.Model.extend;
 
-_.extend( Region.prototype,/** @lends techlogging.media.controller.Region.prototype */{
+_.extend( Region.prototype,/** @lends wp.media.controller.Region.prototype */{
 	/**
 	 * Activate a mode.
 	 *
@@ -278,7 +278,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 * @fires Region#activate
 	 * @fires Region#deactivate
 	 *
-	 * @returns {techlogging.media.controller.Region} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.Region} Returns itself to allow chaining.
 	 */
 	mode: function( mode ) {
 		if ( ! mode ) {
@@ -292,7 +292,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		/**
 		 * Region mode deactivation event.
 		 *
-		 * @event techlogging.media.controller.Region#deactivate
+		 * @event wp.media.controller.Region#deactivate
 		 */
 		this.trigger('deactivate');
 
@@ -302,7 +302,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		/**
 		 * Region mode activation event.
 		 *
-		 * @event techlogging.media.controller.Region#activate
+		 * @event wp.media.controller.Region#activate
 		 */
 		this.trigger('activate');
 		return this;
@@ -317,7 +317,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 * @fires Region#create
 	 * @fires Region#render
 	 *
-	 * @returns {techlogging.media.controller.Region} Returns itself to allow chaining
+	 * @returns {wp.media.controller.Region} Returns itself to allow chaining
 	 */
 	render: function( mode ) {
 		// If the mode isn't active, activate it.
@@ -333,7 +333,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		 *
 		 * Region view creation takes place in an event callback on the frame.
 		 *
-		 * @event techlogging.media.controller.Region#create
+		 * @event wp.media.controller.Region#create
 		 * @type {object}
 		 * @property {object} view
 		 */
@@ -345,7 +345,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 		 *
 		 * Region view creation takes place in an event callback on the frame.
 		 *
-		 * @event techlogging.media.controller.Region#render
+		 * @event wp.media.controller.Region#render
 		 * @type {object}
 		 */
 		this.trigger( 'render', view );
@@ -360,7 +360,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 *
 	 * @since 3.5.0
 	 *
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	get: function() {
 		return this.view.views.first( this.selector );
@@ -373,7 +373,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 *
 	 * @param {Array|Object} views
 	 * @param {Object} [options={}]
-	 * @returns {techlogging.Backbone.Subviews} Subviews is returned to allow chaining
+	 * @returns {wp.Backbone.Subviews} Subviews is returned to allow chaining
 	 */
 	set: function( views, options ) {
 		if ( options ) {
@@ -388,7 +388,7 @@ _.extend( Region.prototype,/** @lends techlogging.media.controller.Region.protot
 	 * @since 3.5.0
 	 *
 	 * @param {string} event
-	 * @returns {undefined|techlogging.media.controller.Region} Returns itself to allow chaining.
+	 * @returns {undefined|wp.media.controller.Region} Returns itself to allow chaining.
 	 */
 	trigger: function( event ) {
 		var base, args;
@@ -419,14 +419,14 @@ module.exports = Region;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.controller.StateMachine
+ * wp.media.controller.StateMachine
  *
  * A state machine keeps track of state. It is in one state at a time,
  * and can change from one state to another.
  *
  * States are stored as models in a Backbone collection.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @since 3.5.0
  *
@@ -445,7 +445,7 @@ var StateMachine = function( states ) {
 // Use Backbone's self-propagating `extend` inheritance method.
 StateMachine.extend = Backbone.Model.extend;
 
-_.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.controller.StateMachine.prototype */{
+_.extend( StateMachine.prototype, Backbone.Events,/** @lends wp.media.controller.StateMachine.prototype */{
 	/**
 	 * Fetch a state.
 	 *
@@ -459,7 +459,7 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 	 * @since 3.5.0
 	 *
 	 * @param {string} id
-	 * @returns {techlogging.media.controller.State} Returns a State model
+	 * @returns {wp.media.controller.State} Returns a State model
 	 *   from the StateMachine collection
 	 */
 	state: function( id ) {
@@ -485,10 +485,10 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 	 *
 	 * @param {string} id
 	 *
-	 * @fires techlogging.media.controller.State#deactivate
-	 * @fires techlogging.media.controller.State#activate
+	 * @fires wp.media.controller.State#deactivate
+	 * @fires wp.media.controller.State#activate
 	 *
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining
 	 */
 	setState: function( id ) {
 		var previous = this.state();
@@ -516,7 +516,7 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 	 *
 	 * @since 3.5.0
 	 *
-	 * @returns {techlogging.media.controller.State} Returns a State model
+	 * @returns {wp.media.controller.State} Returns a State model
 	 *    from the StateMachine collection
 	 */
 	lastState: function() {
@@ -530,21 +530,21 @@ _.extend( StateMachine.prototype, Backbone.Events,/** @lends techlogging.media.c
 _.each([ 'on', 'off', 'trigger' ], function( method ) {
 	/**
 	 * @function on
-	 * @memberOf techlogging.media.controller.StateMachine
+	 * @memberOf wp.media.controller.StateMachine
 	 * @instance
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining.
 	 */
 	/**
 	 * @function off
-	 * @memberOf techlogging.media.controller.StateMachine
+	 * @memberOf wp.media.controller.StateMachine
 	 * @instance
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining.
 	 */
 	/**
 	 * @function trigger
-	 * @memberOf techlogging.media.controller.StateMachine
+	 * @memberOf wp.media.controller.StateMachine
 	 * @instance
-	 * @returns {techlogging.media.controller.StateMachine} Returns itself to allow chaining.
+	 * @returns {wp.media.controller.StateMachine} Returns itself to allow chaining.
 	 */
 	StateMachine.prototype[ method ] = function() {
 		// Ensure that the `states` collection exists so the `StateMachine`
@@ -564,7 +564,7 @@ module.exports = StateMachine;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.controller.State
+ * wp.media.controller.State
  *
  * A state is a step in a workflow that when set will trigger the controllers
  * for the regions to be updated as specified in the frame.
@@ -577,12 +577,12 @@ module.exports = StateMachine;
  *     'reset'      is not triggered automatically. It should be invoked by the
  *                  proper controller to reset the state to its default.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
  * @augments Backbone.Model
  */
-var State = Backbone.Model.extend(/** @lends techlogging.media.controller.State.prototype */{
+var State = Backbone.Model.extend(/** @lends wp.media.controller.State.prototype */{
 	/**
 	 * Constructor.
 	 *
@@ -811,14 +811,14 @@ module.exports = State;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.selectionSync
+ * wp.media.selectionSync
  *
  * Sync an attachments selection in a state with another state.
  *
  * Allows for selecting multiple images in the Add Media workflow, and then
  * switching to the Insert Gallery workflow while preserving the attachments selection.
  *
- * @memberOf techlogging.media
+ * @memberOf wp.media
  *
  * @mixin
  */
@@ -882,29 +882,29 @@ module.exports = selectionSync;
 /* 21 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	getUserSetting = window.getUserSetting,
 	setUserSetting = window.setUserSetting,
 	Library;
 
 /**
- * techlogging.media.controller.Library
+ * wp.media.controller.Library
  *
  * A state for choosing an attachment or group of attachments from the media library.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  * @mixes media.selectionSync
  *
  * @param {object}                          [attributes]                         The attributes hash passed to the state.
  * @param {string}                          [attributes.id=library]              Unique identifier.
  * @param {string}                          [attributes.title=Media library]     Title for the state. Displays in the media menu and the frame's title region.
- * @param {techlogging.media.model.Attachments}      [attributes.library]                 The attachments collection to browse.
+ * @param {wp.media.model.Attachments}      [attributes.library]                 The attachments collection to browse.
  *                                                                               If one is not supplied, a collection of all attachments will be created.
- * @param {techlogging.media.model.Selection|object} [attributes.selection]               A collection to contain attachment selections within the state.
+ * @param {wp.media.model.Selection|object} [attributes.selection]               A collection to contain attachment selections within the state.
  *                                                                               If the 'selection' attribute is a plain JS object,
  *                                                                               a Selection will be created using its values as the selection instance's `props` model.
  *                                                                               Otherwise, it will copy the library's `props` model.
@@ -923,7 +923,7 @@ var l10n = techlogging.media.view.l10n,
  * @param {boolean}                         [attributes.contentUserSetting=true] Whether the content region's mode should be set and persisted per user.
  * @param {boolean}                         [attributes.syncSelection=true]      Whether the Attachments selection should be persisted from the last state.
  */
-Library = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.Library.prototype */{
+Library = wp.media.controller.State.extend(/** @lends wp.media.controller.Library.prototype */{
 	defaults: {
 		id:                 'library',
 		title:              l10n.mediaLibraryTitle,
@@ -952,10 +952,10 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 			props;
 
 		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query() );
+			this.set( 'library', wp.media.query() );
 		}
 
-		if ( ! ( selection instanceof techlogging.media.model.Selection ) ) {
+		if ( ! ( selection instanceof wp.media.model.Selection ) ) {
 			props = selection;
 
 			if ( ! props ) {
@@ -963,7 +963,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 				props = _.omit( props, 'orderby', 'query' );
 			}
 
-			this.set( 'selection', new techlogging.media.model.Selection( null, {
+			this.set( 'selection', new wp.media.model.Selection( null, {
 				multiple: this.get('multiple'),
 				props: props
 			}) );
@@ -981,7 +981,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	activate: function() {
 		this.syncSelection();
 
-		techlogging.Uploader.queue.on( 'add', this.uploading, this );
+		wp.Uploader.queue.on( 'add', this.uploading, this );
 
 		this.get('selection').on( 'add remove reset', this.refreshContent, this );
 
@@ -1003,7 +1003,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 		// from the selection.
 		this.get('selection').off( null, null, this );
 
-		techlogging.Uploader.queue.off( null, null, this );
+		wp.Uploader.queue.off( null, null, this );
 	},
 
 	/**
@@ -1025,7 +1025,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 * @since 3.5.0
 	 */
 	resetDisplays: function() {
-		var defaultProps = techlogging.media.view.settings.defaultProps;
+		var defaultProps = wp.media.view.settings.defaultProps;
 		this._displays = [];
 		this._defaultDisplaySettings = {
 			align: getUserSetting( 'align', defaultProps.align ) || 'none',
@@ -1039,7 +1039,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Backbone.Model}
 	 */
 	display: function( attachment ) {
@@ -1056,7 +1056,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.6.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Object}
 	 */
 	defaultDisplaySettings: function( attachment ) {
@@ -1076,7 +1076,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 4.4.1
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Boolean}
 	 */
 	isImageAttachment: function( attachment ) {
@@ -1093,7 +1093,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.6.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Boolean}
 	 */
 	canEmbed: function( attachment ) {
@@ -1105,7 +1105,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 			}
 		}
 
-		return _.contains( techlogging.media.view.settings.embedExts, attachment.get('filename').split('.').pop() );
+		return _.contains( wp.media.view.settings.embedExts, attachment.get('filename').split('.').pop() );
 	},
 
 
@@ -1140,7 +1140,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 */
 	uploading: function( attachment ) {
 		var content = this.frame.content;
@@ -1188,7 +1188,7 @@ Library = techlogging.media.controller.State.extend(/** @lends techlogging.media
 });
 
 // Make selectionSync available on any Media Library state.
-_.extend( Library.prototype, techlogging.media.selectionSync );
+_.extend( Library.prototype, wp.media.selectionSync );
 
 module.exports = Library;
 
@@ -1197,27 +1197,27 @@ module.exports = Library;
 /* 22 */
 /***/ (function(module, exports) {
 
-var State = techlogging.media.controller.State,
-	Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var State = wp.media.controller.State,
+	Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	ImageDetails;
 
 /**
- * techlogging.media.controller.ImageDetails
+ * wp.media.controller.ImageDetails
  *
  * A state for editing the attachment display settings of an image that's been
  * inserted into the editor.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                    [attributes]                       The attributes hash passed to the state.
  * @param {string}                    [attributes.id=image-details]      Unique identifier.
  * @param {string}                    [attributes.title=Image Details]   Title for the state. Displays in the frame's title region.
- * @param {techlogging.media.model.Attachment} attributes.image                   The image's model.
+ * @param {wp.media.model.Attachment} attributes.image                   The image's model.
  * @param {string|false}              [attributes.content=image-details] Initial mode for the content region.
  * @param {string|false}              [attributes.menu=false]            Initial mode for the menu region.
  * @param {string|false}              [attributes.router=false]          Initial mode for the router region.
@@ -1228,7 +1228,7 @@ var State = techlogging.media.controller.State,
  * @todo This state inherits some defaults from media.controller.Library.prototype.defaults,
  *       however this may not do anything.
  */
-ImageDetails = State.extend(/** @lends techlogging.media.controller.ImageDetails.prototype */{
+ImageDetails = State.extend(/** @lends wp.media.controller.ImageDetails.prototype */{
 	defaults: _.defaults({
 		id:       'image-details',
 		title:    l10n.imageDetailsTitle,
@@ -1265,26 +1265,26 @@ module.exports = ImageDetails;
 /* 23 */
 /***/ (function(module, exports) {
 
-var Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	GalleryEdit;
 
 /**
- * techlogging.media.controller.GalleryEdit
+ * wp.media.controller.GalleryEdit
  *
  * A state for editing a gallery's images and settings.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                     [attributes]                       The attributes hash passed to the state.
  * @param {string}                     [attributes.id=gallery-edit]       Unique identifier.
  * @param {string}                     [attributes.title=Edit Gallery]    Title for the state. Displays in the frame's title region.
- * @param {techlogging.media.model.Attachments} [attributes.library]               The collection of attachments in the gallery.
+ * @param {wp.media.model.Attachments} [attributes.library]               The collection of attachments in the gallery.
  *                                                                        If one is not supplied, an empty media.model.Selection collection is created.
  * @param {boolean}                    [attributes.multiple=false]        Whether multi-select is enabled.
  * @param {boolean}                    [attributes.searchable=false]      Whether the library is searchable.
@@ -1301,9 +1301,9 @@ var Library = techlogging.media.controller.Library,
  * @param {boolean}                    [attributes.syncSelection=false]   Whether the Attachments selection should be persisted from the last state.
  *                                                                        Defaults to false for this state, because the library passed in  *is* the selection.
  * @param {view}                       [attributes.AttachmentView]        The single `Attachment` view to be used in the `Attachments`.
- *                                                                        If none supplied, defaults to techlogging.media.view.Attachment.EditLibrary.
+ *                                                                        If none supplied, defaults to wp.media.view.Attachment.EditLibrary.
  */
-GalleryEdit = Library.extend(/** @lends techlogging.media.controller.GalleryEdit.prototype */{
+GalleryEdit = Library.extend(/** @lends wp.media.controller.GalleryEdit.prototype */{
 	defaults: {
 		id:               'gallery-edit',
 		title:            l10n.editGalleryTitle,
@@ -1329,12 +1329,12 @@ GalleryEdit = Library.extend(/** @lends techlogging.media.controller.GalleryEdit
 	initialize: function() {
 		// If we haven't been provided a `library`, create a `Selection`.
 		if ( ! this.get('library') ) {
-			this.set( 'library', new techlogging.media.model.Selection() );
+			this.set( 'library', new wp.media.model.Selection() );
 		}
 
 		// The single `Attachment` view to be used in the `Attachments` view.
 		if ( ! this.get('AttachmentView') ) {
-			this.set( 'AttachmentView', techlogging.media.view.Attachment.EditLibrary );
+			this.set( 'AttachmentView', wp.media.view.Attachment.EditLibrary );
 		}
 
 		Library.prototype.initialize.apply( this, arguments );
@@ -1350,7 +1350,7 @@ GalleryEdit = Library.extend(/** @lends techlogging.media.controller.GalleryEdit
 		library.props.set( 'type', 'image' );
 
 		// Watch for uploaded attachments.
-		this.get('library').observe( techlogging.Uploader.queue );
+		this.get('library').observe( wp.Uploader.queue );
 
 		this.frame.on( 'content:render:browse', this.gallerySettings, this );
 
@@ -1362,7 +1362,7 @@ GalleryEdit = Library.extend(/** @lends techlogging.media.controller.GalleryEdit
 	 */
 	deactivate: function() {
 		// Stop watching for uploaded attachments.
-		this.get('library').unobserve( techlogging.Uploader.queue );
+		this.get('library').unobserve( wp.Uploader.queue );
 
 		this.frame.off( 'content:render:browse', this.gallerySettings, this );
 
@@ -1388,7 +1388,7 @@ GalleryEdit = Library.extend(/** @lends techlogging.media.controller.GalleryEdit
 		library.gallery = library.gallery || new Backbone.Model();
 
 		browser.sidebar.set({
-			gallery: new techlogging.media.view.Settings.Gallery({
+			gallery: new wp.media.view.Settings.Gallery({
 				controller: this,
 				model:      library.gallery,
 				priority:   40
@@ -1413,28 +1413,28 @@ module.exports = GalleryEdit;
 /* 24 */
 /***/ (function(module, exports) {
 
-var Selection = techlogging.media.model.Selection,
-	Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var Selection = wp.media.model.Selection,
+	Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	GalleryAdd;
 
 /**
- * techlogging.media.controller.GalleryAdd
+ * wp.media.controller.GalleryAdd
  *
  * A state for selecting more images to add to a gallery.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                     [attributes]                         The attributes hash passed to the state.
  * @param {string}                     [attributes.id=gallery-library]      Unique identifier.
  * @param {string}                     [attributes.title=Add to Gallery]    Title for the state. Displays in the frame's title region.
  * @param {boolean}                    [attributes.multiple=add]            Whether multi-select is enabled. @todo 'add' doesn't seem do anything special, and gets used as a boolean.
- * @param {techlogging.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
+ * @param {wp.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
  *                                                                          If one is not supplied, a collection of all images will be created.
  * @param {boolean|string}             [attributes.filterable=uploaded]     Whether the library is filterable, and if so what filters should be shown.
  *                                                                          Accepts 'all', 'uploaded', or 'unattached'.
@@ -1451,7 +1451,7 @@ var Selection = techlogging.media.model.Selection,
  * @param {boolean}                    [attributes.syncSelection=false]     Whether the Attachments selection should be persisted from the last state.
  *                                                                          Defaults to false because for this state, because the library of the Edit Gallery state is the selection.
  */
-GalleryAdd = Library.extend(/** @lends techlogging.media.controller.GalleryAdd.prototype */{
+GalleryAdd = Library.extend(/** @lends wp.media.controller.GalleryAdd.prototype */{
 	defaults: _.defaults({
 		id:            'gallery-library',
 		title:         l10n.addToGalleryTitle,
@@ -1469,7 +1469,7 @@ GalleryAdd = Library.extend(/** @lends techlogging.media.controller.GalleryAdd.p
 	initialize: function() {
 		// If a library wasn't supplied, create a library of images.
 		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query({ type: 'image' }) );
+			this.set( 'library', wp.media.query({ type: 'image' }) );
 		}
 
 		Library.prototype.initialize.apply( this, arguments );
@@ -1510,27 +1510,27 @@ module.exports = GalleryAdd;
 /* 25 */
 /***/ (function(module, exports) {
 
-var Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	$ = jQuery,
 	CollectionEdit;
 
 /**
- * techlogging.media.controller.CollectionEdit
+ * wp.media.controller.CollectionEdit
  *
  * A state for editing a collection, which is used by audio and video playlists,
  * and can be used for other collections.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                     [attributes]                      The attributes hash passed to the state.
  * @param {string}                     attributes.title                  Title for the state. Displays in the media menu and the frame's title region.
- * @param {techlogging.media.model.Attachments} [attributes.library]              The attachments collection to edit.
+ * @param {wp.media.model.Attachments} [attributes.library]              The attachments collection to edit.
  *                                                                       If one is not supplied, an empty media.model.Selection collection is created.
  * @param {boolean}                    [attributes.multiple=false]       Whether multi-select is enabled.
  * @param {string}                     [attributes.content=browse]       Initial mode for the content region.
@@ -1548,11 +1548,11 @@ var Library = techlogging.media.controller.Library,
  *                                                                       Defaults to false for this state, because the library passed in  *is* the selection.
  * @param {view}                       [attributes.SettingsView]         The view to edit the collection instance settings (e.g. Playlist settings with "Show tracklist" checkbox).
  * @param {view}                       [attributes.AttachmentView]       The single `Attachment` view to be used in the `Attachments`.
- *                                                                       If none supplied, defaults to techlogging.media.view.Attachment.EditLibrary.
+ *                                                                       If none supplied, defaults to wp.media.view.Attachment.EditLibrary.
  * @param {string}                     attributes.type                   The collection's media type. (e.g. 'video').
  * @param {string}                     attributes.collectionType         The collection type. (e.g. 'playlist').
  */
-CollectionEdit = Library.extend(/** @lends techlogging.media.controller.CollectionEdit.prototype */{
+CollectionEdit = Library.extend(/** @lends wp.media.controller.CollectionEdit.prototype */{
 	defaults: {
 		multiple:         false,
 		sortable:         true,
@@ -1583,11 +1583,11 @@ CollectionEdit = Library.extend(/** @lends techlogging.media.controller.Collecti
 
 		// If we haven't been provided a `library`, create a `Selection`.
 		if ( ! this.get('library') ) {
-			this.set( 'library', new techlogging.media.model.Selection() );
+			this.set( 'library', new wp.media.model.Selection() );
 		}
 		// The single `Attachment` view to be used in the `Attachments` view.
 		if ( ! this.get('AttachmentView') ) {
-			this.set( 'AttachmentView', techlogging.media.view.Attachment.EditLibrary );
+			this.set( 'AttachmentView', wp.media.view.Attachment.EditLibrary );
 		}
 		Library.prototype.initialize.apply( this, arguments );
 	},
@@ -1602,7 +1602,7 @@ CollectionEdit = Library.extend(/** @lends techlogging.media.controller.Collecti
 		library.props.set( 'type', this.get( 'type' ) );
 
 		// Watch for uploaded attachments.
-		this.get('library').observe( techlogging.Uploader.queue );
+		this.get('library').observe( wp.Uploader.queue );
 
 		this.frame.on( 'content:render:browse', this.renderSettings, this );
 
@@ -1614,7 +1614,7 @@ CollectionEdit = Library.extend(/** @lends techlogging.media.controller.Collecti
 	 */
 	deactivate: function() {
 		// Stop watching for uploaded attachments.
-		this.get('library').unobserve( techlogging.Uploader.queue );
+		this.get('library').unobserve( wp.Uploader.queue );
 
 		this.frame.off( 'content:render:browse', this.renderSettings, this );
 
@@ -1629,7 +1629,7 @@ CollectionEdit = Library.extend(/** @lends techlogging.media.controller.Collecti
 	 *
 	 * @since 3.9.0
 	 *
-	 * @param {techlogging.media.view.attachmentsBrowser} The attachments browser view.
+	 * @param {wp.media.view.attachmentsBrowser} The attachments browser view.
 	 */
 	renderSettings: function( attachmentsBrowserView ) {
 		var library = this.get('library'),
@@ -1653,7 +1653,7 @@ CollectionEdit = Library.extend(/** @lends techlogging.media.controller.Collecti
 		attachmentsBrowserView.sidebar.set( obj );
 
 		if ( dragInfoText ) {
-			attachmentsBrowserView.toolbar.set( 'dragInfo', new techlogging.media.View({
+			attachmentsBrowserView.toolbar.set( 'dragInfo', new wp.media.View({
 				el: $( '<div class="instructions">' + dragInfoText + '</div>' )[0],
 				priority: -40
 			}) );
@@ -1678,27 +1678,27 @@ module.exports = CollectionEdit;
 /* 26 */
 /***/ (function(module, exports) {
 
-var Selection = techlogging.media.model.Selection,
-	Library = techlogging.media.controller.Library,
+var Selection = wp.media.model.Selection,
+	Library = wp.media.controller.Library,
 	CollectionAdd;
 
 /**
- * techlogging.media.controller.CollectionAdd
+ * wp.media.controller.CollectionAdd
  *
  * A state for adding attachments to a collection (e.g. video playlist).
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                     [attributes]                         The attributes hash passed to the state.
  * @param {string}                     [attributes.id=library]      Unique identifier.
  * @param {string}                     attributes.title                    Title for the state. Displays in the frame's title region.
  * @param {boolean}                    [attributes.multiple=add]            Whether multi-select is enabled. @todo 'add' doesn't seem do anything special, and gets used as a boolean.
- * @param {techlogging.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
+ * @param {wp.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
  *                                                                          If one is not supplied, a collection of attachments of the specified type will be created.
  * @param {boolean|string}             [attributes.filterable=uploaded]     Whether the library is filterable, and if so what filters should be shown.
  *                                                                          Accepts 'all', 'uploaded', or 'unattached'.
@@ -1717,7 +1717,7 @@ var Selection = techlogging.media.model.Selection,
  * @param {string}                     attributes.type                   The collection's media type. (e.g. 'video').
  * @param {string}                     attributes.collectionType         The collection type. (e.g. 'playlist').
  */
-CollectionAdd = Library.extend(/** @lends techlogging.media.controller.CollectionAdd.prototype */{
+CollectionAdd = Library.extend(/** @lends wp.media.controller.CollectionAdd.prototype */{
 	defaults: _.defaults( {
 		// Selection defaults. @see media.model.Selection
 		multiple:      'add',
@@ -1744,7 +1744,7 @@ CollectionAdd = Library.extend(/** @lends techlogging.media.controller.Collectio
 
 		// If we haven't been provided a `library`, create a `Selection`.
 		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query({ type: this.get('type') }) );
+			this.set( 'library', wp.media.query({ type: this.get('type') }) );
 		}
 		Library.prototype.initialize.apply( this, arguments );
 	},
@@ -1785,27 +1785,27 @@ module.exports = CollectionAdd;
 /* 27 */
 /***/ (function(module, exports) {
 
-var Attachment = techlogging.media.model.Attachment,
-	Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var Attachment = wp.media.model.Attachment,
+	Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	FeaturedImage;
 
 /**
- * techlogging.media.controller.FeaturedImage
+ * wp.media.controller.FeaturedImage
  *
  * A state for selecting a featured image for a post.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                     [attributes]                          The attributes hash passed to the state.
  * @param {string}                     [attributes.id=featured-image]        Unique identifier.
  * @param {string}                     [attributes.title=Set Featured Image] Title for the state. Displays in the media menu and the frame's title region.
- * @param {techlogging.media.model.Attachments} [attributes.library]                  The attachments collection to browse.
+ * @param {wp.media.model.Attachments} [attributes.library]                  The attachments collection to browse.
  *                                                                           If one is not supplied, a collection of all images will be created.
  * @param {boolean}                    [attributes.multiple=false]           Whether multi-select is enabled.
  * @param {string}                     [attributes.content=upload]           Initial mode for the content region.
@@ -1823,7 +1823,7 @@ var Attachment = techlogging.media.model.Attachment,
  * @param {boolean}                    [attributes.contentUserSetting=true]  Whether the content region's mode should be set and persisted per user.
  * @param {boolean}                    [attributes.syncSelection=true]       Whether the Attachments selection should be persisted from the last state.
  */
-FeaturedImage = Library.extend(/** @lends techlogging.media.controller.FeaturedImage.prototype */{
+FeaturedImage = Library.extend(/** @lends wp.media.controller.FeaturedImage.prototype */{
 	defaults: _.defaults({
 		id:            'featured-image',
 		title:         l10n.setFeaturedImageTitle,
@@ -1842,7 +1842,7 @@ FeaturedImage = Library.extend(/** @lends techlogging.media.controller.FeaturedI
 
 		// If we haven't been provided a `library`, create a `Selection`.
 		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query({ type: 'image' }) );
+			this.set( 'library', wp.media.query({ type: 'image' }) );
 		}
 
 		Library.prototype.initialize.apply( this, arguments );
@@ -1894,7 +1894,7 @@ FeaturedImage = Library.extend(/** @lends techlogging.media.controller.FeaturedI
 	 */
 	updateSelection: function() {
 		var selection = this.get('selection'),
-			id = techlogging.media.view.settings.post.featuredImageId,
+			id = wp.media.view.settings.post.featuredImageId,
 			attachment;
 
 		if ( '' !== id && -1 !== id ) {
@@ -1913,26 +1913,26 @@ module.exports = FeaturedImage;
 /* 28 */
 /***/ (function(module, exports) {
 
-var Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	ReplaceImage;
 
 /**
- * techlogging.media.controller.ReplaceImage
+ * wp.media.controller.ReplaceImage
  *
  * A state for replacing an image.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                     [attributes]                         The attributes hash passed to the state.
  * @param {string}                     [attributes.id=replace-image]        Unique identifier.
  * @param {string}                     [attributes.title=Replace Image]     Title for the state. Displays in the media menu and the frame's title region.
- * @param {techlogging.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
+ * @param {wp.media.model.Attachments} [attributes.library]                 The attachments collection to browse.
  *                                                                          If one is not supplied, a collection of all images will be created.
  * @param {boolean}                    [attributes.multiple=false]          Whether multi-select is enabled.
  * @param {string}                     [attributes.content=upload]          Initial mode for the content region.
@@ -1950,7 +1950,7 @@ var Library = techlogging.media.controller.Library,
  * @param {boolean}                    [attributes.contentUserSetting=true] Whether the content region's mode should be set and persisted per user.
  * @param {boolean}                    [attributes.syncSelection=true]      Whether the Attachments selection should be persisted from the last state.
  */
-ReplaceImage = Library.extend(/** @lends techlogging.media.controller.ReplaceImage.prototype */{
+ReplaceImage = Library.extend(/** @lends wp.media.controller.ReplaceImage.prototype */{
 	defaults: _.defaults({
 		id:            'replace-image',
 		title:         l10n.replaceImageTitle,
@@ -1973,7 +1973,7 @@ ReplaceImage = Library.extend(/** @lends techlogging.media.controller.ReplaceIma
 		this.image = options.image;
 		// If we haven't been provided a `library`, create a `Selection`.
 		if ( ! this.get('library') ) {
-			this.set( 'library', techlogging.media.query({ type: 'image' }) );
+			this.set( 'library', wp.media.query({ type: 'image' }) );
 		}
 
 		Library.prototype.initialize.apply( this, arguments );
@@ -2027,22 +2027,22 @@ module.exports = ReplaceImage;
 /* 29 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	EditImage;
 
 /**
- * techlogging.media.controller.EditImage
+ * wp.media.controller.EditImage
  *
  * A state for editing (cropping, etc.) an image.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object}                    attributes                      The attributes hash passed to the state.
- * @param {techlogging.media.model.Attachment} attributes.model                The attachment.
+ * @param {wp.media.model.Attachment} attributes.model                The attachment.
  * @param {string}                    [attributes.id=edit-image]      Unique identifier.
  * @param {string}                    [attributes.title=Edit Image]   Title for the state. Displays in the media menu and the frame's title region.
  * @param {string}                    [attributes.content=edit-image] Initial mode for the content region.
@@ -2050,7 +2050,7 @@ var l10n = techlogging.media.view.l10n,
  * @param {string}                    [attributes.menu=false]         Initial mode for the menu region.
  * @param {string}                    [attributes.url]                Unused. @todo Consider removal.
  */
-EditImage = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.EditImage.prototype */{
+EditImage = wp.media.controller.State.extend(/** @lends wp.media.controller.EditImage.prototype */{
 	defaults: {
 		id:      'edit-image',
 		title:   l10n.editImage,
@@ -2098,7 +2098,7 @@ EditImage = techlogging.media.controller.State.extend(/** @lends techlogging.med
 			lastState = frame.lastState(),
 			previous = lastState && lastState.id;
 
-		frame.toolbar.set( new techlogging.media.view.Toolbar({
+		frame.toolbar.set( new wp.media.view.Toolbar({
 			controller: frame,
 			items: {
 				back: {
@@ -2126,19 +2126,19 @@ module.exports = EditImage;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.controller.MediaLibrary
+ * wp.media.controller.MediaLibrary
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Library
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Library
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  */
-var Library = techlogging.media.controller.Library,
+var Library = wp.media.controller.Library,
 	MediaLibrary;
 
-MediaLibrary = Library.extend(/** @lends techlogging.media.controller.MediaLibrary.prototype */{
+MediaLibrary = Library.extend(/** @lends wp.media.controller.MediaLibrary.prototype */{
 	defaults: _.defaults({
 		// Attachments browser defaults. @see media.view.AttachmentsBrowser
 		filterable:      'uploaded',
@@ -2156,7 +2156,7 @@ MediaLibrary = Library.extend(/** @lends techlogging.media.controller.MediaLibra
 	initialize: function( options ) {
 		this.media = options.media;
 		this.type = options.type;
-		this.set( 'library', techlogging.media.query({ type: this.type }) );
+		this.set( 'library', wp.media.query({ type: this.type }) );
 
 		Library.prototype.initialize.apply( this, arguments );
 	},
@@ -2166,9 +2166,9 @@ MediaLibrary = Library.extend(/** @lends techlogging.media.controller.MediaLibra
 	 */
 	activate: function() {
 		// @todo this should use this.frame.
-		if ( techlogging.media.frame.lastMime ) {
-			this.set( 'library', techlogging.media.query({ type: techlogging.media.frame.lastMime }) );
-			delete techlogging.media.frame.lastMime;
+		if ( wp.media.frame.lastMime ) {
+			this.set( 'library', wp.media.query({ type: wp.media.frame.lastMime }) );
+			delete wp.media.frame.lastMime;
 		}
 		Library.prototype.activate.apply( this, arguments );
 	}
@@ -2181,19 +2181,19 @@ module.exports = MediaLibrary;
 /* 31 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	$ = Backbone.$,
 	Embed;
 
 /**
- * techlogging.media.controller.Embed
+ * wp.media.controller.Embed
  *
  * A state for embedding media from a URL.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  *
  * @param {object} attributes                         The attributes hash passed to the state.
@@ -2208,7 +2208,7 @@ var l10n = techlogging.media.view.l10n,
  * @param {string} [attributes.url]                   The embed URL.
  * @param {object} [attributes.metadata={}]           Properties of the embed, which will override attributes.url if set.
  */
-Embed = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.Embed.prototype */{
+Embed = wp.media.controller.State.extend(/** @lends wp.media.controller.Embed.prototype */{
 	defaults: {
 		id:       'embed',
 		title:    l10n.insertFromUrlTitle,
@@ -2236,7 +2236,7 @@ Embed = techlogging.media.controller.State.extend(/** @lends techlogging.media.c
 	/**
 	 * Trigger a scan of the embedded URL's content for metadata required to embed.
 	 *
-	 * @fires techlogging.media.controller.Embed#scan
+	 * @fires wp.media.controller.Embed#scan
 	 */
 	scan: function() {
 		var scanners,
@@ -2323,21 +2323,21 @@ module.exports = Embed;
 /* 32 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	Cropper;
 
 /**
- * techlogging.media.controller.Cropper
+ * wp.media.controller.Cropper
  *
  * A class for cropping an image when called from the header media customization panel.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  */
-Cropper = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.Cropper.prototype */{
+Cropper = wp.media.controller.State.extend(/** @lends wp.media.controller.Cropper.prototype */{
 	defaults: {
 		id:          'cropper',
 		title:       l10n.cropImage,
@@ -2387,7 +2387,7 @@ Cropper = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 * @returns {void}
 	 */
 	createCropContent: function() {
-		this.cropperView = new techlogging.media.view.Cropper({
+		this.cropperView = new wp.media.view.Cropper({
 			controller: this,
 			attachment: this.get('selection').first()
 		});
@@ -2469,7 +2469,7 @@ Cropper = techlogging.media.controller.State.extend(/** @lends techlogging.media
 			});
 		}
 
-		this.frame.toolbar.set( new techlogging.media.view.Toolbar(toolbarOptions) );
+		this.frame.toolbar.set( new wp.media.view.Toolbar(toolbarOptions) );
 	},
 
 	/**
@@ -2480,7 +2480,7 @@ Cropper = techlogging.media.controller.State.extend(/** @lends techlogging.media
 	 * @returns {$.promise} A jQuery promise with the custom header crop details.
 	 */
 	doCrop: function( attachment ) {
-		return techlogging.ajax.post( 'custom-header-crop', _.extend(
+		return wp.ajax.post( 'custom-header-crop', _.extend(
 			{},
 			this.defaults.doCropArgs,
 			{
@@ -2499,7 +2499,7 @@ module.exports = Cropper;
 /* 33 */
 /***/ (function(module, exports) {
 
-var Controller = techlogging.media.controller,
+var Controller = wp.media.controller,
 	CustomizeImageCropper;
 
 /**
@@ -2507,12 +2507,12 @@ var Controller = techlogging.media.controller,
  *
  * @since 4.3.0
  *
- * @constructs techlogging.media.controller.CustomizeImageCropper
- * @memberOf techlogging.media.controller
- * @augments techlogging.media.controller.CustomizeImageCropper.Cropper
+ * @constructs wp.media.controller.CustomizeImageCropper
+ * @memberOf wp.media.controller
+ * @augments wp.media.controller.CustomizeImageCropper.Cropper
  * @inheritDoc
  */
-CustomizeImageCropper = Controller.Cropper.extend(/** @lends techlogging.media.controller.CustomizeImageCropper.prototype */{
+CustomizeImageCropper = Controller.Cropper.extend(/** @lends wp.media.controller.CustomizeImageCropper.prototype */{
 	/**
 	 * Posts the crop details to the admin.
 	 *
@@ -2541,8 +2541,8 @@ CustomizeImageCropper = Controller.Cropper.extend(/** @lends techlogging.media.c
 			cropDetails.dst_height = control.params.flex_height ? control.params.width  / ratio : control.params.height;
 		}
 
-		return techlogging.ajax.post( 'crop-image', {
-			techlogging_customize: 'on',
+		return wp.ajax.post( 'crop-image', {
+			wp_customize: 'on',
 			nonce: attachment.get( 'nonces' ).edit,
 			id: attachment.get( 'id' ),
 			context: control.id,
@@ -2558,22 +2558,22 @@ module.exports = CustomizeImageCropper;
 /* 34 */
 /***/ (function(module, exports) {
 
-var Controller = techlogging.media.controller,
+var Controller = wp.media.controller,
 	SiteIconCropper;
 
 /**
- * techlogging.media.controller.SiteIconCropper
+ * wp.media.controller.SiteIconCropper
  *
  * A state for cropping a Site Icon.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.Cropper
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.Cropper
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  */
-SiteIconCropper = Controller.Cropper.extend(/** @lends techlogging.media.controller.SiteIconCropper.prototype */{
+SiteIconCropper = Controller.Cropper.extend(/** @lends wp.media.controller.SiteIconCropper.prototype */{
 	activate: function() {
 		this.frame.on( 'content:create:crop', this.createCropContent, this );
 		this.frame.on( 'close', this.removeCropper, this );
@@ -2581,7 +2581,7 @@ SiteIconCropper = Controller.Cropper.extend(/** @lends techlogging.media.control
 	},
 
 	createCropContent: function() {
-		this.cropperView = new techlogging.media.view.SiteIconCropper({
+		this.cropperView = new wp.media.view.SiteIconCropper({
 			controller: this,
 			attachment: this.get('selection').first()
 		});
@@ -2597,7 +2597,7 @@ SiteIconCropper = Controller.Cropper.extend(/** @lends techlogging.media.control
 		cropDetails.dst_width  = control.params.width;
 		cropDetails.dst_height = control.params.height;
 
-		return techlogging.ajax.post( 'crop-image', {
+		return wp.ajax.post( 'crop-image', {
 			nonce: attachment.get( 'nonces' ).edit,
 			id: attachment.get( 'id' ),
 			context: 'site-icon',
@@ -2614,7 +2614,7 @@ module.exports = SiteIconCropper;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.View
+ * wp.media.View
  *
  * The base view class for media.
  *
@@ -2625,25 +2625,25 @@ module.exports = SiteIconCropper;
  * This behavior has since been removed, and should not be used
  * outside of the media manager.
  *
- * @memberOf techlogging.media
+ * @memberOf wp.media
  *
  * @class
- * @augments techlogging.Backbone.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var View = techlogging.Backbone.View.extend(/** @lends techlogging.media.View.prototype */{
+var View = wp.Backbone.View.extend(/** @lends wp.media.View.prototype */{
 	constructor: function( options ) {
 		if ( options && options.controller ) {
 			this.controller = options.controller;
 		}
-		techlogging.Backbone.View.apply( this, arguments );
+		wp.Backbone.View.apply( this, arguments );
 	},
 	/**
 	 * @todo The internal comment mentions this might have been a stop-gap
 	 *       before Backbone 0.9.8 came out. Figure out if Backbone core takes
 	 *       care of this in Backbone.View now.
 	 *
-	 * @returns {techlogging.media.View} Returns itself to allow chaining
+	 * @returns {wp.media.View} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		// Undelegating events, removing events from the model, and
@@ -2667,14 +2667,14 @@ var View = techlogging.Backbone.View.extend(/** @lends techlogging.media.View.pr
 		return this;
 	},
 	/**
-	 * @returns {techlogging.media.View} Returns itself to allow chaining
+	 * @returns {wp.media.View} Returns itself to allow chaining
 	 */
 	remove: function() {
 		this.dispose();
 		/**
 		 * call 'remove' directly on the parent class
 		 */
-		return techlogging.Backbone.View.prototype.remove.apply( this, arguments );
+		return wp.Backbone.View.prototype.remove.apply( this, arguments );
 	}
 });
 
@@ -2686,23 +2686,23 @@ module.exports = View;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Frame
+ * wp.media.view.Frame
  *
  * A frame is a composite view consisting of one or more regions and one or more
  * states.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
- * @see techlogging.media.controller.State
- * @see techlogging.media.controller.Region
+ * @see wp.media.controller.State
+ * @see wp.media.controller.Region
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Frame.prototype */{
+var Frame = wp.media.View.extend(/** @lends wp.media.view.Frame.prototype */{
 	initialize: function() {
 		_.defaults( this.options, {
 			mode: [ 'select' ]
@@ -2718,7 +2718,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 
 		// Initialize regions.
 		_.each( this.regions, function( region ) {
-			this[ region ] = new techlogging.media.controller.Region({
+			this[ region ] = new wp.media.controller.Region({
 				view:     this,
 				id:       region,
 				selector: '.media-frame-' + region
@@ -2728,15 +2728,15 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 	/**
 	 * Create the frame's states.
 	 *
-	 * @see techlogging.media.controller.State
-	 * @see techlogging.media.controller.StateMachine
+	 * @see wp.media.controller.State
+	 * @see wp.media.controller.StateMachine
 	 *
-	 * @fires techlogging.media.controller.State#ready
+	 * @fires wp.media.controller.State#ready
 	 */
 	_createStates: function() {
 		// Create the default `states` collection.
 		this.states = new Backbone.Collection( null, {
-			model: techlogging.media.controller.State
+			model: wp.media.controller.State
 		});
 
 		// Ensure states have a reference to the frame.
@@ -2767,7 +2767,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 	/**
 	 * Reset all states on the frame to their defaults.
 	 *
-	 * @returns {techlogging.media.view.Frame} Returns itself to allow chaining
+	 * @returns {wp.media.view.Frame} Returns itself to allow chaining
 	 */
 	reset: function() {
 		this.states.invoke( 'trigger', 'reset' );
@@ -2830,7 +2830,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 		/**
 		 * Frame mode deactivation event.
 		 *
-		 * @event techlogging.media.view.Frame#{mode}:deactivate
+		 * @event wp.media.view.Frame#{mode}:deactivate
 		 */
 		this.trigger( mode + ':deactivate' );
 
@@ -2848,7 +2848,7 @@ var Frame = techlogging.media.View.extend(/** @lends techlogging.media.view.Fram
 });
 
 // Make the `Frame` a `StateMachine`.
-_.extend( Frame.prototype, techlogging.media.controller.StateMachine.prototype );
+_.extend( Frame.prototype, wp.media.controller.StateMachine.prototype );
 
 module.exports = Frame;
 
@@ -2857,27 +2857,27 @@ module.exports = Frame;
 /* 37 */
 /***/ (function(module, exports) {
 
-var Frame = techlogging.media.view.Frame,
+var Frame = wp.media.view.Frame,
 	$ = jQuery,
 	MediaFrame;
 
 /**
- * techlogging.media.view.MediaFrame
+ * wp.media.view.MediaFrame
  *
  * The frame used to create the media modal.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype */{
+MediaFrame = Frame.extend(/** @lends wp.media.view.MediaFrame.prototype */{
 	className: 'media-frame',
-	template:  techlogging.template('media-frame'),
+	template:  wp.template('media-frame'),
 	regions:   ['menu','title','content','toolbar','router'],
 
 	events: {
@@ -2897,11 +2897,11 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 		});
 
 		// Ensure core UI is enabled.
-		this.$el.addClass('techlogging-core-ui');
+		this.$el.addClass('wp-core-ui');
 
 		// Initialize modal container view.
 		if ( this.options.modal ) {
-			this.modal = new techlogging.media.view.Modal({
+			this.modal = new wp.media.view.Modal({
 				controller: this,
 				title:      this.options.title
 			});
@@ -2911,13 +2911,13 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 		// Force the uploader off if the upload limit has been exceeded or
 		// if the browser isn't supported.
-		if ( techlogging.Uploader.limitExceeded || ! techlogging.Uploader.browser.supported ) {
+		if ( wp.Uploader.limitExceeded || ! wp.Uploader.browser.supported ) {
 			this.options.uploader = false;
 		}
 
 		// Initialize window-wide uploader.
 		if ( this.options.uploader ) {
-			this.uploader = new techlogging.media.view.UploaderWindow({
+			this.uploader = new wp.media.view.UploaderWindow({
 				controller: this,
 				uploader: {
 					dropzone:  this.modal ? this.modal.$el : this.$el,
@@ -2941,7 +2941,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 		this.on( 'menu:create:default', this.createMenu, this );
 	},
 	/**
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	render: function() {
 		// Activate the default state if no active state exists.
@@ -2955,20 +2955,20 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 	},
 	/**
 	 * @param {Object} title
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createTitle: function( title ) {
-		title.view = new techlogging.media.View({
+		title.view = new wp.media.View({
 			controller: this,
 			tagName: 'h1'
 		});
 	},
 	/**
 	 * @param {Object} menu
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createMenu: function( menu ) {
-		menu.view = new techlogging.media.view.Menu({
+		menu.view = new wp.media.view.Menu({
 			controller: this
 		});
 	},
@@ -2979,19 +2979,19 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 	/**
 	 * @param {Object} toolbar
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createToolbar: function( toolbar ) {
-		toolbar.view = new techlogging.media.view.Toolbar({
+		toolbar.view = new wp.media.view.Toolbar({
 			controller: this
 		});
 	},
 	/**
 	 * @param {Object} router
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createRouter: function( router ) {
-		router.view = new techlogging.media.view.Router({
+		router.view = new wp.media.view.Router({
 			controller: this
 		});
 	},
@@ -2999,7 +2999,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 	 * @param {Object} options
 	 */
 	createIframeStates: function( options ) {
-		var settings = techlogging.media.view.settings,
+		var settings = wp.media.view.settings,
 			tabs = settings.tabs,
 			tabUrl = settings.tabUrl,
 			$postId;
@@ -3034,11 +3034,11 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 
 	/**
 	 * @param {Object} content
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	iframeContent: function( content ) {
 		this.$el.addClass('hide-toolbar');
-		content.view = new techlogging.media.view.Iframe({
+		content.view = new wp.media.view.Iframe({
 			controller: this
 		});
 	},
@@ -3054,7 +3054,7 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 			return;
 		}
 
-		_.each( techlogging.media.view.settings.tabs, function( title, id ) {
+		_.each( wp.media.view.settings.tabs, function( title, id ) {
 			views[ 'iframe:' + id ] = {
 				text: this.state( 'iframe:' + id ).get('title'),
 				priority: 200
@@ -3094,38 +3094,38 @@ MediaFrame = Frame.extend(/** @lends techlogging.media.view.MediaFrame.prototype
 _.each(['open','close','attach','detach','escape'], function( method ) {
 	/**
 	 * @function open
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function close
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function attach
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function detach
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	/**
 	 * @function escape
-	 * @memberOf techlogging.media.view.MediaFrame
+	 * @memberOf wp.media.view.MediaFrame
 	 * @instance
 	 *
-	 * @returns {techlogging.media.view.MediaFrame} Returns itself to allow chaining
+	 * @returns {wp.media.view.MediaFrame} Returns itself to allow chaining
 	 */
 	MediaFrame.prototype[ method ] = function() {
 		if ( this.modal ) {
@@ -3142,26 +3142,26 @@ module.exports = MediaFrame;
 /* 38 */
 /***/ (function(module, exports) {
 
-var MediaFrame = techlogging.media.view.MediaFrame,
-	l10n = techlogging.media.view.l10n,
+var MediaFrame = wp.media.view.MediaFrame,
+	l10n = wp.media.view.l10n,
 	Select;
 
 /**
- * techlogging.media.view.MediaFrame.Select
+ * wp.media.view.MediaFrame.Select
  *
  * A frame for selecting an item or items from the media library.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.prototype */{
+Select = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.Select.prototype */{
 	initialize: function() {
 		// Call 'initialize' directly on the parent class.
 		MediaFrame.prototype.initialize.apply( this, arguments );
@@ -3190,14 +3190,14 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	createSelection: function() {
 		var selection = this.options.selection;
 
-		if ( ! (selection instanceof techlogging.media.model.Selection) ) {
-			this.options.selection = new techlogging.media.model.Selection( selection, {
+		if ( ! (selection instanceof wp.media.model.Selection) ) {
+			this.options.selection = new wp.media.model.Selection( selection, {
 				multiple: this.options.multiple
 			});
 		}
 
 		this._selection = {
-			attachments: new techlogging.media.model.Attachments(),
+			attachments: new wp.media.model.Attachments(),
 			difference: []
 		};
 	},
@@ -3215,8 +3215,8 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 		// Add the default states.
 		this.states.add([
 			// Main states.
-			new techlogging.media.controller.Library({
-				library:   techlogging.media.query( options.library ),
+			new wp.media.controller.Library({
+				library:   wp.media.query( options.library ),
 				multiple:  options.multiple,
 				title:     options.title,
 				priority:  20
@@ -3240,7 +3240,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	/**
 	 * Render callback for the router region in the `browse` mode.
 	 *
-	 * @param {techlogging.media.view.Router} routerView
+	 * @param {wp.media.view.Router} routerView
 	 */
 	browseRouter: function( routerView ) {
 		routerView.set({
@@ -3258,7 +3258,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	/**
 	 * Render callback for the content region in the `browse` mode.
 	 *
-	 * @param {techlogging.media.controller.Region} contentRegion
+	 * @param {wp.media.controller.Region} contentRegion
 	 */
 	browseContent: function( contentRegion ) {
 		var state = this.state();
@@ -3266,7 +3266,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 		this.$el.removeClass('hide-toolbar');
 
 		// Browse our library of attachments.
-		contentRegion.view = new techlogging.media.view.AttachmentsBrowser({
+		contentRegion.view = new wp.media.view.AttachmentsBrowser({
 			controller: this,
 			collection: state.get('library'),
 			selection:  state.get('selection'),
@@ -3291,7 +3291,7 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	 */
 	uploadContent: function() {
 		this.$el.removeClass( 'hide-toolbar' );
-		this.content.set( new techlogging.media.view.UploaderInline({
+		this.content.set( new wp.media.view.UploaderInline({
 			controller: this
 		}) );
 	},
@@ -3301,13 +3301,13 @@ Select = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Select.p
 	 *
 	 * @param {Object} toolbar
 	 * @param {Object} [options={}]
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	createSelectToolbar: function( toolbar, options ) {
 		options = options || this.options.button || {};
 		options.controller = this;
 
-		toolbar.view = new techlogging.media.view.Toolbar.Select( options );
+		toolbar.view = new wp.media.view.Toolbar.Select( options );
 	}
 });
 
@@ -3318,36 +3318,36 @@ module.exports = Select;
 /* 39 */
 /***/ (function(module, exports) {
 
-var Select = techlogging.media.view.MediaFrame.Select,
-	Library = techlogging.media.controller.Library,
-	l10n = techlogging.media.view.l10n,
+var Select = wp.media.view.MediaFrame.Select,
+	Library = wp.media.controller.Library,
+	l10n = wp.media.view.l10n,
 	Post;
 
 /**
- * techlogging.media.view.MediaFrame.Post
+ * wp.media.view.MediaFrame.Post
  *
  * The frame for manipulating media on the Edit Post page.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame.Select
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype */{
+Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 	initialize: function() {
 		this.counts = {
 			audio: {
-				count: techlogging.media.view.settings.attachmentCounts.audio,
+				count: wp.media.view.settings.attachmentCounts.audio,
 				state: 'playlist'
 			},
 			video: {
-				count: techlogging.media.view.settings.attachmentCounts.video,
+				count: wp.media.view.settings.attachmentCounts.video,
 				state: 'video-playlist'
 			}
 		};
@@ -3379,7 +3379,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				priority:   20,
 				toolbar:    'main-insert',
 				filterable: 'all',
-				library:    techlogging.media.query( options.library ),
+				library:    wp.media.query( options.library ),
 				multiple:   options.multiple ? 'reset' : false,
 				editable:   true,
 
@@ -3403,24 +3403,24 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				multiple:   'add',
 				editable:   false,
 
-				library:  techlogging.media.query( _.defaults({
+				library:  wp.media.query( _.defaults({
 					type: 'image'
 				}, options.library ) )
 			}),
 
 			// Embed states.
-			new techlogging.media.controller.Embed( { metadata: options.metadata } ),
+			new wp.media.controller.Embed( { metadata: options.metadata } ),
 
-			new techlogging.media.controller.EditImage( { model: options.editImage } ),
+			new wp.media.controller.EditImage( { model: options.editImage } ),
 
 			// Gallery states.
-			new techlogging.media.controller.GalleryEdit({
+			new wp.media.controller.GalleryEdit({
 				library: options.selection,
 				editing: options.editing,
 				menu:    'gallery'
 			}),
 
-			new techlogging.media.controller.GalleryAdd(),
+			new wp.media.controller.GalleryAdd(),
 
 			new Library({
 				id:         'playlist',
@@ -3431,17 +3431,17 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				multiple:   'add',
 				editable:   false,
 
-				library:  techlogging.media.query( _.defaults({
+				library:  wp.media.query( _.defaults({
 					type: 'audio'
 				}, options.library ) )
 			}),
 
 			// Playlist states.
-			new techlogging.media.controller.CollectionEdit({
+			new wp.media.controller.CollectionEdit({
 				type: 'audio',
 				collectionType: 'playlist',
 				title:          l10n.editPlaylistTitle,
-				SettingsView:   techlogging.media.view.Settings.Playlist,
+				SettingsView:   wp.media.view.Settings.Playlist,
 				library:        options.selection,
 				editing:        options.editing,
 				menu:           'playlist',
@@ -3449,7 +3449,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				dragInfo:       false
 			}),
 
-			new techlogging.media.controller.CollectionAdd({
+			new wp.media.controller.CollectionAdd({
 				type: 'audio',
 				collectionType: 'playlist',
 				title: l10n.addToPlaylistTitle
@@ -3464,16 +3464,16 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				multiple:   'add',
 				editable:   false,
 
-				library:  techlogging.media.query( _.defaults({
+				library:  wp.media.query( _.defaults({
 					type: 'video'
 				}, options.library ) )
 			}),
 
-			new techlogging.media.controller.CollectionEdit({
+			new wp.media.controller.CollectionEdit({
 				type: 'video',
 				collectionType: 'playlist',
 				title:          l10n.editVideoPlaylistTitle,
-				SettingsView:   techlogging.media.view.Settings.Playlist,
+				SettingsView:   wp.media.view.Settings.Playlist,
 				library:        options.selection,
 				editing:        options.editing,
 				menu:           'video-playlist',
@@ -3481,15 +3481,15 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 				dragInfo:       false
 			}),
 
-			new techlogging.media.controller.CollectionAdd({
+			new wp.media.controller.CollectionAdd({
 				type: 'video',
 				collectionType: 'playlist',
 				title: l10n.addToVideoPlaylistTitle
 			})
 		]);
 
-		if ( techlogging.media.view.settings.post.featuredImageId ) {
-			this.states.add( new techlogging.media.controller.FeaturedImage() );
+		if ( wp.media.view.settings.post.featuredImageId ) {
+			this.states.add( new wp.media.controller.FeaturedImage() );
 		}
 	},
 
@@ -3506,7 +3506,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		} );
 
 		if ( typeof checkCounts !== 'undefined' ) {
-			this.listenTo( techlogging.media.model.Attachments.all, 'change:type', this.mediaTypeCounts );
+			this.listenTo( wp.media.model.Attachments.all, 'change:type', this.mediaTypeCounts );
 		}
 
 		this.on( 'menu:create:gallery', this.createMenu, this );
@@ -3572,11 +3572,11 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	// Menus
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	mainMenu: function( view ) {
 		view.set({
-			'library-separator': new techlogging.media.View({
+			'library-separator': new wp.media.View({
 				className: 'separator',
 				priority: 100
 			})
@@ -3592,7 +3592,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 		}
 	},
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	galleryMenu: function( view ) {
 		var lastState = this.lastState(),
@@ -3615,7 +3615,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					this.controller.modal.focusManager.focus();
 				}
 			},
-			separateCancel: new techlogging.media.View({
+			separateCancel: new wp.media.View({
 				className: 'separator',
 				priority: 40
 			})
@@ -3639,7 +3639,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					}
 				}
 			},
-			separateCancel: new techlogging.media.View({
+			separateCancel: new wp.media.View({
 				className: 'separator',
 				priority: 40
 			})
@@ -3663,7 +3663,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					}
 				}
 			},
-			separateCancel: new techlogging.media.View({
+			separateCancel: new wp.media.View({
 				className: 'separator',
 				priority: 40
 			})
@@ -3672,14 +3672,14 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	// Content
 	embedContent: function() {
-		var view = new techlogging.media.view.Embed({
+		var view = new wp.media.view.Embed({
 			controller: this,
 			model:      this.state()
 		}).render();
 
 		this.content.set( view );
 
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			view.url.focus();
 		}
 	},
@@ -3689,7 +3689,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			selection = state.get('selection'),
 			view;
 
-		view = new techlogging.media.view.AttachmentsBrowser({
+		view = new wp.media.view.AttachmentsBrowser({
 			controller: this,
 			collection: selection,
 			selection:  selection,
@@ -3699,7 +3699,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			date:       false,
 			dragInfo:   true,
 
-			AttachmentView: techlogging.media.view.Attachments.EditSelection
+			AttachmentView: wp.media.view.Attachments.EditSelection
 		}).render();
 
 		view.toolbar.set( 'backToLibrary', {
@@ -3720,7 +3720,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	editImageContent: function() {
 		var image = this.state().get('image'),
-			view = new techlogging.media.view.EditImage( { model: image, controller: this } ).render();
+			view = new wp.media.view.EditImage( { model: image, controller: this } ).render();
 
 		this.content.set( view );
 
@@ -3732,12 +3732,12 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	// Toolbars
 
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	selectionStatusToolbar: function( view ) {
 		var editable = this.state().get('editable');
 
-		view.set( 'selection', new techlogging.media.view.Selection({
+		view.set( 'selection', new wp.media.view.Selection({
 			controller: this,
 			collection: this.state().get('selection'),
 			priority:   -40,
@@ -3751,7 +3751,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	mainInsertToolbar: function( view ) {
 		var controller = this;
@@ -3767,7 +3767,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 			/**
 			 * @ignore
 			 *
-			 * @fires techlogging.media.controller.State#insert
+			 * @fires wp.media.controller.State#insert
 			 */
 			click: function() {
 				var state = controller.state(),
@@ -3780,7 +3780,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	/**
-	 * @param {techlogging.Backbone.View} view
+	 * @param {wp.Backbone.View} view
 	 */
 	mainGalleryToolbar: function( view ) {
 		var controller = this;
@@ -3798,7 +3798,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					edit = controller.state('gallery-edit'),
 					models = selection.where({ type: 'image' });
 
-				edit.set( 'library', new techlogging.media.model.Selection( models, {
+				edit.set( 'library', new wp.media.model.Selection( models, {
 					props:    selection.props.toJSON(),
 					multiple: true
 				}) );
@@ -3819,7 +3819,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 		view.set( 'playlist', {
 			style:    'primary',
-			text:     l10n.createNetechlogginglaylist,
+			text:     l10n.createNewPlaylist,
 			priority: 100,
 			requires: { selection: true },
 
@@ -3828,7 +3828,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					edit = controller.state('playlist-edit'),
 					models = selection.where({ type: 'audio' });
 
-				edit.set( 'library', new techlogging.media.model.Selection( models, {
+				edit.set( 'library', new wp.media.model.Selection( models, {
 					props:    selection.props.toJSON(),
 					multiple: true
 				}) );
@@ -3858,7 +3858,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					edit = controller.state('video-playlist-edit'),
 					models = selection.where({ type: 'video' });
 
-				edit.set( 'library', new techlogging.media.model.Selection( models, {
+				edit.set( 'library', new wp.media.model.Selection( models, {
 					props:    selection.props.toJSON(),
 					multiple: true
 				}) );
@@ -3880,14 +3880,14 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	mainEmbedToolbar: function( toolbar ) {
-		toolbar.view = new techlogging.media.view.Toolbar.Embed({
+		toolbar.view = new wp.media.view.Toolbar.Embed({
 			controller: this
 		});
 	},
 
 	galleryEditToolbar: function() {
 		var editing = this.state().get('editing');
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
@@ -3897,7 +3897,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					requires: { library: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#update
+					 * @fires wp.media.controller.State#update
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -3916,7 +3916,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	galleryAddToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
@@ -3926,7 +3926,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					requires: { selection: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#reset
+					 * @fires wp.media.controller.State#reset
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -3944,7 +3944,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	playlistEditToolbar: function() {
 		var editing = this.state().get('editing');
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
@@ -3954,7 +3954,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					requires: { library: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#update
+					 * @fires wp.media.controller.State#update
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -3973,7 +3973,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	playlistAddToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
@@ -3983,7 +3983,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 					requires: { selection: true },
 
 					/**
-					 * @fires techlogging.media.controller.State#reset
+					 * @fires wp.media.controller.State#reset
 					 */
 					click: function() {
 						var controller = this.controller,
@@ -4001,7 +4001,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 
 	videoPlaylistEditToolbar: function() {
 		var editing = this.state().get('editing');
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
@@ -4030,7 +4030,7 @@ Post = Select.extend(/** @lends techlogging.media.view.MediaFrame.Post.prototype
 	},
 
 	videoPlaylistAddToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				insert: {
@@ -4061,28 +4061,28 @@ module.exports = Post;
 /* 40 */
 /***/ (function(module, exports) {
 
-var Select = techlogging.media.view.MediaFrame.Select,
-	l10n = techlogging.media.view.l10n,
+var Select = wp.media.view.MediaFrame.Select,
+	l10n = wp.media.view.l10n,
 	ImageDetails;
 
 /**
- * techlogging.media.view.MediaFrame.ImageDetails
+ * wp.media.view.MediaFrame.ImageDetails
  *
  * A media frame for manipulating an image that's already been inserted
  * into a post.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame.Select
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageDetails.prototype */{
+ImageDetails = Select.extend(/** @lends wp.media.view.MediaFrame.ImageDetails.prototype */{
 	defaults: {
 		id:      'image',
 		url:     '',
@@ -4095,8 +4095,8 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 	},
 
 	initialize: function( options ) {
-		this.image = new techlogging.media.model.PostImage( options.metadata );
-		this.options.selection = new techlogging.media.model.Selection( this.image.attachment, { multiple: false } );
+		this.image = new wp.media.model.PostImage( options.metadata );
+		this.options.selection = new wp.media.model.Selection( this.image.attachment, { multiple: false } );
 		Select.prototype.initialize.apply( this, arguments );
 	},
 
@@ -4112,13 +4112,13 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 	createStates: function() {
 		this.states.add([
-			new techlogging.media.controller.ImageDetails({
+			new wp.media.controller.ImageDetails({
 				image: this.image,
 				editable: false
 			}),
-			new techlogging.media.controller.ReplaceImage({
+			new wp.media.controller.ReplaceImage({
 				id: 'replace-image',
-				library: techlogging.media.query( { type: 'image' } ),
+				library: wp.media.query( { type: 'image' } ),
 				image: this.image,
 				multiple:  false,
 				title:     l10n.imageReplaceTitle,
@@ -4126,7 +4126,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 				priority:  80,
 				displaySettings: true
 			}),
-			new techlogging.media.controller.EditImage( {
+			new wp.media.controller.EditImage( {
 				image: this.image,
 				selection: this.options.selection
 			} )
@@ -4134,7 +4134,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 	},
 
 	imageDetailsContent: function( options ) {
-		options.view = new techlogging.media.view.ImageDetails({
+		options.view = new wp.media.view.ImageDetails({
 			controller: this,
 			model: this.state().image,
 			attachment: this.state().image.attachment
@@ -4150,7 +4150,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			return;
 		}
 
-		view = new techlogging.media.view.EditImage( { model: model, controller: this } ).render();
+		view = new wp.media.view.EditImage( { model: model, controller: this } ).render();
 
 		this.content.set( view );
 
@@ -4160,7 +4160,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 	},
 
 	renderImageDetailsToolbar: function() {
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				select: {
@@ -4174,8 +4174,8 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 						controller.close();
 
-						// not sure if we want to use techlogging.media.string.image which will create a shortcode or
-						// perhaps techlogging.html.string to at least to build the <img />
+						// not sure if we want to use wp.media.string.image which will create a shortcode or
+						// perhaps wp.html.string to at least to build the <img />
 						state.trigger( 'update', controller.image.toJSON() );
 
 						// Restore and reset the default state.
@@ -4192,7 +4192,7 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 			lastState = frame.lastState(),
 			previous = lastState && lastState.id;
 
-		this.toolbar.set( new techlogging.media.view.Toolbar({
+		this.toolbar.set( new wp.media.view.Toolbar({
 			controller: this,
 			items: {
 				back: {
@@ -4223,8 +4223,8 @@ ImageDetails = Select.extend(/** @lends techlogging.media.view.MediaFrame.ImageD
 
 						controller.image.changeAttachment( attachment, state.display( attachment ) );
 
-						// not sure if we want to use techlogging.media.string.image which will create a shortcode or
-						// perhaps techlogging.html.string to at least to build the <img />
+						// not sure if we want to use wp.media.string.image which will create a shortcode or
+						// perhaps wp.html.string to at least to build the <img />
 						state.trigger( 'replace', controller.image.toJSON() );
 
 						// Restore and reset the default state.
@@ -4249,20 +4249,20 @@ var $ = jQuery,
 	Modal;
 
 /**
- * techlogging.media.view.Modal
+ * wp.media.view.Modal
  *
  * A modal view, which the media modal uses as its default container.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.prototype */{
+Modal = wp.media.View.extend(/** @lends wp.media.view.Modal.prototype */{
 	tagName:  'div',
-	template: techlogging.template('media-modal'),
+	template: wp.template('media-modal'),
 
 	attributes: {
 		tabindex: 0
@@ -4283,7 +4283,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 			freeze:    true
 		});
 
-		this.focusManager = new techlogging.media.view.FocusManager({
+		this.focusManager = new wp.media.view.FocusManager({
 			el: this.el
 		});
 	},
@@ -4297,7 +4297,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	attach: function() {
 		if ( this.views.attached ) {
@@ -4318,7 +4318,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	detach: function() {
 		if ( this.$el.is(':visible') ) {
@@ -4331,7 +4331,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	open: function() {
 		var $el = this.$el,
@@ -4379,7 +4379,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 
 	/**
 	 * @param {Object} options
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	close: function( options ) {
 		var freeze = this._freeze;
@@ -4398,7 +4398,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 		if ( null !== this.clickedOpenerEl ) {
 			this.clickedOpenerEl.focus();
 		} else {
-			$( '#techloggingbody-content' ).focus();
+			$( '#wpbody-content' ).focus();
 		}
 
 		this.propagate('close');
@@ -4415,7 +4415,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 		return this;
 	},
 	/**
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	escape: function() {
 		return this.close({ escape: true });
@@ -4430,7 +4430,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 
 	/**
 	 * @param {Array|Object} content Views to register to '.media-modal-content'
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	content: function( content ) {
 		this.views.set( '.media-modal-content', content );
@@ -4442,7 +4442,7 @@ Modal = techlogging.media.View.extend(/** @lends techlogging.media.view.Modal.pr
 	 * forwards events to the modal's controller.
 	 *
 	 * @param {string} id
-	 * @returns {techlogging.media.view.Modal} Returns itself to allow chaining
+	 * @returns {wp.media.view.Modal} Returns itself to allow chaining
 	 */
 	propagate: function( id ) {
 		this.trigger( id );
@@ -4473,16 +4473,16 @@ module.exports = Modal;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.FocusManager
+ * wp.media.view.FocusManager
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var FocusManager = techlogging.media.View.extend(/** @lends techlogging.media.view.FocusManager.prototype */{
+var FocusManager = wp.media.View.extend(/** @lends wp.media.view.FocusManager.prototype */{
 
 	events: {
 		'keydown': 'constrainTabbing'
@@ -4528,15 +4528,15 @@ var $ = jQuery,
 	UploaderWindow;
 
 /**
- * techlogging.media.view.UploaderWindow
+ * wp.media.view.UploaderWindow
  *
  * An uploader window that allows for dragging and dropping media.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  *
  * @param {object} [options]                   Options hash passed to the view.
@@ -4545,10 +4545,10 @@ var $ = jQuery,
  * @param {jQuery} [options.uploader.dropzone] jQuery collection of the dropzone.
  * @param {object} [options.uploader.params]
  */
-UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view.UploaderWindow.prototype */{
+UploaderWindow = wp.media.View.extend(/** @lends wp.media.view.UploaderWindow.prototype */{
 	tagName:   'div',
 	className: 'uploader-window',
-	template:  techlogging.template('uploader-window'),
+	template:  wp.template('uploader-window'),
 
 	initialize: function() {
 		var uploader;
@@ -4580,7 +4580,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 	},
 
 	ready: function() {
-		var postId = techlogging.media.view.settings.post.id,
+		var postId = wp.media.view.settings.post.id,
 			dropzone;
 
 		// If the uploader already exists, bail.
@@ -4591,7 +4591,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 		if ( postId ) {
 			this.options.uploader.params.post_id = postId;
 		}
-		this.uploader = new techlogging.Uploader( this.options.uploader );
+		this.uploader = new wp.Uploader( this.options.uploader );
 
 		dropzone = this.uploader.dropzone;
 		dropzone.on( 'dropzone:enter', _.bind( this.show, this ) );
@@ -4617,7 +4617,7 @@ UploaderWindow = techlogging.media.View.extend(/** @lends techlogging.media.view
 	hide: function() {
 		var $el = this.$el.css({ opacity: 0 });
 
-		techlogging.media.transition( $el ).done( function() {
+		wp.media.transition( $el ).done( function() {
 			// Transition end events are subject to race conditions.
 			// Make sure that the value is set as intended.
 			if ( '0' === $el.css('opacity') ) {
@@ -4641,28 +4641,28 @@ module.exports = UploaderWindow;
 /* 44 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
-	l10n = techlogging.media.view.l10n,
+var View = wp.media.View,
+	l10n = wp.media.view.l10n,
 	$ = jQuery,
 	EditorUploader;
 
 /**
- * Creates a dropzone on techlogging editor instances (elements with .techlogging-editor-wrap)
+ * Creates a dropzone on WP editor instances (elements with .wp-editor-wrap)
  * and relays drag'n'dropped files to a media workflow.
  *
- * techlogging.media.view.EditorUploader
+ * wp.media.view.EditorUploader
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EditorUploader = View.extend(/** @lends techlogging.media.view.EditorUploader.prototype */{
+EditorUploader = View.extend(/** @lends wp.media.view.EditorUploader.prototype */{
 	tagName:   'div',
 	className: 'uploader-editor',
-	template:  techlogging.template( 'uploader-editor' ),
+	template:  wp.template( 'uploader-editor' ),
 
 	localDrag: false,
 	overContainer: false,
@@ -4756,7 +4756,7 @@ EditorUploader = View.extend(/** @lends techlogging.media.view.EditorUploader.pr
 		}
 
 		View.prototype.render.apply( this, arguments );
-		$( '.techlogging-editor-wrap' ).each( _.bind( this.attach, this ) );
+		$( '.wp-editor-wrap' ).each( _.bind( this.attach, this ) );
 		return this;
 	},
 
@@ -4786,13 +4786,13 @@ EditorUploader = View.extend(/** @lends techlogging.media.view.EditorUploader.pr
 		}
 
 		// Set the active editor to the drop target.
-		$wrap = $( event.target ).parents( '.techlogging-editor-wrap' );
+		$wrap = $( event.target ).parents( '.wp-editor-wrap' );
 		if ( $wrap.length > 0 && $wrap[0].id ) {
-			window.techloggingActiveEditor = $wrap[0].id.slice( 3, -5 );
+			window.wpActiveEditor = $wrap[0].id.slice( 3, -5 );
 		}
 
 		if ( ! this.workflow ) {
-			this.workflow = techlogging.media.editor.open( window.techloggingActiveEditor, {
+			this.workflow = wp.media.editor.open( window.wpActiveEditor, {
 				frame:    'post',
 				state:    'insert',
 				title:    l10n.addMedia,
@@ -4872,25 +4872,25 @@ module.exports = EditorUploader;
 /* 45 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	UploaderInline;
 
 /**
- * techlogging.media.view.UploaderInline
+ * wp.media.view.UploaderInline
  *
  * The inline uploader that shows up in the 'Upload Files' tab.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.prototype */{
+UploaderInline = View.extend(/** @lends wp.media.view.UploaderInline.prototype */{
 	tagName:   'div',
 	className: 'uploader-inline',
-	template:  techlogging.template('uploader-inline'),
+	template:  wp.template('uploader-inline'),
 
 	events: {
 		'click .close': 'hide'
@@ -4908,11 +4908,11 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		}
 
 		if ( _.isUndefined( this.options.postId ) ) {
-			this.options.postId = techlogging.media.view.settings.post.id;
+			this.options.postId = wp.media.view.settings.post.id;
 		}
 
 		if ( this.options.status ) {
-			this.views.set( '.upload-inline-status', new techlogging.media.view.UploaderStatus({
+			this.views.set( '.upload-inline-status', new wp.media.view.UploaderStatus({
 				controller: this.controller
 			}) );
 		}
@@ -4934,7 +4934,7 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		return data;
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderInline} Returns itself to allow chaining
+	 * @returns {wp.media.view.UploaderInline} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		if ( this.disposing ) {
@@ -4951,7 +4951,7 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		return this.remove();
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderInline} Returns itself to allow chaining
+	 * @returns {wp.media.view.UploaderInline} Returns itself to allow chaining
 	 */
 	remove: function() {
 		/**
@@ -4971,7 +4971,7 @@ UploaderInline = View.extend(/** @lends techlogging.media.view.UploaderInline.pr
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderInline}
+	 * @returns {wp.media.view.UploaderInline}
 	 */
 	ready: function() {
 		var $browser = this.options.$browser,
@@ -5018,45 +5018,45 @@ module.exports = UploaderInline;
 /* 46 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	UploaderStatus;
 
 /**
- * techlogging.media.view.UploaderStatus
+ * wp.media.view.UploaderStatus
  *
  * An uploader status for on-going uploads.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-UploaderStatus = View.extend(/** @lends techlogging.media.view.UploaderStatus.prototype */{
+UploaderStatus = View.extend(/** @lends wp.media.view.UploaderStatus.prototype */{
 	className: 'media-uploader-status',
-	template:  techlogging.template('uploader-status'),
+	template:  wp.template('uploader-status'),
 
 	events: {
 		'click .upload-dismiss-errors': 'dismiss'
 	},
 
 	initialize: function() {
-		this.queue = techlogging.Uploader.queue;
+		this.queue = wp.Uploader.queue;
 		this.queue.on( 'add remove reset', this.visibility, this );
 		this.queue.on( 'add remove reset change:percent', this.progress, this );
 		this.queue.on( 'add remove reset change:uploading', this.info, this );
 
-		this.errors = techlogging.Uploader.errors;
+		this.errors = wp.Uploader.errors;
 		this.errors.reset();
 		this.errors.on( 'add remove reset', this.visibility, this );
 		this.errors.on( 'add', this.error, this );
 	},
 	/**
-	 * @returns {techlogging.media.view.UploaderStatus}
+	 * @returns {wp.media.view.UploaderStatus}
 	 */
 	dispose: function() {
-		techlogging.Uploader.queue.off( null, null, this );
+		wp.Uploader.queue.off( null, null, this );
 		/**
 		 * call 'dispose' directly on the parent class
 		 */
@@ -5131,7 +5131,7 @@ UploaderStatus = View.extend(/** @lends techlogging.media.view.UploaderStatus.pr
 	 * @param {Backbone.Model} error
 	 */
 	error: function( error ) {
-		this.views.add( '.upload-errors', new techlogging.media.view.UploaderStatusError({
+		this.views.add( '.upload-errors', new wp.media.view.UploaderStatusError({
 			filename: this.filename( error.get('file').name ),
 			message:  error.get('message')
 		}), { at: 0 });
@@ -5148,7 +5148,7 @@ UploaderStatus = View.extend(/** @lends techlogging.media.view.UploaderStatus.pr
 		if ( errors ) {
 			_.invoke( errors, 'remove' );
 		}
-		techlogging.Uploader.errors.reset();
+		wp.Uploader.errors.reset();
 	}
 });
 
@@ -5160,18 +5160,18 @@ module.exports = UploaderStatus;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.UploaderStatusError
+ * wp.media.view.UploaderStatusError
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var UploaderStatusError = techlogging.media.View.extend(/** @lends techlogging.media.view.UploaderStatusError.prototype */{
+var UploaderStatusError = wp.media.View.extend(/** @lends wp.media.view.UploaderStatusError.prototype */{
 	className: 'upload-error',
-	template:  techlogging.template('uploader-status-error')
+	template:  wp.template('uploader-status-error')
 });
 
 module.exports = UploaderStatusError;
@@ -5181,23 +5181,23 @@ module.exports = UploaderStatusError;
 /* 48 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	Toolbar;
 
 /**
- * techlogging.media.view.Toolbar
+ * wp.media.view.Toolbar
  *
  * A toolbar which consists of a primary and a secondary section. Each sections
  * can be filled with views.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
+Toolbar = View.extend(/** @lends wp.media.view.Toolbar.prototype */{
 	tagName:   'div',
 	className: 'media-toolbar',
 
@@ -5209,8 +5209,8 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 		this._views = {};
 
 		// The toolbar is composed of two `PriorityList` views.
-		this.primary   = new techlogging.media.view.PriorityList();
-		this.secondary = new techlogging.media.view.PriorityList();
+		this.primary   = new wp.media.view.PriorityList();
+		this.secondary = new wp.media.view.PriorityList();
 		this.primary.$el.addClass('media-toolbar-primary search-form');
 		this.secondary.$el.addClass('media-toolbar-secondary');
 
@@ -5233,7 +5233,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.Toolbar} Returns itsef to allow chaining
+	 * @returns {wp.media.view.Toolbar} Returns itsef to allow chaining
 	 */
 	dispose: function() {
 		if ( this.selection ) {
@@ -5257,7 +5257,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 	 * @param {string} id
 	 * @param {Backbone.View|Object} view
 	 * @param {Object} [options={}]
-	 * @returns {techlogging.media.view.Toolbar} Returns itself to allow chaining
+	 * @returns {wp.media.view.Toolbar} Returns itself to allow chaining
 	 */
 	set: function( id, view, options ) {
 		var list;
@@ -5272,7 +5272,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 		} else {
 			if ( ! ( view instanceof Backbone.View ) ) {
 				view.classes = [ 'media-button-' + id ].concat( view.classes || [] );
-				view = new techlogging.media.view.Button( view ).render();
+				view = new wp.media.view.Button( view ).render();
 			}
 
 			view.controller = view.controller || this.controller;
@@ -5291,7 +5291,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 	},
 	/**
 	 * @param {string} id
-	 * @returns {techlogging.media.view.Button}
+	 * @returns {wp.media.view.Button}
 	 */
 	get: function( id ) {
 		return this._views[ id ];
@@ -5299,7 +5299,7 @@ Toolbar = View.extend(/** @lends techlogging.media.view.Toolbar.prototype */{
 	/**
 	 * @param {string} id
 	 * @param {Object} options
-	 * @returns {techlogging.media.view.Toolbar} Returns itself to allow chaining
+	 * @returns {wp.media.view.Toolbar} Returns itself to allow chaining
 	 */
 	unset: function( id, options ) {
 		delete this._views[ id ];
@@ -5349,22 +5349,22 @@ module.exports = Toolbar;
 /* 49 */
 /***/ (function(module, exports) {
 
-var Toolbar = techlogging.media.view.Toolbar,
-	l10n = techlogging.media.view.l10n,
+var Toolbar = wp.media.view.Toolbar,
+	l10n = wp.media.view.l10n,
 	Select;
 
 /**
- * techlogging.media.view.Toolbar.Select
+ * wp.media.view.Toolbar.Select
  *
- * @memberOf techlogging.media.view.Toolbar
+ * @memberOf wp.media.view.Toolbar
  *
  * @class
- * @augments techlogging.media.view.Toolbar
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Toolbar
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Select = Toolbar.extend(/** @lends techlogging.media.view.Toolbar.Select.prototype */{
+Select = Toolbar.extend(/** @lends wp.media.view.Toolbar.Select.prototype */{
 	initialize: function() {
 		var options = this.options;
 
@@ -5425,23 +5425,23 @@ module.exports = Select;
 /* 50 */
 /***/ (function(module, exports) {
 
-var Select = techlogging.media.view.Toolbar.Select,
-	l10n = techlogging.media.view.l10n,
+var Select = wp.media.view.Toolbar.Select,
+	l10n = wp.media.view.l10n,
 	Embed;
 
 /**
- * techlogging.media.view.Toolbar.Embed
+ * wp.media.view.Toolbar.Embed
  *
- * @memberOf techlogging.media.view.Toolbar
+ * @memberOf wp.media.view.Toolbar
  *
  * @class
- * @augments techlogging.media.view.Toolbar.Select
- * @augments techlogging.media.view.Toolbar
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Toolbar.Select
+ * @augments wp.media.view.Toolbar
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Embed = Select.extend(/** @lends techlogging.media.view.Toolbar.Embed.prototype */{
+Embed = Select.extend(/** @lends wp.media.view.Toolbar.Embed.prototype */{
 	initialize: function() {
 		_.defaults( this.options, {
 			text: l10n.insertIntoPost,
@@ -5469,16 +5469,16 @@ module.exports = Embed;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Button
+ * wp.media.view.Button
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Button = techlogging.media.View.extend(/** @lends techlogging.media.view.Button.prototype */{
+var Button = wp.media.View.extend(/** @lends wp.media.view.Button.prototype */{
 	tagName:    'button',
 	className:  'media-button',
 	attributes: { type: 'button' },
@@ -5517,7 +5517,7 @@ var Button = techlogging.media.View.extend(/** @lends techlogging.media.view.But
 		this.listenTo( this.model, 'change', this.render );
 	},
 	/**
-	 * @returns {techlogging.media.view.Button} Returns itself to allow chaining
+	 * @returns {wp.media.view.Button} Returns itself to allow chaining
 	 */
 	render: function() {
 		var classes = [ 'button', this.className ],
@@ -5564,28 +5564,28 @@ var $ = Backbone.$,
 	ButtonGroup;
 
 /**
- * techlogging.media.view.ButtonGroup
+ * wp.media.view.ButtonGroup
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.ButtonGroup.prototype */{
+ButtonGroup = wp.media.View.extend(/** @lends wp.media.view.ButtonGroup.prototype */{
 	tagName:   'div',
 	className: 'button-group button-large media-button-group',
 
 	initialize: function() {
 		/**
-		 * @member {techlogging.media.view.Button[]}
+		 * @member {wp.media.view.Button[]}
 		 */
 		this.buttons = _.map( this.options.buttons || [], function( button ) {
 			if ( button instanceof Backbone.View ) {
 				return button;
 			} else {
-				return new techlogging.media.view.Button( button ).render();
+				return new wp.media.view.Button( button ).render();
 			}
 		});
 
@@ -5597,7 +5597,7 @@ ButtonGroup = techlogging.media.View.extend(/** @lends techlogging.media.view.Bu
 	},
 
 	/**
-	 * @returns {techlogging.media.view.ButtonGroup}
+	 * @returns {wp.media.view.ButtonGroup}
 	 */
 	render: function() {
 		this.$el.html( $( _.pluck( this.buttons, 'el' ) ).detach() );
@@ -5613,16 +5613,16 @@ module.exports = ButtonGroup;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.PriorityList
+ * wp.media.view.PriorityList
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.view.PriorityList.prototype */{
+var PriorityList = wp.media.View.extend(/** @lends wp.media.view.PriorityList.prototype */{
 	tagName:   'div',
 
 	initialize: function() {
@@ -5637,9 +5637,9 @@ var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.vi
 	},
 	/**
 	 * @param {string} id
-	 * @param {techlogging.media.View|Object} view
+	 * @param {wp.media.View|Object} view
 	 * @param {Object} options
-	 * @returns {techlogging.media.view.PriorityList} Returns itself to allow chaining
+	 * @returns {wp.media.view.PriorityList} Returns itself to allow chaining
 	 */
 	set: function( id, view, options ) {
 		var priority, views, index;
@@ -5680,14 +5680,14 @@ var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.vi
 	},
 	/**
 	 * @param {string} id
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	get: function( id ) {
 		return this._views[ id ];
 	},
 	/**
 	 * @param {string} id
-	 * @returns {techlogging.media.view.PriorityList}
+	 * @returns {wp.media.view.PriorityList}
 	 */
 	unset: function( id ) {
 		var view = this.get( id );
@@ -5701,10 +5701,10 @@ var PriorityList = techlogging.media.View.extend(/** @lends techlogging.media.vi
 	},
 	/**
 	 * @param {Object} options
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	toView: function( options ) {
-		return new techlogging.media.View( options );
+		return new wp.media.View( options );
 	}
 });
 
@@ -5719,16 +5719,16 @@ var $ = jQuery,
 	MenuItem;
 
 /**
- * techlogging.media.view.MenuItem
+ * wp.media.view.MenuItem
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuItem.prototype */{
+MenuItem = wp.media.View.extend(/** @lends wp.media.view.MenuItem.prototype */{
 	tagName:   'a',
 	className: 'media-menu-item',
 
@@ -5757,7 +5757,7 @@ MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuI
 
 		// When selecting a tab along the left side,
 		// focus should be transferred into the main panel
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			$('.media-frame-content input').first().focus();
 		}
 	},
@@ -5771,7 +5771,7 @@ MenuItem = techlogging.media.View.extend(/** @lends techlogging.media.view.MenuI
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.MenuItem} returns itself to allow chaining
+	 * @returns {wp.media.view.MenuItem} returns itself to allow chaining
 	 */
 	render: function() {
 		var options = this.options;
@@ -5793,22 +5793,22 @@ module.exports = MenuItem;
 /* 55 */
 /***/ (function(module, exports) {
 
-var MenuItem = techlogging.media.view.MenuItem,
-	PriorityList = techlogging.media.view.PriorityList,
+var MenuItem = wp.media.view.MenuItem,
+	PriorityList = wp.media.view.PriorityList,
 	Menu;
 
 /**
- * techlogging.media.view.Menu
+ * wp.media.view.Menu
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Menu = PriorityList.extend(/** @lends techlogging.media.view.Menu.prototype */{
+Menu = PriorityList.extend(/** @lends wp.media.view.Menu.prototype */{
 	tagName:   'div',
 	className: 'media-menu',
 	property:  'state',
@@ -5828,7 +5828,7 @@ Menu = PriorityList.extend(/** @lends techlogging.media.view.Menu.prototype */{
 	/**
 	 * @param {Object} options
 	 * @param {string} id
-	 * @returns {techlogging.media.View}
+	 * @returns {wp.media.View}
 	 */
 	toView: function( options, id ) {
 		options = options || {};
@@ -5917,17 +5917,17 @@ module.exports = Menu;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.RouterItem
+ * wp.media.view.RouterItem
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.MenuItem
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MenuItem
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var RouterItem = techlogging.media.view.MenuItem.extend(/** @lends techlogging.media.view.RouterItem.prototype */{
+var RouterItem = wp.media.view.MenuItem.extend(/** @lends wp.media.view.RouterItem.prototype */{
 	/**
 	 * On click handler to activate the content region's corresponding mode.
 	 */
@@ -5946,26 +5946,26 @@ module.exports = RouterItem;
 /* 57 */
 /***/ (function(module, exports) {
 
-var Menu = techlogging.media.view.Menu,
+var Menu = wp.media.view.Menu,
 	Router;
 
 /**
- * techlogging.media.view.Router
+ * wp.media.view.Router
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Menu
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Menu
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Router = Menu.extend(/** @lends techlogging.media.view.Router.prototype */{
+Router = Menu.extend(/** @lends wp.media.view.Router.prototype */{
 	tagName:   'div',
 	className: 'media-router',
 	property:  'contentMode',
-	ItemView:  techlogging.media.view.RouterItem,
+	ItemView:  wp.media.view.RouterItem,
 	region:    'router',
 
 	initialize: function() {
@@ -5990,17 +5990,17 @@ module.exports = Router;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Sidebar
+ * wp.media.view.Sidebar
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.PriorityList
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Sidebar = techlogging.media.view.PriorityList.extend(/** @lends techlogging.media.view.Sidebar.prototype */{
+var Sidebar = wp.media.view.PriorityList.extend(/** @lends wp.media.view.Sidebar.prototype */{
 	className: 'media-sidebar'
 });
 
@@ -6011,24 +6011,24 @@ module.exports = Sidebar;
 /* 59 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = jQuery,
 	Attachment;
 
 /**
- * techlogging.media.view.Attachment
+ * wp.media.view.Attachment
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype */{
+Attachment = View.extend(/** @lends wp.media.view.Attachment.prototype */{
 	tagName:   'li',
 	className: 'attachment',
-	template:  techlogging.template('attachment'),
+	template:  wp.template('attachment'),
 
 	attributes: function() {
 		return {
@@ -6082,7 +6082,7 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		this.listenTo( this.controller, 'attachment:compat:waiting attachment:compat:ready', this.updateSave );
 	},
 	/**
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		var selection = this.options.selection;
@@ -6100,7 +6100,7 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 		return this;
 	},
 	/**
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	render: function() {
 		var options = _.defaults( this.model.toJSON(), {
@@ -6447,7 +6447,7 @@ Attachment = View.extend(/** @lends techlogging.media.view.Attachment.prototype 
 	},
 	/**
 	 * @param {string} status
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	updateSave: function( status ) {
 		var save = this._save = this._save || { status: 'ready' };
@@ -6534,39 +6534,39 @@ _.each({
 }, function( method, setting ) {
 	/**
 	 * @function _syncCaption
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	/**
 	 * @function _syncTitle
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	/**
 	 * @function _syncArtist
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	/**
 	 * @function _syncAlbum
-	 * @memberOf techlogging.media.view.Attachment
+	 * @memberOf wp.media.view.Attachment
 	 * @instance
 	 *
 	 * @param {Backbone.Model} model
 	 * @param {string} value
-	 * @returns {techlogging.media.view.Attachment} Returns itself to allow chaining
+	 * @returns {wp.media.view.Attachment} Returns itself to allow chaining
 	 */
 	Attachment.prototype[ method ] = function( model, value ) {
 		var $setting = this.$('[data-setting="' + setting + '"]');
@@ -6595,17 +6595,17 @@ module.exports = Attachment;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Attachment.Library
+ * wp.media.view.Attachment.Library
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Library = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Library.prototype */{
+var Library = wp.media.view.Attachment.extend(/** @lends wp.media.view.Attachment.Library.prototype */{
 	buttons: {
 		check: true
 	}
@@ -6619,17 +6619,17 @@ module.exports = Library;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Attachment.EditLibrary
+ * wp.media.view.Attachment.EditLibrary
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var EditLibrary = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.EditLibrary.prototype */{
+var EditLibrary = wp.media.view.Attachment.extend(/** @lends wp.media.view.Attachment.EditLibrary.prototype */{
 	buttons: {
 		close: true
 	}
@@ -6642,11 +6642,11 @@ module.exports = EditLibrary;
 /* 62 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = jQuery,
 	Attachments;
 
-Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototype */{
+Attachments = View.extend(/** @lends wp.media.view.Attachments.prototype */{
 	tagName:   'ul',
 	className: 'attachments',
 
@@ -6663,9 +6663,9 @@ Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototyp
 	 * @since 3.5.0
 	 *
 	 * @constructs
-	 * @memberof techlogging.media.view
+	 * @memberof wp.media.view
 	 *
-	 * @augments techlogging.media.View
+	 * @augments wp.media.View
 	 *
 	 * @listens collection:add
 	 * @listens collection:remove
@@ -6693,9 +6693,9 @@ Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototyp
 		 *                           calculating the total number of columns.
 		 */
 		_.defaults( this.options, {
-			refreshSensitivity: techlogging.media.isTouchDevice ? 300 : 200,
+			refreshSensitivity: wp.media.isTouchDevice ? 300 : 200,
 			refreshThreshold:   3,
-			AttachmentView:     techlogging.media.view.Attachment,
+			AttachmentView:     wp.media.view.Attachment,
 			sortable:           false,
 			resize:             true,
 			idealColumnWidth:   $( window ).width() < 640 ? 135 : 150
@@ -6985,9 +6985,9 @@ Attachments = View.extend(/** @lends techlogging.media.view.Attachments.prototyp
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 *
-	 * @returns {techlogging.media.View} The created view.
+	 * @returns {wp.media.View} The created view.
 	 */
 	createAttachmentView: function( attachment ) {
 		var view = new this.options.AttachmentView({
@@ -7083,20 +7083,20 @@ module.exports = Attachments;
 /* 63 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	Search;
 
 /**
- * techlogging.media.view.Search
+ * wp.media.view.Search
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Search = techlogging.media.View.extend(/** @lends techlogging.media.view.Search.prototype */{
+Search = wp.media.View.extend(/** @lends wp.media.view.Search.prototype */{
 	tagName:   'input',
 	className: 'search',
 	id:        'media-search-input',
@@ -7112,7 +7112,7 @@ Search = techlogging.media.View.extend(/** @lends techlogging.media.view.Search.
 	},
 
 	/**
-	 * @returns {techlogging.media.view.Search} Returns itself to allow chaining
+	 * @returns {wp.media.view.Search} Returns itself to allow chaining
 	 */
 	render: function() {
 		this.el.value = this.model.escape('search');
@@ -7139,16 +7139,16 @@ var $ = jQuery,
 	AttachmentFilters;
 
 /**
- * techlogging.media.view.AttachmentFilters
+ * wp.media.view.AttachmentFilters
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-AttachmentFilters = techlogging.media.View.extend(/** @lends techlogging.media.view.AttachmentFilters.prototype */{
+AttachmentFilters = wp.media.View.extend(/** @lends wp.media.view.AttachmentFilters.prototype */{
 	tagName:   'select',
 	className: 'attachment-filters',
 	id:        'media-attachment-filters',
@@ -7218,26 +7218,26 @@ module.exports = AttachmentFilters;
 /* 65 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	DateFilter;
 
 /**
  * A filter dropdown for month/dates.
  *
- * @memberOf techlogging.media.view.AttachmentFilters
+ * @memberOf wp.media.view.AttachmentFilters
  *
  * @class
- * @augments techlogging.media.view.AttachmentFilters
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.AttachmentFilters
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-DateFilter = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.media.view.AttachmentFilters.Date.prototype */{
+DateFilter = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.AttachmentFilters.Date.prototype */{
 	id: 'media-attachment-date-filters',
 
 	createFilters: function() {
 		var filters = {};
-		_.each( techlogging.media.view.settings.months || {}, function( value, index ) {
+		_.each( wp.media.view.settings.months || {}, function( value, index ) {
 			filters[ index ] = {
 				text: value.text,
 				props: {
@@ -7265,24 +7265,24 @@ module.exports = DateFilter;
 /* 66 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	Uploaded;
 
 /**
- * techlogging.media.view.AttachmentFilters.Uploaded
+ * wp.media.view.AttachmentFilters.Uploaded
  *
- * @memberOf techlogging.media.view.AttachmentFilters
+ * @memberOf wp.media.view.AttachmentFilters
  *
  * @class
- * @augments techlogging.media.view.AttachmentFilters
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.AttachmentFilters
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Uploaded = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.media.view.AttachmentFilters.Uploaded.prototype */{
+Uploaded = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.AttachmentFilters.Uploaded.prototype */{
 	createFilters: function() {
 		var type = this.model.get('type'),
-			types = techlogging.media.view.settings.mimeTypes,
+			types = wp.media.view.settings.mimeTypes,
 			text;
 
 		if ( types && type ) {
@@ -7303,7 +7303,7 @@ Uploaded = techlogging.media.view.AttachmentFilters.extend(/** @lends techloggin
 			uploaded: {
 				text:  l10n.uploadedToThisPost,
 				props: {
-					uploadedTo: techlogging.media.view.settings.post.id,
+					uploadedTo: wp.media.view.settings.post.id,
 					orderby: 'menuOrder',
 					order:   'ASC'
 				},
@@ -7330,25 +7330,25 @@ module.exports = Uploaded;
 /* 67 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	All;
 
 /**
- * techlogging.media.view.AttachmentFilters.All
+ * wp.media.view.AttachmentFilters.All
  *
- * @memberOf techlogging.media.view.AttachmentFilters
+ * @memberOf wp.media.view.AttachmentFilters
  *
  * @class
- * @augments techlogging.media.view.AttachmentFilters
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.AttachmentFilters
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.media.view.AttachmentFilters.All.prototype */{
+All = wp.media.view.AttachmentFilters.extend(/** @lends wp.media.view.AttachmentFilters.All.prototype */{
 	createFilters: function() {
 		var filters = {};
 
-		_.each( techlogging.media.view.settings.mimeTypes || {}, function( text, key ) {
+		_.each( wp.media.view.settings.mimeTypes || {}, function( text, key ) {
 			filters[ key ] = {
 				text: text,
 				props: {
@@ -7373,13 +7373,13 @@ All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.med
 			priority: 10
 		};
 
-		if ( techlogging.media.view.settings.post.id ) {
+		if ( wp.media.view.settings.post.id ) {
 			filters.uploaded = {
 				text:  l10n.uploadedToThisPost,
 				props: {
 					status:  null,
 					type:    null,
-					uploadedTo: techlogging.media.view.settings.post.id,
+					uploadedTo: wp.media.view.settings.post.id,
 					orderby: 'menuOrder',
 					order:   'ASC'
 				},
@@ -7399,7 +7399,7 @@ All = techlogging.media.view.AttachmentFilters.extend(/** @lends techlogging.med
 			priority: 50
 		};
 
-		if ( techlogging.media.view.settings.mediaTrash &&
+		if ( wp.media.view.settings.mediaTrash &&
 			this.controller.isModeActive( 'grid' ) ) {
 
 			filters.trash = {
@@ -7426,20 +7426,20 @@ module.exports = All;
 /* 68 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
-	mediaTrash = techlogging.media.view.settings.mediaTrash,
-	l10n = techlogging.media.view.l10n,
+var View = wp.media.View,
+	mediaTrash = wp.media.view.settings.mediaTrash,
+	l10n = wp.media.view.l10n,
 	$ = jQuery,
 	AttachmentsBrowser;
 
 /**
- * techlogging.media.view.AttachmentsBrowser
+ * wp.media.view.AttachmentsBrowser
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  *
  * @param {object}         [options]               The options hash passed to the view.
@@ -7454,7 +7454,7 @@ var View = techlogging.media.View,
  * @param {boolean|string} [options.sidebar=true]  Whether to create a sidebar for the browser.
  *                                                 Accepts true, false, and 'errors'.
  */
-AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBrowser.prototype */{
+AttachmentsBrowser = View.extend(/** @lends wp.media.view.AttachmentsBrowser.prototype */{
 	tagName:   'div',
 	className: 'attachments-browser',
 
@@ -7465,7 +7465,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			date:    true,
 			display: false,
 			sidebar: true,
-			AttachmentView: techlogging.media.view.Attachment.Library
+			AttachmentView: wp.media.view.Attachment.Library
 		});
 
 		this.controller.on( 'toggle:upload:attachment', this.toggleUploader, this );
@@ -7515,7 +7515,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	/**
-	 * @returns {techlogging.media.view.AttachmentsBrowser} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentsBrowser} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		this.options.selection.off( null, null, this );
@@ -7531,24 +7531,24 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 		};
 
 		if ( this.controller.isModeActive( 'grid' ) ) {
-			toolbarOptions.className = 'media-toolbar techlogging-filter';
+			toolbarOptions.className = 'media-toolbar wp-filter';
 		}
 
 		/**
-		* @member {techlogging.media.view.Toolbar}
+		* @member {wp.media.view.Toolbar}
 		*/
-		this.toolbar = new techlogging.media.view.Toolbar( toolbarOptions );
+		this.toolbar = new wp.media.view.Toolbar( toolbarOptions );
 
 		this.views.add( this.toolbar );
 
-		this.toolbar.set( 'spinner', new techlogging.media.view.Spinner({
+		this.toolbar.set( 'spinner', new wp.media.view.Spinner({
 			priority: -60
 		}) );
 
 		if ( -1 !== $.inArray( this.options.filters, [ 'uploaded', 'all' ] ) ) {
 			// "Filters" will return a <select>, need to render
 			// screen reader text before
-			this.toolbar.set( 'filtersLabel', new techlogging.media.view.Label({
+			this.toolbar.set( 'filtersLabel', new wp.media.view.Label({
 				value: l10n.filterByType,
 				attributes: {
 					'for':  'media-attachment-filters'
@@ -7557,13 +7557,13 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			}).render() );
 
 			if ( 'uploaded' === this.options.filters ) {
-				this.toolbar.set( 'filters', new techlogging.media.view.AttachmentFilters.Uploaded({
+				this.toolbar.set( 'filters', new wp.media.view.AttachmentFilters.Uploaded({
 					controller: this.controller,
 					model:      this.collection.props,
 					priority:   -80
 				}).render() );
 			} else {
-				Filters = new techlogging.media.view.AttachmentFilters.All({
+				Filters = new wp.media.view.AttachmentFilters.All({
 					controller: this.controller,
 					model:      this.collection.props,
 					priority:   -80
@@ -7579,7 +7579,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 		if ( this.controller.isModeActive( 'grid' ) ) {
 			LibraryViewSwitcher = View.extend({
 				className: 'view-switch media-grid-view-switch',
-				template: techlogging.template( 'media-library-view-switcher')
+				template: wp.template( 'media-library-view-switcher')
 			});
 
 			this.toolbar.set( 'libraryViewSwitcher', new LibraryViewSwitcher({
@@ -7588,27 +7588,27 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			}).render() );
 
 			// DateFilter is a <select>, screen reader text needs to be rendered before
-			this.toolbar.set( 'dateFilterLabel', new techlogging.media.view.Label({
+			this.toolbar.set( 'dateFilterLabel', new wp.media.view.Label({
 				value: l10n.filterByDate,
 				attributes: {
 					'for': 'media-attachment-date-filters'
 				},
 				priority: -75
 			}).render() );
-			this.toolbar.set( 'dateFilter', new techlogging.media.view.DateFilter({
+			this.toolbar.set( 'dateFilter', new wp.media.view.DateFilter({
 				controller: this.controller,
 				model:      this.collection.props,
 				priority: -75
 			}).render() );
 
 			// BulkSelection is a <div> with subviews, including screen reader text
-			this.toolbar.set( 'selectModeToggleButton', new techlogging.media.view.SelectModeToggleButton({
+			this.toolbar.set( 'selectModeToggleButton', new wp.media.view.SelectModeToggleButton({
 				text: l10n.bulkSelect,
 				controller: this.controller,
 				priority: -70
 			}).render() );
 
-			this.toolbar.set( 'deleteSelectedButton', new techlogging.media.view.DeleteSelectedButton({
+			this.toolbar.set( 'deleteSelectedButton', new wp.media.view.DeleteSelectedButton({
 				filters: Filters,
 				style: 'primary',
 				disabled: true,
@@ -7668,7 +7668,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 			}).render() );
 
 			if ( mediaTrash ) {
-				this.toolbar.set( 'deleteSelectedPermanentlyButton', new techlogging.media.view.DeleteSelectedPermanentlyButton({
+				this.toolbar.set( 'deleteSelectedPermanentlyButton', new wp.media.view.DeleteSelectedPermanentlyButton({
 					filters: Filters,
 					style: 'primary',
 					disabled: true,
@@ -7710,14 +7710,14 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 
 		} else if ( this.options.date ) {
 			// DateFilter is a <select>, screen reader text needs to be rendered before
-			this.toolbar.set( 'dateFilterLabel', new techlogging.media.view.Label({
+			this.toolbar.set( 'dateFilterLabel', new wp.media.view.Label({
 				value: l10n.filterByDate,
 				attributes: {
 					'for': 'media-attachment-date-filters'
 				},
 				priority: -75
 			}).render() );
-			this.toolbar.set( 'dateFilter', new techlogging.media.view.DateFilter({
+			this.toolbar.set( 'dateFilter', new wp.media.view.DateFilter({
 				controller: this.controller,
 				model:      this.collection.props,
 				priority: -75
@@ -7726,14 +7726,14 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 
 		if ( this.options.search ) {
 			// Search is an input, screen reader text needs to be rendered before
-			this.toolbar.set( 'searchLabel', new techlogging.media.view.Label({
+			this.toolbar.set( 'searchLabel', new wp.media.view.Label({
 				value: l10n.searchMediaLabel,
 				attributes: {
 					'for': 'media-search-input'
 				},
 				priority:   60
 			}).render() );
-			this.toolbar.set( 'search', new techlogging.media.view.Search({
+			this.toolbar.set( 'search', new wp.media.view.Search({
 				controller: this.controller,
 				model:      this.collection.props,
 				priority:   60
@@ -7782,7 +7782,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createUploader: function() {
-		this.uploader = new techlogging.media.view.UploaderInline({
+		this.uploader = new wp.media.view.UploaderInline({
 			controller: this.controller,
 			status:     false,
 			message:    this.controller.isModeActive( 'grid' ) ? '' : l10n.noItemsFound,
@@ -7802,7 +7802,7 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	},
 
 	createAttachments: function() {
-		this.attachments = new techlogging.media.view.Attachments({
+		this.attachments = new wp.media.view.Attachments({
 			controller:           this.controller,
 			collection:           this.collection,
 			selection:            this.options.selection,
@@ -7838,14 +7838,14 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 	createSidebar: function() {
 		var options = this.options,
 			selection = options.selection,
-			sidebar = this.sidebar = new techlogging.media.view.Sidebar({
+			sidebar = this.sidebar = new wp.media.view.Sidebar({
 				controller: this.controller
 			});
 
 		this.views.add( sidebar );
 
 		if ( this.controller.uploader ) {
-			sidebar.set( 'uploads', new techlogging.media.view.UploaderStatus({
+			sidebar.set( 'uploads', new wp.media.view.UploaderStatus({
 				controller: this.controller,
 				priority:   40
 			}) );
@@ -7863,20 +7863,20 @@ AttachmentsBrowser = View.extend(/** @lends techlogging.media.view.AttachmentsBr
 		var sidebar = this.sidebar,
 			single = this.options.selection.single();
 
-		sidebar.set( 'details', new techlogging.media.view.Attachment.Details({
+		sidebar.set( 'details', new wp.media.view.Attachment.Details({
 			controller: this.controller,
 			model:      single,
 			priority:   80
 		}) );
 
-		sidebar.set( 'compat', new techlogging.media.view.AttachmentCompat({
+		sidebar.set( 'compat', new wp.media.view.AttachmentCompat({
 			controller: this.controller,
 			model:      single,
 			priority:   120
 		}) );
 
 		if ( this.options.display ) {
-			sidebar.set( 'display', new techlogging.media.view.Settings.AttachmentDisplay({
+			sidebar.set( 'display', new wp.media.view.Settings.AttachmentDisplay({
 				controller:   this.controller,
 				model:        this.model.display( single ),
 				attachment:   single,
@@ -7908,23 +7908,23 @@ module.exports = AttachmentsBrowser;
 /* 69 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	Selection;
 
 /**
- * techlogging.media.view.Selection
+ * wp.media.view.Selection
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Selection = techlogging.media.View.extend(/** @lends techlogging.media.view.Selection.prototype */{
+Selection = wp.media.View.extend(/** @lends wp.media.view.Selection.prototype */{
 	tagName:   'div',
 	className: 'media-selection',
-	template:  techlogging.template('media-selection'),
+	template:  wp.template('media-selection'),
 
 	events: {
 		'click .edit-selection':  'edit',
@@ -7938,9 +7938,9 @@ Selection = techlogging.media.View.extend(/** @lends techlogging.media.view.Sele
 		});
 
 		/**
-		 * @member {techlogging.media.view.Attachments.Selection}
+		 * @member {wp.media.view.Attachments.Selection}
 		 */
-		this.attachments = new techlogging.media.view.Attachments.Selection({
+		this.attachments = new wp.media.view.Attachments.Selection({
 			controller: this.controller,
 			collection: this.collection,
 			selection:  this.collection,
@@ -7998,17 +7998,17 @@ module.exports = Selection;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Attachment.Selection
+ * wp.media.view.Attachment.Selection
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Selection = techlogging.media.view.Attachment.extend(/** @lends techlogging.media.view.Attachment.Selection.prototype */{
+var Selection = wp.media.view.Attachment.extend(/** @lends wp.media.view.Attachment.Selection.prototype */{
 	className: 'attachment selection',
 
 	// On click, just select the model, instead of removing the model from
@@ -8025,21 +8025,21 @@ module.exports = Selection;
 /* 71 */
 /***/ (function(module, exports) {
 
-var Attachments = techlogging.media.view.Attachments,
+var Attachments = wp.media.view.Attachments,
 	Selection;
 
 /**
- * techlogging.media.view.Attachments.Selection
+ * wp.media.view.Attachments.Selection
  *
- * @memberOf techlogging.media.view.Attachments
+ * @memberOf wp.media.view.Attachments
  *
  * @class
- * @augments techlogging.media.view.Attachments
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachments
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Selection = Attachments.extend(/** @lends techlogging.media.view.Attachments.Selection.prototype */{
+Selection = Attachments.extend(/** @lends wp.media.view.Attachments.Selection.prototype */{
 	events: {},
 	initialize: function() {
 		_.defaults( this.options, {
@@ -8047,7 +8047,7 @@ Selection = Attachments.extend(/** @lends techlogging.media.view.Attachments.Sel
 			resize:     false,
 
 			// The single `Attachment` view to be used in the `Attachments` view.
-			AttachmentView: techlogging.media.view.Attachment.Selection
+			AttachmentView: wp.media.view.Attachment.Selection
 		});
 		// Call 'initialize' directly on the parent class.
 		return Attachments.prototype.initialize.apply( this, arguments );
@@ -8062,18 +8062,18 @@ module.exports = Selection;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Attachment.EditSelection
+ * wp.media.view.Attachment.EditSelection
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment.Selection
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment.Selection
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var EditSelection = techlogging.media.view.Attachment.Selection.extend(/** @lends techlogging.media.view.Attachment.EditSelection.prototype */{
+var EditSelection = wp.media.view.Attachment.Selection.extend(/** @lends wp.media.view.Attachment.EditSelection.prototype */{
 	buttons: {
 		close: true
 	}
@@ -8086,21 +8086,21 @@ module.exports = EditSelection;
 /* 73 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = Backbone.$,
 	Settings;
 
 /**
- * techlogging.media.view.Settings
+ * wp.media.view.Settings
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Settings = View.extend(/** @lends techlogging.media.view.Settings.prototype */{
+Settings = View.extend(/** @lends wp.media.view.Settings.prototype */{
 	events: {
 		'click button':    'updateHandler',
 		'change input':    'updateHandler',
@@ -8119,7 +8119,7 @@ Settings = View.extend(/** @lends techlogging.media.view.Settings.prototype */{
 		}, this.options );
 	},
 	/**
-	 * @returns {techlogging.media.view.Settings} Returns itself to allow chaining
+	 * @returns {wp.media.view.Settings} Returns itself to allow chaining
 	 */
 	render: function() {
 		View.prototype.render.apply( this, arguments );
@@ -8213,23 +8213,23 @@ module.exports = Settings;
 /* 74 */
 /***/ (function(module, exports) {
 
-var Settings = techlogging.media.view.Settings,
+var Settings = wp.media.view.Settings,
 	AttachmentDisplay;
 
 /**
- * techlogging.media.view.Settings.AttachmentDisplay
+ * wp.media.view.Settings.AttachmentDisplay
  *
- * @memberOf techlogging.media.view.Settings
+ * @memberOf wp.media.view.Settings
  *
  * @class
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.AttachmentDisplay.prototype */{
+AttachmentDisplay = Settings.extend(/** @lends wp.media.view.Settings.AttachmentDisplay.prototype */{
 	className: 'attachment-display-settings',
-	template:  techlogging.template('attachment-display-settings'),
+	template:  wp.template('attachment-display-settings'),
 
 	initialize: function() {
 		var attachment = this.options.attachment;
@@ -8257,7 +8257,7 @@ AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.A
 		Settings.prototype.dispose.apply( this, arguments );
 	},
 	/**
-	 * @returns {techlogging.media.view.AttachmentDisplay} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentDisplay} Returns itself to allow chaining
 	 */
 	render: function() {
 		var attachment = this.options.attachment;
@@ -8300,7 +8300,7 @@ AttachmentDisplay = Settings.extend(/** @lends techlogging.media.view.Settings.A
 		$input.removeClass( 'hidden' );
 
 		// If the input is visible, focus and select its contents.
-		if ( ! techlogging.media.isTouchDevice && $input.is(':visible') ) {
+		if ( ! wp.media.isTouchDevice && $input.is(':visible') ) {
 			$input.focus()[0].select();
 		}
 	}
@@ -8314,19 +8314,19 @@ module.exports = AttachmentDisplay;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Settings.Gallery
+ * wp.media.view.Settings.Gallery
  *
- * @memberOf techlogging.media.view.Settings
+ * @memberOf wp.media.view.Settings
  *
  * @class
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Gallery = techlogging.media.view.Settings.extend(/** @lends techlogging.media.view.Settings.Gallery.prototype */{
+var Gallery = wp.media.view.Settings.extend(/** @lends wp.media.view.Settings.Gallery.prototype */{
 	className: 'collection-settings gallery-settings',
-	template:  techlogging.template('gallery-settings')
+	template:  wp.template('gallery-settings')
 });
 
 module.exports = Gallery;
@@ -8337,19 +8337,19 @@ module.exports = Gallery;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Settings.Playlist
+ * wp.media.view.Settings.Playlist
  *
- * @memberOf techlogging.media.view.Settings
+ * @memberOf wp.media.view.Settings
  *
  * @class
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Playlist = techlogging.media.view.Settings.extend(/** @lends techlogging.media.view.Settings.Playlist.prototype */{
+var Playlist = wp.media.view.Settings.extend(/** @lends wp.media.view.Settings.Playlist.prototype */{
 	className: 'collection-settings playlist-settings',
-	template:  techlogging.template('playlist-settings')
+	template:  wp.template('playlist-settings')
 });
 
 module.exports = Playlist;
@@ -8359,25 +8359,25 @@ module.exports = Playlist;
 /* 77 */
 /***/ (function(module, exports) {
 
-var Attachment = techlogging.media.view.Attachment,
-	l10n = techlogging.media.view.l10n,
+var Attachment = wp.media.view.Attachment,
+	l10n = wp.media.view.l10n,
 	Details;
 
 /**
- * techlogging.media.view.Attachment.Details
+ * wp.media.view.Attachment.Details
  *
- * @memberOf techlogging.media.view.Attachment
+ * @memberOf wp.media.view.Attachment
  *
  * @class
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details.prototype */{
+Details = Attachment.extend(/** @lends wp.media.view.Attachment.Details.prototype */{
 	tagName:   'div',
 	className: 'attachment-details',
-	template:  techlogging.template('attachment-details'),
+	template:  wp.template('attachment-details'),
 
 	attributes: function() {
 		return {
@@ -8409,7 +8409,7 @@ Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details
 	},
 
 	initialFocus: function() {
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			/*
 			Previously focused the first ':input' (the readonly URL text field).
 			Since the first ':input' is now a button (delete/trash): when pressing
@@ -8440,7 +8440,7 @@ Details = Attachment.extend(/** @lends techlogging.media.view.Attachment.Details
 		var library = this.controller.library;
 		event.preventDefault();
 
-		if ( techlogging.media.view.settings.mediaTrash &&
+		if ( wp.media.view.settings.mediaTrash &&
 			'edit-metadata' === this.controller.content.mode() ) {
 
 			this.model.set( 'status', 'trash' );
@@ -8503,22 +8503,22 @@ module.exports = Details;
 /* 78 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	AttachmentCompat;
 
 /**
- * techlogging.media.view.AttachmentCompat
+ * wp.media.view.AttachmentCompat
  *
  * A view to display fields added via the `attachment_fields_to_edit` filter.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompat.prototype */{
+AttachmentCompat = View.extend(/** @lends wp.media.view.AttachmentCompat.prototype */{
 	tagName:   'form',
 	className: 'compat-item',
 
@@ -8533,7 +8533,7 @@ AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompa
 		this.listenTo( this.model, 'change:compat', this.render );
 	},
 	/**
-	 * @returns {techlogging.media.view.AttachmentCompat} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentCompat} Returns itself to allow chaining
 	 */
 	dispose: function() {
 		if ( this.$(':focus').length ) {
@@ -8545,7 +8545,7 @@ AttachmentCompat = View.extend(/** @lends techlogging.media.view.AttachmentCompa
 		return View.prototype.dispose.apply( this, arguments );
 	},
 	/**
-	 * @returns {techlogging.media.view.AttachmentCompat} Returns itself to allow chaining
+	 * @returns {wp.media.view.AttachmentCompat} Returns itself to allow chaining
 	 */
 	render: function() {
 		var compat = this.model.get('compat');
@@ -8595,19 +8595,19 @@ module.exports = AttachmentCompat;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Iframe
+ * wp.media.view.Iframe
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Iframe = techlogging.media.View.extend(/** @lends techlogging.media.view.Iframe.prototype */{
+var Iframe = wp.media.View.extend(/** @lends wp.media.view.Iframe.prototype */{
 	className: 'media-iframe',
 	/**
-	 * @returns {techlogging.media.view.Iframe} Returns itself to allow chaining
+	 * @returns {wp.media.view.Iframe} Returns itself to allow chaining
 	 */
 	render: function() {
 		this.views.detach();
@@ -8625,23 +8625,23 @@ module.exports = Iframe;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Embed
+ * wp.media.view.Embed
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Embed = techlogging.media.View.extend(/** @lends techlogging.media.view.Ember.prototype */{
+var Embed = wp.media.View.extend(/** @lends wp.media.view.Ember.prototype */{
 	className: 'media-embed',
 
 	initialize: function() {
 		/**
-		 * @member {techlogging.media.view.EmbedUrl}
+		 * @member {wp.media.view.EmbedUrl}
 		 */
-		this.url = new techlogging.media.view.EmbedUrl({
+		this.url = new wp.media.view.EmbedUrl({
 			controller: this.controller,
 			model:      this.model.props
 		}).render();
@@ -8668,9 +8668,9 @@ var Embed = techlogging.media.View.extend(/** @lends techlogging.media.view.Embe
 			constructor;
 
 		if ( 'image' === type ) {
-			constructor = techlogging.media.view.EmbedImage;
+			constructor = wp.media.view.EmbedImage;
 		} else if ( 'link' === type ) {
-			constructor = techlogging.media.view.EmbedLink;
+			constructor = wp.media.view.EmbedLink;
 		} else {
 			return;
 		}
@@ -8695,16 +8695,16 @@ module.exports = Embed;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Label
+ * wp.media.view.Label
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Label = techlogging.media.View.extend(/** @lends techlogging.media.view.Label.prototype */{
+var Label = wp.media.View.extend(/** @lends wp.media.view.Label.prototype */{
 	tagName: 'label',
 	className: 'screen-reader-text',
 
@@ -8726,21 +8726,21 @@ module.exports = Label;
 /* 82 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = jQuery,
 	EmbedUrl;
 
 /**
- * techlogging.media.view.EmbedUrl
+ * wp.media.view.EmbedUrl
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EmbedUrl = View.extend(/** @lends techlogging.media.view.EmbedUrl.prototype */{
+EmbedUrl = View.extend(/** @lends wp.media.view.EmbedUrl.prototype */{
 	tagName:   'label',
 	className: 'embed-url',
 
@@ -8766,7 +8766,7 @@ EmbedUrl = View.extend(/** @lends techlogging.media.view.EmbedUrl.prototype */{
 		}
 	},
 	/**
-	 * @returns {techlogging.media.view.EmbedUrl} Returns itself to allow chaining
+	 * @returns {wp.media.view.EmbedUrl} Returns itself to allow chaining
 	 */
 	render: function() {
 		var $input = this.$input;
@@ -8784,7 +8784,7 @@ EmbedUrl = View.extend(/** @lends techlogging.media.view.EmbedUrl.prototype */{
 	},
 
 	ready: function() {
-		if ( ! techlogging.media.isTouchDevice ) {
+		if ( ! wp.media.isTouchDevice ) {
 			this.focus();
 		}
 	},
@@ -8815,19 +8815,19 @@ var $ = jQuery,
 	EmbedLink;
 
 /**
- * techlogging.media.view.EmbedLink
+ * wp.media.view.EmbedLink
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EmbedLink = techlogging.media.view.Settings.extend(/** @lends techlogging.media.view.EmbedLink.prototype */{
+EmbedLink = wp.media.view.Settings.extend(/** @lends wp.media.view.EmbedLink.prototype */{
 	className: 'embed-link-settings',
-	template:  techlogging.template('embed-link-settings'),
+	template:  wp.template('embed-link-settings'),
 
 	initialize: function() {
 		this.listenTo( this.model, 'change:url', this.updateoEmbed );
@@ -8847,7 +8847,7 @@ EmbedLink = techlogging.media.view.Settings.extend(/** @lends techlogging.media.
 		}
 
 		this.fetch();
-	}, techlogging.media.controller.Embed.sensitivity ),
+	}, wp.media.controller.Embed.sensitivity ),
 
 	fetch: function() {
 		var url = this.model.get( 'url' ), re, youTubeEmbedMatch;
@@ -8868,8 +8868,8 @@ EmbedLink = techlogging.media.view.Settings.extend(/** @lends techlogging.media.
 			url = 'https://www.youtube.com/watch?v=' + youTubeEmbedMatch[ 1 ];
 		}
 
-		this.dfd = techlogging.apiRequest({
-			url: techlogging.media.view.settings.oEmbedProxyUrl,
+		this.dfd = wp.apiRequest({
+			url: wp.media.view.settings.oEmbedProxyUrl,
 			data: {
 				url: url,
 				maxwidth: this.model.get( 'width' ),
@@ -8914,24 +8914,24 @@ module.exports = EmbedLink;
 /* 84 */
 /***/ (function(module, exports) {
 
-var AttachmentDisplay = techlogging.media.view.Settings.AttachmentDisplay,
+var AttachmentDisplay = wp.media.view.Settings.AttachmentDisplay,
 	EmbedImage;
 
 /**
- * techlogging.media.view.EmbedImage
+ * wp.media.view.EmbedImage
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Settings.AttachmentDisplay
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings.AttachmentDisplay
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EmbedImage = AttachmentDisplay.extend(/** @lends techlogging.media.view.EmbedImage.prototype */{
+EmbedImage = AttachmentDisplay.extend(/** @lends wp.media.view.EmbedImage.prototype */{
 	className: 'embed-media-settings',
-	template:  techlogging.template('embed-image-settings'),
+	template:  wp.template('embed-image-settings'),
 
 	initialize: function() {
 		/**
@@ -8953,25 +8953,25 @@ module.exports = EmbedImage;
 /* 85 */
 /***/ (function(module, exports) {
 
-var AttachmentDisplay = techlogging.media.view.Settings.AttachmentDisplay,
+var AttachmentDisplay = wp.media.view.Settings.AttachmentDisplay,
 	$ = jQuery,
 	ImageDetails;
 
 /**
- * techlogging.media.view.ImageDetails
+ * wp.media.view.ImageDetails
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Settings.AttachmentDisplay
- * @augments techlogging.media.view.Settings
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Settings.AttachmentDisplay
+ * @augments wp.media.view.Settings
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-ImageDetails = AttachmentDisplay.extend(/** @lends techlogging.media.view.ImageDetails.prototype */{
+ImageDetails = AttachmentDisplay.extend(/** @lends wp.media.view.ImageDetails.prototype */{
 	className: 'image-details',
-	template:  techlogging.template('image-details'),
+	template:  wp.template('image-details'),
 	events: _.defaults( AttachmentDisplay.prototype.events, {
 		'click .edit-attachment': 'editAttachment',
 		'click .replace-attachment': 'replaceAttachment',
@@ -9127,31 +9127,31 @@ module.exports = ImageDetails;
 /* 86 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
-	UploaderStatus = techlogging.media.view.UploaderStatus,
-	l10n = techlogging.media.view.l10n,
+var View = wp.media.View,
+	UploaderStatus = wp.media.view.UploaderStatus,
+	l10n = wp.media.view.l10n,
 	$ = jQuery,
 	Cropper;
 
 /**
- * techlogging.media.view.Cropper
+ * wp.media.view.Cropper
  *
  * Uses the imgAreaSelect plugin to allow a user to crop an image.
  *
  * Takes imgAreaSelect options from
- * techlogging.customize.HeaderControl.calculateImageSelectOptions via
- * techlogging.customize.HeaderControl.openMM.
+ * wp.customize.HeaderControl.calculateImageSelectOptions via
+ * wp.customize.HeaderControl.openMM.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Cropper = View.extend(/** @lends techlogging.media.view.Cropper.prototype */{
+Cropper = View.extend(/** @lends wp.media.view.Cropper.prototype */{
 	className: 'crop-content',
-	template: techlogging.template('crop-content'),
+	template: wp.template('crop-content'),
 	initialize: function() {
 		_.bindAll(this, 'onImageLoad');
 	},
@@ -9204,9 +9204,9 @@ Cropper = View.extend(/** @lends techlogging.media.view.Cropper.prototype */{
 	onError: function() {
 		var filename = this.options.attachment.get('filename');
 
-		this.views.add( '.upload-errors', new techlogging.media.view.UploaderStatusError({
+		this.views.add( '.upload-errors', new wp.media.view.UploaderStatusError({
 			filename: UploaderStatus.prototype.filename(filename),
-			message: window._techloggingMediaViewsL10n.cropError
+			message: window._wpMediaViewsL10n.cropError
 		}), { at: 0 });
 	}
 });
@@ -9218,26 +9218,26 @@ module.exports = Cropper;
 /* 87 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.view,
+var View = wp.media.view,
 	SiteIconCropper;
 
 /**
- * techlogging.media.view.SiteIconCropper
+ * wp.media.view.SiteIconCropper
  *
  * Uses the imgAreaSelect plugin to allow a user to crop a Site Icon.
  *
  * Takes imgAreaSelect options from
- * techlogging.customize.SiteIconControl.calculateImageSelectOptions.
+ * wp.customize.SiteIconControl.calculateImageSelectOptions.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Cropper
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Cropper
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-SiteIconCropper = View.Cropper.extend(/** @lends techlogging.media.view.SiteIconCropper.prototype */{
+SiteIconCropper = View.Cropper.extend(/** @lends wp.media.view.SiteIconCropper.prototype */{
 	className: 'crop-content site-icon',
 
 	ready: function () {
@@ -9247,11 +9247,11 @@ SiteIconCropper = View.Cropper.extend(/** @lends techlogging.media.view.SiteIcon
 	},
 
 	addSidebar: function() {
-		this.sidebar = new techlogging.media.view.Sidebar({
+		this.sidebar = new wp.media.view.Sidebar({
 			controller: this.controller
 		});
 
-		this.sidebar.set( 'preview', new techlogging.media.view.SiteIconPreview({
+		this.sidebar.set( 'preview', new wp.media.view.SiteIconPreview({
 			controller: this.controller,
 			attachment: this.options.attachment
 		}) );
@@ -9267,25 +9267,25 @@ module.exports = SiteIconCropper;
 /* 88 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	$ = jQuery,
 	SiteIconPreview;
 
 /**
- * techlogging.media.view.SiteIconPreview
+ * wp.media.view.SiteIconPreview
  *
  * Shows a preview of the Site Icon as a favicon and app icon while cropping.
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-SiteIconPreview = View.extend(/** @lends techlogging.media.view.SiteIconPreview.prototype */{
+SiteIconPreview = View.extend(/** @lends wp.media.view.SiteIconPreview.prototype */{
 	className: 'site-icon-preview',
-	template: techlogging.template( 'site-icon-preview' ),
+	template: wp.template( 'site-icon-preview' ),
 
 	ready: function() {
 		this.controller.imgSelect.setOptions({
@@ -9329,22 +9329,22 @@ module.exports = SiteIconPreview;
 /* 89 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
+var View = wp.media.View,
 	EditImage;
 
 /**
- * techlogging.media.view.EditImage
+ * wp.media.view.EditImage
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-EditImage = View.extend(/** @lends techlogging.media.view.EditImage.prototype */{
+EditImage = View.extend(/** @lends wp.media.view.EditImage.prototype */{
 	className: 'image-editor',
-	template: techlogging.template('image-editor'),
+	template: wp.template('image-editor'),
 
 	initialize: function( options ) {
 		this.editor = window.imageEdit;
@@ -9392,16 +9392,16 @@ module.exports = EditImage;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.Spinner
+ * wp.media.view.Spinner
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-var Spinner = techlogging.media.View.extend(/** @lends techlogging.media.view.Spinner.prototype */{
+var Spinner = wp.media.View.extend(/** @lends wp.media.view.Spinner.prototype */{
 	tagName:   'span',
 	className: 'spinner',
 	spinnerTimeout: false,

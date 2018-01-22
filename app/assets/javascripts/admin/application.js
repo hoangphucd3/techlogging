@@ -21,5 +21,5 @@
 //= require dropzone
 //= require ../plupload/moxie
 //= require ../plupload/plupload
-//= require ../techlogging-backbone
+//= require ../wp-backbone
 //# require ../utils

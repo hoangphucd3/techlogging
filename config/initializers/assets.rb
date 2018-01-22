@@ -22,5 +22,5 @@ end
 # Auto precompile CSS
 css_path = File.join(Rails.root, 'app/assets/stylesheets/')
 Find.find(css_path).each do |file|
-  Rails.application.config.assets.precompile << $1.sub(css_path, '') if file =~ (/^(.*)\.scss$/)
+  Rails.application.config.assets.precompile << $1.sub(css_path, '') if file =~ (/^(.*)\.(scss|css)(\.erb)?$/)
 end

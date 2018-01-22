@@ -4,7 +4,7 @@
 // -----------------------------
 (function($, _){
 	/**
-	 * Stores the editors' `techlogging.media.controller.Frame` instances.
+	 * Stores the editors' `wp.media.controller.Frame` instances.
 	 *
 	 * @static
 	 */
@@ -19,7 +19,7 @@
 	 * @param {string} key The key within the passed map to check for a value.
 	 * @returns {mixed|undefined} The original or coerced value of key within attrs
 	 */
-	techlogging.media.coerce = function ( attrs, key ) {
+	wp.media.coerce = function ( attrs, key ) {
 		if ( _.isUndefined( attrs[ key ] ) && ! _.isUndefined( this.defaults[ key ] ) ) {
 			attrs[ key ] = this.defaults[ key ];
 		} else if ( 'true' === attrs[ key ] ) {
@@ -30,8 +30,8 @@
 		return attrs[ key ];
 	};
 
-	/** @namespace techlogging.media.string */
-	techlogging.media.string = {
+	/** @namespace wp.media.string */
+	wp.media.string = {
 		/**
 		 * Joins the `props` and `attachment` objects,
 		 * outputting the proper object format based on the
@@ -43,7 +43,7 @@
 		 */
 		props: function( props, attachment ) {
 			var link, linkUrl, size, sizes,
-				defaultProps = techlogging.media.view.settings.defaultProps;
+				defaultProps = wp.media.view.settings.defaultProps;
 
 			props = props ? _.clone( props ) : {};
 
@@ -79,7 +79,7 @@
 
 			// Format properties for images.
 			if ( 'image' === attachment.type ) {
-				props.classes.push( 'techlogging-image-' + attachment.id );
+				props.classes.push( 'wp-image-' + attachment.id );
 
 				sizes = attachment.sizes;
 				size = sizes && sizes[ props.size ] ? sizes[ props.size ] : attachment;
@@ -95,7 +95,7 @@
 			// Format properties for non-images.
 			} else {
 				props.title = props.title || attachment.filename;
-				props.rel = props.rel || 'attachment techlogging-att-' + attachment.id;
+				props.rel = props.rel || 'attachment wp-att-' + attachment.id;
 			}
 
 			return props;
@@ -110,7 +110,7 @@
 		link: function( props, attachment ) {
 			var options;
 
-			props = techlogging.media.string.props( props, attachment );
+			props = wp.media.string.props( props, attachment );
 
 			options = {
 				tag:     'a',
@@ -124,7 +124,7 @@
 				options.attrs.rel = props.rel;
 			}
 
-			return techlogging.html.string( options );
+			return wp.html.string( options );
 		},
 		/**
 		 * Create an Audio shortcode string that is suitable for passing to the editor
@@ -134,7 +134,7 @@
 		 * @returns {string} The audio shortcode
 		 */
 		audio: function( props, attachment ) {
-			return techlogging.media.string._audioVideo( 'audio', props, attachment );
+			return wp.media.string._audioVideo( 'audio', props, attachment );
 		},
 		/**
 		 * Create a Video shortcode string that is suitable for passing to the editor
@@ -144,7 +144,7 @@
 		 * @returns {string} The video shortcode
 		 */
 		video: function( props, attachment ) {
-			return techlogging.media.string._audioVideo( 'video', props, attachment );
+			return wp.media.string._audioVideo( 'video', props, attachment );
 		},
 		/**
 		 * Helper function to create a media shortcode string
@@ -159,9 +159,9 @@
 		_audioVideo: function( type, props, attachment ) {
 			var shortcode, html, extension;
 
-			props = techlogging.media.string.props( props, attachment );
+			props = wp.media.string.props( props, attachment );
 			if ( props.link !== 'embed' )
-				return techlogging.media.string.link( props );
+				return wp.media.string.link( props );
 
 			shortcode = {};
 
@@ -181,14 +181,14 @@
 
 			extension = attachment.filename.split('.').pop();
 
-			if ( _.contains( techlogging.media.view.settings.embedExts, extension ) ) {
+			if ( _.contains( wp.media.view.settings.embedExts, extension ) ) {
 				shortcode[extension] = attachment.url;
 			} else {
 				// Render unsupported audio and video files as links.
-				return techlogging.media.string.link( props );
+				return wp.media.string.link( props );
 			}
 
-			html = techlogging.shortcode.string({
+			html = wp.shortcode.string({
 				tag:     type,
 				attrs:   shortcode
 			});
@@ -208,7 +208,7 @@
 				options, classes, shortcode, html;
 
 			props.type = 'image';
-			props = techlogging.media.string.props( props, attachment );
+			props = wp.media.string.props( props, attachment );
 			classes = props.classes || [];
 
 			img.src = ! _.isUndefined( attachment ) ? attachment.url : props.url;
@@ -244,7 +244,7 @@
 				};
 			}
 
-			html = techlogging.html.string( options );
+			html = wp.html.string( options );
 
 			// Generate the caption shortcode.
 			if ( props.caption ) {
@@ -262,7 +262,7 @@
 					shortcode.align = 'align' + props.align;
 				}
 
-				html = techlogging.shortcode.string({
+				html = wp.shortcode.string({
 					tag:     'caption',
 					attrs:   shortcode,
 					content: html + ' ' + props.caption
@@ -273,8 +273,8 @@
 		}
 	};
 
-	techlogging.media.embed = {
-		coerce : techlogging.media.coerce,
+	wp.media.embed = {
+		coerce : wp.media.coerce,
 
 		defaults : {
 			url : '',
@@ -288,7 +288,7 @@
 			if ( isURL ) {
 				props.url = data.replace(/<[^>]+>/g, '');
 			} else {
-				shortcode = techlogging.shortcode.next( 'embed', data ).shortcode;
+				shortcode = wp.shortcode.next( 'embed', data ).shortcode;
 
 				props = _.defaults( shortcode.attrs.named, this.defaults );
 				if ( shortcode.content ) {
@@ -296,7 +296,7 @@
 				}
 			}
 
-			frame = techlogging.media({
+			frame = wp.media({
 				frame: 'post',
 				state: 'embed',
 				metadata: props
@@ -319,7 +319,7 @@
 			content = model.url;
 			delete model.url;
 
-			return new techlogging.shortcode({
+			return new wp.shortcode({
 				tag: 'embed',
 				attrs: model,
 				content: content
@@ -328,20 +328,20 @@
 	};
 
 	/**
-	 * @class techlogging.media.collection
+	 * @class wp.media.collection
 	 *
 	 * @param {Object} attributes
 	 */
-	techlogging.media.collection = function(attributes) {
+	wp.media.collection = function(attributes) {
 		var collections = {};
 
-		return _.extend(/** @lends techlogging.media.collection.prototype */{
-			coerce : techlogging.media.coerce,
+		return _.extend(/** @lends wp.media.collection.prototype */{
+			coerce : wp.media.coerce,
 			/**
 			 * Retrieve attachments based on the properties of the passed shortcode
 			 *
-			 * @param {techlogging.shortcode} shortcode An instance of techlogging.shortcode().
-			 * @returns {techlogging.media.model.Attachments} A Backbone.Collection containing
+			 * @param {wp.shortcode} shortcode An instance of wp.shortcode().
+			 * @returns {wp.media.model.Attachments} A Backbone.Collection containing
 			 *      the media items belonging to a collection.
 			 *      The query[ this.tag ] property is a Backbone.Model
 			 *          containing the 'props' for the collection.
@@ -399,18 +399,18 @@
 					others[ key ] = self.coerce( others, key );
 				});
 
-				query = techlogging.media.query( args );
+				query = wp.media.query( args );
 				query[ this.tag ] = new Backbone.Model( others );
 				return query;
 			},
 			/**
 			 * Triggered when clicking 'Insert {label}' or 'Update {label}'
 			 *
-			 * @param {techlogging.media.model.Attachments} attachments A Backbone.Collection containing
+			 * @param {wp.media.model.Attachments} attachments A Backbone.Collection containing
 			 *      the media items belonging to a collection.
 			 *      The query[ this.tag ] property is a Backbone.Model
 			 *          containing the 'props' for the collection.
-			 * @returns {techlogging.shortcode}
+			 * @returns {wp.shortcode}
 			 */
 			shortcode: function( attachments ) {
 				var props = attachments.props.toJSON(),
@@ -455,14 +455,14 @@
 
 				attrs = this.setDefaults( attrs );
 
-				shortcode = new techlogging.shortcode({
+				shortcode = new wp.shortcode({
 					tag:    this.tag,
 					attrs:  attrs,
 					type:   'single'
 				});
 
 				// Use a cloned version of the gallery.
-				clone = new techlogging.media.model.Attachments( attachments.models, {
+				clone = new wp.media.model.Attachments( attachments.models, {
 					props: props
 				});
 				clone[ this.tag ] = attachments[ this.tag ];
@@ -477,12 +477,12 @@
 			 * @param {string} content Content that is searched for possible
 			 *    shortcode markup matching the passed tag name,
 			 *
-			 * @this techlogging.media.{prop}
+			 * @this wp.media.{prop}
 			 *
-			 * @returns {techlogging.media.view.MediaFrame.Select} A media workflow.
+			 * @returns {wp.media.view.MediaFrame.Select} A media workflow.
 			 */
 			edit: function( content ) {
-				var shortcode = techlogging.shortcode.next( this.tag, content ),
+				var shortcode = wp.shortcode.next( this.tag, content ),
 					defaultPostId = this.defaults.id,
 					attachments, selection, state;
 
@@ -500,7 +500,7 @@
 
 				attachments = this.attachments( shortcode );
 
-				selection = new techlogging.media.model.Selection( attachments.models, {
+				selection = new wp.media.model.Selection( attachments.models, {
 					props:    attachments.props.toJSON(),
 					multiple: true
 				});
@@ -528,7 +528,7 @@
 				}
 
 				// Store the current frame.
-				this.frame = techlogging.media({
+				this.frame = wp.media({
 					frame:     'post',
 					state:     state,
 					title:     this.editTitle,
@@ -555,7 +555,7 @@
 		}, attributes );
 	};
 
-	techlogging.media._galleryDefaults = {
+	wp.media._galleryDefaults = {
 		itemtag: 'dl',
 		icontag: 'dt',
 		captiontag: 'dd',
@@ -563,27 +563,27 @@
 		link: 'post',
 		size: 'thumbnail',
 		order: 'ASC',
-		id: techlogging.media.view.settings.post && techlogging.media.view.settings.post.id,
+		id: wp.media.view.settings.post && wp.media.view.settings.post.id,
 		orderby : 'menu_order ID'
 	};
 
-	if ( techlogging.media.view.settings.galleryDefaults ) {
-		techlogging.media.galleryDefaults = _.extend( {}, techlogging.media._galleryDefaults, techlogging.media.view.settings.galleryDefaults );
+	if ( wp.media.view.settings.galleryDefaults ) {
+		wp.media.galleryDefaults = _.extend( {}, wp.media._galleryDefaults, wp.media.view.settings.galleryDefaults );
 	} else {
-		techlogging.media.galleryDefaults = techlogging.media._galleryDefaults;
+		wp.media.galleryDefaults = wp.media._galleryDefaults;
 	}
 
-	techlogging.media.gallery = new techlogging.media.collection({
+	wp.media.gallery = new wp.media.collection({
 		tag: 'gallery',
 		type : 'image',
-		editTitle : techlogging.media.view.l10n.editGalleryTitle,
-		defaults : techlogging.media.galleryDefaults,
+		editTitle : wp.media.view.l10n.editGalleryTitle,
+		defaults : wp.media.galleryDefaults,
 
 		setDefaults: function( attrs ) {
-			var self = this, changed = ! _.isEqual( techlogging.media.galleryDefaults, techlogging.media._galleryDefaults );
+			var self = this, changed = ! _.isEqual( wp.media.galleryDefaults, wp.media._galleryDefaults );
 			_.each( this.defaults, function( value, key ) {
 				attrs[ key ] = self.coerce( attrs, key );
-				if ( value === attrs[ key ] && ( ! changed || value === techlogging.media._galleryDefaults[ key ] ) ) {
+				if ( value === attrs[ key ] && ( ! changed || value === wp.media._galleryDefaults[ key ] ) ) {
 					delete attrs[ key ];
 				}
 			} );
@@ -592,17 +592,17 @@
 	});
 
 	/**
-	 * @namespace techlogging.media.featuredImage
-	 * @memberOf techlogging.media
+	 * @namespace wp.media.featuredImage
+	 * @memberOf wp.media
 	 */
-	techlogging.media.featuredImage = {
+	wp.media.featuredImage = {
 		/**
 		 * Get the featured image post ID
 		 *
-		 * @returns {techlogging.media.view.settings.post.featuredImageId|number}
+		 * @returns {wp.media.view.settings.post.featuredImageId|number}
 		 */
 		get: function() {
-			return techlogging.media.view.settings.post.featuredImageId;
+			return wp.media.view.settings.post.featuredImageId;
 		},
 		/**
 		 * Set the featured image id, save the post thumbnail data and
@@ -611,14 +611,14 @@
 		 * @param {number} id The post ID of the featured image, or -1 to unset it.
 		 */
 		set: function( id ) {
-			var settings = techlogging.media.view.settings;
+			var settings = wp.media.view.settings;
 
 			settings.post.featuredImageId = id;
 
-			techlogging.media.post( 'get-post-thumbnail-html', {
+			wp.media.post( 'get-post-thumbnail-html', {
 				post_id:      settings.post.id,
 				thumbnail_id: settings.post.featuredImageId,
-				_techloggingnonce:     settings.post.nonce
+				_wpnonce:     settings.post.nonce
 			}).done( function( html ) {
 				if ( html == '0' ) {
 					window.alert( window.setPostThumbnailL10n.error );
@@ -632,38 +632,38 @@
 		 * set the HTML in the post meta box to no featured image.
 		 */
 		remove: function() {
-			techlogging.media.featuredImage.set( -1 );
+			wp.media.featuredImage.set( -1 );
 		},
 		/**
 		 * The Featured Image workflow
 		 *
-		 * @this techlogging.media.featuredImage
+		 * @this wp.media.featuredImage
 		 *
-		 * @returns {techlogging.media.view.MediaFrame.Select} A media workflow.
+		 * @returns {wp.media.view.MediaFrame.Select} A media workflow.
 		 */
 		frame: function() {
 			if ( this._frame ) {
-				techlogging.media.frame = this._frame;
+				wp.media.frame = this._frame;
 				return this._frame;
 			}
 
-			this._frame = techlogging.media({
+			this._frame = wp.media({
 				state: 'featured-image',
-				states: [ new techlogging.media.controller.FeaturedImage() , new techlogging.media.controller.EditImage() ]
+				states: [ new wp.media.controller.FeaturedImage() , new wp.media.controller.EditImage() ]
 			});
 
 			this._frame.on( 'toolbar:create:featured-image', function( toolbar ) {
 				/**
-				 * @this techlogging.media.view.MediaFrame.Select
+				 * @this wp.media.view.MediaFrame.Select
 				 */
 				this.createSelectToolbar( toolbar, {
-					text: techlogging.media.view.l10n.setFeaturedImage
+					text: wp.media.view.l10n.setFeaturedImage
 				});
 			}, this._frame );
 
 			this._frame.on( 'content:render:edit-image', function() {
 				var selection = this.state('featured-image').get('selection'),
-					view = new techlogging.media.view.EditImage( { model: selection.single(), controller: this } ).render();
+					view = new wp.media.view.EditImage( { model: selection.single(), controller: this } ).render();
 
 				this.content.set( view );
 
@@ -679,16 +679,16 @@
 		 * 'select' callback for Featured Image workflow, triggered when
 		 *  the 'Set Featured Image' button is clicked in the media modal.
 		 *
-		 * @this techlogging.media.controller.FeaturedImage
+		 * @this wp.media.controller.FeaturedImage
 		 */
 		select: function() {
 			var selection = this.get('selection').single();
 
-			if ( ! techlogging.media.view.settings.post.featuredImageId ) {
+			if ( ! wp.media.view.settings.post.featuredImageId ) {
 				return;
 			}
 
-			techlogging.media.featuredImage.set( selection ? selection.id : -1 );
+			wp.media.featuredImage.set( selection ? selection.id : -1 );
 		},
 		/**
 		 * Open the content media manager to the 'featured image' tab when
@@ -702,32 +702,32 @@
 				// Stop propagation to prevent thickbox from activating.
 				event.stopPropagation();
 
-				techlogging.media.featuredImage.frame().open();
+				wp.media.featuredImage.frame().open();
 			}).on( 'click', '#remove-post-thumbnail', function() {
-				techlogging.media.featuredImage.remove();
+				wp.media.featuredImage.remove();
 				return false;
 			});
 		}
 	};
 
-	$( techlogging.media.featuredImage.init );
+	$( wp.media.featuredImage.init );
 
-	/** @namespace techlogging.media.editor */
-	techlogging.media.editor = {
+	/** @namespace wp.media.editor */
+	wp.media.editor = {
 		/**
 		 * Send content to the editor
 		 *
 		 * @param {string} html Content to send to the editor
 		 */
 		insert: function( html ) {
-			var editor, techloggingActiveEditor,
+			var editor, wpActiveEditor,
 				hasTinymce = ! _.isUndefined( window.tinymce ),
 				hasQuicktags = ! _.isUndefined( window.QTags );
 
 			if ( this.activeEditor ) {
-				techloggingActiveEditor = window.techloggingActiveEditor = this.activeEditor;
+				wpActiveEditor = window.wpActiveEditor = this.activeEditor;
 			} else {
-				techloggingActiveEditor = window.techloggingActiveEditor;
+				wpActiveEditor = window.wpActiveEditor;
 			}
 
 			// Delegate to the global `send_to_editor` if it exists.
@@ -737,15 +737,15 @@
 				return window.send_to_editor.apply( this, arguments );
 			}
 
-			if ( ! techloggingActiveEditor ) {
+			if ( ! wpActiveEditor ) {
 				if ( hasTinymce && tinymce.activeEditor ) {
 					editor = tinymce.activeEditor;
-					techloggingActiveEditor = window.techloggingActiveEditor = editor.id;
+					wpActiveEditor = window.wpActiveEditor = editor.id;
 				} else if ( ! hasQuicktags ) {
 					return false;
 				}
 			} else if ( hasTinymce ) {
-				editor = tinymce.get( techloggingActiveEditor );
+				editor = tinymce.get( wpActiveEditor );
 			}
 
 			if ( editor && ! editor.isHidden() ) {
@@ -753,7 +753,7 @@
 			} else if ( hasQuicktags ) {
 				QTags.insertContent( html );
 			} else {
-				document.getElementById( techloggingActiveEditor ).value += html;
+				document.getElementById( wpActiveEditor ).value += html;
 			}
 
 			// If the old thickbox remove function exists, call it in case
@@ -770,9 +770,9 @@
 		 * @param {string} id A slug used to identify the workflow.
 		 * @param {Object} [options={}]
 		 *
-		 * @this techlogging.media.editor
+		 * @this wp.media.editor
 		 *
-		 * @returns {techlogging.media.view.MediaFrame.Select} A media workflow.
+		 * @returns {wp.media.view.MediaFrame.Select} A media workflow.
 		 */
 		add: function( id, options ) {
 			var workflow = this.get( id );
@@ -782,10 +782,10 @@
 				return workflow;
 			}
 
-			workflow = workflows[ id ] = techlogging.media( _.defaults( options || {}, {
+			workflow = workflows[ id ] = wp.media( _.defaults( options || {}, {
 				frame:    'post',
 				state:    'insert',
-				title:    techlogging.media.view.l10n.addMedia,
+				title:    wp.media.view.l10n.addMedia,
 				multiple: true
 			} ) );
 
@@ -800,38 +800,38 @@
 				$.when.apply( $, selection.map( function( attachment ) {
 					var display = state.display( attachment ).toJSON();
 					/**
-					 * @this techlogging.media.editor
+					 * @this wp.media.editor
 					 */
 					return this.send.attachment( display, attachment.toJSON() );
 				}, this ) ).done( function() {
-					techlogging.media.editor.insert( _.toArray( arguments ).join('\n\n') );
+					wp.media.editor.insert( _.toArray( arguments ).join('\n\n') );
 				});
 			}, this );
 
 			workflow.state('gallery-edit').on( 'update', function( selection ) {
 				/**
-				 * @this techlogging.media.editor
+				 * @this wp.media.editor
 				 */
-				this.insert( techlogging.media.gallery.shortcode( selection ).string() );
+				this.insert( wp.media.gallery.shortcode( selection ).string() );
 			}, this );
 
 			workflow.state('playlist-edit').on( 'update', function( selection ) {
 				/**
-				 * @this techlogging.media.editor
+				 * @this wp.media.editor
 				 */
-				this.insert( techlogging.media.playlist.shortcode( selection ).string() );
+				this.insert( wp.media.playlist.shortcode( selection ).string() );
 			}, this );
 
 			workflow.state('video-playlist-edit').on( 'update', function( selection ) {
 				/**
-				 * @this techlogging.media.editor
+				 * @this wp.media.editor
 				 */
-				this.insert( techlogging.media.playlist.shortcode( selection ).string() );
+				this.insert( wp.media.playlist.shortcode( selection ).string() );
 			}, this );
 
 			workflow.state('embed').on( 'select', function() {
 				/**
-				 * @this techlogging.media.editor
+				 * @this wp.media.editor
 				 */
 				var state = workflow.state(),
 					type = state.get('type'),
@@ -846,7 +846,7 @@
 					});
 
 					this.send.link( embed ).done( function( resp ) {
-						techlogging.media.editor.insert( resp );
+						wp.media.editor.insert( resp );
 					});
 
 				} else if ( 'image' === type ) {
@@ -863,11 +863,11 @@
 						embed.linkUrl = embed.url;
 					}
 
-					this.insert( techlogging.media.string.image( embed ) );
+					this.insert( wp.media.string.image( embed ) );
 				}
 			}, this );
 
-			workflow.state('featured-image').on( 'select', techlogging.media.featuredImage.select );
+			workflow.state('featured-image').on( 'select', wp.media.featuredImage.select );
 			workflow.setState( workflow.options.state );
 			return workflow;
 		},
@@ -876,15 +876,15 @@
 		 *
 		 * @param {string} [id=''] A slug used to identify the workflow.
 		 *
-		 * @returns {techloggingActiveEditor|string|tinymce.activeEditor.id}
+		 * @returns {wpActiveEditor|string|tinymce.activeEditor.id}
 		 */
 		id: function( id ) {
 			if ( id ) {
 				return id;
 			}
 
-			// If an empty `id` is provided, default to `techloggingActiveEditor`.
-			id = window.techloggingActiveEditor;
+			// If an empty `id` is provided, default to `wpActiveEditor`.
+			id = window.wpActiveEditor;
 
 			// If that doesn't work, fall back to `tinymce.activeEditor.id`.
 			if ( ! id && ! _.isUndefined( window.tinymce ) && tinymce.activeEditor ) {
@@ -900,9 +900,9 @@
 		 *
 		 * @param {string} id A slug used to identify the workflow.
 		 *
-		 * @this techlogging.media.editor
+		 * @this wp.media.editor
 		 *
-		 * @returns {techlogging.media.view.MediaFrame} A media workflow.
+		 * @returns {wp.media.view.MediaFrame} A media workflow.
 		 */
 		get: function( id ) {
 			id = this.id( id );
@@ -913,13 +913,13 @@
 		 *
 		 * @param {string} id A slug used to identify the workflow.
 		 *
-		 * @this techlogging.media.editor
+		 * @this wp.media.editor
 		 */
 		remove: function( id ) {
 			id = this.id( id );
 			delete workflows[ id ];
 		},
-		/** @namespace techlogging.media.editor.send */
+		/** @namespace wp.media.editor.send */
 		send: {
 			/**
 			 * Called when sending an attachment to the editor
@@ -934,11 +934,11 @@
 					options, html;
 
 				// If captions are disabled, clear the caption.
-				if ( ! techlogging.media.view.settings.captions ) {
+				if ( ! wp.media.view.settings.captions ) {
 					delete attachment.caption;
 				}
 
-				props = techlogging.media.string.props( props, attachment );
+				props = wp.media.string.props( props, attachment );
 
 				options = {
 					id:           attachment.id,
@@ -951,7 +951,7 @@
 				}
 
 				if ( 'image' === attachment.type ) {
-					html = techlogging.media.string.image( props );
+					html = wp.media.string.image( props );
 
 					_.each({
 						align: 'align',
@@ -962,19 +962,19 @@
 							options[ option ] = props[ prop ];
 					});
 				} else if ( 'video' === attachment.type ) {
-					html = techlogging.media.string.video( props, attachment );
+					html = wp.media.string.video( props, attachment );
 				} else if ( 'audio' === attachment.type ) {
-					html = techlogging.media.string.audio( props, attachment );
+					html = wp.media.string.audio( props, attachment );
 				} else {
-					html = techlogging.media.string.link( props );
+					html = wp.media.string.link( props );
 					options.post_title = props.title;
 				}
 
-				return techlogging.media.post( 'send-attachment-to-editor', {
-					nonce:      techlogging.media.view.settings.nonce.sendToEditor,
+				return wp.media.post( 'send-attachment-to-editor', {
+					nonce:      wp.media.view.settings.nonce.sendToEditor,
 					attachment: options,
 					html:       html,
-					post_id:    techlogging.media.view.settings.post.id
+					post_id:    wp.media.view.settings.post.id
 				});
 			},
 			/**
@@ -984,12 +984,12 @@
 			 * @returns {Promise}
 			 */
 			link: function( embed ) {
-				return techlogging.media.post( 'send-link-to-editor', {
-					nonce:     techlogging.media.view.settings.nonce.sendToEditor,
+				return wp.media.post( 'send-link-to-editor', {
+					nonce:     wp.media.view.settings.nonce.sendToEditor,
 					src:       embed.linkUrl,
 					link_text: embed.linkText,
-					html:      techlogging.media.string.link( embed ),
-					post_id:   techlogging.media.view.settings.post.id
+					html:      wp.media.string.link( embed ),
+					post_id:   wp.media.view.settings.post.id
 				});
 			}
 		},
@@ -999,9 +999,9 @@
 		 * @param {string} [id=undefined] Optional. A slug used to identify the workflow.
 		 * @param {Object} [options={}]
 		 *
-		 * @this techlogging.media.editor
+		 * @this wp.media.editor
 		 *
-		 * @returns {techlogging.media.view.MediaFrame}
+		 * @returns {wp.media.view.MediaFrame}
 		 */
 		open: function( id, options ) {
 			var workflow;
@@ -1018,7 +1018,7 @@
 				workflow = this.add( id, options );
 			}
 
-			techlogging.media.frame = workflow;
+			wp.media.frame = workflow;
 
 			return workflow.open();
 		},
@@ -1034,7 +1034,7 @@
 						options = {
 							frame:    'post',
 							state:    'insert',
-							title:    techlogging.media.view.l10n.addMedia,
+							title:    wp.media.view.l10n.addMedia,
 							multiple: true
 						};
 
@@ -1042,17 +1042,17 @@
 
 					if ( elem.hasClass( 'gallery' ) ) {
 						options.state = 'gallery';
-						options.title = techlogging.media.view.l10n.createGalleryTitle;
+						options.title = wp.media.view.l10n.createGalleryTitle;
 					}
 
-					techlogging.media.editor.open( editor, options );
+					wp.media.editor.open( editor, options );
 				});
 
 			// Initialize and render the Editor drag-and-drop uploader.
-			new techlogging.media.view.EditorUploader().render();
+			new wp.media.view.EditorUploader().render();
 		}
 	};
 
-	_.bindAll( techlogging.media.editor, 'open' );
-	$( techlogging.media.editor.init );
+	_.bindAll( wp.media.editor, 'open' );
+	$( wp.media.editor.init );
 }(jQuery, _));

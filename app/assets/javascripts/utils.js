@@ -2,7 +2,7 @@
 /* exported getUserSetting, setUserSetting, deleteUserSetting */
 // utility functions
 
-var techloggingCookies = {
+var wpCookies = {
 // The following functions are from Cookie.js class in TinyMCE 3, Moxiecode, used under LGPL.
 
 	each: function( obj, cb, scope ) {
@@ -53,7 +53,7 @@ var techloggingCookies = {
 	/**
 	 * Set a multi-values cookie.
 	 *
-	 * 'values_obj' is the JS object that is stored. It is encoded as URI in techloggingCookies.set().
+	 * 'values_obj' is the JS object that is stored. It is encoded as URI in wpCookies.set().
 	 */
 	setHash: function( name, values_obj, expires, path, domain, secure ) {
 		var str = '';
@@ -157,7 +157,7 @@ function setUserSetting( name, value, _del ) {
 	}
 
 	var uid = userSettings.uid,
-		settings = techloggingCookies.getHash( 'techlogging-settings-' + uid ),
+		settings = wpCookies.getHash( 'wp-settings-' + uid ),
 		path = userSettings.url,
 		secure = !! userSettings.secure;
 
@@ -177,8 +177,8 @@ function setUserSetting( name, value, _del ) {
 		settings[name] = value;
 	}
 
-	techloggingCookies.setHash( 'techlogging-settings-' + uid, settings, 31536000, path, '', secure );
-	techloggingCookies.set( 'techlogging-settings-time-' + uid, userSettings.time, 31536000, path, '', secure );
+	wpCookies.setHash( 'wp-settings-' + uid, settings, 31536000, path, '', secure );
+	wpCookies.set( 'wp-settings-time-' + uid, userSettings.time, 31536000, path, '', secure );
 
 	return name;
 }
@@ -193,6 +193,6 @@ function getAllUserSettings() {
 		return {};
 	}
 
-	return techloggingCookies.getHash( 'techlogging-settings-' + userSettings.uid ) || {};
+	return wpCookies.getHash( 'wp-settings-' + userSettings.uid ) || {};
 }
 

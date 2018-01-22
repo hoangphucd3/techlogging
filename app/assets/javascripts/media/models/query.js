@@ -129,7 +129,7 @@ Query = Attachments.extend(/** @lends wp.media.model.Query.prototype */{
 			options = options || {};
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
-				action:  'query-attachments',
+				media_action:  'query-attachments',
 				post_id: wp.media.model.settings.post.id
 			});
 

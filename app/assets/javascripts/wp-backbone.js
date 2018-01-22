@@ -1,27 +1,27 @@
-/** @namespace techlogging */
-window.techlogging = window.techlogging || {};
+/** @namespace wp */
+window.wp = window.wp || {};
 
 (function ($) {
 	/**
 	 * Create the WordPress Backbone namespace.
 	 *
-	 * @namespace techlogging.Backbone
+	 * @namespace wp.Backbone
 	 */
-	techlogging.Backbone = {};
+	wp.Backbone = {};
 
 
-	// techlogging.Backbone.Subviews
+	// wp.Backbone.Subviews
 	// --------------------
 	//
 	// A subview manager.
-	techlogging.Backbone.Subviews = function( view, views ) {
+	wp.Backbone.Subviews = function( view, views ) {
 		this.view = view;
 		this._views = _.isArray( views ) ? { '': views } : views || {};
 	};
 
-	techlogging.Backbone.Subviews.extend = Backbone.Model.extend;
+	wp.Backbone.Subviews.extend = Backbone.Model.extend;
 
-	_.extend( techlogging.Backbone.Subviews.prototype, {
+	_.extend( wp.Backbone.Subviews.prototype, {
 		// ### Fetch all of the subviews
 		//
 		// Returns an array of all subviews.
@@ -122,7 +122,7 @@ window.techlogging = window.techlogging || {};
 			this._views[ selector ] = next;
 
 			_.each( views, function( subview ) {
-				var constructor = subview.Views || techlogging.Backbone.Subviews,
+				var constructor = subview.Views || wp.Backbone.Subviews,
 					subviews = subview.views = subview.views || new constructor( subview );
 				subviews.parent   = this.view;
 				subviews.selector = selector;
@@ -337,13 +337,13 @@ window.techlogging = window.techlogging || {};
 	});
 
 
-	// techlogging.Backbone.View
+	// wp.Backbone.View
 	// ----------------
 	//
 	// The base view class.
-	techlogging.Backbone.View = Backbone.View.extend({
+	wp.Backbone.View = Backbone.View.extend({
 		// The constructor for the `Views` manager.
-		Subviews: techlogging.Backbone.Subviews,
+		Subviews: wp.Backbone.Subviews,
 
 		constructor: function( options ) {
 			this.views = new this.Subviews( this, this.views );

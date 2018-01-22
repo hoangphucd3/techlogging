@@ -80,22 +80,22 @@
 var $ = jQuery,
 	Attachment, Attachments, l10n, media;
 
-/** @namespace techlogging */
-window.techlogging = window.techlogging || {};
+/** @namespace wp */
+window.wp = window.wp || {};
 
 /**
  * Create and return a media frame.
  *
  * Handles the default media experience.
  *
- * @alias techlogging.media
- * @memberOf techlogging
+ * @alias wp.media
+ * @memberOf wp
  * @namespace
  *
  * @param  {object} attributes The properties passed to the main media controller.
- * @return {techlogging.media.view.MediaFrame} A media workflow.
+ * @return {wp.media.view.MediaFrame} A media workflow.
  */
-media = techlogging.media = function( attributes ) {
+media = wp.media = function( attributes ) {
 	var MediaFrame = media.view.MediaFrame,
 		frame;
 
@@ -130,14 +130,14 @@ media = techlogging.media = function( attributes ) {
 	return frame;
 };
 
-/** @namespace techlogging.media.model */
-/** @namespace techlogging.media.view */
-/** @namespace techlogging.media.controller */
-/** @namespace techlogging.media.frames */
+/** @namespace wp.media.model */
+/** @namespace wp.media.view */
+/** @namespace wp.media.controller */
+/** @namespace wp.media.frames */
 _.extend( media, { model: {}, view: {}, controller: {}, frames: {} });
 
 // Link any localized strings.
-l10n = media.model.l10n = window._techloggingMediaModelsL10n || {};
+l10n = media.model.l10n = window._wpMediaModelsL10n || {};
 
 // Link any settings.
 media.model.settings = l10n.settings || {};
@@ -159,7 +159,7 @@ media.model.Selection = __webpack_require__( 15 );
 /**
  * A basic equality comparator for Backbone models.
  *
- * Used to order models within a collection - @see techlogging.media.model.Attachments.comparator().
+ * Used to order models within a collection - @see wp.media.model.Attachments.comparator().
  *
  * @param  {mixed}  a  The primary parameter to compare.
  * @param  {mixed}  b  The primary parameter to compare.
@@ -177,37 +177,37 @@ media.compare = function( a, b, ac, bc ) {
 	}
 };
 
-_.extend( media, /** @lends techlogging.media */{
+_.extend( media, /** @lends wp.media */{
 	/**
 	 * media.template( id )
 	 *
 	 * Fetch a JavaScript template for an id, and return a templating function for it.
 	 *
-	 * See techlogging.template() in `techlogging-includes/js/techlogging-util.js`.
+	 * See wp.template() in `wp-includes/js/wp-util.js`.
 	 *
-	 * @borrows techlogging.template as template
+	 * @borrows wp.template as template
 	 */
-	template: techlogging.template,
+	template: wp.template,
 
 	/**
 	 * media.post( [action], [data] )
 	 *
 	 * Sends a POST request to WordPress.
-	 * See techlogging.ajax.post() in `techlogging-includes/js/techlogging-util.js`.
+	 * See wp.ajax.post() in `wp-includes/js/wp-util.js`.
 	 *
-	 * @borrows techlogging.ajax.post as post
+	 * @borrows wp.ajax.post as post
 	 */
-	post: techlogging.ajax.post,
+	post: wp.ajax.post,
 
 	/**
 	 * media.ajax( [action], [options] )
 	 *
 	 * Sends an XHR request to WordPress.
-	 * See techlogging.ajax.send() in `techlogging-includes/js/techlogging-util.js`.
+	 * See wp.ajax.send() in `wp-includes/js/wp-util.js`.
 	 *
-	 * @borrows techlogging.ajax.send as ajax
+	 * @borrows wp.ajax.send as ajax
 	 */
-	ajax: techlogging.ajax.send,
+	ajax: wp.ajax.send,
 
 	/**
 	 * Scales a set of dimensions to fit within bounding dimensions.
@@ -279,11 +279,11 @@ _.extend( media, /** @lends techlogging.media */{
  * ========================================================================
  */
 /**
- * techlogging.media.attachment
+ * wp.media.attachment
  *
  * @static
  * @param {String} id A string used to identify a model.
- * @returns {techlogging.media.model.Attachment}
+ * @returns {wp.media.model.Attachment}
  */
 media.attachment = function( id ) {
 	return Attachment.get( id );
@@ -293,17 +293,17 @@ media.attachment = function( id ) {
  * A collection of all attachments that have been fetched from the server.
  *
  * @static
- * @member {techlogging.media.model.Attachments}
+ * @member {wp.media.model.Attachments}
  */
 Attachments.all = new Attachments();
 
 /**
- * techlogging.media.query
+ * wp.media.query
  *
  * Shorthand for creating a new Attachments Query.
  *
  * @param {object} [props]
- * @returns {techlogging.media.model.Attachments}
+ * @returns {wp.media.model.Attachments}
  */
 media.query = function( props ) {
 	return new Attachments( null, {
@@ -313,7 +313,7 @@ media.query = function( props ) {
 
 // Clean up. Prevents mobile browsers caching
 $(window).on('unload', function(){
-	window.techlogging = null;
+	window.wp = null;
 });
 
 
@@ -325,20 +325,20 @@ var $ = Backbone.$,
 	Attachment;
 
 /**
- * techlogging.media.model.Attachment
+ * wp.media.model.Attachment
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
  * @augments Backbone.Model
  */
-Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment.prototype */{
+Attachment = Backbone.Model.extend(/** @lends wp.media.model.Attachment.prototype */{
 	/**
 	 * Triggered when attachment details change
 	 * Overrides Backbone.Model.sync
 	 *
 	 * @param {string} method
-	 * @param {techlogging.media.model.Attachment} model
+	 * @param {wp.media.model.Attachment} model
 	 * @param {Object} [options={}]
 	 *
 	 * @returns {Promise}
@@ -355,10 +355,10 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 			options = options || {};
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
-				action: 'get-attachment',
+				media_action: 'get-attachment',
 				id: this.id
 			});
-			return techlogging.media.ajax( options );
+			return wp.media.ajax( options );
 
 		// Overload the `update` request so properties can be saved.
 		} else if ( 'update' === method ) {
@@ -372,10 +372,10 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 
 			// Set the action and ID.
 			options.data = _.extend( options.data || {}, {
-				action:  'save-attachment',
+				media_action:  'save-attachment',
 				id:      this.id,
 				nonce:   this.get('nonces').update,
-				post_id: techlogging.media.model.settings.post.id
+				post_id: wp.media.model.settings.post.id
 			});
 
 			// Record the values of the changed attributes.
@@ -387,7 +387,7 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 				}, this );
 			}
 
-			return techlogging.media.ajax( options );
+			return wp.media.ajax( options );
 
 		// Overload the `delete` request so attachments can be removed.
 		// This will permanently delete an attachment.
@@ -400,12 +400,12 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
-				action:   'delete-post',
+				media_action:   'delete-post',
 				id:       this.id,
-				_techloggingnonce: this.get('nonces')['delete']
+				_wpnonce: this.get('nonces')['delete']
 			});
 
-			return techlogging.media.ajax( options ).done( function() {
+			return wp.media.ajax( options ).done( function() {
 				this.destroyed = true;
 			}).fail( function() {
 				this.destroyed = false;
@@ -451,25 +451,25 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 			return $.Deferred().rejectWith( this ).promise();
 		}
 
-		return techlogging.media.post( 'save-attachment-compat', _.defaults({
+		return wp.media.post( 'save-attachment-compat', _.defaults({
 			id:      this.id,
 			nonce:   this.get('nonces').update,
-			post_id: techlogging.media.model.settings.post.id
+			post_id: wp.media.model.settings.post.id
 		}, data ) ).done( function( resp, status, xhr ) {
 			model.set( model.parse( resp, xhr ), options );
 		});
 	}
-},/** @lends techlogging.media.model.Attachment */{
+},/** @lends wp.media.model.Attachment */{
 	/**
 	 * Create a new model on the static 'all' attachments collection and return it.
 	 *
 	 * @static
 	 *
 	 * @param {Object} attrs
-	 * @returns {techlogging.media.model.Attachment}
+	 * @returns {wp.media.model.Attachment}
 	 */
 	create: function( attrs ) {
-		var Attachments = techlogging.media.model.Attachments;
+		var Attachments = wp.media.model.Attachments;
 		return Attachments.all.push( attrs );
 	},
 	/**
@@ -481,10 +481,10 @@ Attachment = Backbone.Model.extend(/** @lends techlogging.media.model.Attachment
 	 * @static
 	 * @param {string} id A string used to identify a model.
 	 * @param {Backbone.Model|undefined} attachment
-	 * @returns {techlogging.media.model.Attachment}
+	 * @returns {wp.media.model.Attachment}
 	 */
 	get: _.memoize( function( id, attachment ) {
-		var Attachments = techlogging.media.model.Attachments;
+		var Attachments = wp.media.model.Attachments;
 		return Attachments.all.push( attachment || { id: id } );
 	})
 });
@@ -497,15 +497,15 @@ module.exports = Attachment;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.model.Attachments
+ * wp.media.model.Attachments
  *
  * A collection of attachments.
  *
  * This collection has no persistence with the server without supplying
  * 'options.props.query = true', which will mirror the collection
- * to an Attachments Query collection - @see techlogging.media.model.Attachments.mirror().
+ * to an Attachments Query collection - @see wp.media.model.Attachments.mirror().
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
  * @augments Backbone.Collection
@@ -520,11 +520,11 @@ module.exports = Attachment;
  * @param {string} [options.filters]
  *
  */
-var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.Attachments.prototype */{
+var Attachments = Backbone.Collection.extend(/** @lends wp.media.model.Attachments.prototype */{
 	/**
-	 * @type {techlogging.media.model.Attachment}
+	 * @type {wp.media.model.Attachment}
 	 */
-	model: techlogging.media.model.Attachment,
+	model: wp.media.model.Attachment,
 	/**
 	 * @param {Array} [models=[]] Array of models used to populate the collection.
 	 * @param {Object} [options={}]
@@ -645,7 +645,7 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	/**
 	 * Checks whether an attachment is valid.
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @returns {Boolean}
 	 */
 	validator: function( attachment ) {
@@ -659,9 +659,9 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	/**
 	 * Add or remove an attachment to the collection depending on its validity.
 	 *
-	 * @param {techlogging.media.model.Attachment} attachment
+	 * @param {wp.media.model.Attachment} attachment
 	 * @param {Object} options
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining
 	 */
 	validate: function( attachment, options ) {
 		var valid = this.validator( attachment ),
@@ -679,12 +679,12 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	/**
 	 * Add or remove all attachments from another collection depending on each one's validity.
 	 *
-	 * @param {techlogging.media.model.Attachments} attachments
+	 * @param {wp.media.model.Attachments} attachments
 	 * @param {object} [options={}]
 	 *
-	 * @fires techlogging.media.model.Attachments#reset
+	 * @fires wp.media.model.Attachments#reset
 	 *
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining
 	 */
 	validateAll: function( attachments, options ) {
 		options = options || {};
@@ -702,8 +702,8 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	 * Start observing another attachments collection change events
 	 * and replicate them on this collection.
 	 *
-	 * @param {techlogging.media.model.Attachments} The attachments collection to observe.
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining.
+	 * @param {wp.media.model.Attachments} The attachments collection to observe.
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining.
 	 */
 	observe: function( attachments ) {
 		this.observers = this.observers || [];
@@ -717,8 +717,8 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	/**
 	 * Stop replicating collection change events from another attachments collection.
 	 *
-	 * @param {techlogging.media.model.Attachments} The attachments collection to stop observing.
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining
+	 * @param {wp.media.model.Attachments} The attachments collection to stop observing.
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining
 	 */
 	unobserve: function( attachments ) {
 		if ( attachments ) {
@@ -737,11 +737,11 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	/**
 	 * @access private
 	 *
-	 * @param {techlogging.media.model.Attachments} attachment
-	 * @param {techlogging.media.model.Attachments} attachments
+	 * @param {wp.media.model.Attachments} attachment
+	 * @param {wp.media.model.Attachments} attachments
 	 * @param {Object} options
 	 *
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining
 	 */
 	_validateHandler: function( attachment, attachments, options ) {
 		// If we're not mirroring this `attachments` collection,
@@ -755,9 +755,9 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	/**
 	 * @access private
 	 *
-	 * @param {techlogging.media.model.Attachments} attachments
+	 * @param {wp.media.model.Attachments} attachments
 	 * @param {Object} options
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining
 	 */
 	_validateAllHandler: function( attachments, options ) {
 		return this.validateAll( attachments, options );
@@ -766,8 +766,8 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 	 * Start mirroring another attachments collection, clearing out any models already
 	 * in the collection.
 	 *
-	 * @param {techlogging.media.model.Attachments} The attachments collection to mirror.
-	 * @returns {techlogging.media.model.Attachments} Returns itself to allow chaining
+	 * @param {wp.media.model.Attachments} The attachments collection to mirror.
+	 * @returns {wp.media.model.Attachments} Returns itself to allow chaining
 	 */
 	mirror: function( attachments ) {
 		if ( this.mirroring && this.mirroring === attachments ) {
@@ -862,7 +862,7 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 				id = attrs.id;
 			}
 
-			attachment = techlogging.media.model.Attachment.get( id );
+			attachment = wp.media.model.Attachment.get( id );
 			newAttributes = attachment.parse( attrs, xhr );
 
 			if ( ! _.isEqual( attachment.attributes, newAttributes ) ) {
@@ -882,7 +882,7 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 		if ( this.props.get('query') ) {
 			props = this.props.toJSON();
 			props.cache = ( true !== refresh );
-			this.mirror( techlogging.media.model.Query.get( props ) );
+			this.mirror( wp.media.model.Query.get( props ) );
 		}
 	},
 	/**
@@ -912,18 +912,18 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 			return;
 		}
 
-		return techlogging.media.post( 'save-attachment-order', {
-			nonce:       techlogging.media.model.settings.post.nonce,
-			post_id:     techlogging.media.model.settings.post.id,
+		return wp.media.post( 'save-attachment-order', {
+			nonce:       wp.media.model.settings.post.nonce,
+			post_id:     wp.media.model.settings.post.id,
 			attachments: attachments
 		});
 	}
-},/** @lends techlogging.media.model.Attachments */{
+},/** @lends wp.media.model.Attachments */{
 	/**
 	 * A function to compare two attachment models in an attachments collection.
 	 *
-	 * Used as the default comparator for instances of techlogging.media.model.Attachments
-	 * and its subclasses. @see techlogging.media.model.Attachments._changeOrderby().
+	 * Used as the default comparator for instances of wp.media.model.Attachments
+	 * and its subclasses. @see wp.media.model.Attachments._changeOrderby().
 	 *
 	 * @param {Backbone.Model} a
 	 * @param {Backbone.Model} b
@@ -951,18 +951,18 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 			ac = bc = null;
 		}
 
-		return ( 'DESC' === order ) ? techlogging.media.compare( a, b, ac, bc ) : techlogging.media.compare( b, a, bc, ac );
+		return ( 'DESC' === order ) ? wp.media.compare( a, b, ac, bc ) : wp.media.compare( b, a, bc, ac );
 	},
-	/** @namespace techlogging.media.model.Attachments.filters */
+	/** @namespace wp.media.model.Attachments.filters */
 	filters: {
 		/**
 		 * @static
 		 * Note that this client-side searching is *not* equivalent
 		 * to our server-side searching.
 		 *
-		 * @param {techlogging.media.model.Attachment} attachment
+		 * @param {wp.media.model.Attachment} attachment
 		 *
-		 * @this techlogging.media.model.Attachments
+		 * @this wp.media.model.Attachments
 		 *
 		 * @returns {Boolean}
 		 */
@@ -978,9 +978,9 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 		},
 		/**
 		 * @static
-		 * @param {techlogging.media.model.Attachment} attachment
+		 * @param {wp.media.model.Attachment} attachment
 		 *
-		 * @this techlogging.media.model.Attachments
+		 * @this wp.media.model.Attachments
 		 *
 		 * @returns {Boolean}
 		 */
@@ -1005,9 +1005,9 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 		},
 		/**
 		 * @static
-		 * @param {techlogging.media.model.Attachment} attachment
+		 * @param {wp.media.model.Attachment} attachment
 		 *
-		 * @this techlogging.media.model.Attachments
+		 * @this wp.media.model.Attachments
 		 *
 		 * @returns {Boolean}
 		 */
@@ -1021,9 +1021,9 @@ var Attachments = Backbone.Collection.extend(/** @lends techlogging.media.model.
 		},
 		/**
 		 * @static
-		 * @param {techlogging.media.model.Attachment} attachment
+		 * @param {wp.media.model.Attachment} attachment
 		 *
-		 * @this techlogging.media.model.Attachments
+		 * @this wp.media.model.Attachments
 		 *
 		 * @returns {Boolean}
 		 */
@@ -1045,21 +1045,21 @@ module.exports = Attachments;
 /* 13 */
 /***/ (function(module, exports) {
 
-var Attachments = techlogging.media.model.Attachments,
+var Attachments = wp.media.model.Attachments,
 	Query;
 
 /**
- * techlogging.media.model.Query
+ * wp.media.model.Query
  *
  * A collection of attachments that match the supplied query arguments.
  *
  * Note: Do NOT change this.args after the query has been initialized.
  *       Things will break.
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
- * @augments techlogging.media.model.Attachments
+ * @augments wp.media.model.Attachments
  * @augments Backbone.Collection
  *
  * @param {array}  [models]                      Models to initialize with the collection.
@@ -1067,7 +1067,7 @@ var Attachments = techlogging.media.model.Attachments,
  * @param {object} [options.args]                Attachments query arguments.
  * @param {object} [options.args.posts_per_page]
  */
-Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */{
+Query = Attachments.extend(/** @lends wp.media.model.Query.prototype */{
 	/**
 	 * @param {array}  [models=[]]  Array of initial models to populate the collection.
 	 * @param {object} [options={}]
@@ -1112,15 +1112,15 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 			return false;
 		};
 
-		// Observe the central `techlogging.Uploader.queue` collection to watch for
+		// Observe the central `wp.Uploader.queue` collection to watch for
 		// new matches for the query.
 		//
 		// Only observe when a limited number of query args are set. There
 		// are no filters for other properties, so observing will result in
 		// false positives in those queries.
 		allowed = [ 's', 'order', 'orderby', 'posts_per_page', 'post_mime_type', 'post_parent' ];
-		if ( techlogging.Uploader && _( this.args ).chain().keys().difference( allowed ).isEmpty().value() ) {
-			this.observe( techlogging.Uploader.queue );
+		if ( wp.Uploader && _( this.args ).chain().keys().difference( allowed ).isEmpty().value() ) {
+			this.observe( wp.Uploader.queue );
 		}
 	},
 	/**
@@ -1161,7 +1161,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 	},
 	/**
 	 * Overrides Backbone.Collection.sync
-	 * Overrides techlogging.media.model.Attachments.sync
+	 * Overrides wp.media.model.Attachments.sync
 	 *
 	 * @param {String} method
 	 * @param {Backbone.Model} model
@@ -1176,8 +1176,8 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 			options = options || {};
 			options.context = this;
 			options.data = _.extend( options.data || {}, {
-				action:  'query-attachments',
-				post_id: techlogging.media.model.settings.post.id
+				media_action:  'query-attachments',
+				post_id: wp.media.model.settings.post.id
 			});
 
 			// Clone the args so manipulation is non-destructive.
@@ -1189,18 +1189,18 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 			}
 
 			options.data.query = args;
-			return techlogging.media.ajax( options );
+			return wp.media.ajax( options );
 
 		// Otherwise, fall back to Backbone.sync()
 		} else {
 			/**
-			 * Call techlogging.media.model.Attachments.sync or Backbone.sync
+			 * Call wp.media.model.Attachments.sync or Backbone.sync
 			 */
 			fallback = Attachments.prototype.sync ? Attachments.prototype : Backbone;
 			return fallback.sync.apply( this, arguments );
 		}
 	}
-}, /** @lends techlogging.media.model.Query */{
+}, /** @lends wp.media.model.Query */{
 	/**
 	 * @readonly
 	 */
@@ -1220,7 +1220,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 	orderby: {
 		allowed:  [ 'name', 'author', 'date', 'title', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ],
 		/**
-		 * A map of JavaScript orderby values to their techlogging_Query equivalents.
+		 * A map of JavaScript orderby values to their WP_Query equivalents.
 		 * @type {Object}
 		 */
 		valuemap: {
@@ -1230,7 +1230,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 		}
 	},
 	/**
-	 * A map of JavaScript query properties to their techlogging_Query equivalents.
+	 * A map of JavaScript query properties to their WP_Query equivalents.
 	 *
 	 * @readonly
 	 */
@@ -1266,7 +1266,7 @@ Query = Attachments.extend(/** @lends techlogging.media.model.Query.prototype */
 	 * @param {Object} [props.post_status]
 	 * @param {Object} [options]
 	 *
-	 * @returns {techlogging.media.model.Query} A new Attachments Query collection.
+	 * @returns {wp.media.model.Query} A new Attachments Query collection.
 	 */
 	get: (function(){
 		/**
@@ -1358,13 +1358,13 @@ module.exports = Query;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.model.PostImage
+ * wp.media.model.PostImage
  *
  * An instance of an image that's been embedded into a post.
  *
- * Used in the embedded image attachment display settings modal - @see techlogging.media.view.MediaFrame.ImageDetails.
+ * Used in the embedded image attachment display settings modal - @see wp.media.view.MediaFrame.ImageDetails.
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
  * @augments Backbone.Model
@@ -1372,10 +1372,10 @@ module.exports = Query;
  * @param {int} [attributes]               Initial model attributes.
  * @param {int} [attributes.attachment_id] ID of the attachment.
  **/
-var PostImage = Backbone.Model.extend(/** @lends techlogging.media.model.PostImage.prototype */{
+var PostImage = Backbone.Model.extend(/** @lends wp.media.model.PostImage.prototype */{
 
 	initialize: function( attributes ) {
-		var Attachment = techlogging.media.model.Attachment;
+		var Attachment = wp.media.model.Attachment;
 		this.attachment = false;
 
 		if ( attributes.attachment_id ) {
@@ -1517,21 +1517,21 @@ module.exports = PostImage;
 /* 15 */
 /***/ (function(module, exports) {
 
-var Attachments = techlogging.media.model.Attachments,
+var Attachments = wp.media.model.Attachments,
 	Selection;
 
 /**
- * techlogging.media.model.Selection
+ * wp.media.model.Selection
  *
  * A selection of attachments.
  *
- * @memberOf techlogging.media.model
+ * @memberOf wp.media.model
  *
  * @class
- * @augments techlogging.media.model.Attachments
+ * @augments wp.media.model.Attachments
  * @augments Backbone.Collection
  */
-Selection = Attachments.extend(/** @lends techlogging.media.model.Selection.prototype */{
+Selection = Attachments.extend(/** @lends wp.media.model.Selection.prototype */{
 	/**
 	 * Refresh the `single` model whenever the selection changes.
 	 * Binds `single` instead of using the context argument to ensure
@@ -1556,7 +1556,7 @@ Selection = Attachments.extend(/** @lends techlogging.media.model.Selection.prot
 	 *
 	 * @param {Array} models
 	 * @param {Object} options
-	 * @returns {techlogging.media.model.Attachment[]}
+	 * @returns {wp.media.model.Attachment[]}
 	 */
 	add: function( models, options ) {
 		if ( ! this.multiple ) {
@@ -1571,10 +1571,10 @@ Selection = Attachments.extend(/** @lends techlogging.media.model.Selection.prot
 	/**
 	 * Fired when toggling (clicking on) an attachment in the modal.
 	 *
-	 * @param {undefined|boolean|techlogging.media.model.Attachment} model
+	 * @param {undefined|boolean|wp.media.model.Attachment} model
 	 *
-	 * @fires techlogging.media.model.Selection#selection:single
-	 * @fires techlogging.media.model.Selection#selection:unsingle
+	 * @fires wp.media.model.Selection#selection:single
+	 * @fires wp.media.model.Selection#selection:unsingle
 	 *
 	 * @returns {Backbone.Model}
 	 */

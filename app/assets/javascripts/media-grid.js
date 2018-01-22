@@ -67,7 +67,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var media = techlogging.media;
+var media = wp.media;
 
 media.controller.EditAttachmentMetadata = __webpack_require__( 1 );
 media.view.MediaFrame.Manage = __webpack_require__( 2 );
@@ -84,21 +84,21 @@ media.view.DeleteSelectedPermanentlyButton = __webpack_require__( 9 );
 /* 1 */
 /***/ (function(module, exports) {
 
-var l10n = techlogging.media.view.l10n,
+var l10n = wp.media.view.l10n,
 	EditAttachmentMetadata;
 
 /**
- * techlogging.media.controller.EditAttachmentMetadata
+ * wp.media.controller.EditAttachmentMetadata
  *
  * A state for editing an attachment's metadata.
  *
- * @memberOf techlogging.media.controller
+ * @memberOf wp.media.controller
  *
  * @class
- * @augments techlogging.media.controller.State
+ * @augments wp.media.controller.State
  * @augments Backbone.Model
  */
-EditAttachmentMetadata = techlogging.media.controller.State.extend(/** @lends techlogging.media.controller.EditAttachmentMetadata.prototype */{
+EditAttachmentMetadata = wp.media.controller.State.extend(/** @lends wp.media.controller.EditAttachmentMetadata.prototype */{
 	defaults: {
 		id:      'edit-attachment',
 		// Title string passed to the frame's title region view.
@@ -118,30 +118,30 @@ module.exports = EditAttachmentMetadata;
 /* 2 */
 /***/ (function(module, exports) {
 
-var MediaFrame = techlogging.media.view.MediaFrame,
-	Library = techlogging.media.controller.Library,
+var MediaFrame = wp.media.view.MediaFrame,
+	Library = wp.media.controller.Library,
 
 	$ = Backbone.$,
 	Manage;
 
 /**
- * techlogging.media.view.MediaFrame.Manage
+ * wp.media.view.MediaFrame.Manage
  *
  * A generic management frame workflow.
  *
  * Used in the media grid view.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.MediaFrame
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.prototype */{
+Manage = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.Manage.prototype */{
 	/**
 	 * @constructs
 	 */
@@ -159,8 +159,8 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 
 		this.$body = $( document.body );
 		this.$window = $( window );
-		this.$adminBar = $( '#techloggingadminbar' );
-		// Store the Add New button for later reuse in techlogging.media.view.UploaderInline.
+		this.$adminBar = $( '#wpadminbar' );
+		// Store the Add New button for later reuse in wp.media.view.UploaderInline.
 		this.$uploaderToggler = $( '.page-title-action' )
 			.attr( 'aria-expanded', 'false' )
 			.on( 'click', _.bind( this.addNewClickHandler, this ) );
@@ -168,17 +168,17 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		this.$window.on( 'scroll resize', _.debounce( _.bind( this.fixPosition, this ), 15 ) );
 
 		// Ensure core and media grid view UI is enabled.
-		this.$el.addClass('techlogging-core-ui');
+		this.$el.addClass('wp-core-ui');
 
 		// Force the uploader off if the upload limit has been exceeded or
 		// if the browser isn't supported.
-		if ( techlogging.Uploader.limitExceeded || ! techlogging.Uploader.browser.supported ) {
+		if ( wp.Uploader.limitExceeded || ! wp.Uploader.browser.supported ) {
 			this.options.uploader = false;
 		}
 
 		// Initialize a window-wide uploader.
 		if ( this.options.uploader ) {
-			this.uploader = new techlogging.media.view.UploaderWindow({
+			this.uploader = new wp.media.view.UploaderWindow({
 				controller: this,
 				uploader: {
 					dropzone:  document.body,
@@ -191,7 +191,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 			this.options.uploader = false;
 		}
 
-		this.gridRouter = new techlogging.media.view.MediaFrame.Manage.Router();
+		this.gridRouter = new wp.media.view.MediaFrame.Manage.Router();
 
 		// Call 'initialize' directly on the parent class.
 		MediaFrame.prototype.initialize.apply( this, arguments );
@@ -204,7 +204,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		this.render();
 		this.bindSearchHandler();
 
-		techlogging.media.frames.browse = this;
+		wp.media.frames.browse = this;
 	},
 
 	bindSearchHandler: function() {
@@ -254,7 +254,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		// Add the default states.
 		this.states.add([
 			new Library({
-				library:            techlogging.media.query( options.library ),
+				library:            wp.media.query( options.library ),
 				multiple:           options.multiple,
 				title:              options.title,
 				content:            'browse',
@@ -330,10 +330,10 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 	 */
 	openEditAttachmentModal: function( model ) {
 		// Create a new EditAttachment frame, passing along the library and the attachment model.
-		if ( techlogging.media.frames.edit ) {
-			techlogging.media.frames.edit.open().trigger( 'refresh', model );
+		if ( wp.media.frames.edit ) {
+			wp.media.frames.edit.open().trigger( 'refresh', model );
 		} else {
-			techlogging.media.frames.edit = techlogging.media( {
+			wp.media.frames.edit = wp.media( {
 				frame:       'edit-attachments',
 				controller:  this,
 				library:     this.state().get('library'),
@@ -347,13 +347,13 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 	 *
 	 * @param {Object} contentRegion Basic object with a `view` property, which
 	 *                               should be set with the proper region view.
-	 * @this techlogging.media.controller.Region
+	 * @this wp.media.controller.Region
 	 */
 	browseContent: function( contentRegion ) {
 		var state = this.state();
 
 		// Browse our library of attachments.
-		this.browserView = contentRegion.view = new techlogging.media.view.AttachmentsBrowser({
+		this.browserView = contentRegion.view = new wp.media.view.AttachmentsBrowser({
 			controller: this,
 			collection: state.get('library'),
 			selection:  state.get('selection'),
@@ -375,7 +375,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 		});
 		this.browserView.on( 'ready', _.bind( this.bindDeferred, this ) );
 
-		this.errors = techlogging.Uploader.errors;
+		this.errors = wp.Uploader.errors;
 		this.errors.on( 'add remove reset', this.sidebarVisibility, this );
 	},
 
@@ -397,7 +397,7 @@ Manage = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.Manage.p
 				Backbone.history.stop();
 			}
 			Backbone.history.start( {
-				root: window._techloggingMediaGridSettings.adminUrl,
+				root: window._wpMediaGridSettings.adminUrl,
 				pushState: true
 			} );
 		}
@@ -411,26 +411,26 @@ module.exports = Manage;
 /* 3 */
 /***/ (function(module, exports) {
 
-var Details = techlogging.media.view.Attachment.Details,
+var Details = wp.media.view.Attachment.Details,
 	TwoColumn;
 
 /**
- * techlogging.media.view.Attachment.Details.TwoColumn
+ * wp.media.view.Attachment.Details.TwoColumn
  *
  * A similar view to media.view.Attachment.Details
  * for use in the Edit Attachment modal.
  *
- * @memberOf techlogging.media.view.Attachment.Details
+ * @memberOf wp.media.view.Attachment.Details
  *
  * @class
- * @augments techlogging.media.view.Attachment.Details
- * @augments techlogging.media.view.Attachment
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Attachment.Details
+ * @augments wp.media.view.Attachment
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-TwoColumn = Details.extend(/** @lends techlogging.media.view.Attachment.Details.TowColumn.prototype */{
-	template: techlogging.template( 'attachment-details-two-column' ),
+TwoColumn = Details.extend(/** @lends wp.media.view.Attachment.Details.TowColumn.prototype */{
+	template: wp.template( 'attachment-details-two-column' ),
 
 	initialize: function() {
 		this.controller.on( 'content:activate:edit-details', _.bind( this.editAttachment, this ) );
@@ -453,10 +453,10 @@ TwoColumn = Details.extend(/** @lends techlogging.media.view.Attachment.Details.
 	render: function() {
 		Details.prototype.render.apply( this, arguments );
 
-		techlogging.media.mixin.removeAllPlayers();
+		wp.media.mixin.removeAllPlayers();
 		this.$( 'audio, video' ).each( function (i, elem) {
-			var el = techlogging.media.view.MediaDetails.prepareSrc( elem );
-			new window.MediaElementPlayer( el, techlogging.media.mixin.mejsSettings );
+			var el = wp.media.view.MediaDetails.prepareSrc( elem );
+			new window.MediaElementPlayer( el, wp.media.mixin.mejsSettings );
 		} );
 	}
 });
@@ -469,16 +469,16 @@ module.exports = TwoColumn;
 /***/ (function(module, exports) {
 
 /**
- * techlogging.media.view.MediaFrame.Manage.Router
+ * wp.media.view.MediaFrame.Manage.Router
  *
  * A router for handling the browser history and application state.
  *
- * @memberOf techlogging.media.view.MediaFrame.Manage
+ * @memberOf wp.media.view.MediaFrame.Manage
  *
  * @class
  * @augments Backbone.Router
  */
-var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame.Manage.Router.prototype */{
+var Router = Backbone.Router.extend(/** @lends wp.media.view.MediaFrame.Manage.Router.prototype */{
 	routes: {
 		'upload.php?item=:slug&mode=edit': 'editItem',
 		'upload.php?item=:slug':           'showItem',
@@ -492,7 +492,7 @@ var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame
 	},
 
 	reset: function() {
-		var frame = techlogging.media.frames.edit;
+		var frame = wp.media.frames.edit;
 
 		if ( frame ) {
 			frame.close();
@@ -506,7 +506,7 @@ var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame
 
 	// Show the modal with a specific item
 	showItem: function( query ) {
-		var media = techlogging.media,
+		var media = wp.media,
 			frame = media.frames.browse,
 			library = frame.state().get('library'),
 			item;
@@ -530,7 +530,7 @@ var Router = Backbone.Router.extend(/** @lends techlogging.media.view.MediaFrame
 	// Show the modal in edit mode with a specific item.
 	editItem: function( query ) {
 		this.showItem( query );
-		techlogging.media.frames.edit.content.mode( 'edit-details' );
+		wp.media.frames.edit.content.mode( 'edit-details' );
 	}
 });
 
@@ -541,22 +541,22 @@ module.exports = Router;
 /* 5 */
 /***/ (function(module, exports) {
 
-var View = techlogging.media.View,
-	EditImage = techlogging.media.view.EditImage,
+var View = wp.media.View,
+	EditImage = wp.media.view.EditImage,
 	Details;
 
 /**
- * techlogging.media.view.EditImage.Details
+ * wp.media.view.EditImage.Details
  *
- * @memberOf techlogging.media.view.EditImage
+ * @memberOf wp.media.view.EditImage
  *
  * @class
- * @augments techlogging.media.view.EditImage
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.EditImage
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-Details = EditImage.extend(/** @lends techlogging.media.view.EditImage.Details.prototype */{
+Details = EditImage.extend(/** @lends wp.media.view.EditImage.Details.prototype */{
 	initialize: function( options ) {
 		this.editor = window.imageEdit;
 		this.frame = options.frame;
@@ -582,14 +582,14 @@ module.exports = Details;
 /* 6 */
 /***/ (function(module, exports) {
 
-var Frame = techlogging.media.view.Frame,
-	MediaFrame = techlogging.media.view.MediaFrame,
+var Frame = wp.media.view.Frame,
+	MediaFrame = wp.media.view.MediaFrame,
 
 	$ = jQuery,
 	EditAttachments;
 
 /**
- * techlogging.media.view.MediaFrame.EditAttachments
+ * wp.media.view.MediaFrame.EditAttachments
  *
  * A frame for editing the details of a specific media item.
  *
@@ -597,19 +597,19 @@ var Frame = techlogging.media.view.Frame,
  *
  * Requires an attachment model to be passed in the options hash under `model`.
  *
- * @memberOf techlogging.media.view.MediaFrame
+ * @memberOf wp.media.view.MediaFrame
  *
  * @class
- * @augments techlogging.media.view.Frame
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
- * @mixes techlogging.media.controller.StateMachine
+ * @mixes wp.media.controller.StateMachine
  */
-EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame.EditAttachments.prototype */{
+EditAttachments = MediaFrame.extend(/** @lends wp.media.view.MediaFrame.EditAttachments.prototype */{
 
 	className: 'edit-attachment-frame',
-	template:  techlogging.template( 'edit-attachment-frame' ),
+	template:  wp.template( 'edit-attachment-frame' ),
 	regions:   [ 'title', 'content' ],
 
 	events: {
@@ -663,7 +663,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	createModal: function() {
 		// Initialize modal container view.
 		if ( this.options.modal ) {
-			this.modal = new techlogging.media.view.Modal({
+			this.modal = new wp.media.view.Modal({
 				controller: this,
 				title:      this.options.title
 			});
@@ -691,7 +691,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	 */
 	createStates: function() {
 		this.states.add([
-			new techlogging.media.controller.EditAttachmentMetadata({
+			new wp.media.controller.EditAttachmentMetadata({
 				model:   this.model,
 				library: this.library
 			})
@@ -705,7 +705,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	 *                               should be set with the proper region view.
 	 */
 	editMetadataMode: function( contentRegion ) {
-		contentRegion.view = new techlogging.media.view.Attachment.Details.TwoColumn({
+		contentRegion.view = new wp.media.view.Attachment.Details.TwoColumn({
 			controller: this,
 			model:      this.model
 		});
@@ -714,7 +714,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 		 * Attach a subview to display fields added via the
 		 * `attachment_fields_to_edit` filter.
 		 */
-		contentRegion.view.views.set( '.attachment-compat', new techlogging.media.view.AttachmentCompat({
+		contentRegion.view.views.set( '.attachment-compat', new wp.media.view.AttachmentCompat({
 			controller: this,
 			model:      this.model
 		}) );
@@ -732,7 +732,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 	 *                               should be set with the proper region view.
 	 */
 	editImageMode: function( contentRegion ) {
-		var editImageController = new techlogging.media.controller.EditImage( {
+		var editImageController = new wp.media.controller.EditImage( {
 			model: this.model,
 			frame: this
 		} );
@@ -741,7 +741,7 @@ EditAttachments = MediaFrame.extend(/** @lends techlogging.media.view.MediaFrame
 		editImageController._router = function() {};
 		editImageController._menu = function() {};
 
-		contentRegion.view = new techlogging.media.view.EditImage.Details( {
+		contentRegion.view = new wp.media.view.EditImage.Details( {
 			model: this.model,
 			frame: this,
 			controller: editImageController
@@ -847,22 +847,22 @@ module.exports = EditAttachments;
 /***/ (function(module, exports) {
 
 
-var Button = techlogging.media.view.Button,
-	l10n = techlogging.media.view.l10n,
+var Button = wp.media.view.Button,
+	l10n = wp.media.view.l10n,
 	SelectModeToggle;
 
 /**
- * techlogging.media.view.SelectModeToggleButton
+ * wp.media.view.SelectModeToggleButton
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Button
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Button
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-SelectModeToggle = Button.extend(/** @lends techlogging.media.view.SelectModeToggle.prototype */{
+SelectModeToggle = Button.extend(/** @lends wp.media.view.SelectModeToggle.prototype */{
 	initialize: function() {
 		_.defaults( this.options, {
 			size : ''
@@ -927,24 +927,24 @@ module.exports = SelectModeToggle;
 /* 8 */
 /***/ (function(module, exports) {
 
-var Button = techlogging.media.view.Button,
-	l10n = techlogging.media.view.l10n,
+var Button = wp.media.view.Button,
+	l10n = wp.media.view.l10n,
 	DeleteSelected;
 
 /**
- * techlogging.media.view.DeleteSelectedButton
+ * wp.media.view.DeleteSelectedButton
  *
  * A button that handles bulk Delete/Trash logic
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.Button
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.Button
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-DeleteSelected = Button.extend(/** @lends techlogging.media.view.DeleteSelectedButton.prototype */{
+DeleteSelected = Button.extend(/** @lends wp.media.view.DeleteSelectedButton.prototype */{
 	initialize: function() {
 		Button.prototype.initialize.apply( this, arguments );
 		if ( this.options.filters ) {
@@ -956,7 +956,7 @@ DeleteSelected = Button.extend(/** @lends techlogging.media.view.DeleteSelectedB
 	filterChange: function( model ) {
 		if ( 'trash' === model.get( 'status' ) ) {
 			this.model.set( 'text', l10n.untrashSelected );
-		} else if ( techlogging.media.view.settings.mediaTrash ) {
+		} else if ( wp.media.view.settings.mediaTrash ) {
 			this.model.set( 'text', l10n.trashSelected );
 		} else {
 			this.model.set( 'text', l10n.deleteSelected );
@@ -986,25 +986,25 @@ module.exports = DeleteSelected;
 /* 9 */
 /***/ (function(module, exports) {
 
-var Button = techlogging.media.view.Button,
-	DeleteSelected = techlogging.media.view.DeleteSelectedButton,
+var Button = wp.media.view.Button,
+	DeleteSelected = wp.media.view.DeleteSelectedButton,
 	DeleteSelectedPermanently;
 
 /**
- * techlogging.media.view.DeleteSelectedPermanentlyButton
+ * wp.media.view.DeleteSelectedPermanentlyButton
  *
  * When MEDIA_TRASH is true, a button that handles bulk Delete Permanently logic
  *
- * @memberOf techlogging.media.view
+ * @memberOf wp.media.view
  *
  * @class
- * @augments techlogging.media.view.DeleteSelectedButton
- * @augments techlogging.media.view.Button
- * @augments techlogging.media.View
- * @augments techlogging.Backbone.View
+ * @augments wp.media.view.DeleteSelectedButton
+ * @augments wp.media.view.Button
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
  * @augments Backbone.View
  */
-DeleteSelectedPermanently = DeleteSelected.extend(/** @lends techlogging.media.view.DeleteSelectedPermanentlyButton.prototype */{
+DeleteSelectedPermanently = DeleteSelected.extend(/** @lends wp.media.view.DeleteSelectedPermanentlyButton.prototype */{
 	initialize: function() {
 		DeleteSelected.prototype.initialize.apply( this, arguments );
 		this.controller.on( 'select:activate', this.selectActivate, this );
