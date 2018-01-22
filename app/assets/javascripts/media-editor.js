@@ -1028,7 +1028,7 @@
 		 */
 		init: function() {
 			$(document.body)
-				.on( 'click.add-media-button', '.insert-media', function( event ) {
+				.on( 'click', '.insert-media', function( event ) {
 					var elem = $( event.currentTarget ),
 						editor = elem.data('editor'),
 						options = {
@@ -1040,10 +1040,11 @@
 
 					event.preventDefault();
 
-					if ( elem.hasClass( 'gallery' ) ) {
-						options.state = 'gallery';
-						options.title = wp.media.view.l10n.createGalleryTitle;
-					}
+					// TechLogging disable gallery
+					// if ( elem.hasClass( 'gallery' ) ) {
+					// 	options.state = 'gallery';
+					// 	options.title = wp.media.view.l10n.createGalleryTitle;
+					// }
 
 					wp.media.editor.open( editor, options );
 				});

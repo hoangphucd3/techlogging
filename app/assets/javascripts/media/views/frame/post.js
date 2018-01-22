@@ -74,103 +74,106 @@ Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 				displayUserSettings: true
 			}),
 
-			new Library({
-				id:         'gallery',
-				title:      l10n.createGalleryTitle,
-				priority:   40,
-				toolbar:    'main-gallery',
-				filterable: 'uploaded',
-				multiple:   'add',
-				editable:   false,
-
-				library:  wp.media.query( _.defaults({
-					type: 'image'
-				}, options.library ) )
-			}),
+            // TechLogging disable gallery
+            // new Library({
+				// id:         'gallery',
+				// title:      l10n.createGalleryTitle,
+				// priority:   40,
+				// toolbar:    'main-gallery',
+				// filterable: 'uploaded',
+				// multiple:   'add',
+				// editable:   false,
+            //
+				// library:  wp.media.query( _.defaults({
+				// 	type: 'image'
+				// }, options.library ) )
+            // }),
 
 			// Embed states.
-			new wp.media.controller.Embed( { metadata: options.metadata } ),
+			// new wp.media.controller.Embed( { metadata: options.metadata } ),
 
-			new wp.media.controller.EditImage( { model: options.editImage } ),
+			// new wp.media.controller.EditImage( { model: options.editImage } ),
 
 			// Gallery states.
-			new wp.media.controller.GalleryEdit({
-				library: options.selection,
-				editing: options.editing,
-				menu:    'gallery'
-			}),
+			// new wp.media.controller.GalleryEdit({
+			// 	library: options.selection,
+			// 	editing: options.editing,
+			// 	menu:    'gallery'
+			// }),
+            //
+			// new wp.media.controller.GalleryAdd(),
 
-			new wp.media.controller.GalleryAdd(),
-
-			new Library({
-				id:         'playlist',
-				title:      l10n.createPlaylistTitle,
-				priority:   60,
-				toolbar:    'main-playlist',
-				filterable: 'uploaded',
-				multiple:   'add',
-				editable:   false,
-
-				library:  wp.media.query( _.defaults({
-					type: 'audio'
-				}, options.library ) )
-			}),
+            // TechLogging disable audio playlist
+            // new Library({
+				// id:         'playlist',
+				// title:      l10n.createPlaylistTitle,
+				// priority:   60,
+				// toolbar:    'main-playlist',
+				// filterable: 'uploaded',
+				// multiple:   'add',
+				// editable:   false,
+            //
+				// library:  wp.media.query( _.defaults({
+				// 	type: 'audio'
+				// }, options.library ) )
+            // }),
 
 			// Playlist states.
-			new wp.media.controller.CollectionEdit({
-				type: 'audio',
-				collectionType: 'playlist',
-				title:          l10n.editPlaylistTitle,
-				SettingsView:   wp.media.view.Settings.Playlist,
-				library:        options.selection,
-				editing:        options.editing,
-				menu:           'playlist',
-				dragInfoText:   l10n.playlistDragInfo,
-				dragInfo:       false
-			}),
+			// new wp.media.controller.CollectionEdit({
+			// 	type: 'audio',
+			// 	collectionType: 'playlist',
+			// 	title:          l10n.editPlaylistTitle,
+			// 	SettingsView:   wp.media.view.Settings.Playlist,
+			// 	library:        options.selection,
+			// 	editing:        options.editing,
+			// 	menu:           'playlist',
+			// 	dragInfoText:   l10n.playlistDragInfo,
+			// 	dragInfo:       false
+			// }),
 
-			new wp.media.controller.CollectionAdd({
-				type: 'audio',
-				collectionType: 'playlist',
-				title: l10n.addToPlaylistTitle
-			}),
+			// new wp.media.controller.CollectionAdd({
+			// 	type: 'audio',
+			// 	collectionType: 'playlist',
+			// 	title: l10n.addToPlaylistTitle
+			// }),
 
-			new Library({
-				id:         'video-playlist',
-				title:      l10n.createVideoPlaylistTitle,
-				priority:   60,
-				toolbar:    'main-video-playlist',
-				filterable: 'uploaded',
-				multiple:   'add',
-				editable:   false,
+			// new Library({
+			// 	id:         'video-playlist',
+			// 	title:      l10n.createVideoPlaylistTitle,
+			// 	priority:   60,
+			// 	toolbar:    'main-video-playlist',
+			// 	filterable: 'uploaded',
+			// 	multiple:   'add',
+			// 	editable:   false,
+            //
+			// 	library:  wp.media.query( _.defaults({
+			// 		type: 'video'
+			// 	}, options.library ) )
+			// }),
 
-				library:  wp.media.query( _.defaults({
-					type: 'video'
-				}, options.library ) )
-			}),
+			// new wp.media.controller.CollectionEdit({
+			// 	type: 'video',
+			// 	collectionType: 'playlist',
+			// 	title:          l10n.editVideoPlaylistTitle,
+			// 	SettingsView:   wp.media.view.Settings.Playlist,
+			// 	library:        options.selection,
+			// 	editing:        options.editing,
+			// 	menu:           'video-playlist',
+			// 	dragInfoText:   l10n.videoPlaylistDragInfo,
+			// 	dragInfo:       false
+			// }),
 
-			new wp.media.controller.CollectionEdit({
-				type: 'video',
-				collectionType: 'playlist',
-				title:          l10n.editVideoPlaylistTitle,
-				SettingsView:   wp.media.view.Settings.Playlist,
-				library:        options.selection,
-				editing:        options.editing,
-				menu:           'video-playlist',
-				dragInfoText:   l10n.videoPlaylistDragInfo,
-				dragInfo:       false
-			}),
-
-			new wp.media.controller.CollectionAdd({
-				type: 'video',
-				collectionType: 'playlist',
-				title: l10n.addToVideoPlaylistTitle
-			})
+			// new wp.media.controller.CollectionAdd({
+			// 	type: 'video',
+			// 	collectionType: 'playlist',
+			// 	title: l10n.addToVideoPlaylistTitle
+			// })
 		]);
 
-		if ( wp.media.view.settings.post.featuredImageId ) {
-			this.states.add( new wp.media.controller.FeaturedImage() );
-		}
+        // TechLogging disable featured image
+        // if ( wp.media.view.settings.post.featuredImageId ) {
+			// this.states.add( new wp.media.controller.FeaturedImage() );
+        // }
 	},
 
 	bindHandlers: function() {
@@ -202,9 +205,9 @@ Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 		handlers = {
 			menu: {
 				'default': 'mainMenu',
-				'gallery': 'galleryMenu',
-				'playlist': 'playlistMenu',
-				'video-playlist': 'videoPlaylistMenu'
+				// 'gallery': 'galleryMenu',
+				// 'playlist': 'playlistMenu',
+				// 'video-playlist': 'videoPlaylistMenu'
 			},
 
 			content: {
@@ -215,15 +218,15 @@ Post = Select.extend(/** @lends wp.media.view.MediaFrame.Post.prototype */{
 
 			toolbar: {
 				'main-insert':      'mainInsertToolbar',
-				'main-gallery':     'mainGalleryToolbar',
-				'gallery-edit':     'galleryEditToolbar',
-				'gallery-add':      'galleryAddToolbar',
-				'main-playlist':	'mainPlaylistToolbar',
-				'playlist-edit':	'playlistEditToolbar',
-				'playlist-add':		'playlistAddToolbar',
-				'main-video-playlist': 'mainVideoPlaylistToolbar',
-				'video-playlist-edit': 'videoPlaylistEditToolbar',
-				'video-playlist-add': 'videoPlaylistAddToolbar'
+				// 'main-gallery':     'mainGalleryToolbar',
+				// 'gallery-edit':     'galleryEditToolbar',
+				// 'gallery-add':      'galleryAddToolbar',
+				// 'main-playlist':	'mainPlaylistToolbar',
+				// 'playlist-edit':	'playlistEditToolbar',
+				// 'playlist-add':		'playlistAddToolbar',
+				// 'main-video-playlist': 'mainVideoPlaylistToolbar',
+				// 'video-playlist-edit': 'videoPlaylistEditToolbar',
+				// 'video-playlist-add': 'videoPlaylistAddToolbar'
 			}
 		};
 
