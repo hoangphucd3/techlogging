@@ -1,0 +1,6 @@
+<h1>Edit Term</h1>
+
+<%= form_for @term, url: admin_taxonomy_term_path do |f| %>
+  <%= render partial: 'form', locals: { f: f } %>
+  <%= f.submit 'Update', class: 'btn btn-primary mb-2' %>
+<% end %>

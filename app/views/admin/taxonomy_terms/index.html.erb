@@ -1,0 +1,29 @@
+<h1>Terms</h1>
+<div class="my-4">
+  <%= link_to 'New term', new_admin_taxonomy_term_path, class: 'btn btn-primary' %>
+</div>
+
+<h2>List</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @terms.each do |term| %>
+      <tr>
+        <td><%= term.id %></td>
+        <td><%= term.name %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_taxonomy_term_path(term.id), class: 'btn btn-primary btn-sm'  %>
+          <%= link_to 'Delete', admin_taxonomy_term_path(term.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
