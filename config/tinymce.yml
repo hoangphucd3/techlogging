@@ -5,3 +5,5 @@ plugins:
   - link
   - wordcount
   - code
+relative_urls: false
+remove_script_host: false

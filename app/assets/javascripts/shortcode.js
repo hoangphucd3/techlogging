@@ -352,7 +352,7 @@ window.wp = window.wp || {};
 			// If `content` is an object, recursively call this function.
 			text += _.isObject( content ) ? wp.html.string( content ) : content;
 
-			return text + '</' + options.tag + '>';
+            // return text + '</' + options.tag + '>';
 		}
 	});
 }());

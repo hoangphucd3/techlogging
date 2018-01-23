@@ -55,6 +55,9 @@ gem 'stringex'
 # Integrates TinyMCE into the Rails asset pipeline
 gem 'tinymce-rails'
 
+# manage environment specific settings
+gem 'config'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-dropzone'
