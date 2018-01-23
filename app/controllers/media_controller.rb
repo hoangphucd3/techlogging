@@ -1,6 +1,5 @@
 class MediaController < ApplicationController
   layout false
-  before_action :set_response_header
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
@@ -33,10 +32,6 @@ class MediaController < ApplicationController
   end
 
   private
-
-  def set_response_header
-    response.headers['Transfer-Encoding'] = 'identity'
-  end
 
   def send_to_editor
     attachment = Photo.find_by(id: params[:attachment][:id])
