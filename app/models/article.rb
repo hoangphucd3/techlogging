@@ -24,8 +24,8 @@ class Article < ApplicationRecord
 
   def remove_orphan_terms(exclude_term_ids)
     taxonomy_term_relationships
-        .where.not(taxonomy_term_id: exclude_term_ids)
-        .destroy_all
+      .where.not(taxonomy_term_id: exclude_term_ids)
+      .destroy_all
   end
 
   private

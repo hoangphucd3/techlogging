@@ -1,6 +1,12 @@
-<% content_for :footer_javascripts do %>
+<% content_for(:body_attributes) do %> data-turbolinks="false"<% end %>
+
+<% content_for :header_javascripts do %>
   <%= tinymce_assets %>
   <%= tinymce %>
+<% end %>
+
+<% content_for :footer_javascripts do %>
+  <%= render 'media/bundle' %>
 <% end %>
 
 <%= render 'layouts/admin/errors', object: @article %>
@@ -63,7 +69,13 @@
 
 <div class="form-group">
   <%= f.label :content, 'Content' %>
-  <%= f.text_area :content, class: 'form-control tinymce' %>
+  <div id="content-editor-tools" class="mb-2">
+    <%= button_tag 'Add Media', id: 'insert-media-button',
+                   class: 'btn btn-primary insert-media',
+                   'data-editor': 'content',
+                   type: 'button' %>
+  </div>
+  <%= f.text_area :content, id: 'content', class: 'form-control tinymce' %>
 </div>
 
 <%= f.submit 'Post', class: 'btn btn-primary mb-2' %>

@@ -38,18 +38,27 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'jquery-rails'
 
-gem 'shrine'
-gem 'image_processing'
-gem 'mini_magick'
+# Finds the size or type of an image given its uri by fetching as little as needed
 gem 'fastimage'
+# Set of higher-level helper methods for image processing
+gem 'image_processing'
+# Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
+gem 'mini_magick'
+# Toolkit for file attachments in Ruby applications
+gem 'shrine'
 
+# Create pretty URLs and work with human-friendly strings
 gem 'friendly_id', '~> 5.1.0'
+# Useful extensions to Ruby's String class
 gem 'stringex'
 
+# Integrates TinyMCE into the Rails asset pipeline
 gem 'tinymce-rails'
 
 source 'https://rails-assets.org' do
+  gem 'rails-assets-backbone'
   gem 'rails-assets-dropzone'
+  gem 'rails-assets-underscore'
 end
 
 group :development, :test do
@@ -62,6 +71,7 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rack-cors', require: 'rack/cors'
 end
 
 group :development do

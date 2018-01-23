@@ -1,0 +1,11 @@
+<%= javascript_tag do %>
+  var wpActiveEditor = "content";
+  var pluploadL10n = <%= I18n.t('media.plupload').to_json.html_safe %>;
+  var _wpPluploadSettings = <%= plupload_settings %>;
+  var userSettings = <%= user_settings %>;
+  var _wpUtilSettings = <%= util_settings %>;
+  var _wpMediaViewsL10n = <%= I18n.t('media.media_views').to_json.html_safe %>;
+  _wpMediaViewsL10n.settings = <%= media_views_settings %>;
+  var imageEditL10n = <%= I18n.t('media.image_edit').to_json.html_safe %>;
+  var _wpMediaModelsL10n = <%= media_models %>;
+<% end %>

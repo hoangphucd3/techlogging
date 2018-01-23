@@ -1,0 +1,9 @@
+//= require wp-backbone
+//= require utils
+//= require wp-util
+//= require shortcode
+//= require media-models
+//= require media-views
+//= require media-grid
+//= require media-editor
+//= require wp-plupload
