@@ -58,7 +58,7 @@ window.wp = window.wp || {};
 		 */
 		post: function( action, data ) {
 			return wp.ajax.send({
-				data: _.isObject( action ) ? action : _.extend( data || {}, { action: action })
+				data: _.isObject( action ) ? action : _.extend( data || {}, { media_action: action })
 			});
 		},
 
@@ -79,7 +79,7 @@ window.wp = window.wp || {};
 				options = action;
 			} else {
 				options = options || {};
-				options.data = _.extend( options.data || {}, { action: action });
+				options.data = _.extend( options.data || {}, { media_action: action });
 			}
 
 			options = _.defaults( options || {}, {

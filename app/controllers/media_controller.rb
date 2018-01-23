@@ -23,11 +23,21 @@ class MediaController < ApplicationController
     case params[:media_action]
     when 'delete-post'
       delete_attachment
+    when 'send-attachment-to-editor'
+      return send_to_editor
     end
     query_attachments
   end
 
   private
+
+  def send_to_editor
+    attachment = Photo.find_by(id: params[:attachment][:id])
+    render json: {
+      success: true,
+      data: attachment.editor_render
+    }, status: 200
+  end
 
   def query_attachments
     attachments = Photo.all.order(id: :desc).map(&:attachment_js)

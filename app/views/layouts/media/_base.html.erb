@@ -282,17 +282,17 @@
     data-user-setting="imgsize"
     <# } #>>
     <#
+    var size = data.sizes['original'];
+    if ( size ) { #>
+    <option value="original" >
+      Original &ndash; {{ size.width }} &times; {{ size.height }}
+    </option>
+    <# } #>
+    <#
     var size = data.sizes['thumbnail'];
     if ( size ) { #>
     <option value="thumbnail" >
       Thumbnail &ndash; {{ size.width }} &times; {{ size.height }}
-    </option>
-    <# } #>
-    <#
-    var size = data.sizes['medium'];
-    if ( size ) { #>
-    <option value="medium" >
-      Medium &ndash; {{ size.width }} &times; {{ size.height }}
     </option>
     <# } #>
     <#
