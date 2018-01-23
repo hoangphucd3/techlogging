@@ -1,4 +1,5 @@
 module MediaHelper
+  # rubocop:disable Metrics/MethodLength
   # For _wpPluploadSettings
   def plupload_settings
     unescaped_json do
@@ -28,6 +29,7 @@ module MediaHelper
       }
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # For _wpUtilSettings
   def util_settings
@@ -62,7 +64,7 @@ module MediaHelper
         'tabs': [],
         'tabUrl': '',
         'mimeTypes': {
-            'image': 'Images'
+          'image': 'Images'
         },
         'captions': true,
         'nonce': {
