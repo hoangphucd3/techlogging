@@ -88,6 +88,11 @@ window.wp = window.wp || {};
 				context: this
 			});
 
+			// Rails authenticity_token
+            options.data = _.extend( options.data || {}, {
+                authenticity_token: wp.ajax.settings.authenticity_token
+            });
+
 			deferred = $.Deferred( function( deferred ) {
 				// Transfer success/error callbacks.
 				if ( options.success )

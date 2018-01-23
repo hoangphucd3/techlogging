@@ -9,7 +9,8 @@
 
 <script type="text/html" id="tmpl-media-modal">
   <div class="media-modal wp-core-ui">
-    <button type="button" class="media-modal-close"><span class="media-modal-icon"><span class="screen-reader-text">Close media panel</span></span></button>
+    <button type="button" class="media-modal-close">
+      <span class="media-modal-icon"><span class="screen-reader-text">Close media panel</span></span></button>
     <div class="media-modal-content"></div>
   </div>
   <div class="media-modal-backdrop"></div>
@@ -44,7 +45,7 @@
 
       <# if ( data.suggestedWidth && data.suggestedHeight ) { #>
       <p class="suggested-dimensions">
-        Suggested image dimensions: {{data.suggestedWidth}} by {{data.suggestedHeight}} pixels.					</p>
+        Suggested image dimensions: {{data.suggestedWidth}} by {{data.suggestedHeight}} pixels. </p>
       <# } #>
 
     </div>
@@ -53,9 +54,12 @@
 
 <script type="text/html" id="tmpl-uploader-status">
   <h2>Uploading</h2>
-  <button type="button" class="button-link upload-dismiss-errors"><span class="screen-reader-text">Dismiss Errors</span></button>
+  <button type="button" class="button-link upload-dismiss-errors"><span class="screen-reader-text">Dismiss Errors</span>
+  </button>
 
-  <div class="media-progress-bar"><div></div></div>
+  <div class="media-progress-bar">
+    <div></div>
+  </div>
   <div class="upload-details">
 			<span class="upload-count">
 				<span class="upload-index"></span> / <span class="upload-total"></span>
@@ -87,7 +91,7 @@
 
 <script type="text/html" id="tmpl-attachment-details">
   <h2>
-    Attachment Details			<span class="settings-save-status">
+    Attachment Details <span class="settings-save-status">
 				<span class="spinner"></span>
 				<span class="saved">Saved.</span>
 			</span>
@@ -95,11 +99,13 @@
   <div class="attachment-info">
     <div class="thumbnail thumbnail-{{ data.type }}">
       <# if ( data.uploading ) { #>
-      <div class="media-progress-bar"><div></div></div>
+      <div class="media-progress-bar">
+        <div></div>
+      </div>
       <# } else if ( 'image' === data.type && data.sizes ) { #>
-      <img src="{{ data.size.url }}" draggable="false" alt="" />
+      <img src="{{ data.size.url }}" draggable="false" alt=""/>
       <# } else { #>
-      <img src="{{ data.icon }}" class="icon" draggable="false" alt="" />
+      <img src="{{ data.icon }}" class="icon" draggable="false" alt=""/>
       <# } #>
     </div>
     <div class="details">
@@ -135,12 +141,12 @@
 
   <label class="setting" data-setting="url">
     <span class="name">URL</span>
-    <input type="text" value="{{ data.url }}" readonly />
+    <input type="text" value="{{ data.url }}" readonly/>
   </label>
   <# var maybeReadOnly = data.can.save || data.allowLocalEdits ? '' : 'readonly'; #>
   <label class="setting" data-setting="title">
     <span class="name">Title</span>
-    <input type="text" value="{{ data.title }}" {{ maybeReadOnly }} />
+    <input type="text" value="{{ data.title }}" {{ maybeReadOnly }}/>
   </label>
   <label class="setting" data-setting="caption">
     <span class="name">Caption</span>
@@ -149,7 +155,7 @@
   <# if ( 'image' === data.type ) { #>
   <label class="setting" data-setting="alt">
     <span class="name">Alt Text</span>
-    <input type="text" value="{{ data.alt }}" {{ maybeReadOnly }} />
+    <input type="text" value="{{ data.alt }}" {{ maybeReadOnly }}/>
   </label>
   <# } #>
   <label class="setting" data-setting="description">
@@ -162,19 +168,21 @@
   <div class="attachment-preview js--select-attachment type-{{ data.type }} subtype-{{ data.subtype }} {{ data.orientation }}">
     <div class="thumbnail">
       <# if ( data.uploading ) { #>
-      <div class="media-progress-bar"><div style="width: {{ data.percent }}%"></div></div>
+      <div class="media-progress-bar">
+        <div style="width: {{ data.percent }}%"></div>
+      </div>
       <# } else if ( 'image' === data.type && data.sizes ) { #>
       <div class="centered">
-        <img src="{{ data.size.url }}" draggable="false" alt="" />
+        <img src="{{ data.size.url }}" draggable="false" alt=""/>
       </div>
       <# } else { #>
       <div class="centered">
         <# if ( data.image && data.image.src && data.image.src !== data.icon ) { #>
-        <img src="{{ data.image.src }}" class="thumbnail" draggable="false" alt="" />
+        <img src="{{ data.image.src }}" class="thumbnail" draggable="false" alt=""/>
         <# } else if ( data.sizes && data.sizes.medium ) { #>
-        <img src="{{ data.sizes.medium.url }}" class="thumbnail" draggable="false" alt="" />
+        <img src="{{ data.sizes.medium.url }}" class="thumbnail" draggable="false" alt=""/>
         <# } else { #>
-        <img src="{{ data.icon }}" class="icon" draggable="false" alt="" />
+        <img src="{{ data.icon }}" class="icon" draggable="false" alt=""/>
         <# } #>
       </div>
       <div class="filename">
@@ -183,18 +191,20 @@
       <# } #>
     </div>
     <# if ( data.buttons.close ) { #>
-    <button type="button" class="button-link attachment-close media-modal-icon"><span class="screen-reader-text">Remove</span></button>
+    <button type="button" class="button-link attachment-close media-modal-icon">
+      <span class="screen-reader-text">Remove</span></button>
     <# } #>
   </div>
   <# if ( data.buttons.check ) { #>
-  <button type="button" class="check" tabindex="-1"><span class="media-modal-icon"></span><span class="screen-reader-text">Deselect</span></button>
+  <button type="button" class="check" tabindex="-1">
+    <span class="media-modal-icon"></span><span class="screen-reader-text">Deselect</span></button>
   <# } #>
   <#
   var maybeReadOnly = data.can.save || data.allowLocalEdits ? '' : 'readonly';
   if ( data.describe ) {
   if ( 'image' === data.type ) { #>
   <input type="text" value="{{ data.caption }}" class="describe" data-setting="caption"
-         placeholder="Caption this image&hellip;" {{ maybeReadOnly }} />
+         placeholder="Caption this image&hellip;" {{ maybeReadOnly }}/>
   <# } else { #>
   <input type="text" value="{{ data.title }}" class="describe" data-setting="title"
   <# if ( 'video' === data.type ) { #>
@@ -221,13 +231,17 @@
     <# } #>>
 
     <option value="left">
-      Left					</option>
+      Left
+    </option>
     <option value="center">
-      Center					</option>
+      Center
+    </option>
     <option value="right">
-      Right					</option>
+      Right
+    </option>
     <option value="none" selected>
-      None					</option>
+      None
+    </option>
     </select>
   </label>
   <# } #>
@@ -248,29 +262,32 @@
 
       <# if ( data.model.canEmbed ) { #>
       <option value="embed" selected>
-        Embed Media Player					</option>
+        Embed Media Player
+      </option>
       <option value="file">
         <# } else { #>
       <option value="none" selected>
-        None					</option>
+        None
+      </option>
       <option value="file">
         <# } #>
         <# if ( data.model.canEmbed ) { #>
-        Link to Media File					<# } else { #>
-        Media File					<# } #>
+        Link to Media File <# } else { #>
+        Media File <# } #>
       </option>
       <option value="post">
         <# if ( data.model.canEmbed ) { #>
-        Link to Attachment Page					<# } else { #>
-        Attachment Page					<# } #>
+        Link to Attachment Page <# } else { #>
+        Attachment Page <# } #>
       </option>
       <# if ( 'image' === data.type ) { #>
       <option value="custom">
-        Custom URL					</option>
+        Custom URL
+      </option>
       <# } #>
       </select>
     </label>
-    <input type="text" class="link-to-custom" data-setting="linkUrl" />
+    <input type="text" class="link-to-custom" data-setting="linkUrl"/>
   </div>
 
   <# if ( 'undefined' !== typeof data.sizes ) { #>
@@ -284,28 +301,28 @@
     <#
     var size = data.sizes['original'];
     if ( size ) { #>
-    <option value="original" >
+    <option value="original">
       Original &ndash; {{ size.width }} &times; {{ size.height }}
     </option>
     <# } #>
     <#
     var size = data.sizes['thumbnail'];
     if ( size ) { #>
-    <option value="thumbnail" >
+    <option value="thumbnail">
       Thumbnail &ndash; {{ size.width }} &times; {{ size.height }}
     </option>
     <# } #>
     <#
     var size = data.sizes['large'];
     if ( size ) { #>
-    <option value="large" >
+    <option value="large">
       Large &ndash; {{ size.width }} &times; {{ size.height }}
     </option>
     <# } #>
     <#
     var size = data.sizes['full'];
     if ( size ) { #>
-    <option value="full"  selected='selected'>
+    <option value="full" selected='selected'>
       Full Size &ndash; {{ size.width }} &times; {{ size.height }}
     </option>
     <# } #>
