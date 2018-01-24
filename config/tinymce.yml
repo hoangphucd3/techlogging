@@ -1,5 +1,5 @@
 toolbar:
-  - formatselect bold italic bullist numlist blockqoute alignleft aligncenter alignright undo redo code image link code
+  - formatselect bold italic bullist numlist blockqoute alignleft aligncenter alignright undo redo image link code
 plugins:
   - image
   - link

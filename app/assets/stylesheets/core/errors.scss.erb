@@ -1,0 +1,68 @@
+@font-face {
+  font-family: Proxima Nova;
+  font-weight: 800;
+  font-style: normal;
+  src: url("<%= asset_path('Proxima_Nova/Extrabold.eot') %>");
+  src: url("<%= asset_path('Proxima_Nova/Extrabold.eot') %>?#iefix") format("embedded-opentype"), url("<%= asset_path('Proxima_Nova/Extrabold.woff2') %>") format("woff2"), url("<%= asset_path('Proxima_Nova/Extrabold.woff') %>woff") format("woff"), url("<%= asset_path('Proxima_Nova/Extrabold.ttf') %>ttf") format("truetype"), url("<%= asset_path('Proxima_Nova/Extrabold.svg') %>svg") format("svg")
+}
+
+@font-face {
+  font-family: Proxima Nova;
+  font-weight: 200;
+  font-style: normal;
+  src: url("<%= asset_path('Proxima_Nova/Thin.eot') %>");
+  src: url("<%= asset_path('Proxima_Nova/Thin.eot') %>?#iefix") format("embedded-opentype"), url("<%= asset_path('Proxima_Nova/Thin.woff2') %>") format("woff2"), url("<%= asset_path('Proxima_Nova/Thin.woff') %>") format("woff"), url("<%= asset_path('Proxima_Nova/Thin.ttf') %>") format("truetype"), url("<%= asset_path('Proxima_Nova/Thin.svg') %>") format("svg")
+}
+
+.topContent.error-header {
+  background: #0b3d62 url(<%= image_path('error-header-bg.jpg') %>) center center;
+  background-size: cover;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  padding-top: 80px;
+  margin: 0
+}
+
+.topContent.error-header h1 {
+  font-weight: 800;
+  font-size: 180px;
+  line-height: 0.8;
+  margin: 0
+}
+
+.topContent.error-header .sub-copy {
+  background: rgba(29, 91, 137, 0.5);
+  padding: 20px 0
+}
+
+.topContent.error-header .sub-copy h2 {
+  font-weight: 200;
+  font-size: 60px;
+  line-height: 1;
+  margin: 0
+}
+
+.topContent.error-header .sub-copy p {
+  font-size: 18px;
+  margin: 0;
+  line-height: 1.2
+}
+
+@media (max-width: 979px) {
+  .topContent.error-header h1 {
+    font-size: 100px
+  }
+  .topContent.error-header .sub-copy h2 {
+    font-size: 40px
+  }
+  .topContent.error-header .sub-copy p {
+    font-size: 15px
+  }
+  .site-overview .section-icon {
+    width: 60px;
+    height: 60px;
+    line-height: 60px
+  }
+}

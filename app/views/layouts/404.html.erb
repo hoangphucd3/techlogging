@@ -12,12 +12,16 @@
 
 <body>
 <%= render 'layouts/header' %>
+<div class="topContent container error-header">
+  <h1>OOPS.</h1>
+  <div class="sub-copy">
+    <h2>110010100</h2>
+    <p>Something went wrong on your end or ours. Find some of our great content below.</p>
+  </div>
+</div>
 <div id="mantle_skin">
   <div id="content" class="container">
-    <div class="row">
-      <%= render 'layouts/messages' %>
-      <%= yield %>
-    </div>
+    <div class="row"></div>
   </div>
 </div>
 </body>

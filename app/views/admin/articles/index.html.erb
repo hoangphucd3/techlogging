@@ -10,20 +10,12 @@
     <tr>
       <th>#</th>
       <th>Title</th>
+      <th>Status</th>
       <th></th>
     </tr>
     </thead>
     <tbody>
-    <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.id %></td>
-      <td><%= article.title %></td>
-      <td>
-        <%= link_to 'Edit', edit_admin_article_path(article.id), class: 'btn btn-primary btn-sm'  %>
-        <%= link_to 'Delete', admin_article_path(article.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
-      </td>
-    </tr>
-    <% end %>
+    <%= render partial: 'article', collection: @articles %>
     </tbody>
   </table>
 </div>

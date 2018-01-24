@@ -14,6 +14,8 @@ class Article < ApplicationRecord
 
   enum status: { draft: 0, publish: 1 }
 
+  scope :published, -> { where(status: 'publish') }
+
   def to_param
     slug
   end
