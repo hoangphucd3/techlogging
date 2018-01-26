@@ -3,8 +3,11 @@ class Photo < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
 
   # @TODO: Move to view
-  def editor_render
-    "<img src=\"#{image[:original].url}\" width=\"#{image[:original].width}\" height=\"#{image[:original].height}\" />"
+  def editor_render(image_size)
+    image_size = image_size.to_sym
+    image_obj = image[image_size]
+    image_url = Settings.site_url + image[image_size].url
+    "<img src=\"#{image_url}\" width=\"#{image_obj.width}\" height=\"#{image_obj.height}\" />"
   end
 
   # rubocop:disable Metrics/AbcSize

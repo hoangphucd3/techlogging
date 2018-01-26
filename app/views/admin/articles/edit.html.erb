@@ -3,6 +3,9 @@
 <% end %>
 
 <h1>Update Article</h1>
+<div class="my-4">
+  <%= link_to 'Preview', article_path(@article.slug), class: 'btn btn-primary', target: '_blank' %>
+</div>
 
 <%= form_for @article, url: admin_article_path(@article.id) do |f| %>
   <%= render partial: 'form', locals: { f: f } %>
