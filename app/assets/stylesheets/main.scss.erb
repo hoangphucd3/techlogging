@@ -182,6 +182,57 @@ html, body {
   overflow: hidden;
 }
 
+.thumbnail {
+  display: block;
+  position: relative;
+}
+
+.content-list .items .thumbnail {
+  float: left;
+  margin-right: 20px;
+  overflow: hidden;
+  width: 60px;
+  height: 45px;
+  position: relative;
+}
+
+.content-list .items .thumbnail img {
+  animation: fadeIn 0.3s ease;
+}
+
+.content-list .items .thumbnail::after {
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+  position: absolute;
+  background: #1865a8;
+  background: linear-gradient(to bottom, #1865a8 0%,#58aefa 100%);
+  transition: opacity 0.2s;
+}
+
+.content-list .items .thumbnail:hover::after {
+  opacity: 0;
+}
+
+.thumbnail img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+}
+
+.content-list .items h3.title a {
+  color: inherit;
+}
+
+.content-list .items h3.title a:hover {
+  color: #3289C8;
+  text-decoration: none;
+}
+
 .content-list .items .title {
   font-size: 22px;
   line-height: 1;
@@ -244,4 +295,39 @@ content-list .items .meta, .content-list .items .vendor {
 .social-links {
   margin: 0 0 10px;
   -webkit-tap-highlight-color: transparent;
+}
+
+figure.image {
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  clear: both;
+}
+
+figure.image img {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+figure.image figcaption {
+  color: #778596;
+  font-size: 14px;
+  text-align: center;
+}
+
+figure.image figcaption p {
+  margin-bottom: 0;
+}
+
+figure.image.pull-left {
+  float: left;
+  width: auto;
+  margin-right: 20px;
+}
+
+figure.image.pull-right {
+  float: right;
+  width: auto;
+  margin-left: 20px;
 }
