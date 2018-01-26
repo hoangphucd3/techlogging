@@ -1,0 +1,17 @@
+<%= content_tag :figure, class: "image #{image[:align]}" do  %>
+  <%= content_tag :span, clas: 'img' do %>
+    <%= image_tag image[:url],
+                  alt: image[:alt],
+                  width: image[:width],
+                  height: image[:height] %>
+  <% end %>
+  <% if image[:caption].present? %>
+    <%= content_tag :figcaption do %>
+      <%= content_tag :div, class: 'caption' do %>
+        <%= content_tag :p do %>
+          <%= image[:caption] %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
