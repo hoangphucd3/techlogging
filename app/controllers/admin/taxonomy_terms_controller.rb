@@ -13,7 +13,7 @@ module Admin
       if @term.save
         flash[:success] = 'Create term successfully'
       else
-        flash[:success] = 'Create term fail'
+        flash[:warning] = 'Create term fail'
       end
       redirect_to action: :index
     end
