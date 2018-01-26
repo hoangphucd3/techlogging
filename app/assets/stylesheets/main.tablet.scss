@@ -71,6 +71,15 @@
     color: #47515a;
 }
 
+.content-list .items .thumbnail {
+  width: 170px;
+  height: 128px;
+}
+
+.thumbnail img {
+  min-width: 100%;
+}
+
 .content-list .items .item-content {
     min-height: 105px;
 }
