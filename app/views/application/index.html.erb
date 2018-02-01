@@ -1,64 +1,22 @@
-<header class="page-header">
-  <div class="fixation">
-    <div class="nav-social-links">
-
-    </div>
-    <div class="masthead">
-      <div class="container-header">
-        <div class="logo-large">
-          <div class="site-logo">
+<div class="row"></div>
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-8">
+        <div class="module module-listing">
+          <div class="section-heading">
 
           </div>
-          <div class="search-large">
-
-          </div>
-          <nav class="primaryNav">
-
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<div class="mantle_skin">
-  <div id="content">
-    <div class="container">
-      <div class="row">
-        <div class="row"></div>
-        <div class="row">
-          <div class="col-12">
-            <div class="row">
-              <div class="col-8">
-                <div class="module module-listing">
-                  <div class="section-heading">
-
-                  </div>
-                  <div id="article-river" class="river">
-                    <div class="content-list listing-standard">
-                      <ul class="media-list items">
-
-                        <li>
-                          <div class="item-content">
-                            <h3 class="title">
-
-                            </h3>
-                            <p class="dek"></p>
-                            <p class="meta"></p>
-                            <p class="see-more"></p>
-                          </div>
-                        </li>
-
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-4"></div>
+          <div id="article-river" class="river">
+            <div class="content-list listing-standard">
+              <ul class="media-list items">
+                <%= render @articles %>
+              </ul>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-4"></div>
     </div>
   </div>
 </div>
