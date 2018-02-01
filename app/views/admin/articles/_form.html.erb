@@ -54,7 +54,7 @@
 <div class="form-group">
   <%= f.label :topic_terms, 'Topics' %>
   <%= f.collection_check_boxes :taxonomy_term_relationship_ids,
-                               TaxonomyTerm.topic,
+                               TaxonomyTerm.topics,
                                :id,
                                :name,
                                {},
