@@ -27,7 +27,7 @@
               <article class="article-single">
                 <div class="col-main col-8">
                   <div class="content">
-                    <%= @article.content.html_safe %>
+                    <%= @article.content.try(:html_safe) %>
                   </div>
                 </div>
               </article>
