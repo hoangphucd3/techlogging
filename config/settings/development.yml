@@ -1,1 +1,2 @@
 site_url: 'http://localhost:3000'
+wp_api_url: 'http://localhost:8888/wordpress/wp-json/wp/v2'

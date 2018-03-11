@@ -18,6 +18,7 @@ module Techlogging
     config.assets.paths << Rails.root.join('fonts')
     config.autoload_paths << Rails.root.join('form_objects')
     config.eager_load_paths << Rails.root.join('form_objects')
+    config.eager_load_paths << Rails.root.join('lib')
 
     # Set timezone
     config.time_zone = 'Hanoi'

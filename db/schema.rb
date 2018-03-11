@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116075437) do
+ActiveRecord::Schema.define(version: 20180311095940) do
 
   create_table "admin_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
@@ -40,18 +40,12 @@ ActiveRecord::Schema.define(version: 20180116075437) do
     t.index ["unlock_token"], name: "index_admin_users_on_unlock_token", unique: true
   end
 
-  create_table "article_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_article_types_on_name"
-  end
-
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.text "description"
     t.text "content"
+    t.integer "actable_id"
+    t.string "actable_type"
     t.integer "status", default: 0, null: false
     t.string "slug", null: false
     t.text "feature_photo_data"
@@ -142,6 +136,10 @@ ActiveRecord::Schema.define(version: 20180116075437) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  end
+
+  create_table "wp_posts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "api_id"
   end
 
 end

@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+  actable
+
   extend FriendlyId
   friendly_id :title, use: %i[slugged history]
 
