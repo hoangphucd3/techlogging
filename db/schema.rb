@@ -49,11 +49,9 @@ ActiveRecord::Schema.define(version: 20180311095940) do
     t.integer "status", default: 0, null: false
     t.string "slug", null: false
     t.text "feature_photo_data"
-    t.bigint "article_type_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_type_id"], name: "index_articles_on_article_type_id"
     t.index ["id"], name: "index_articles_on_id"
     t.index ["slug"], name: "index_articles_on_slug", unique: true
     t.index ["user_id"], name: "index_articles_on_user_id"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'wp_api_client'
 
 module Api
@@ -12,7 +14,7 @@ module Api
 
       class << self
         def find(id)
-          api = self.new
+          api = new
           client = api.client
           client.get("posts/#{id}")
         end

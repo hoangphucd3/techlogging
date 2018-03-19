@@ -64,6 +64,9 @@ gem 'active_record-acts_as'
 # Read-only access for WP-API v2
 gem 'wp-api-client'
 
+# Object-oriented layer of presentation logic
+gem 'draper'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-dropzone'
