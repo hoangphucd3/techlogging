@@ -21,7 +21,7 @@ class ArticleDecorator < Draper::Decorator
   def api_thumbnail_url
     api_thumbnail = Api::Wordpress::Articles.find(object.specific.api_id)._embedded['wp:featuredmedia']
     return nil if api_thumbnail.blank?
-    api_thumbnail[0]['media_details']['sizes']['medium']['source_url']
+    api_thumbnail[0]['media_details']['sizes']['medium']['source_url'].to_media_server_link
   end
 
   private
@@ -30,6 +30,6 @@ class ArticleDecorator < Draper::Decorator
   def filter_image_from(content)
     image_pattern = %r{(<img .*\/?>)}
     content.gsub(image_pattern, '<figure class="image pull-none image-large"><span class="image">\1</span></figure>')
-           .gsub(Settings.wp_upload_url, Settings.assets_url)
+           .to_media_server_link
   end
 end
