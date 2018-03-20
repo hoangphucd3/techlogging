@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @TODO: Consider to move to api content handler
 class ArticleDecorator < Draper::Decorator
   delegate_all
 
@@ -25,6 +26,7 @@ class ArticleDecorator < Draper::Decorator
 
   private
 
+  # @TODO: Replace image only
   def filter_image_from(content)
     image_pattern = %r{(<img .*\/?>)}
     content.gsub(image_pattern, '<figure class="image pull-none image-large"><span class="image">\1</span></figure>')
