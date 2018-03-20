@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+  actable
+
   extend FriendlyId
   friendly_id :title, use: %i[slugged history]
 
@@ -7,7 +9,6 @@ class Article < ApplicationRecord
   include Categorizable
   include ImageUploader::Attachment.new(:feature_photo)
 
-  belongs_to :article_type
   belongs_to :user, optional: true
 
   validates :title, presence: true

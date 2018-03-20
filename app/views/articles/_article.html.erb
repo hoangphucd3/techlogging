@@ -1,19 +1,17 @@
 <li>
-  <% feature_image = article.feature_photo %>
+  <% feature_image = article.feature_photo.try([:thumbnail]).try(:url) || article.api_thumbnail_url %>
   <% if feature_image %>
     <a href="<%= article_path(article.slug) %>" class="thumbnail" title="<%= article.title %>">
       <figure class="img">
         <span class="img">
-          <%= image_tag feature_image[:thumbnail].url,
-                        width: feature_image[:thumbnail].width,
-                        height: feature_image[:thumbnail].height %>
+          <%= image_tag feature_image %>
         </span>
       </figure>
     </a>
   <% end %>
   <div class="item-content">
     <h3 class="title"><%= link_to article.title, article_path(article.slug) %></h3>
-    <p class="dek"><%= article.description %></p>
+    <p class="dek"><%= strip_tags(article.description) %></p>
     <p class="meta"></p>
     <p class="see-more"></p>
   </div>

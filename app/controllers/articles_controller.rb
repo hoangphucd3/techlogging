@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.published
+    @articles = Article.published.decorate
   end
 
   def show
@@ -9,6 +11,6 @@ class ArticlesController < ApplicationController
                     layout: false,
                     status: 404
     end
-    @article = Article.friendly.find(params[:id])
+    @article = Article.friendly.find(params[:id]).decorate
   end
 end

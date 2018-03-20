@@ -26,8 +26,6 @@ class ArticleForm
   def article_data
     article = @article || Article.new(@article_params)
     article.assign_attributes(@article_params) if @article.present?
-    # Currently set to article type
-    article.article_type = ArticleType.find_by(id: 1)
     article
   end
 

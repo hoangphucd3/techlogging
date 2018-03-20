@@ -7,7 +7,7 @@
         </p>
         <h1 class="title"><%= @article.title %></h1>
         <div class="article-single">
-          <p class="takeaway" itemprop="description"><%= @article.description %></p>
+          <p class="takeaway" itemprop="description"><%= strip_tags(@article.description) %></p>
         </div>
         <p class="byline">
           <span class="date"><%= @article.updated_at %></span>

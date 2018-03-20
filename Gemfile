@@ -58,12 +58,20 @@ gem 'tinymce-rails'
 # manage environment specific settings
 gem 'config'
 
+# Simulates multiple-table-inheritance (MTI) for ActiveRecord models.
+gem 'active_record-acts_as'
+
+# Read-only access for WP-API v2
+gem 'wp-api-client'
+
+# Object-oriented layer of presentation logic
+gem 'draper'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-dropzone'
   gem 'rails-assets-underscore'
 end
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
