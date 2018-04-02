@@ -2,7 +2,7 @@
 
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.published.decorate
+    @articles = Article.published.order(created_at: :desc).decorate
   end
 
   def show
