@@ -1,3 +1,4 @@
+wp_site_url: 'http://wp.techlogging.com'
 wp_api_url: 'http://wp.techlogging.com/wp-json/wp/v2'
 wp_upload_url: 'wp.techlogging.com/wp-content/uploads'
 assets_url: 'assets.techlogging.com/media'
