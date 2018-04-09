@@ -133,6 +133,14 @@
     right: 0;
 }
 
+.pagination {
+  text-align: right;
+}
+
+.pagination a, .pagination span, .pagination .prev, .pagination .next {
+  font-size: 15px;
+}
+
 @media (max-width: 1230px) {
     body .row {
         zoom:1;

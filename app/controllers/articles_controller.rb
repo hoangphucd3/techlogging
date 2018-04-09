@@ -2,7 +2,10 @@
 
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.published.order(created_at: :desc).decorate
+    @articles = Article.published
+                       .order(created_at: :desc)
+                       .page(params[:page])
+                       .decorate
   end
 
   def show

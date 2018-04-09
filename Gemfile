@@ -67,6 +67,9 @@ gem 'wp-api-client'
 # Object-oriented layer of presentation logic
 gem 'draper'
 
+# Paginator for Rails
+gem 'kaminari'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-dropzone'
