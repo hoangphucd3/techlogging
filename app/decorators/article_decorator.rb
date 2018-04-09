@@ -32,4 +32,10 @@ class ArticleDecorator < Draper::Decorator
     content.gsub(image_pattern, '<figure class="image pull-none image-large"><span class="image">\1</span></figure>')
            .to_media_server_link
   end
+
+  class << self
+    def collection_decorator_class
+      PaginatingDecorator
+    end
+  end
 end
