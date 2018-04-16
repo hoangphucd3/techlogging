@@ -70,6 +70,9 @@ gem 'draper'
 # Paginator for Rails
 gem 'kaminari'
 
+# HTML parser
+gem 'nokogiri'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-backbone'
   gem 'rails-assets-dropzone'

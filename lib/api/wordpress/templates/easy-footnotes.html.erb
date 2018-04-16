@@ -1,0 +1,8 @@
+<ol class="footnotes-wrapper">
+  <% @footnotes.each do |key, footnote| %>
+  <li>
+    <span id="<%= key.delete('#') %>"></span>
+    <%= footnote %>
+  </li>
+  <% end %>
+</ol>
