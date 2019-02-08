@@ -1,5 +1,5 @@
 <li>
-  <% feature_image = article.feature_photo.try([:thumbnail]).try(:url) || article.api_thumbnail_url %>
+  <% feature_image = article.feature_photo[:thumbnail].try(:url) || article.api_thumbnail_url %>
   <% if feature_image %>
     <a href="<%= article_path(article.slug) %>" class="thumbnail" title="<%= article.title %>">
       <figure class="img">
