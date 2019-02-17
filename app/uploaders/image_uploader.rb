@@ -36,7 +36,10 @@ class ImageUploader < Shrine
   process(:store) do |io, _context|
     original = io.download
 
-    thumbnail = ImageProcessing::Vips..source(original).resize_to_fit(270, 203)
+    thumbnail = ImageProcessing::Vips
+                    .source(original)
+                    .resize_to_fit(270, 203)
+                    .call
 
     original.close!
 
