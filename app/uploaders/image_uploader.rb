@@ -38,6 +38,8 @@ class ImageUploader < Shrine
 
     thumbnail = ImageProcessing::Vips..source(original).resize_to_fit(270, 203)
 
-    { original: io, thumbnail: thumbnail }
+    original.close!
+
+    { original: io, thumbnail: thumbnail } # Hash of versions requires `versions` plugin
   end
 end
