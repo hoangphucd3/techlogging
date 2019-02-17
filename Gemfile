@@ -40,6 +40,10 @@ gem 'jquery-rails'
 
 # Set of higher-level helper methods for image processing
 gem 'image_processing', '~> 1.0'
+# FastImage finds the size or type of an image given its uri by fetching as little as needed
+gem 'fastimage'
+# This gem provides a Ruby binding for the libvips image processing library
+gem 'ruby-vips'
 # Toolkit for file attachments in Ruby applications
 gem 'shrine', '~> 2.0'
 

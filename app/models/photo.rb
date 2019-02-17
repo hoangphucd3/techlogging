@@ -27,35 +27,36 @@ class Photo < ApplicationRecord
   # @TODO: Fix problem about title contains special characters like Japanese
   # @TODO: Move to view
   def attachment_js
+    uploaded_image = image[:original]
     {
       id: id,
       type: 'image',
-      subtype: image[:original].extension,
-      mime: image[:original].mime_type,
-      title: image[:original].original_filename,
-      filename: image[:original].original_filename,
+      subtype: uploaded_image.extension,
+      mime: uploaded_image.mime_type,
+      title: uploaded_image.original_filename,
+      filename: uploaded_image.original_filename,
       dateFormatted: created_at.to_s,
-      filesizeInBytes: image[:original].size,
-      filesizeHumanReadable: number_to_human_size(image[:original].size),
+      filesizeInBytes: uploaded_image.size,
+      filesizeHumanReadable: number_to_human_size(uploaded_image.size),
       date: Time.parse(created_at.to_s).to_i * 1000,
       modified: Time.parse(updated_at.to_s).to_i * 1000,
-      width: image[:original].width,
-      height: image[:original].height,
-      url: image[:original].url,
+      width: uploaded_image.width,
+      height: uploaded_image.height,
+      url: uploaded_image.url,
       nonces: {
         delete: 'delete'
       },
       context: '',
       sizes: {
         'original': {
-          width: image[:original].width,
-          height: image[:original].height,
-          url: image[:original].url
+          width: uploaded_image.width,
+          height: uploaded_image.height,
+          url: uploaded_image.url
         },
         'thumbnail': {
-          width: image[:thumbnail].width,
-          height: image[:thumbnail].height,
-          url: image[:thumbnail].url
+          width: uploaded_image.width,
+          height: uploaded_image.height,
+          url: uploaded_image.url
         }
       }
     }

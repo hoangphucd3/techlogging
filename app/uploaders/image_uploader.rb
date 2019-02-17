@@ -1,10 +1,12 @@
+# This is a subclass of Shrine base that will be further configured for it's requirements.
+# This will be included in the model to manage the file.
+
+require "./config/shrine"
 require "image_processing/vips"
 
 class ImageUploader < Shrine
-  # Use vips to process image versions
-  include ImageProcessing::Vips
-
   ALLOWED_TYPES = %w[image/jpeg image/png]
+  MAX_SIZE      = 10*1024*1024 # 10 MB
 
   # The remove_attachment plugin allows you to delete attachments through checkboxes on the web form.
   plugin :remove_attachment
@@ -17,7 +19,7 @@ class ImageUploader < Shrine
   # The validation_helpers plugin provides helper methods for validating attached files.
   plugin :validation_helpers
   # The store_dimensions plugin extracts and stores dimensions of the uploaded image using the fastimage gem, which has built-in protection against image bombs.
-  plugin :store_dimensions
+  plugin :store_dimensions, analyzer: :ruby_vips
   # The delete_raw plugin will automatically delete raw files that have been uploaded. This is especially useful when doing processing, to ensure that temporary files have been deleted after upload.
   plugin :delete_raw
   # The cached_attachment_data plugin adds the ability to retain the cached file across form redisplays, which means the file doesn't have to be reuploaded in case of validation errors.
@@ -26,6 +28,7 @@ class ImageUploader < Shrine
   # Define validations
   # For a complete list of all validation helpers, see AttacherMethods. http://shrinerb.com/rdoc/classes/Shrine/Plugins/ValidationHelpers/AttacherMethods.html
   Attacher.validate do
+    validate_max_size MAX_SIZE
     validate_mime_type_inclusion ALLOWED_TYPES
   end
 
@@ -33,7 +36,7 @@ class ImageUploader < Shrine
   process(:store) do |io, _context|
     original = io.download
 
-    thumbnail = resize_to_fit!(original, 270, 203)
+    thumbnail = ImageProcessing::Vips..source(original).resize_to_fit(270, 203)
 
     { original: io, thumbnail: thumbnail }
   end
