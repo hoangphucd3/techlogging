@@ -38,14 +38,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.0.0.beta3'
 gem 'jquery-rails'
 
-# Finds the size or type of an image given its uri by fetching as little as needed
-gem 'fastimage'
 # Set of higher-level helper methods for image processing
-gem 'image_processing'
-# Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
-gem 'mini_magick'
+gem 'image_processing', '~> 1.0'
 # Toolkit for file attachments in Ruby applications
-gem 'shrine'
+gem 'shrine', '~> 2.0'
 
 # Create pretty URLs and work with human-friendly strings
 gem 'friendly_id', '~> 5.1.0'

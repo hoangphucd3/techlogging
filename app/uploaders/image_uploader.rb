@@ -1,8 +1,8 @@
-require 'image_processing/mini_magick'
+require "image_processing/vips"
 
 class ImageUploader < Shrine
-  # Use MiniMagick to process image versions
-  include ImageProcessing::MiniMagick
+  # Use vips to process image versions
+  include ImageProcessing::Vips
 
   ALLOWED_TYPES = %w[image/jpeg image/png]
 

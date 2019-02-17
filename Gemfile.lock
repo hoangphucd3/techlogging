@@ -157,7 +157,6 @@ GEM
       faraday (~> 0.8)
     faraday_middleware (0.13.1)
       faraday (>= 0.7.4, < 1.0)
-    fastimage (2.1.5)
     ffi (1.10.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
@@ -348,14 +347,12 @@ DEPENDENCIES
   config
   devise
   draper
-  fastimage
   friendly_id (~> 5.1.0)
-  image_processing
+  image_processing (~> 1.0)
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
   listen (>= 3.0.5, < 3.2)
-  mini_magick
   mysql2 (>= 0.3.18, < 0.5)
   pry
   puma (~> 3.7)
@@ -366,7 +363,7 @@ DEPENDENCIES
   rails-assets-underscore!
   sass-rails (~> 5.0)
   selenium-webdriver
-  shrine
+  shrine (~> 2.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   stringex
@@ -378,4 +375,4 @@ DEPENDENCIES
   wp-api-client
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
